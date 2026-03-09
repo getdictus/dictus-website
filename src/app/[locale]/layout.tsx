@@ -7,6 +7,7 @@ import {
 } from "next-intl/server";
 import { notFound } from "next/navigation";
 import { routing } from "@/i18n/routing";
+import Nav from "@/components/Nav/Nav";
 import "../globals.css";
 
 const dmSans = DM_Sans({
@@ -51,7 +52,8 @@ export default async function LocaleLayout({ children, params }: Props) {
     <html lang={locale} className={`${dmSans.variable} ${dmMono.variable}`}>
       <body className="bg-ink font-sans text-white antialiased">
         <NextIntlClientProvider messages={messages}>
-          {children}
+          <Nav />
+          <main className="pt-16">{children}</main>
         </NextIntlClientProvider>
       </body>
     </html>
