@@ -14,7 +14,7 @@
 - [ ] **NAV-01**: User sees a sticky navigation header with the dictus waveform logo + wordmark
 - [ ] **NAV-02**: User can switch between French and English via a language toggle in the nav
 - [ ] **NAV-03**: User sees a glassmorphism blur effect on the nav header when scrolling down
-- [ ] **NAV-04**: User sees the dictus squircle waveform icon as favicon and Apple touch icon
+- [x] **NAV-04**: User sees the dictus squircle waveform icon as favicon and Apple touch icon
 
 ### Features & Content
 
@@ -39,15 +39,15 @@
 - [ ] **PERF-02**: Site is fully responsive and mobile-first, with touch targets ≥44px
 - [ ] **SEO-01**: Site has proper meta tags, Open Graph images, and JSON-LD schema (SoftwareApplication) per locale
 - [ ] **SEO-02**: Site has hreflang tags and a sitemap for FR/EN alternate pages
-- [ ] **PRIV-01**: Site loads zero third-party scripts — fonts self-hosted, no analytics, no cookies
+- [x] **PRIV-01**: Site loads zero third-party scripts — fonts self-hosted, no analytics, no cookies
 - [ ] **PRIV-02**: Site includes an explicit "This site collects zero data" statement visible to visitors
 
 ### Design System
 
-- [ ] **DSGN-01**: All colors, gradients, and spacing follow the brand kit tokens defined in CLAUDE.md
-- [ ] **DSGN-02**: Typography uses self-hosted DM Sans (200-600) and DM Mono (300-400) via next/font
+- [x] **DSGN-01**: All colors, gradients, and spacing follow the brand kit tokens defined in CLAUDE.md
+- [x] **DSGN-02**: Typography uses self-hosted DM Sans (200-600) and DM Mono (300-400) via next/font
 - [ ] **DSGN-03**: Glassmorphism effects use `backdrop-filter: blur()` limited to ≤6 visible elements per viewport for mobile performance
-- [ ] **DSGN-04**: Dark-only design — no light mode toggle, intentional premium dark aesthetic
+- [x] **DSGN-04**: Dark-only design — no light mode toggle, intentional premium dark aesthetic
 
 ## v2 Requirements
 
@@ -83,7 +83,7 @@
 | NAV-01 | Phase 1 | Pending |
 | NAV-02 | Phase 2 | Pending |
 | NAV-03 | Phase 2 | Pending |
-| NAV-04 | Phase 1 | Pending |
+| NAV-04 | Phase 1 | Complete |
 | FEAT-01 | Phase 2 | Pending |
 | FEAT-02 | Phase 2 | Pending |
 | FEAT-03 | Phase 2 | Pending |
@@ -99,12 +99,12 @@
 | PERF-02 | Phase 2 | Pending |
 | SEO-01 | Phase 4 | Pending |
 | SEO-02 | Phase 4 | Pending |
-| PRIV-01 | Phase 1 | Pending |
+| PRIV-01 | Phase 1 | Complete |
 | PRIV-02 | Phase 2 | Pending |
-| DSGN-01 | Phase 1 | Pending |
-| DSGN-02 | Phase 1 | Pending |
+| DSGN-01 | Phase 1 | Complete |
+| DSGN-02 | Phase 1 | Complete |
 | DSGN-03 | Phase 2 | Pending |
-| DSGN-04 | Phase 1 | Pending |
+| DSGN-04 | Phase 1 | Complete |
 
 **Coverage:**
 - v1 requirements: 29 total
