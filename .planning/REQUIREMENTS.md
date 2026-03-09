@@ -1,0 +1,116 @@
+# Requirements: dictus Landing Page
+
+**Defined:** 2026-03-09
+**Core Value:** Convaincre un visiteur en quelques secondes que dictus est l'alternative privacy-first à la dictation vocale, et lui donner envie de tester l'app.
+
+## v1 Requirements
+
+### Hero & Navigation
+
+- [ ] **HERO-01**: User sees a compelling headline communicating "offline voice dictation for iOS" within 3 seconds of landing
+- [ ] **HERO-02**: User sees an animated sinusoidal waveform simulating real-time transcription in the hero
+- [ ] **HERO-03**: User sees text appearing word-by-word alongside the waveform animation, demonstrating the dictation experience
+- [ ] **HERO-04**: User can tap the primary CTA to access TestFlight (or sees a "Coming Soon" badge if not yet available)
+- [ ] **NAV-01**: User sees a sticky navigation header with the dictus waveform logo + wordmark
+- [ ] **NAV-02**: User can switch between French and English via a language toggle in the nav
+- [ ] **NAV-03**: User sees a glassmorphism blur effect on the nav header when scrolling down
+- [ ] **NAV-04**: User sees the dictus squircle waveform icon as favicon and Apple touch icon
+
+### Features & Content
+
+- [ ] **FEAT-01**: User can browse 4 feature cards (privacy/offline, Smart Mode LLM, keyboard integration, open source) with glassmorphism styling
+- [ ] **FEAT-02**: User sees a "How it works" section with 3 visual steps: tap mic → speak → text appears
+- [ ] **FEAT-03**: User sees a "No data leaves your device" data flow diagram showing voice → on-device model → text with no cloud
+- [ ] **FEAT-04**: User sees an open source section with a link to github.com/Pivii/dictus and live GitHub stats (stars, last commit)
+- [ ] **FEAT-05**: User sees a community section with a CTA to join the Telegram group
+- [ ] **FOOT-01**: User sees a footer with PIVI Solutions credit, GitHub link, Telegram link, and a privacy statement
+
+### Animations
+
+- [ ] **ANIM-01**: User sees sections fade/slide into view as they scroll (scroll-triggered reveals)
+- [ ] **ANIM-02**: User sees a micro-animation sequence cycling through the 5 dictus states: idle → recording → transcribing → smart mode → inserted
+- [ ] **ANIM-03**: Animations respect `prefers-reduced-motion` media query — disabled or simplified for users who prefer it
+
+### Technique & SEO
+
+- [ ] **I18N-01**: User can access the site in French (/fr) and English (/en) with URL-based routing
+- [ ] **I18N-02**: Site detects browser locale and redirects to the appropriate language by default
+- [ ] **PERF-01**: Site achieves Lighthouse 90+ on all 4 metrics (Performance, Accessibility, Best Practices, SEO)
+- [ ] **PERF-02**: Site is fully responsive and mobile-first, with touch targets ≥44px
+- [ ] **SEO-01**: Site has proper meta tags, Open Graph images, and JSON-LD schema (SoftwareApplication) per locale
+- [ ] **SEO-02**: Site has hreflang tags and a sitemap for FR/EN alternate pages
+- [ ] **PRIV-01**: Site loads zero third-party scripts — fonts self-hosted, no analytics, no cookies
+- [ ] **PRIV-02**: Site includes an explicit "This site collects zero data" statement visible to visitors
+
+### Design System
+
+- [ ] **DSGN-01**: All colors, gradients, and spacing follow the brand kit tokens defined in CLAUDE.md
+- [ ] **DSGN-02**: Typography uses self-hosted DM Sans (200-600) and DM Mono (300-400) via next/font
+- [ ] **DSGN-03**: Glassmorphism effects use `backdrop-filter: blur()` limited to ≤6 visible elements per viewport for mobile performance
+- [ ] **DSGN-04**: Dark-only design — no light mode toggle, intentional premium dark aesthetic
+
+## v2 Requirements
+
+### Post-Launch (when app is public)
+
+- **V2-01**: Comparison strip: dictus vs Apple Dictation (factual side-by-side)
+- **V2-02**: Device-detection CTA that switches between TestFlight and App Store automatically
+- **V2-03**: App Store badge and screenshots section
+
+## Out of Scope
+
+| Feature | Reason |
+|---------|--------|
+| Email capture / newsletter | Contradicts privacy-first positioning |
+| Analytics / tracking | Undermines trust — zero tracking is the stance |
+| Cookie consent banner | No cookies = no banner needed |
+| Light mode | Dark-only brand, doubles design surface |
+| Blog / CMS | Scope creep, landing page only |
+| Video autoplay / background | Heavy, hurts LCP, accessibility nightmare |
+| Parallax scrolling | Janky on mobile Safari, dated in 2026 |
+| Chat widget / support | Over-engineering — GitHub Issues + Telegram suffice |
+| Social media embeds | Third-party scripts, tracking, contradicts privacy |
+| Multi-page navigation | Single landing page, one flow, one CTA |
+
+## Traceability
+
+| Requirement | Phase | Status |
+|-------------|-------|--------|
+| HERO-01 | — | Pending |
+| HERO-02 | — | Pending |
+| HERO-03 | — | Pending |
+| HERO-04 | — | Pending |
+| NAV-01 | — | Pending |
+| NAV-02 | — | Pending |
+| NAV-03 | — | Pending |
+| NAV-04 | — | Pending |
+| FEAT-01 | — | Pending |
+| FEAT-02 | — | Pending |
+| FEAT-03 | — | Pending |
+| FEAT-04 | — | Pending |
+| FEAT-05 | — | Pending |
+| FOOT-01 | — | Pending |
+| ANIM-01 | — | Pending |
+| ANIM-02 | — | Pending |
+| ANIM-03 | — | Pending |
+| I18N-01 | — | Pending |
+| I18N-02 | — | Pending |
+| PERF-01 | — | Pending |
+| PERF-02 | — | Pending |
+| SEO-01 | — | Pending |
+| SEO-02 | — | Pending |
+| PRIV-01 | — | Pending |
+| PRIV-02 | — | Pending |
+| DSGN-01 | — | Pending |
+| DSGN-02 | — | Pending |
+| DSGN-03 | — | Pending |
+| DSGN-04 | — | Pending |
+
+**Coverage:**
+- v1 requirements: 29 total
+- Mapped to phases: 0
+- Unmapped: 29 ⚠️
+
+---
+*Requirements defined: 2026-03-09*
+*Last updated: 2026-03-09 after initial definition*
