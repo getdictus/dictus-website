@@ -51,7 +51,7 @@ Plans:
 - [x] 02-01-PLAN.md -- Hero section with Coming Soon badge, all bilingual translations, page composition
 - [x] 02-02-PLAN.md -- Features, How It Works, Data Flow, Open Source, Community, Footer sections
 - [x] 02-03-PLAN.md -- Responsive QA, touch target audit, and human visual verification
-- [ ] 02-04-PLAN.md -- Gap closure: nav glassmorphism blur on scroll (NAV-03)
+- [x] 02-04-PLAN.md -- Gap closure: nav glassmorphism blur on scroll (NAV-03)
 
 ### Phase 3: Animations
 **Goal**: The page feels alive -- waveform pulses, text appears word-by-word, sections reveal on scroll, and state indicators cycle through dictus modes
@@ -63,11 +63,11 @@ Plans:
   3. Sections fade/slide into view as the user scrolls down the page
   4. User sees a micro-animation cycling through idle, recording, transcribing, smart mode, and inserted states
   5. Users with `prefers-reduced-motion` see no motion animations -- all animations are disabled or simplified
-**Plans**: TBD
+**Plans**: 2 plans
 
 Plans:
-- [ ] 03-01: Motion setup (LazyMotion), scroll-triggered section reveals, reduced-motion support
-- [ ] 03-02: Sinusoidal waveform, word-by-word text reveal, state micro-animation sequence
+- [ ] 03-01-PLAN.md -- LazyMotion provider, ScrollReveal component, scroll-triggered section reveals
+- [ ] 03-02-PLAN.md -- Canvas sinusoidal waveform, word-by-word text reveal, state micro-animation, hero rework
 
 ### Phase 4: Polish & Performance
 **Goal**: The site ships production-ready -- Lighthouse 90+ on all metrics, complete SEO metadata, and verified accessibility
