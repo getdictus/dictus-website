@@ -7,13 +7,13 @@
 
 ### Hero & Navigation
 
-- [ ] **HERO-01**: User sees a compelling headline communicating "offline voice dictation for iOS" within 3 seconds of landing
+- [x] **HERO-01**: User sees a compelling headline communicating "offline voice dictation for iOS" within 3 seconds of landing
 - [ ] **HERO-02**: User sees an animated sinusoidal waveform simulating real-time transcription in the hero
 - [ ] **HERO-03**: User sees text appearing word-by-word alongside the waveform animation, demonstrating the dictation experience
-- [ ] **HERO-04**: User can tap the primary CTA to access TestFlight (or sees a "Coming Soon" badge if not yet available)
+- [x] **HERO-04**: User can tap the primary CTA to access TestFlight (or sees a "Coming Soon" badge if not yet available)
 - [x] **NAV-01**: User sees a sticky navigation header with the dictus waveform logo + wordmark
-- [ ] **NAV-02**: User can switch between French and English via a language toggle in the nav
-- [ ] **NAV-03**: User sees a glassmorphism blur effect on the nav header when scrolling down
+- [x] **NAV-02**: User can switch between French and English via a language toggle in the nav
+- [x] **NAV-03**: User sees a glassmorphism blur effect on the nav header when scrolling down
 - [x] **NAV-04**: User sees the dictus squircle waveform icon as favicon and Apple touch icon
 
 ### Features & Content
@@ -76,13 +76,13 @@
 
 | Requirement | Phase | Status |
 |-------------|-------|--------|
-| HERO-01 | Phase 2 | Pending |
+| HERO-01 | Phase 2 | Complete |
 | HERO-02 | Phase 3 | Pending |
 | HERO-03 | Phase 3 | Pending |
-| HERO-04 | Phase 2 | Pending |
+| HERO-04 | Phase 2 | Complete |
 | NAV-01 | Phase 1 | Complete |
-| NAV-02 | Phase 2 | Pending |
-| NAV-03 | Phase 2 | Pending |
+| NAV-02 | Phase 2 | Complete |
+| NAV-03 | Phase 2 | Complete |
 | NAV-04 | Phase 1 | Complete |
 | FEAT-01 | Phase 2 | Pending |
 | FEAT-02 | Phase 2 | Pending |

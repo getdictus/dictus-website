@@ -2,16 +2,16 @@
 gsd_state_version: 1.0
 milestone: v1.0
 milestone_name: milestone
-status: completed
-stopped_at: Phase 2 context gathered
-last_updated: "2026-03-09T12:49:32.381Z"
-last_activity: 2026-03-09 -- Plan 01-02 executed
+status: in-progress
+stopped_at: "Completed 02-01-PLAN.md"
+last_updated: "2026-03-09T13:55:27Z"
+last_activity: 2026-03-09 -- Plan 02-01 executed
 progress:
   total_phases: 4
   completed_phases: 1
-  total_plans: 2
-  completed_plans: 2
-  percent: 25
+  total_plans: 5
+  completed_plans: 3
+  percent: 60
 ---
 
 # Project State
@@ -21,32 +21,33 @@ progress:
 See: .planning/PROJECT.md (updated 2026-03-09)
 
 **Core value:** Convaincre un visiteur en quelques secondes que dictus est l'alternative privacy-first a la dictation vocale, et lui donner envie de tester l'app.
-**Current focus:** Phase 1 complete, ready for Phase 2: Content & Layout
+**Current focus:** Phase 2: Content & Layout -- Hero built, translations ready
 
 ## Current Position
 
-Phase: 1 of 4 (Foundation) -- COMPLETE
-Plan: 2 of 2 in current phase (done)
-Status: Phase 1 complete, ready for Phase 2
-Last activity: 2026-03-09 -- Plan 01-02 executed
+Phase: 2 of 4 (Content & Layout)
+Plan: 1 of 2 in current phase (done)
+Status: Plan 02-01 complete, ready for Plan 02-02
+Last activity: 2026-03-09 -- Plan 02-01 executed
 
-Progress: [███░░░░░░░] 25%
+Progress: [██████░░░░] 60%
 
 ## Performance Metrics
 
 **Velocity:**
-- Total plans completed: 2
+- Total plans completed: 3
 - Average duration: 3min
-- Total execution time: 0.10 hours
+- Total execution time: 0.13 hours
 
 **By Phase:**
 
 | Phase | Plans | Total | Avg/Plan |
 |-------|-------|-------|----------|
 | 01-foundation | 2 | 6min | 3min |
+| 02-content-layout | 1 | 2min | 2min |
 
 **Recent Trend:**
-- Last 5 plans: 01-01 (4min), 01-02 (2min)
+- Last 5 plans: 01-01 (4min), 01-02 (2min), 02-01 (2min)
 - Trend: Accelerating
 
 *Updated after each plan completion*
@@ -66,6 +67,9 @@ Recent decisions affecting current work:
 - 01-02: Nav uses inline SVG for waveform icon (no external asset dependency)
 - 01-02: LanguageToggle is a client component using useRouter.replace for locale switching
 - 01-02: Layout wraps children in main with pt-16 to offset fixed nav height
+- 02-01: Waveform as ambient SVG at 7% opacity behind headline, not stacked below
+- 02-01: min-h-dvh for mobile-safe viewport height instead of min-h-screen
+- 02-01: Coming Soon badge as span with dot indicator, not button or link
 
 ### Pending Todos
 
@@ -79,6 +83,6 @@ None yet.
 
 ## Session Continuity
 
-Last session: 2026-03-09T12:49:32.378Z
-Stopped at: Phase 2 context gathered
-Resume file: .planning/phases/02-content-layout/02-CONTEXT.md
+Last session: 2026-03-09T13:55:27Z
+Stopped at: Completed 02-01-PLAN.md
+Resume file: .planning/phases/02-content-layout/02-01-SUMMARY.md
