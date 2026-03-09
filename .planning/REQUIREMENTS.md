@@ -36,7 +36,7 @@
 - [x] **I18N-01**: User can access the site in French (/fr) and English (/en) with URL-based routing
 - [x] **I18N-02**: Site detects browser locale and redirects to the appropriate language by default
 - [ ] **PERF-01**: Site achieves Lighthouse 90+ on all 4 metrics (Performance, Accessibility, Best Practices, SEO)
-- [ ] **PERF-02**: Site is fully responsive and mobile-first, with touch targets ≥44px
+- [x] **PERF-02**: Site is fully responsive and mobile-first, with touch targets ≥44px
 - [ ] **SEO-01**: Site has proper meta tags, Open Graph images, and JSON-LD schema (SoftwareApplication) per locale
 - [ ] **SEO-02**: Site has hreflang tags and a sitemap for FR/EN alternate pages
 - [x] **PRIV-01**: Site loads zero third-party scripts — fonts self-hosted, no analytics, no cookies
@@ -96,7 +96,7 @@
 | I18N-01 | Phase 1 | Complete |
 | I18N-02 | Phase 1 | Complete |
 | PERF-01 | Phase 4 | Pending |
-| PERF-02 | Phase 2 | Pending |
+| PERF-02 | Phase 2 | Complete |
 | SEO-01 | Phase 4 | Pending |
 | SEO-02 | Phase 4 | Pending |
 | PRIV-01 | Phase 1 | Complete |
