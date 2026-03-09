@@ -18,12 +18,12 @@
 
 ### Features & Content
 
-- [ ] **FEAT-01**: User can browse 4 feature cards (privacy/offline, Smart Mode LLM, keyboard integration, open source) with glassmorphism styling
-- [ ] **FEAT-02**: User sees a "How it works" section with 3 visual steps: tap mic → speak → text appears
-- [ ] **FEAT-03**: User sees a "No data leaves your device" data flow diagram showing voice → on-device model → text with no cloud
-- [ ] **FEAT-04**: User sees an open source section with a link to github.com/Pivii/dictus and live GitHub stats (stars, last commit)
-- [ ] **FEAT-05**: User sees a community section with a CTA to join the Telegram group
-- [ ] **FOOT-01**: User sees a footer with PIVI Solutions credit, GitHub link, Telegram link, and a privacy statement
+- [x] **FEAT-01**: User can browse 4 feature cards (privacy/offline, Smart Mode LLM, keyboard integration, open source) with glassmorphism styling
+- [x] **FEAT-02**: User sees a "How it works" section with 3 visual steps: tap mic → speak → text appears
+- [x] **FEAT-03**: User sees a "No data leaves your device" data flow diagram showing voice → on-device model → text with no cloud
+- [x] **FEAT-04**: User sees an open source section with a link to github.com/Pivii/dictus and live GitHub stats (stars, last commit)
+- [x] **FEAT-05**: User sees a community section with a CTA to join the Telegram group
+- [x] **FOOT-01**: User sees a footer with PIVI Solutions credit, GitHub link, Telegram link, and a privacy statement
 
 ### Animations
 
@@ -40,13 +40,13 @@
 - [ ] **SEO-01**: Site has proper meta tags, Open Graph images, and JSON-LD schema (SoftwareApplication) per locale
 - [ ] **SEO-02**: Site has hreflang tags and a sitemap for FR/EN alternate pages
 - [x] **PRIV-01**: Site loads zero third-party scripts — fonts self-hosted, no analytics, no cookies
-- [ ] **PRIV-02**: Site includes an explicit "This site collects zero data" statement visible to visitors
+- [x] **PRIV-02**: Site includes an explicit "This site collects zero data" statement visible to visitors
 
 ### Design System
 
 - [x] **DSGN-01**: All colors, gradients, and spacing follow the brand kit tokens defined in CLAUDE.md
 - [x] **DSGN-02**: Typography uses self-hosted DM Sans (200-600) and DM Mono (300-400) via next/font
-- [ ] **DSGN-03**: Glassmorphism effects use `backdrop-filter: blur()` limited to ≤6 visible elements per viewport for mobile performance
+- [x] **DSGN-03**: Glassmorphism effects use `backdrop-filter: blur()` limited to ≤6 visible elements per viewport for mobile performance
 - [x] **DSGN-04**: Dark-only design — no light mode toggle, intentional premium dark aesthetic
 
 ## v2 Requirements
@@ -84,12 +84,12 @@
 | NAV-02 | Phase 2 | Complete |
 | NAV-03 | Phase 2 | Complete |
 | NAV-04 | Phase 1 | Complete |
-| FEAT-01 | Phase 2 | Pending |
-| FEAT-02 | Phase 2 | Pending |
-| FEAT-03 | Phase 2 | Pending |
-| FEAT-04 | Phase 2 | Pending |
-| FEAT-05 | Phase 2 | Pending |
-| FOOT-01 | Phase 2 | Pending |
+| FEAT-01 | Phase 2 | Complete |
+| FEAT-02 | Phase 2 | Complete |
+| FEAT-03 | Phase 2 | Complete |
+| FEAT-04 | Phase 2 | Complete |
+| FEAT-05 | Phase 2 | Complete |
+| FOOT-01 | Phase 2 | Complete |
 | ANIM-01 | Phase 3 | Pending |
 | ANIM-02 | Phase 3 | Pending |
 | ANIM-03 | Phase 3 | Pending |
@@ -100,10 +100,10 @@
 | SEO-01 | Phase 4 | Pending |
 | SEO-02 | Phase 4 | Pending |
 | PRIV-01 | Phase 1 | Complete |
-| PRIV-02 | Phase 2 | Pending |
+| PRIV-02 | Phase 2 | Complete |
 | DSGN-01 | Phase 1 | Complete |
 | DSGN-02 | Phase 1 | Complete |
-| DSGN-03 | Phase 2 | Pending |
+| DSGN-03 | Phase 2 | Complete |
 | DSGN-04 | Phase 1 | Complete |
 
 **Coverage:**

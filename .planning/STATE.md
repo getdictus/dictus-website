@@ -3,15 +3,15 @@ gsd_state_version: 1.0
 milestone: v1.0
 milestone_name: milestone
 status: in-progress
-stopped_at: "Completed 02-01-PLAN.md"
-last_updated: "2026-03-09T13:55:27Z"
-last_activity: 2026-03-09 -- Plan 02-01 executed
+stopped_at: "Completed 02-02-PLAN.md"
+last_updated: "2026-03-09T14:00:33Z"
+last_activity: 2026-03-09 -- Plan 02-02 executed
 progress:
   total_phases: 4
-  completed_phases: 1
+  completed_phases: 2
   total_plans: 5
-  completed_plans: 3
-  percent: 60
+  completed_plans: 4
+  percent: 80
 ---
 
 # Project State
@@ -21,33 +21,33 @@ progress:
 See: .planning/PROJECT.md (updated 2026-03-09)
 
 **Core value:** Convaincre un visiteur en quelques secondes que dictus est l'alternative privacy-first a la dictation vocale, et lui donner envie de tester l'app.
-**Current focus:** Phase 2: Content & Layout -- Hero built, translations ready
+**Current focus:** Phase 2 complete -- full landing page scrollable. Phase 3 next (Animations).
 
 ## Current Position
 
-Phase: 2 of 4 (Content & Layout)
-Plan: 1 of 2 in current phase (done)
-Status: Plan 02-01 complete, ready for Plan 02-02
-Last activity: 2026-03-09 -- Plan 02-01 executed
+Phase: 3 of 4 (Animations)
+Plan: 0 of 1 in current phase (pending)
+Status: Phase 02 complete, ready for Phase 03
+Last activity: 2026-03-09 -- Plan 02-02 executed
 
-Progress: [██████░░░░] 60%
+Progress: [████████░░] 80%
 
 ## Performance Metrics
 
 **Velocity:**
-- Total plans completed: 3
-- Average duration: 3min
-- Total execution time: 0.13 hours
+- Total plans completed: 4
+- Average duration: 2.5min
+- Total execution time: 0.17 hours
 
 **By Phase:**
 
 | Phase | Plans | Total | Avg/Plan |
 |-------|-------|-------|----------|
 | 01-foundation | 2 | 6min | 3min |
-| 02-content-layout | 1 | 2min | 2min |
+| 02-content-layout | 2 | 4min | 2min |
 
 **Recent Trend:**
-- Last 5 plans: 01-01 (4min), 01-02 (2min), 02-01 (2min)
+- Last 5 plans: 01-01 (4min), 01-02 (2min), 02-01 (2min), 02-02 (2min)
 - Trend: Accelerating
 
 *Updated after each plan completion*
@@ -70,6 +70,9 @@ Recent decisions affecting current work:
 - 02-01: Waveform as ambient SVG at 7% opacity behind headline, not stacked below
 - 02-01: min-h-dvh for mobile-safe viewport height instead of min-h-screen
 - 02-01: Coming Soon badge as span with dot indicator, not button or link
+- 02-02: Inline SVG icons throughout (no icon library) -- consistent with Nav pattern
+- 02-02: 5 backdrop-blur elements total (4 feature cards + 1 DataFlow) within DSGN-03 limit of 6
+- 02-02: DataFlow arrows rotate 90deg on mobile for vertical flow
 
 ### Pending Todos
 
@@ -83,6 +86,6 @@ None yet.
 
 ## Session Continuity
 
-Last session: 2026-03-09T13:55:27Z
-Stopped at: Completed 02-01-PLAN.md
-Resume file: .planning/phases/02-content-layout/02-01-SUMMARY.md
+Last session: 2026-03-09T14:00:33Z
+Stopped at: Completed 02-02-PLAN.md
+Resume file: .planning/phases/02-content-layout/02-02-SUMMARY.md
