@@ -1,6 +1,14 @@
 {
+  "Nav": {
+    "fr": "FR",
+    "en": "EN"
+  },
   "Metadata": {
-    "title": "dictus - 100% Offline Voice Dictation for iOS",
+    "title": "dictus -- 100% Offline Voice Dictation for iOS",
     "description": "iOS voice dictation keyboard that works entirely on your device. No data sent to the internet."
+  },
+  "Home": {
+    "tagline": "100% Offline Voice Dictation for iOS",
+    "subtitle": "Your voice stays on your device. Always."
   }
 }

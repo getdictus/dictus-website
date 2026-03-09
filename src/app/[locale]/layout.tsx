@@ -1,5 +1,12 @@
 import type { Metadata } from "next";
 import { DM_Sans, DM_Mono } from "next/font/google";
+import { NextIntlClientProvider, hasLocale } from "next-intl";
+import {
+  getMessages,
+  setRequestLocale,
+} from "next-intl/server";
+import { notFound } from "next/navigation";
+import { routing } from "@/i18n/routing";
 import "../globals.css";
 
 const dmSans = DM_Sans({
@@ -27,16 +34,25 @@ type Props = {
 };
 
 export function generateStaticParams() {
-  return [{ locale: "fr" }, { locale: "en" }];
+  return routing.locales.map((locale) => ({ locale }));
 }
 
 export default async function LocaleLayout({ children, params }: Props) {
   const { locale } = await params;
 
+  if (!hasLocale(routing.locales, locale)) {
+    notFound();
+  }
+
+  setRequestLocale(locale);
+  const messages = await getMessages();
+
   return (
     <html lang={locale} className={`${dmSans.variable} ${dmMono.variable}`}>
       <body className="bg-ink font-sans text-white antialiased">
-        {children}
+        <NextIntlClientProvider messages={messages}>
+          {children}
+        </NextIntlClientProvider>
       </body>
     </html>
   );
