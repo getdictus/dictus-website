@@ -45,12 +45,12 @@ Plans:
   3. User can scroll through feature cards, "How it works" steps, data flow diagram, open source section, and community CTA
   4. User can toggle FR/EN from the nav and all content switches language; nav shows glassmorphism blur on scroll
   5. Page is fully responsive -- layout works on 320px mobile through desktop, touch targets are 44px+
-**Plans**: TBD
+**Plans**: 3 plans
 
 Plans:
-- [ ] 02-01: Hero section, language toggle, glassmorphism nav
-- [ ] 02-02: Feature cards, how-it-works, data flow, open source, community, footer
-- [ ] 02-03: Responsive QA and bilingual content pass
+- [ ] 02-01-PLAN.md -- Hero section with Coming Soon badge, all bilingual translations, page composition
+- [ ] 02-02-PLAN.md -- Features, How It Works, Data Flow, Open Source, Community, Footer sections
+- [ ] 02-03-PLAN.md -- Responsive QA, touch target audit, and human visual verification
 
 ### Phase 3: Animations
 **Goal**: The page feels alive -- waveform pulses, text appears word-by-word, sections reveal on scroll, and state indicators cycle through dictus modes
