@@ -91,5 +91,5 @@ Phases execute in numeric order: 1 --> 2 --> 3 --> 4
 |-------|----------------|--------|-----------|
 | 1. Foundation | 2/2 | Complete | 2026-03-09 |
 | 2. Content & Layout | 4/4 | Complete   | 2026-03-09 |
-| 3. Animations | 0/2 | Not started | - |
+| 3. Animations | 1/2 | In Progress|  |
 | 4. Polish & Performance | 0/1 | Not started | - |

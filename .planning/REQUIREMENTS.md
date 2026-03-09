@@ -27,9 +27,9 @@
 
 ### Animations
 
-- [ ] **ANIM-01**: User sees sections fade/slide into view as they scroll (scroll-triggered reveals)
+- [x] **ANIM-01**: User sees sections fade/slide into view as they scroll (scroll-triggered reveals)
 - [ ] **ANIM-02**: User sees a micro-animation sequence cycling through the 5 dictus states: idle → recording → transcribing → smart mode → inserted
-- [ ] **ANIM-03**: Animations respect `prefers-reduced-motion` media query — disabled or simplified for users who prefer it
+- [x] **ANIM-03**: Animations respect `prefers-reduced-motion` media query — disabled or simplified for users who prefer it
 
 ### Technique & SEO
 
@@ -90,9 +90,9 @@
 | FEAT-04 | Phase 2 | Complete |
 | FEAT-05 | Phase 2 | Complete |
 | FOOT-01 | Phase 2 | Complete |
-| ANIM-01 | Phase 3 | Pending |
+| ANIM-01 | Phase 3 | Complete |
 | ANIM-02 | Phase 3 | Pending |
-| ANIM-03 | Phase 3 | Pending |
+| ANIM-03 | Phase 3 | Complete |
 | I18N-01 | Phase 1 | Complete |
 | I18N-02 | Phase 1 | Complete |
 | PERF-01 | Phase 4 | Pending |

@@ -2,16 +2,16 @@
 gsd_state_version: 1.0
 milestone: v1.0
 milestone_name: milestone
-status: completed
-stopped_at: Phase 3 context gathered
-last_updated: "2026-03-09T16:19:06.055Z"
-last_activity: 2026-03-09 -- Plan 02-03 executed (responsive QA)
+status: in-progress
+stopped_at: Completed 03-01-PLAN.md
+last_updated: "2026-03-09T16:58:26.970Z"
+last_activity: 2026-03-09 -- Plan 03-01 executed (scroll reveal infrastructure)
 progress:
   total_phases: 4
   completed_phases: 2
-  total_plans: 6
-  completed_plans: 6
-  percent: 100
+  total_plans: 8
+  completed_plans: 7
+  percent: 88
 ---
 
 # Project State
@@ -21,23 +21,23 @@ progress:
 See: .planning/PROJECT.md (updated 2026-03-09)
 
 **Core value:** Convaincre un visiteur en quelques secondes que dictus est l'alternative privacy-first a la dictation vocale, et lui donner envie de tester l'app.
-**Current focus:** Phase 2 fully complete (all 3 plans including responsive QA). Phase 3 next (Animations).
+**Current focus:** Phase 3 in progress. Plan 03-01 (scroll reveal) complete.
 
 ## Current Position
 
 Phase: 3 of 4 (Animations)
-Plan: 0 of 1 in current phase (pending)
-Status: Phase 02 fully complete (3/3 plans), ready for Phase 03
-Last activity: 2026-03-09 -- Plan 02-03 executed (responsive QA)
+Plan: 1 of 1 in current phase (complete)
+Status: Phase 03 plan 01 complete (scroll reveal infrastructure)
+Last activity: 2026-03-09 -- Plan 03-01 executed (scroll reveal infrastructure)
 
-Progress: [██████████] 100%
+Progress: [█████████░] 88%
 
 ## Performance Metrics
 
 **Velocity:**
-- Total plans completed: 5
-- Average duration: 2.6min
-- Total execution time: 0.22 hours
+- Total plans completed: 6
+- Average duration: 2.3min
+- Total execution time: 0.24 hours
 
 **By Phase:**
 
@@ -47,11 +47,11 @@ Progress: [██████████] 100%
 | 02-content-layout | 3 | 7min | 2.3min |
 
 **Recent Trend:**
-- Last 5 plans: 01-01 (4min), 01-02 (2min), 02-01 (2min), 02-02 (2min), 02-03 (3min)
+- Last 5 plans: 01-02 (2min), 02-01 (2min), 02-02 (2min), 02-03 (3min), 03-01 (1min)
 - Trend: Consistent
 
 *Updated after each plan completion*
-| Phase 02 P04 | 1min | 1 tasks | 1 files |
+| Phase 03 P01 | 1min | 2 tasks | 4 files |
 
 ## Accumulated Context
 
@@ -76,6 +76,9 @@ Recent decisions affecting current work:
 - 02-02: DataFlow arrows rotate 90deg on mobile for vertical flow
 - 02-03: Touch targets enforced via min-h-11 min-w-11 on all interactive elements
 - [Phase 02]: Nav glassmorphism: scrollY > 10px threshold, bg-ink-deep/80 + backdrop-blur-md, DSGN-03 compliant at 6 blur elements
+- 03-01: MotionProvider wraps main but not Nav -- Nav has its own scroll behavior
+- 03-01: Footer excluded from ScrollReveal -- feels unnatural at page bottom
+- 03-01: staggerChildVariants exported for future section-internal stagger use
 
 ### Pending Todos
 
@@ -89,6 +92,6 @@ None yet.
 
 ## Session Continuity
 
-Last session: 2026-03-09T16:19:06.053Z
-Stopped at: Phase 3 context gathered
-Resume file: .planning/phases/03-animations/03-CONTEXT.md
+Last session: 2026-03-09T16:57:46Z
+Stopped at: Completed 03-01-PLAN.md
+Resume file: .planning/phases/03-animations/03-01-SUMMARY.md
