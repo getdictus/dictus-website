@@ -7,8 +7,48 @@
     "title": "dictus -- Dictation vocale 100% offline pour iOS",
     "description": "Clavier iOS de dictation vocale qui fonctionne entierement sur votre appareil. Aucune donnee envoyee sur internet."
   },
-  "Home": {
-    "tagline": "Dictation vocale 100% offline pour iOS",
-    "subtitle": "Votre voix reste sur votre appareil. Toujours."
+  "Hero": {
+    "headline": "Votre voix reste la v\u00f4tre.",
+    "subtitle": "Dictation vocale 100% offline pour iOS.",
+    "badge": "Bient\u00f4t disponible"
+  },
+  "Features": {
+    "privacy_title": "100% offline",
+    "privacy_desc": "Aucune donn\u00e9e ne quitte votre appareil. Jamais. Votre voix est transcrite localement, sans serveur, sans cloud.",
+    "smart_title": "Mode Smart",
+    "smart_desc": "Un mod\u00e8le de langage embarqu\u00e9 reformule et corrige vos phrases directement sur l\u2019appareil.",
+    "keyboard_title": "Clavier universel",
+    "keyboard_desc": "Fonctionne comme clavier tiers iOS, dans toutes vos apps. Messages, notes, emails\u2009\u2014\u2009partout.",
+    "opensource_title": "Open source",
+    "opensource_desc": "Code transparent et auditable. Vous pouvez v\u00e9rifier par vous-m\u00eame qu\u2019aucune donn\u00e9e ne fuite."
+  },
+  "HowItWorks": {
+    "step1_title": "Appuyez sur le micro",
+    "step1_desc": "Activez la dictation depuis n\u2019importe quelle app avec un seul geste.",
+    "step2_title": "Parlez naturellement",
+    "step2_desc": "Dictus comprend votre voix en temps r\u00e9el, m\u00eame sans connexion internet.",
+    "step3_title": "Le texte appara\u00eet",
+    "step3_desc": "Vos mots s\u2019inscrivent instantan\u00e9ment. Pr\u00e9cis, rapide, priv\u00e9."
+  },
+  "DataFlow": {
+    "title": "Aucune donn\u00e9e ne quitte votre appareil",
+    "desc": "Votre voix est captée par le micro, transcrite par un modèle embarqué, et le texte est inséré. Tout se passe sur votre iPhone.",
+    "no_cloud": "Pas de cloud. Pas de serveur. Juste votre appareil."
+  },
+  "OpenSource": {
+    "title": "Transparent par nature",
+    "desc": "Dictus est open source. Chaque ligne de code est publique et auditable. La confiance ne se décrète pas, elle se vérifie.",
+    "cta": "Voir sur GitHub"
+  },
+  "Community": {
+    "title": "Rejoignez la communauté",
+    "desc": "Suivez le développement, proposez des idées et échangez avec d\u2019autres utilisateurs.",
+    "cta": "Rejoindre sur Telegram"
+  },
+  "Footer": {
+    "copyright": "PIVI Solutions",
+    "privacy": "Ce site et Dictus ne collectent aucune donn\u00e9e personnelle. Pas de cookies, pas d\u2019analytics, pas de tracking.",
+    "github_label": "GitHub",
+    "telegram_label": "Telegram"
   }
 }
