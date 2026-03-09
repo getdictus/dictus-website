@@ -52,7 +52,7 @@ export default function Logo() {
           letterSpacing: "-0.04em",
         }}
       >
-        dictus
+        Dictus
       </span>
     </Link>
   );

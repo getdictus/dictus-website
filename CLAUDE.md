@@ -83,8 +83,8 @@ Google Fonts import : `DM Sans` (200, 300, 400, 500, 600) + `DM Mono` (300, 400)
 
 L'icône représente une **onde sonore stylisée** — trois barres verticales de hauteurs asymétriques évoquant l'amplitude d'une voix humaine. La barre centrale, plus haute, forme implicitement la lettre **i** de Dictus. Forme squircle iOS (rx=18 sur 80×80).
 
-- Wordmark : "dictus" en minuscules, DM Sans 200, `letter-spacing: -0.04em`
-- Ne jamais écrire DICTUS en majuscules
+- Wordmark : "Dictus" avec majuscule initiale, DM Sans 200, `letter-spacing: -0.04em`
+- Ne jamais écrire DICTUS en full majuscules
 - L'asymétrie des barres est intentionnelle — ne pas les rendre égales
 
 ### États micro (pour animations landing)

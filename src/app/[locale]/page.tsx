@@ -21,7 +21,7 @@ function HomeContent() {
         className="text-5xl text-white"
         style={{ fontWeight: 200, letterSpacing: "-0.04em" }}
       >
-        dictus
+        Dictus
       </h1>
       <p className="mt-4 text-lg text-white-70">{t("tagline")}</p>
       <p className="mt-2 text-sm text-white-40">{t("subtitle")}</p>
