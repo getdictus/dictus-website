@@ -11,7 +11,7 @@
 - [ ] **HERO-02**: User sees an animated sinusoidal waveform simulating real-time transcription in the hero
 - [ ] **HERO-03**: User sees text appearing word-by-word alongside the waveform animation, demonstrating the dictation experience
 - [ ] **HERO-04**: User can tap the primary CTA to access TestFlight (or sees a "Coming Soon" badge if not yet available)
-- [ ] **NAV-01**: User sees a sticky navigation header with the dictus waveform logo + wordmark
+- [x] **NAV-01**: User sees a sticky navigation header with the dictus waveform logo + wordmark
 - [ ] **NAV-02**: User can switch between French and English via a language toggle in the nav
 - [ ] **NAV-03**: User sees a glassmorphism blur effect on the nav header when scrolling down
 - [x] **NAV-04**: User sees the dictus squircle waveform icon as favicon and Apple touch icon
@@ -33,8 +33,8 @@
 
 ### Technique & SEO
 
-- [ ] **I18N-01**: User can access the site in French (/fr) and English (/en) with URL-based routing
-- [ ] **I18N-02**: Site detects browser locale and redirects to the appropriate language by default
+- [x] **I18N-01**: User can access the site in French (/fr) and English (/en) with URL-based routing
+- [x] **I18N-02**: Site detects browser locale and redirects to the appropriate language by default
 - [ ] **PERF-01**: Site achieves Lighthouse 90+ on all 4 metrics (Performance, Accessibility, Best Practices, SEO)
 - [ ] **PERF-02**: Site is fully responsive and mobile-first, with touch targets ≥44px
 - [ ] **SEO-01**: Site has proper meta tags, Open Graph images, and JSON-LD schema (SoftwareApplication) per locale
@@ -80,7 +80,7 @@
 | HERO-02 | Phase 3 | Pending |
 | HERO-03 | Phase 3 | Pending |
 | HERO-04 | Phase 2 | Pending |
-| NAV-01 | Phase 1 | Pending |
+| NAV-01 | Phase 1 | Complete |
 | NAV-02 | Phase 2 | Pending |
 | NAV-03 | Phase 2 | Pending |
 | NAV-04 | Phase 1 | Complete |
@@ -93,8 +93,8 @@
 | ANIM-01 | Phase 3 | Pending |
 | ANIM-02 | Phase 3 | Pending |
 | ANIM-03 | Phase 3 | Pending |
-| I18N-01 | Phase 1 | Pending |
-| I18N-02 | Phase 1 | Pending |
+| I18N-01 | Phase 1 | Complete |
+| I18N-02 | Phase 1 | Complete |
 | PERF-01 | Phase 4 | Pending |
 | PERF-02 | Phase 2 | Pending |
 | SEO-01 | Phase 4 | Pending |

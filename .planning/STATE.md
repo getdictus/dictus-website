@@ -3,15 +3,15 @@ gsd_state_version: 1.0
 milestone: v1.0
 milestone_name: milestone
 status: executing
-stopped_at: Completed 01-01-PLAN.md
-last_updated: "2026-03-09T11:56:52Z"
-last_activity: 2026-03-09 -- Plan 01-01 executed
+stopped_at: Completed 01-02-PLAN.md
+last_updated: "2026-03-09T12:01:06Z"
+last_activity: 2026-03-09 -- Plan 01-02 executed, Phase 1 complete
 progress:
   total_phases: 4
-  completed_phases: 0
+  completed_phases: 1
   total_plans: 2
-  completed_plans: 1
-  percent: 12
+  completed_plans: 2
+  percent: 25
 ---
 
 # Project State
@@ -21,33 +21,33 @@ progress:
 See: .planning/PROJECT.md (updated 2026-03-09)
 
 **Core value:** Convaincre un visiteur en quelques secondes que dictus est l'alternative privacy-first a la dictation vocale, et lui donner envie de tester l'app.
-**Current focus:** Phase 1: Foundation
+**Current focus:** Phase 1 complete, ready for Phase 2: Content & Layout
 
 ## Current Position
 
-Phase: 1 of 4 (Foundation)
-Plan: 1 of 2 in current phase
-Status: Executing phase 1
-Last activity: 2026-03-09 -- Plan 01-01 executed
+Phase: 1 of 4 (Foundation) -- COMPLETE
+Plan: 2 of 2 in current phase (done)
+Status: Phase 1 complete, ready for Phase 2
+Last activity: 2026-03-09 -- Plan 01-02 executed
 
-Progress: [█░░░░░░░░░] 12%
+Progress: [███░░░░░░░] 25%
 
 ## Performance Metrics
 
 **Velocity:**
-- Total plans completed: 1
-- Average duration: 4min
-- Total execution time: 0.07 hours
+- Total plans completed: 2
+- Average duration: 3min
+- Total execution time: 0.10 hours
 
 **By Phase:**
 
 | Phase | Plans | Total | Avg/Plan |
 |-------|-------|-------|----------|
-| 01-foundation | 1 | 4min | 4min |
+| 01-foundation | 2 | 6min | 3min |
 
 **Recent Trend:**
-- Last 5 plans: 01-01 (4min)
-- Trend: Starting
+- Last 5 plans: 01-01 (4min), 01-02 (2min)
+- Trend: Accelerating
 
 *Updated after each plan completion*
 
@@ -63,6 +63,9 @@ Recent decisions affecting current work:
 - 01-01: Tailwind v4 @theme in globals.css as single source of truth for design tokens (no tailwind.config.ts)
 - 01-01: Webpack for production build due to Turbopack PNG processing bug in Next.js 16.1.6
 - 01-01: i18n skeleton created early as blocking dependency for next-intl plugin
+- 01-02: Nav uses inline SVG for waveform icon (no external asset dependency)
+- 01-02: LanguageToggle is a client component using useRouter.replace for locale switching
+- 01-02: Layout wraps children in main with pt-16 to offset fixed nav height
 
 ### Pending Todos
 
@@ -76,6 +79,6 @@ None yet.
 
 ## Session Continuity
 
-Last session: 2026-03-09T11:56:52Z
-Stopped at: Completed 01-01-PLAN.md
-Resume file: .planning/phases/01-foundation/01-01-SUMMARY.md
+Last session: 2026-03-09T12:01:06Z
+Stopped at: Completed 01-02-PLAN.md
+Resume file: .planning/phases/01-foundation/01-02-SUMMARY.md

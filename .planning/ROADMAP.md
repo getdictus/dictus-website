@@ -12,7 +12,7 @@ Ship a premium dark landing page for dictus -- an offline iOS voice dictation ke
 
 Decimal phases appear between their surrounding integers in numeric order.
 
-- [ ] **Phase 1: Foundation** - Next.js scaffold, design system tokens, self-hosted fonts, i18n routing, nav shell
+- [x] **Phase 1: Foundation** - Next.js scaffold, design system tokens, self-hosted fonts, i18n routing, nav shell
 - [ ] **Phase 2: Content & Layout** - All page sections with static content, responsive layout, glassmorphism cards
 - [ ] **Phase 3: Animations** - Motion library integration, sinusoidal waveform, text reveal, scroll triggers, state micro-animations
 - [ ] **Phase 4: Polish & Performance** - Lighthouse 90+ audit, SEO metadata, OG images, hreflang, final QA
@@ -32,8 +32,8 @@ Decimal phases appear between their surrounding integers in numeric order.
 **Plans**: 2 plans
 
 Plans:
-- [ ] 01-01-PLAN.md -- Next.js 16 scaffold, Tailwind v4 design tokens, self-hosted fonts, favicon
-- [ ] 01-02-PLAN.md -- i18n routing (next-intl v4), locale detection, nav shell with logo + language toggle
+- [x] 01-01-PLAN.md -- Next.js 16 scaffold, Tailwind v4 design tokens, self-hosted fonts, favicon
+- [x] 01-02-PLAN.md -- i18n routing (next-intl v4), locale detection, nav shell with logo + language toggle
 
 ### Phase 2: Content & Layout
 **Goal**: Every content section is built, styled, and bilingual -- a visitor can read the full page and understand what dictus is
@@ -88,7 +88,7 @@ Phases execute in numeric order: 1 --> 2 --> 3 --> 4
 
 | Phase | Plans Complete | Status | Completed |
 |-------|----------------|--------|-----------|
-| 1. Foundation | 0/2 | Not started | - |
+| 1. Foundation | 2/2 | Complete | 2026-03-09 |
 | 2. Content & Layout | 0/3 | Not started | - |
 | 3. Animations | 0/2 | Not started | - |
 | 4. Polish & Performance | 0/1 | Not started | - |
