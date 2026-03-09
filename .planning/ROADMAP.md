@@ -29,11 +29,11 @@ Decimal phases appear between their surrounding integers in numeric order.
   3. All brand kit color tokens and DM Sans/Mono fonts are available in Tailwind and render correctly
   4. Zero third-party scripts load -- fonts are self-hosted via next/font, no external requests
   5. The dictus squircle icon appears as favicon and Apple touch icon
-**Plans**: TBD
+**Plans**: 2 plans
 
 Plans:
-- [ ] 01-01: Next.js scaffold, Tailwind config with brand tokens, self-hosted fonts
-- [ ] 01-02: i18n routing with next-intl, locale detection, nav shell with logo
+- [ ] 01-01-PLAN.md -- Next.js 16 scaffold, Tailwind v4 design tokens, self-hosted fonts, favicon
+- [ ] 01-02-PLAN.md -- i18n routing (next-intl v4), locale detection, nav shell with logo + language toggle
 
 ### Phase 2: Content & Layout
 **Goal**: Every content section is built, styled, and bilingual -- a visitor can read the full page and understand what dictus is
