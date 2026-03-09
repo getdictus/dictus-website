@@ -8,8 +8,8 @@
 ### Hero & Navigation
 
 - [x] **HERO-01**: User sees a compelling headline communicating "offline voice dictation for iOS" within 3 seconds of landing
-- [ ] **HERO-02**: User sees an animated sinusoidal waveform simulating real-time transcription in the hero
-- [ ] **HERO-03**: User sees text appearing word-by-word alongside the waveform animation, demonstrating the dictation experience
+- [x] **HERO-02**: User sees an animated sinusoidal waveform simulating real-time transcription in the hero
+- [x] **HERO-03**: User sees text appearing word-by-word alongside the waveform animation, demonstrating the dictation experience
 - [x] **HERO-04**: User can tap the primary CTA to access TestFlight (or sees a "Coming Soon" badge if not yet available)
 - [x] **NAV-01**: User sees a sticky navigation header with the dictus waveform logo + wordmark
 - [x] **NAV-02**: User can switch between French and English via a language toggle in the nav
@@ -28,7 +28,7 @@
 ### Animations
 
 - [x] **ANIM-01**: User sees sections fade/slide into view as they scroll (scroll-triggered reveals)
-- [ ] **ANIM-02**: User sees a micro-animation sequence cycling through the 5 dictus states: idle → recording → transcribing → smart mode → inserted
+- [x] **ANIM-02**: User sees a micro-animation sequence cycling through the 5 dictus states: idle → recording → transcribing → smart mode → inserted
 - [x] **ANIM-03**: Animations respect `prefers-reduced-motion` media query — disabled or simplified for users who prefer it
 
 ### Technique & SEO
@@ -77,8 +77,8 @@
 | Requirement | Phase | Status |
 |-------------|-------|--------|
 | HERO-01 | Phase 2 | Complete |
-| HERO-02 | Phase 3 | Pending |
-| HERO-03 | Phase 3 | Pending |
+| HERO-02 | Phase 3 | Complete |
+| HERO-03 | Phase 3 | Complete |
 | HERO-04 | Phase 2 | Complete |
 | NAV-01 | Phase 1 | Complete |
 | NAV-02 | Phase 2 | Complete |
@@ -91,7 +91,7 @@
 | FEAT-05 | Phase 2 | Complete |
 | FOOT-01 | Phase 2 | Complete |
 | ANIM-01 | Phase 3 | Complete |
-| ANIM-02 | Phase 3 | Pending |
+| ANIM-02 | Phase 3 | Complete |
 | ANIM-03 | Phase 3 | Complete |
 | I18N-01 | Phase 1 | Complete |
 | I18N-02 | Phase 1 | Complete |

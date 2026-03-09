@@ -2,16 +2,16 @@
 gsd_state_version: 1.0
 milestone: v1.0
 milestone_name: milestone
-status: in-progress
-stopped_at: Completed 03-01-PLAN.md
-last_updated: "2026-03-09T16:58:26.970Z"
-last_activity: 2026-03-09 -- Plan 03-01 executed (scroll reveal infrastructure)
+status: completed
+stopped_at: Completed 03-02-PLAN.md
+last_updated: "2026-03-09T22:18:17.167Z"
+last_activity: 2026-03-09 -- Plan 03-02 executed (hero demo animations)
 progress:
   total_phases: 4
-  completed_phases: 2
+  completed_phases: 3
   total_plans: 8
-  completed_plans: 7
-  percent: 88
+  completed_plans: 8
+  percent: 100
 ---
 
 # Project State
@@ -21,16 +21,16 @@ progress:
 See: .planning/PROJECT.md (updated 2026-03-09)
 
 **Core value:** Convaincre un visiteur en quelques secondes que dictus est l'alternative privacy-first a la dictation vocale, et lui donner envie de tester l'app.
-**Current focus:** Phase 3 in progress. Plan 03-01 (scroll reveal) complete.
+**Current focus:** Phase 3 complete. Ready for Phase 4 (Polish & Performance).
 
 ## Current Position
 
-Phase: 3 of 4 (Animations)
-Plan: 1 of 1 in current phase (complete)
-Status: Phase 03 plan 01 complete (scroll reveal infrastructure)
-Last activity: 2026-03-09 -- Plan 03-01 executed (scroll reveal infrastructure)
+Phase: 3 of 4 (Animations) -- COMPLETE
+Plan: 2 of 2 in current phase (complete)
+Status: Phase 03 complete (scroll reveals + hero demo animations)
+Last activity: 2026-03-09 -- Plan 03-02 executed (hero demo animations)
 
-Progress: [█████████░] 88%
+Progress: [██████████] 100%
 
 ## Performance Metrics
 
@@ -52,6 +52,7 @@ Progress: [█████████░] 88%
 
 *Updated after each plan completion*
 | Phase 03 P01 | 1min | 2 tasks | 4 files |
+| Phase 03 P02 | 5min | 3 tasks | 9 files |
 
 ## Accumulated Context
 
@@ -79,6 +80,8 @@ Recent decisions affecting current work:
 - 03-01: MotionProvider wraps main but not Nav -- Nav has its own scroll behavior
 - 03-01: Footer excluded from ScrollReveal -- feels unnatural at page bottom
 - 03-01: staggerChildVariants exported for future section-internal stagger use
+- [Phase 03]: Canvas vertical bars (iOS BrandWaveform.swift port) instead of sinusoidal sine curves for waveform
+- [Phase 03]: Waveform positioned at top of hero section, not centered behind text
 
 ### Pending Todos
 
@@ -86,12 +89,12 @@ None yet.
 
 ### Blockers/Concerns
 
-- Sinusoidal waveform implementation technique (Canvas vs SVG) needs prototyping in Phase 3
+- ~~Sinusoidal waveform implementation technique~~ RESOLVED: Canvas vertical bars (iOS BrandWaveform.swift port)
 - WCAG AA contrast for rgba(255,255,255,0.40) secondary text needs verification in Phase 4
 - TestFlight link availability unknown -- CTA needs Coming Soon fallback
 
 ## Session Continuity
 
-Last session: 2026-03-09T16:57:46Z
-Stopped at: Completed 03-01-PLAN.md
-Resume file: .planning/phases/03-animations/03-01-SUMMARY.md
+Last session: 2026-03-09T22:18:17.165Z
+Stopped at: Completed 03-02-PLAN.md
+Resume file: None
