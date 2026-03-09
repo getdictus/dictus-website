@@ -24,8 +24,8 @@ export default function Hero() {
   const translatedStateLabel = tDemo(`states.${demoState.currentState}`);
 
   return (
-    <section className="relative flex min-h-dvh flex-col items-center justify-center bg-ink-deep px-6">
-      {/* Canvas waveform behind content */}
+    <section className="relative flex min-h-dvh flex-col items-center justify-center overflow-hidden bg-ink-deep px-6">
+      {/* Large waveform anchored to top of hero */}
       <Waveform />
 
       {/* Content */}
@@ -41,8 +41,8 @@ export default function Hero() {
           {t("subtitle")}
         </p>
 
-        {/* Demo area: state indicator + text reveal input */}
-        <div className="mt-8 flex flex-col items-center gap-3">
+        {/* Demo area: state indicator + text reveal */}
+        <div className="mt-10 flex flex-col items-center gap-4">
           <StateIndicator
             currentState={demoState.currentState}
             stateColor={demoState.stateColor}
