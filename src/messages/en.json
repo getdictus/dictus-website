@@ -12,6 +12,21 @@
     "subtitle": "100% offline voice dictation for iOS.",
     "badge": "Coming soon"
   },
+  "HeroDemo": {
+    "sentences": {
+      "0": "Send a message to Sophie to confirm tomorrow's meeting",
+      "1": "Note for later buy some bread and stop by the pharmacy",
+      "2": "Reply that I will be available from two o'clock",
+      "3": "Remind me to check the game results tonight"
+    },
+    "states": {
+      "idle": "Idle",
+      "recording": "Recording",
+      "transcribing": "Transcribing",
+      "smart": "Smart Mode",
+      "inserted": "Text inserted"
+    }
+  },
   "Features": {
     "privacy_title": "100% offline",
     "privacy_desc": "No data ever leaves your device. Your voice is transcribed locally, with no server and no cloud.",

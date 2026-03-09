@@ -12,6 +12,21 @@
     "subtitle": "Dictation vocale 100% offline pour iOS.",
     "badge": "Bient\u00f4t disponible"
   },
+  "HeroDemo": {
+    "sentences": {
+      "0": "Envoie un message a Sophie pour confirmer le rendez-vous de demain",
+      "1": "Note pour plus tard acheter du pain et passer a la pharmacie",
+      "2": "Reponds que je serai disponible a partir de quatorze heures",
+      "3": "Rappelle-moi de verifier les resultats du match ce soir"
+    },
+    "states": {
+      "idle": "En attente",
+      "recording": "Enregistrement",
+      "transcribing": "Transcription",
+      "smart": "Mode Smart",
+      "inserted": "Texte inser\u00e9"
+    }
+  },
   "Features": {
     "privacy_title": "100% offline",
     "privacy_desc": "Aucune donn\u00e9e ne quitte votre appareil. Jamais. Votre voix est transcrite localement, sans serveur, sans cloud.",

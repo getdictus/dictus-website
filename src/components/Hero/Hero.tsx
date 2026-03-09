@@ -1,24 +1,32 @@
+"use client";
+
 import { useTranslations } from "next-intl";
+import { useReducedMotion } from "motion/react";
+import { useHeroDemoState } from "@/hooks/useHeroDemoState";
+import Waveform from "@/components/Hero/Waveform";
+import StateIndicator from "@/components/Hero/StateIndicator";
+import TextReveal from "@/components/Hero/TextReveal";
 
 export default function Hero() {
   const t = useTranslations("Hero");
+  const tDemo = useTranslations("HeroDemo");
+  const shouldReduce = useReducedMotion() ?? false;
+
+  const sentences = [
+    tDemo("sentences.0"),
+    tDemo("sentences.1"),
+    tDemo("sentences.2"),
+    tDemo("sentences.3"),
+  ];
+
+  const demoState = useHeroDemoState({ sentences, shouldReduce });
+
+  const translatedStateLabel = tDemo(`states.${demoState.currentState}`);
 
   return (
     <section className="relative flex min-h-dvh flex-col items-center justify-center bg-ink-deep px-6">
-      {/* Ambient waveform -- scaled-up version of logo icon, low opacity */}
-      <svg
-        width="280"
-        height="280"
-        viewBox="0 0 80 80"
-        fill="none"
-        xmlns="http://www.w3.org/2000/svg"
-        aria-hidden="true"
-        className="pointer-events-none absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 opacity-[0.07]"
-      >
-        <rect x="22" y="30" width="8" height="20" rx="4" fill="#6BA3FF" />
-        <rect x="36" y="18" width="8" height="44" rx="4" fill="#6BA3FF" />
-        <rect x="50" y="26" width="8" height="28" rx="4" fill="#6BA3FF" />
-      </svg>
+      {/* Canvas waveform behind content */}
+      <Waveform />
 
       {/* Content */}
       <div className="relative z-10 mx-auto max-w-6xl text-center">
@@ -33,8 +41,26 @@ export default function Hero() {
           {t("subtitle")}
         </p>
 
-        <span className="mt-8 inline-flex items-center gap-2 rounded-full border border-accent/30 bg-accent/10 px-5 py-2.5 text-sm font-light text-accent">
-          <span className="inline-block h-2 w-2 rounded-full bg-accent" aria-hidden="true" />
+        {/* Demo area: state indicator + text reveal input */}
+        <div className="mt-8 flex flex-col items-center gap-3">
+          <StateIndicator
+            currentState={demoState.currentState}
+            stateColor={demoState.stateColor}
+            shouldPulse={demoState.shouldPulse}
+            stateLabel={translatedStateLabel}
+          />
+          <TextReveal
+            visibleText={demoState.visibleText}
+            showCursor={demoState.showCursor}
+          />
+        </div>
+
+        {/* Coming Soon badge */}
+        <span className="mt-6 inline-flex items-center gap-2 rounded-full border border-accent/30 bg-accent/10 px-5 py-2.5 text-sm font-light text-accent">
+          <span
+            className="inline-block h-2 w-2 rounded-full bg-accent"
+            aria-hidden="true"
+          />
           {t("badge")}
         </span>
       </div>
