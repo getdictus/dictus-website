@@ -13,7 +13,7 @@ Ship a premium dark landing page for dictus -- an offline iOS voice dictation ke
 Decimal phases appear between their surrounding integers in numeric order.
 
 - [x] **Phase 1: Foundation** - Next.js scaffold, design system tokens, self-hosted fonts, i18n routing, nav shell
-- [x] **Phase 2: Content & Layout** - All page sections with static content, responsive layout, glassmorphism cards
+- [ ] **Phase 2: Content & Layout** - All page sections with static content, responsive layout, glassmorphism cards
 - [ ] **Phase 3: Animations** - Motion library integration, sinusoidal waveform, text reveal, scroll triggers, state micro-animations
 - [ ] **Phase 4: Polish & Performance** - Lighthouse 90+ audit, SEO metadata, OG images, hreflang, final QA
 
@@ -45,12 +45,13 @@ Plans:
   3. User can scroll through feature cards, "How it works" steps, data flow diagram, open source section, and community CTA
   4. User can toggle FR/EN from the nav and all content switches language; nav shows glassmorphism blur on scroll
   5. Page is fully responsive -- layout works on 320px mobile through desktop, touch targets are 44px+
-**Plans**: 3 plans
+**Plans**: 4 plans
 
 Plans:
 - [x] 02-01-PLAN.md -- Hero section with Coming Soon badge, all bilingual translations, page composition
 - [x] 02-02-PLAN.md -- Features, How It Works, Data Flow, Open Source, Community, Footer sections
 - [x] 02-03-PLAN.md -- Responsive QA, touch target audit, and human visual verification
+- [ ] 02-04-PLAN.md -- Gap closure: nav glassmorphism blur on scroll (NAV-03)
 
 ### Phase 3: Animations
 **Goal**: The page feels alive -- waveform pulses, text appears word-by-word, sections reveal on scroll, and state indicators cycle through dictus modes
@@ -89,6 +90,6 @@ Phases execute in numeric order: 1 --> 2 --> 3 --> 4
 | Phase | Plans Complete | Status | Completed |
 |-------|----------------|--------|-----------|
 | 1. Foundation | 2/2 | Complete | 2026-03-09 |
-| 2. Content & Layout | 3/3 | Complete | 2026-03-09 |
+| 2. Content & Layout | 3/4 | Gap closure | - |
 | 3. Animations | 0/2 | Not started | - |
 | 4. Polish & Performance | 0/1 | Not started | - |
