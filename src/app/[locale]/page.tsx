@@ -6,6 +6,7 @@ import DataFlow from "@/components/DataFlow/DataFlow";
 import OpenSource from "@/components/OpenSource/OpenSource";
 import Community from "@/components/Community/Community";
 import Footer from "@/components/Footer/Footer";
+import ScrollReveal from "@/components/shared/ScrollReveal";
 
 type Props = {
   params: Promise<{ locale: string }>;
@@ -18,11 +19,11 @@ export default async function HomePage({ params }: Props) {
   return (
     <>
       <Hero />
-      <Features />
-      <HowItWorks />
-      <DataFlow />
-      <OpenSource />
-      <Community />
+      <ScrollReveal><Features /></ScrollReveal>
+      <ScrollReveal><HowItWorks /></ScrollReveal>
+      <ScrollReveal><DataFlow /></ScrollReveal>
+      <ScrollReveal><OpenSource /></ScrollReveal>
+      <ScrollReveal><Community /></ScrollReveal>
       <Footer />
     </>
   );

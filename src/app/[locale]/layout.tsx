@@ -8,6 +8,7 @@ import {
 import { notFound } from "next/navigation";
 import { routing } from "@/i18n/routing";
 import Nav from "@/components/Nav/Nav";
+import MotionProvider from "@/components/shared/MotionProvider";
 import "../globals.css";
 
 const dmSans = DM_Sans({
@@ -53,7 +54,9 @@ export default async function LocaleLayout({ children, params }: Props) {
       <body className="overflow-x-hidden bg-ink font-sans text-white antialiased">
         <NextIntlClientProvider messages={messages}>
           <Nav />
-          <main className="pt-16">{children}</main>
+          <MotionProvider>
+            <main className="pt-16">{children}</main>
+          </MotionProvider>
         </NextIntlClientProvider>
       </body>
     </html>
