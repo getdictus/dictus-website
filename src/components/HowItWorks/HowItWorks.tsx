@@ -8,7 +8,7 @@ export default function HowItWorks() {
       <div className="mx-auto max-w-6xl px-6">
         <div className="flex flex-col items-center gap-8 md:flex-row md:justify-between">
           {/* Step 1: Tap the mic */}
-          <div className="flex flex-col items-center text-center">
+          <div className="flex max-w-[200px] flex-col items-center text-center md:max-w-none">
             <div className="flex h-16 w-16 items-center justify-center rounded-full border border-border bg-surface/30">
               <svg
                 width="24"
@@ -51,7 +51,7 @@ export default function HowItWorks() {
           </div>
 
           {/* Step 2: Speak */}
-          <div className="flex flex-col items-center text-center">
+          <div className="flex max-w-[200px] flex-col items-center text-center md:max-w-none">
             <div className="flex h-16 w-16 items-center justify-center rounded-full border border-border bg-surface/30">
               <svg
                 width="24"
@@ -97,7 +97,7 @@ export default function HowItWorks() {
           </div>
 
           {/* Step 3: Text appears */}
-          <div className="flex flex-col items-center text-center">
+          <div className="flex max-w-[200px] flex-col items-center text-center md:max-w-none">
             <div className="flex h-16 w-16 items-center justify-center rounded-full border border-border bg-surface/30">
               <svg
                 width="24"

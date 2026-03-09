@@ -23,7 +23,7 @@ export default function Hero() {
       {/* Content */}
       <div className="relative z-10 mx-auto max-w-6xl text-center">
         <h1
-          className="text-5xl text-white md:text-7xl"
+          className="text-4xl text-white sm:text-5xl md:text-7xl"
           style={{ fontWeight: 200, letterSpacing: "-0.03em" }}
         >
           {t("headline")}

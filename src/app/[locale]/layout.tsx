@@ -50,7 +50,7 @@ export default async function LocaleLayout({ children, params }: Props) {
 
   return (
     <html lang={locale} className={`${dmSans.variable} ${dmMono.variable}`}>
-      <body className="bg-ink font-sans text-white antialiased">
+      <body className="overflow-x-hidden bg-ink font-sans text-white antialiased">
         <NextIntlClientProvider messages={messages}>
           <Nav />
           <main className="pt-16">{children}</main>

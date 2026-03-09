@@ -14,7 +14,7 @@ export default function Community() {
           href="#"
           target="_blank"
           rel="noopener noreferrer"
-          className="mt-8 inline-flex items-center gap-2 rounded-full bg-accent px-8 py-3 font-normal text-white transition-colors hover:bg-accent-hi"
+          className="mt-8 inline-flex min-h-11 items-center gap-2 rounded-full bg-accent px-8 py-3 font-normal text-white transition-colors hover:bg-accent-hi"
         >
           <svg
             width="20"

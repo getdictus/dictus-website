@@ -6,7 +6,7 @@ export default function Footer() {
   return (
     <footer className="border-t border-border bg-ink-deep py-8">
       <div className="mx-auto max-w-6xl px-6">
-        <div className="flex items-center justify-between">
+        <div className="flex flex-wrap items-center justify-between gap-4">
           <span className="text-sm text-white-40">
             &copy; {t("copyright")}
           </span>

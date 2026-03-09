@@ -17,7 +17,7 @@ export default function LanguageToggle() {
     <div className="flex items-center gap-1 text-sm font-light">
       <button
         onClick={() => switchTo("fr")}
-        className={`px-1.5 py-0.5 transition-colors ${
+        className={`min-h-11 min-w-11 px-2 py-2 transition-colors ${
           locale === "fr" ? "text-accent" : "text-white-40 hover:text-white-70"
         }`}
         aria-label="Passer en francais"
@@ -28,7 +28,7 @@ export default function LanguageToggle() {
       <span className="text-white-40">/</span>
       <button
         onClick={() => switchTo("en")}
-        className={`px-1.5 py-0.5 transition-colors ${
+        className={`min-h-11 min-w-11 px-2 py-2 transition-colors ${
           locale === "en" ? "text-accent" : "text-white-40 hover:text-white-70"
         }`}
         aria-label="Switch to English"
