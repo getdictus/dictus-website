@@ -3,6 +3,7 @@ import { DM_Sans, DM_Mono } from "next/font/google";
 import { NextIntlClientProvider, hasLocale } from "next-intl";
 import {
   getMessages,
+  getTranslations,
   setRequestLocale,
 } from "next-intl/server";
 import { notFound } from "next/navigation";
@@ -24,16 +25,66 @@ const dmMono = DM_Mono({
   display: "swap",
 });
 
-export const metadata: Metadata = {
-  title: "dictus",
-  description:
-    "Clavier iOS de dictation vocale 100% offline. Transcription en temps reel, entierement sur votre appareil.",
-};
-
 type Props = {
   children: React.ReactNode;
   params: Promise<{ locale: string }>;
 };
+
+const localeMap: Record<string, string> = {
+  fr: "fr_FR",
+  en: "en_US",
+};
+
+export async function generateMetadata({
+  params,
+}: Props): Promise<Metadata> {
+  const { locale } = await params;
+  const t = await getTranslations({ locale, namespace: "Metadata" });
+
+  const title = t("title");
+  const description = t("description");
+
+  return {
+    metadataBase: new URL("https://getdictus.com"),
+    title,
+    description,
+    applicationName: "dictus",
+    openGraph: {
+      title,
+      description,
+      url: `/${locale}`,
+      siteName: "dictus",
+      images: [
+        {
+          url: "/og-image.png",
+          width: 1200,
+          height: 630,
+          alt: "dictus",
+        },
+      ],
+      locale: localeMap[locale] ?? "fr_FR",
+      type: "website",
+    },
+    twitter: {
+      card: "summary_large_image",
+      title,
+      description,
+      images: ["/og-image.png"],
+    },
+    alternates: {
+      canonical: `/${locale}`,
+      languages: {
+        fr: "/fr",
+        en: "/en",
+        "x-default": "/fr",
+      },
+    },
+    robots: {
+      index: true,
+      follow: true,
+    },
+  };
+}
 
 export function generateStaticParams() {
   return routing.locales.map((locale) => ({ locale }));

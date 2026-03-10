@@ -1,4 +1,4 @@
-import { setRequestLocale } from "next-intl/server";
+import { setRequestLocale, getTranslations } from "next-intl/server";
 import Hero from "@/components/Hero/Hero";
 import Features from "@/components/Features/Features";
 import HowItWorks from "@/components/HowItWorks/HowItWorks";
@@ -16,6 +16,26 @@ export default async function HomePage({ params }: Props) {
   const { locale } = await params;
   setRequestLocale(locale);
 
+  const t = await getTranslations("Metadata");
+
+  const jsonLd = {
+    "@context": "https://schema.org",
+    "@type": "MobileApplication",
+    name: "dictus",
+    description: t("jsonld_description"),
+    operatingSystem: "iOS 18+",
+    applicationCategory: "UtilitiesApplication",
+    offers: {
+      "@type": "Offer",
+      price: "0",
+      priceCurrency: "EUR",
+    },
+    author: {
+      "@type": "Organization",
+      name: "PIVI Solutions",
+    },
+  };
+
   return (
     <>
       <Hero />
@@ -25,6 +45,12 @@ export default async function HomePage({ params }: Props) {
       <ScrollReveal><OpenSource /></ScrollReveal>
       <ScrollReveal><Community /></ScrollReveal>
       <Footer />
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{
+          __html: JSON.stringify(jsonLd).replace(/</g, "\\u003c"),
+        }}
+      />
     </>
   );
 }

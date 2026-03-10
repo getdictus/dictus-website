@@ -5,7 +5,8 @@
   },
   "Metadata": {
     "title": "dictus -- Dictation vocale 100% offline pour iOS",
-    "description": "Clavier iOS de dictation vocale qui fonctionne entierement sur votre appareil. Aucune donnee envoyee sur internet."
+    "description": "Clavier iOS de dictation vocale qui fonctionne entierement sur votre appareil. Aucune donnee envoyee sur internet.",
+    "jsonld_description": "Clavier iOS de dictation vocale 100% offline avec transcription en temps reel sur l'appareil."
   },
   "Hero": {
     "headline": "Votre voix reste la v\u00f4tre.",
