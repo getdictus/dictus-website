@@ -25,22 +25,36 @@ Convaincre un visiteur en quelques secondes que dictus est l'alternative privacy
 
 ### Active
 
-- [ ] Comparison strip: dictus vs Apple Dictation (V2-01)
-- [ ] Device-detection CTA: TestFlight vs App Store (V2-02)
-- [ ] App Store badge and screenshots section (V2-03)
+- [ ] Comparison table: Dictus vs Apple Dictation, WhisperFlow, SuperWhisper, MacWhisper (COMP-*)
+- [ ] Hero waveform animation: flat → voice simulation → transcription synced (HERO-*)
+- [ ] Demo video sections: app recordings integrated in HowItWorks/DataFlow (DEMO-*)
+- [ ] Liquid Glass effects: iOS 26 style glassmorphism across site elements (GLASS-*)
+- [ ] Light mode: new theme inspired by Dictus iOS app colors (THEME-*)
+- [ ] Adaptive TestFlight CTA: device detection iPhone/desktop, TestFlight link (CTA-*)
 
 ### Out of Scope
 
 - Email capture / newsletter — contradicts privacy-first positioning
 - Analytics / tracking — zero tracking is the stance
 - Cookie consent banner — no cookies = no banner needed
-- Light mode — dark-only brand, doubles design surface
 - Blog / CMS — scope creep, landing page only
-- Video autoplay / background — heavy, hurts LCP, accessibility nightmare
 - Parallax scrolling — janky on mobile Safari, dated in 2026
 - Chat widget / support — GitHub Issues + Telegram suffice
 - Social media embeds — third-party scripts, contradicts privacy
 - Multi-page navigation — single landing page, one flow, one CTA
+- App Store badge + screenshots section — deferred, not yet on TestFlight
+
+## Current Milestone: v1.1 Polish & Differentiation
+
+**Goal:** Enrichir le site avec du contenu comparatif, des demos visuelles, des effets Liquid Glass, un mode clair, et un CTA TestFlight adaptatif.
+
+**Target features:**
+- Tableau comparatif multi-concurrents (prix, offline, privacy, plateformes, IA, open source)
+- Animation hero waveform enrichie (flat → voix → transcription)
+- Sections demo avec videos de l'app (filmees par l'utilisateur)
+- Effets Liquid Glass iOS 26 sur les elements du site
+- Mode clair inspire des couleurs de l'app Dictus
+- CTA adaptatif TestFlight avec detection device
 
 ## Context
 
@@ -48,6 +62,7 @@ Shipped v1.0 with 1,600 LOC TypeScript/CSS across 27 source files.
 Tech stack: Next.js 16 (App Router), Tailwind v4, next-intl v4, Motion v12, Vercel.
 dictus app is in active development -- TestFlight is the next milestone for the app itself.
 Telegram group link is placeholder (#) until community is created.
+v1.1 brings light mode back in scope (previously excluded) -- user decision to align website with iOS app theming.
 
 ## Constraints
 
@@ -72,5 +87,7 @@ Telegram group link is placeholder (#) until community is created.
 | Webpack over Turbopack for production | Turbopack PNG processing bug in Next.js 16.1.6 | ⚠️ Revisit -- check newer Next.js versions |
 | white-40 opacity bumped to 0.60 for WCAG AA | Contrast compliance, token name kept | ✓ Good -- passes WCAG AA |
 
+| Light mode added to v1.1 scope | Align website with iOS app theming, user request | -- Pending |
+
 ---
-*Last updated: 2026-03-10 after v1.0 milestone*
+*Last updated: 2026-03-10 after v1.1 milestone start*

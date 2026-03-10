@@ -1,17 +1,17 @@
 ---
 gsd_state_version: 1.0
-milestone: v1.0
-milestone_name: dictus Landing Page
-status: completed
-stopped_at: Milestone v1.0 shipped
+milestone: v1.1
+milestone_name: Polish & Differentiation
+status: active
+stopped_at: null
 last_updated: "2026-03-10"
-last_activity: 2026-03-10 -- v1.0 milestone completed and archived
+last_activity: 2026-03-10 -- Milestone v1.1 started
 progress:
-  total_phases: 4
-  completed_phases: 4
-  total_plans: 10
-  completed_plans: 10
-  percent: 100
+  total_phases: 0
+  completed_phases: 0
+  total_plans: 0
+  completed_plans: 0
+  percent: 0
 ---
 
 # Project State
@@ -21,13 +21,14 @@ progress:
 See: .planning/PROJECT.md (updated 2026-03-10)
 
 **Core value:** Convaincre un visiteur en quelques secondes que dictus est l'alternative privacy-first a la dictation vocale, et lui donner envie de tester l'app.
-**Current focus:** v1.0 shipped. Planning next milestone.
+**Current focus:** v1.1 — Polish & Differentiation
 
 ## Current Position
 
-Milestone v1.0 complete and archived.
-All 4 phases (10 plans) shipped 2026-03-10.
-Next: `/gsd:new-milestone` to start v2.0 planning.
+Phase: Not started (defining requirements)
+Plan: —
+Status: Defining requirements
+Last activity: 2026-03-10 — Milestone v1.1 started
 
 ## Accumulated Context
 
@@ -43,9 +44,11 @@ None.
 
 - TestFlight link availability unknown -- CTA uses Coming Soon fallback
 - Telegram group link is placeholder (#) until community is created
+- Liquid Glass in React: R&D needed, no established library known
+- Demo videos: user needs to record app footage before integration phase
 
 ## Session Continuity
 
 Last session: 2026-03-10
-Stopped at: Milestone v1.0 shipped
+Stopped at: Defining v1.1 requirements
 Resume file: None
