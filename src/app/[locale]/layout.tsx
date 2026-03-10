@@ -99,14 +99,21 @@ export default async function LocaleLayout({ children, params }: Props) {
 
   setRequestLocale(locale);
   const messages = await getMessages();
+  const tNav = await getTranslations({ locale, namespace: "Nav" });
 
   return (
     <html lang={locale} className={`${dmSans.variable} ${dmMono.variable}`}>
       <body className="overflow-x-hidden bg-ink font-sans text-white antialiased">
         <NextIntlClientProvider messages={messages}>
+          <a
+            href="#main-content"
+            className="sr-only focus:not-sr-only focus:fixed focus:left-4 focus:top-4 focus:z-50 focus:rounded-lg focus:bg-accent focus:px-4 focus:py-2 focus:text-white focus:outline-none"
+          >
+            {tNav("skip_to_content")}
+          </a>
           <Nav />
           <MotionProvider>
-            <main className="pt-16">{children}</main>
+            <main id="main-content" className="pt-16">{children}</main>
           </MotionProvider>
         </NextIntlClientProvider>
       </body>

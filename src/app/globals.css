@@ -28,7 +28,7 @@
 
   /* White variants */
   --color-white-70: rgba(255, 255, 255, 0.70);
-  --color-white-40: rgba(255, 255, 255, 0.40);
+  --color-white-40: rgba(255, 255, 255, 0.60); /* WCAG AA: ~9.3:1 contrast on #0B0F1A */
 }
 
 @theme inline {

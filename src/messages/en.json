@@ -1,7 +1,8 @@
 {
   "Nav": {
     "fr": "FR",
-    "en": "EN"
+    "en": "EN",
+    "skip_to_content": "Skip to main content"
   },
   "Metadata": {
     "title": "dictus -- 100% Offline Voice Dictation for iOS",

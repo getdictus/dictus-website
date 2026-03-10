@@ -187,6 +187,7 @@ export default function Waveform() {
     <canvas
       ref={canvasRef}
       aria-hidden="true"
+      role="presentation"
       className="pointer-events-none absolute left-0 top-0 h-[250px] w-full sm:h-[350px]"
     />
   );
