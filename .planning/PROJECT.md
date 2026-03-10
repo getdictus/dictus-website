@@ -27,7 +27,6 @@ Convaincre un visiteur en quelques secondes que dictus est l'alternative privacy
 
 - [ ] Comparison table: Dictus vs Apple Dictation, WhisperFlow, SuperWhisper, MacWhisper (COMP-*)
 - [ ] Hero waveform animation: flat → voice simulation → transcription synced (HERO-*)
-- [ ] Demo video sections: app recordings integrated in HowItWorks/DataFlow (DEMO-*)
 - [ ] Liquid Glass effects: iOS 26 style glassmorphism across site elements (GLASS-*)
 - [ ] Light mode: new theme inspired by Dictus iOS app colors (THEME-*)
 - [ ] Adaptive TestFlight CTA: device detection iPhone/desktop, TestFlight link (CTA-*)
