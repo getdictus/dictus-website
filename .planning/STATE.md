@@ -2,16 +2,16 @@
 gsd_state_version: 1.0
 milestone: v1.0
 milestone_name: milestone
-status: completed
-stopped_at: Phase 4 context gathered
-last_updated: "2026-03-10T08:01:42.130Z"
-last_activity: 2026-03-09 -- Plan 03-02 executed (hero demo animations)
+status: in-progress
+stopped_at: Completed 04-01-PLAN.md
+last_updated: "2026-03-10T08:30:01.373Z"
+last_activity: 2026-03-10 -- Plan 04-01 executed (SEO & accessibility)
 progress:
   total_phases: 4
   completed_phases: 3
-  total_plans: 8
-  completed_plans: 8
-  percent: 100
+  total_plans: 10
+  completed_plans: 9
+  percent: 90
 ---
 
 # Project State
@@ -21,16 +21,16 @@ progress:
 See: .planning/PROJECT.md (updated 2026-03-09)
 
 **Core value:** Convaincre un visiteur en quelques secondes que dictus est l'alternative privacy-first a la dictation vocale, et lui donner envie de tester l'app.
-**Current focus:** Phase 3 complete. Ready for Phase 4 (Polish & Performance).
+**Current focus:** Phase 4 in progress. SEO & accessibility complete, performance optimization next.
 
 ## Current Position
 
-Phase: 3 of 4 (Animations) -- COMPLETE
-Plan: 2 of 2 in current phase (complete)
-Status: Phase 03 complete (scroll reveals + hero demo animations)
-Last activity: 2026-03-09 -- Plan 03-02 executed (hero demo animations)
+Phase: 4 of 4 (Polish & Performance)
+Plan: 1 of 2 in current phase (complete)
+Status: Plan 04-01 complete (SEO metadata, accessibility fixes)
+Last activity: 2026-03-10 -- Plan 04-01 executed (SEO & accessibility)
 
-Progress: [██████████] 100%
+Progress: [█████████░] 90%
 
 ## Performance Metrics
 
@@ -53,6 +53,7 @@ Progress: [██████████] 100%
 *Updated after each plan completion*
 | Phase 03 P01 | 1min | 2 tasks | 4 files |
 | Phase 03 P02 | 5min | 3 tasks | 9 files |
+| Phase 04 P01 | 3min | 2 tasks | 9 files |
 
 ## Accumulated Context
 
@@ -82,6 +83,9 @@ Recent decisions affecting current work:
 - 03-01: staggerChildVariants exported for future section-internal stagger use
 - [Phase 03]: Canvas vertical bars (iOS BrandWaveform.swift port) instead of sinusoidal sine curves for waveform
 - [Phase 03]: Waveform positioned at top of hero section, not centered behind text
+- 04-01: generateMetadata (async) replacing static metadata for per-locale OG tags
+- 04-01: JSON-LD in page.tsx (not layout.tsx) to avoid duplicate rendering
+- 04-01: white-40 opacity bumped to 0.60 for WCAG AA, token name unchanged
 
 ### Pending Todos
 
@@ -90,11 +94,11 @@ None yet.
 ### Blockers/Concerns
 
 - ~~Sinusoidal waveform implementation technique~~ RESOLVED: Canvas vertical bars (iOS BrandWaveform.swift port)
-- WCAG AA contrast for rgba(255,255,255,0.40) secondary text needs verification in Phase 4
+- ~~WCAG AA contrast for rgba(255,255,255,0.40) secondary text~~ RESOLVED: Bumped to 0.60 opacity in 04-01
 - TestFlight link availability unknown -- CTA needs Coming Soon fallback
 
 ## Session Continuity
 
-Last session: 2026-03-10T08:01:42.127Z
-Stopped at: Phase 4 context gathered
-Resume file: .planning/phases/04-polish-performance/04-CONTEXT.md
+Last session: 2026-03-10T08:29:13Z
+Stopped at: Completed 04-01-PLAN.md
+Resume file: .planning/phases/04-polish-performance/04-01-SUMMARY.md
