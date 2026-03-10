@@ -1,259 +1,356 @@
 # Domain Pitfalls
 
-**Domain:** Animated dark glassmorphism Next.js landing page with i18n (dictus)
-**Researched:** 2026-03-09
+**Domain:** Adding light mode, Liquid Glass effects, embedded videos, enhanced canvas animations, device detection, and comparison tables to an existing dark-only Next.js landing page
+**Researched:** 2026-03-10
+**Project:** Dictus Website v1.1
 
 ## Critical Pitfalls
 
-Mistakes that cause rewrites, failed Lighthouse targets, or accessibility violations.
+Mistakes that cause rewrites, major regressions, or user-facing breakage.
 
-### Pitfall 1: `backdrop-filter: blur()` Destroys Mobile Performance
+### Pitfall 1: Flash of Wrong Theme (FOWT) on Page Load
 
-**What goes wrong:** Glassmorphism relies on `backdrop-filter: blur()` which is extremely GPU-intensive. Each blurred element requires the browser to sample surrounding pixels per frame. Stacking multiple glassmorphic cards (features section, hero overlay, navbar) compounds the cost exponentially. On mid-range iPhones and older Safari, this causes visible jank during scroll, dropped frames, and battery drain. Firefox historically had bugs with `backdrop-filter` causing lag with many rendered elements.
+**What goes wrong:** Server renders the default theme (dark or light), but the user's saved preference differs. On hydration, the page flashes the wrong theme for 100-500ms before correcting. This is especially jarring on a site that was previously 100% dark -- returning users see a blinding white flash before dark mode kicks in.
 
-**Why it happens:** Designers test on high-end devices with hardware acceleration. The blur radius directly correlates with GPU workload -- a `blur(20px)` is drastically more expensive than `blur(8px)`. When combined with scroll-triggered animations (sinusoidal waveform, word-by-word text reveal), the compositing budget overflows.
+**Why it happens:** Next.js SSR has no access to `localStorage` or `prefers-color-scheme` at render time. The server picks a default, the client hydrates, reads the stored preference, and swaps -- causing visible flicker.
 
-**Consequences:** Lighthouse Performance drops below 90 on mobile. Users on iPhone SE / iPhone 12 experience stuttering. TBT (Total Blocking Time) spikes during scroll. Battery drain discourages engagement.
+**Consequences:** Perceived quality drop. Users who chose dark mode see a blinding white flash. Undermines the premium feel of the brand.
 
 **Prevention:**
-- Keep blur radius under 12px (8px is the sweet spot for glassmorphism without GPU strain)
-- Limit `backdrop-filter` to maximum 3 visible elements at any time
-- Use `will-change: backdrop-filter` on glassmorphic elements to force GPU layer creation ahead of time
-- Test on a throttled device (Chrome DevTools, 4x CPU slowdown) throughout development
-- Consider a static semi-transparent background (`rgba()` with no blur) as fallback for `prefers-reduced-transparency` users
+- Use `next-themes` (< 1kb, zero deps) which injects a synchronous blocking `<script>` in `<head>` that reads `localStorage` and sets the `class` or `data-theme` attribute on `<html>` before any paint occurs.
+- Configure with `attribute="class"` and `defaultTheme="dark"` to preserve current behavior for first-time visitors.
+- Never rely on `useEffect` alone for theme application -- it fires after paint.
+- Test with throttled CPU (4x slowdown in DevTools) to catch flash that hides on fast machines.
 
-**Detection:** Run Lighthouse on mobile emulation with CPU throttling. Check "Avoid non-composited animations" audit. Profile with Chrome DevTools Performance tab -- look for long "Paint" and "Composite Layers" tasks.
+**Detection:** Load page with theme set to non-default in localStorage. Any visible flash = bug.
 
-**Phase:** Must be addressed in the initial design/component phase. Retrofitting blur optimizations after building all sections is painful.
+**Phase:** THEME-* (Light Mode). Must be the foundation before any component theming work.
+
+**Confidence:** HIGH -- well-documented Next.js pattern, `next-themes` is the standard solution (6k+ GitHub stars).
 
 ---
 
-### Pitfall 2: Animation Library Bloats Bundle and Kills LCP
+### Pitfall 2: 72 Hardcoded Dark-Only Color References Across 15 Files
 
-**What goes wrong:** Importing Framer Motion's `motion` component naively adds ~25kb to the client bundle. For a landing page targeting Lighthouse 90+, this is a significant chunk of the JS budget. Combined with the `"use client"` boundary requirement (Motion uses browser APIs), it prevents the animated sections from benefiting from SSR, increasing LCP.
+**What goes wrong:** The current site has 72 occurrences of dark-only color utilities (`bg-ink`, `bg-surface`, `text-white`, `border-border`) spread across all 15 component files. Adding light mode means every single one needs a conditional counterpart, and missing even one creates a broken component in light mode.
 
-**Why it happens:** The default `motion` import includes all animation features (layout animations, gestures, drag, SVG path). A landing page typically uses only `animate`, `transition`, and `whileInView` -- a fraction of the full bundle.
+**Why it happens:** The original design was dark-only, so there was no reason to use semantic/contextual color tokens. `bg-ink` meant "background" because there was only one background. Now `bg-ink` means "dark background" and light mode needs something different.
 
-**Consequences:** LCP regresses 200-500ms on mobile. First Load JS exceeds the "good" threshold. Lighthouse Performance score drops 5-15 points from JS payload alone.
+**Consequences:** Partial theme support -- some components look correct in light mode, others show dark backgrounds with dark text (invisible), or white text on white backgrounds. Subtle bugs that only appear in one theme.
 
 **Prevention:**
-- Use `LazyMotion` with `domAnimation` features and the `m` component instead of `motion` -- reduces bundle from ~25kb to ~5kb
-- Code-split animation features: `const loadFeatures = () => import("framer-motion").then(res => res.domAnimation)`
-- For simple animations (fade in, slide up), prefer CSS animations/transitions over JS animation libraries entirely -- zero bundle cost
-- The sinusoidal waveform animation in the hero should use CSS `@keyframes` or `<canvas>` rather than Motion components
-- Reserve Framer Motion for scroll-triggered orchestrated sequences where CSS alone is insufficient
+- Refactor `globals.css` to use CSS custom properties that swap per theme. Define the existing `@theme` token names (`ink`, `surface`, etc.) so they resolve to different values under `:root` (light) vs `.dark` (dark). This minimizes code changes in components -- `bg-ink` keeps working but resolves to a light color in light mode.
+- Audit all 15 files systematically with a checklist.
+- Alternative: use Tailwind's `dark:` variant on every utility, but this doubles the class count and is harder to maintain.
+- The `@theme` directive registers tokens at build time. Override them conditionally in `@layer base` using `:root` / `.dark` selectors for runtime theme switching.
 
-**Detection:** Run `next build` and check the "First Load JS" column. Any route above 100kb total is a red flag. Use `@next/bundle-analyzer` to identify animation library contribution.
+**Detection:** Toggle to light mode and visually inspect every section. Automated: screenshot comparison tests with Playwright in both themes.
 
-**Phase:** Architecture decision needed before building any components. Choosing CSS-first vs JS animation library shapes the entire component structure.
+**Phase:** THEME-* (Light Mode). Must be completed before Liquid Glass work, since glass effects need correct background colors to blur against.
+
+**Confidence:** HIGH -- verified by grep: 72 occurrences across 15 source files in the current codebase.
 
 ---
 
-### Pitfall 3: DM Sans Font Loading Causes Layout Shift (CLS)
+### Pitfall 3: Canvas Waveform Ignores Theme (Hardcoded Colors)
 
-**What goes wrong:** DM Sans uses 6 weights (200, 300, 400, 500, 600) plus DM Mono (300, 400) -- that is 8 font files. If loaded via Google Fonts CDN (`<link>` or `@import`), this causes FOUT (flash of unstyled text) where the system fallback font renders first, then swaps to DM Sans with different metrics, triggering CLS. The ultra-light weight 200 (used for the "dictus" wordmark with tight letter-spacing) is especially prone to visible reflow because thin fonts have very different metrics from system fallbacks.
+**What goes wrong:** `Waveform.tsx` has `BRAND_BLUE = "#3D7EFF"` and `EDGE_COLOR_RGB = "255,255,255"` hardcoded as JavaScript constants. These are not CSS variables and not reactive to theme changes. The waveform renders white edge bars that become invisible on a light background.
 
-**Why it happens:** External font loading is render-blocking or swap-causing by nature. The `letter-spacing: -0.03em` on the wordmark amplifies the shift because fallback fonts with different character widths produce visible jumps. Additionally, `next/font/google` font data can become outdated -- DM Sans has been reported as having stale data in the Next.js font module.
+**Why it happens:** Canvas 2D context uses `fillStyle` with string color values, not CSS custom properties. Unlike DOM elements, canvas drawings do not inherit CSS styles or respond to class changes.
 
-**Consequences:** CLS exceeds 0.1 threshold (Lighthouse "poor"). The "dictus" wordmark visibly jumps on load. Lighthouse CLS penalty drops Performance score below 90.
+**Consequences:** Hero section waveform becomes invisible or clashes in light mode. The most prominent visual element on the page breaks.
 
 **Prevention:**
-- Use `next/font/google` with `DM_Sans` and `DM_Mono` -- this self-hosts fonts and calculates `size-adjust` for fallbacks automatically
-- Subset to `latin` only (sufficient for FR/EN) to reduce file size
-- Load only the weights actually used: DM Sans 200, 300, 400 and DM Mono 400. Drop 500 and 600 unless actually referenced in components
-- Use `display: 'swap'` (default in next/font) but verify the size-adjust produces minimal CLS
-- If DM Sans data is stale in `next/font`, download the font files manually and use `next/font/local` instead -- this is the most reliable path
-- Set explicit `font-size` and `line-height` on the wordmark container to reserve space
+- Read computed CSS custom properties via `getComputedStyle(document.documentElement).getPropertyValue('--color-accent')` and use those in `resolveBarColor()`.
+- Listen for theme changes (via `MutationObserver` on `<html>` class changes, or `next-themes`'s `useTheme()` hook) to trigger color recalculation.
+- Cache resolved colors in a ref and only recompute on theme change, not every frame (performance).
+- The edge color must swap: white edges on dark mode, dark edges on light mode.
 
-**Detection:** Lighthouse CLS audit. Also: slow 3G throttle in DevTools and visually watch for text reflow on page load. The wordmark "dictus" should not visibly shift.
+**Detection:** Switch theme while on the hero section. Waveform should update colors immediately.
 
-**Phase:** Must be configured in the initial project setup (layout.tsx). Font strategy is foundational -- every component depends on it.
+**Phase:** THEME-* (Light Mode), specifically after the token system is refactored.
+
+**Confidence:** HIGH -- verified by reading `Waveform.tsx` source code lines 14-15.
 
 ---
 
-### Pitfall 4: i18n Routing Breaks SEO Without Proper hreflang and Metadata
+### Pitfall 4: Liquid Glass SVG Filters Broken on Mobile Safari
 
-**What goes wrong:** Next.js App Router removed built-in i18n routing. Using `next-intl` with middleware, developers often forget to: (1) add `hreflang` alternate links in metadata, (2) generate a multilingual sitemap with alternates, (3) set the `<html lang>` attribute dynamically, (4) include `x-default` in hreflang. Google then indexes only one language version, or worse, treats FR and EN pages as duplicate content.
+**What goes wrong:** True Liquid Glass effect (refraction/distortion) requires SVG `<feDisplacementMap>` filters applied via `backdrop-filter`. Only Chromium browsers expose SVG filters through `backdrop-filter`. Mobile Safari and Chrome on iOS (which uses WebKit) do not support SVG displacement maps in backdrop-filter despite `caniuse.com` indicating support -- this is a known WebKit bug.
 
-**Why it happens:** `next-intl` middleware generates `Link` response headers with hreflang automatically, but these are HTTP headers -- not `<link>` tags in the HTML `<head>`. Many developers assume the middleware handles everything and skip the metadata configuration. Additionally, Next.js does not natively support hreflang in `sitemap.xml` -- you must write a custom route handler.
+**Why it happens:** Apple's Liquid Glass is a native compositing effect, not a web standard. Web implementations are approximations. The refraction part relies on SVG filter primitives that WebKit does not properly support in the backdrop-filter context.
 
-**Consequences:** Google indexes only FR or only EN. French users land on English pages (or vice versa). Duplicate content penalties. The site effectively has no multilingual SEO despite supporting two languages.
+**Consequences:** The signature visual effect of v1.1 is invisible or broken on the primary target audience's device (iOS users visiting a page for an iOS app).
 
 **Prevention:**
-- In `generateMetadata`, explicitly set `alternates.languages` with URLs for each locale
-- Set `<html lang={locale}>` in the root layout dynamically from the route parameter
-- Build a custom `sitemap.ts` route handler that outputs all pages with `<xhtml:link rel="alternate" hreflang="x">` entries for both FR and EN plus `x-default`
-- Always include `x-default` pointing to the default locale (FR, since it is the primary language)
-- Use URL-based routing (`/fr/...`, `/en/...`), not cookie-based locale detection -- cookie-based breaks alternate links
-- Validate with Google Search Console's URL Inspection tool after deployment
+- Implement a tiered fallback approach:
+  - **Tier 1 (Chromium desktop):** Full Liquid Glass with SVG displacement + backdrop-filter blur + specular highlights.
+  - **Tier 2 (Safari/WebKit):** Enhanced glassmorphism using `backdrop-filter: blur()` + subtle gradient overlays + border highlights for depth. No displacement maps.
+  - **Tier 3 (No support):** Solid semi-transparent background with border.
+- Use `@supports (backdrop-filter: blur(10px))` for Tier 2 detection.
+- For Tier 1 vs Tier 2 distinction, test SVG filter support at runtime (render a test element, check if displacement applied).
+- Limit Liquid Glass to 2-3 elements per viewport maximum.
+- Do NOT attempt full displacement-based Liquid Glass on mobile -- `backdrop-filter: blur()` alone is already GPU-intensive on mobile Safari.
 
-**Detection:** After deployment, use `hreflang.org` validator or Google Search Console. Pre-deployment: inspect the rendered HTML `<head>` for `<link rel="alternate">` tags and verify the sitemap XML output.
+**Detection:** Test on real iPhone (not Chrome DevTools device mode). Safari on macOS is closer but still not identical to iOS behavior.
 
-**Phase:** Must be designed in the i18n setup phase. Retrofitting hreflang after building all pages means touching every `generateMetadata` call.
+**Phase:** GLASS-* (Liquid Glass). Implement after theme system is stable, since glass effects depend on correct background colors.
+
+**Confidence:** HIGH -- multiple sources confirm WebKit SVG filter limitations (CSS-Tricks, LogRocket, kube.io all document this).
 
 ---
 
-### Pitfall 5: Glassmorphism Text Fails WCAG Contrast on Dark Backgrounds
+### Pitfall 5: Lighthouse Score Regression from Video Elements
 
-**What goes wrong:** The brand kit uses `rgba(255,255,255,0.70)` for body text and `rgba(255,255,255,0.40)` for secondary labels on dark backgrounds (#0A1628, #0B0F1A). When placed on glassmorphic cards with `backdrop-filter` and semi-transparent backgrounds, the actual rendered contrast depends on what is behind the card. Text over a blurred dark area might pass WCAG, but text over a blurred lighter element (another card, a glow effect, an animation) can fail the 4.5:1 minimum contrast ratio.
+**What goes wrong:** Adding self-hosted demo videos tanks the Lighthouse Performance score from the current 97-98 down to 60-70. Videos are heavy assets (5-50MB each), their poster images become LCP candidates, and poorly configured preloading blocks network bandwidth.
 
-**Why it happens:** Glassmorphism is inherently variable-contrast -- the blur merges background colors unpredictably. The `rgba(255,255,255,0.40)` secondary text is already borderline on a pure dark background (contrast ratio ~3.2:1 against #0A1628), and fails outright on lighter blurred surfaces. Designers verify contrast against a static background, not against the actual composited result with blur.
+**Why it happens:** Video `<poster>` images count as LCP elements per the web vitals specification. Video files consume bandwidth. Without `preload="none"`, browsers fetch video metadata (and sometimes the full file) on page load. CLS occurs if video dimensions are not reserved.
 
-**Consequences:** WCAG AA failure. Lighthouse Accessibility score drops below 90. Text becomes genuinely unreadable for low-vision users. Legal accessibility risk in some jurisdictions.
+**Consequences:** Loss of hard-won Lighthouse 90+ scores. CLS spikes from unreserved video dimensions. Slow mobile experience on cellular connections -- critical for an iOS app landing page where mobile traffic dominates.
 
 **Prevention:**
-- Never use `rgba(255,255,255,0.40)` for text that conveys information -- minimum `rgba(255,255,255,0.60)` for secondary text
-- Add a solid or near-solid background layer behind text within glassmorphic cards: `background: rgba(10, 22, 40, 0.85)` under the blur layer
-- Test contrast with the Lighthouse Accessibility audit and axe DevTools -- they measure the rendered contrast, not the design spec
-- For the "dictus" wordmark (DM Sans 200, ultra-light), ensure it sits on a predictable solid dark background, never on a glassmorphic surface -- thin fonts need higher contrast
-- Implement `prefers-reduced-transparency` media query: when active, replace glassmorphic backgrounds with solid `Surface` (#161C2C) color
+- Set `preload="none"` on all video elements. Load only when user scrolls to the section or triggers playback.
+- Always provide explicit `width` and `height` attributes (or CSS `aspect-ratio`) to prevent CLS.
+- Use optimized WebP `poster` images (< 50kb). Do NOT place video in the hero/above-the-fold area.
+- Compress videos aggressively: target 1-3MB per clip. Provide dual `<source>` elements: H.264/MP4 (broad compatibility) + WebM/VP9 (smaller size).
+- Use `IntersectionObserver` to load video only when section enters viewport.
+- Include `playsinline` attribute for iOS (required for inline playback, otherwise Safari forces fullscreen).
+- Include `muted` attribute if autoplaying -- iOS requires muted for autoplay to work.
 
-**Detection:** Lighthouse Accessibility audit > "Background and foreground colors do not have a sufficient contrast ratio." Also: manually toggle `prefers-reduced-transparency` in DevTools and verify the site is still readable.
+**Detection:** Run Lighthouse before and after adding each video. Track LCP, TBT, and Speed Index. Any regression > 5 points needs investigation.
 
-**Phase:** Must be enforced during component design. Each glassmorphic card component should have contrast validation built into the design review process.
+**Phase:** DEMO-* (Demo Videos). Implement after core layout changes (theme, Liquid Glass) are stable.
+
+**Confidence:** HIGH -- LCP specification explicitly includes video poster images. Current scores documented at 97-98 in PROJECT.md.
 
 ---
+
+### Pitfall 6: Hydration Mismatch from Device Detection (TestFlight CTA)
+
+**What goes wrong:** The adaptive TestFlight CTA must show different content for iPhone users vs desktop users. If device detection runs differently on server vs client, React throws a hydration mismatch error. Server renders one version (based on request headers UA or no UA at all), client detects the real device and renders another.
+
+**Why it happens:** Next.js SSR does not have access to `window.navigator.userAgent`. Server-side, the UA comes from request headers (which may be a bot, CDN, or missing entirely on static generation). The mismatch between SSR output and client output triggers React's hydration error.
+
+**Consequences:** Console errors, potential layout flash, broken click handlers on the CTA button. React may re-render the entire subtree, causing visible jank on the most important conversion element.
+
+**Prevention:**
+- Render a single universal CTA on the server (e.g., "Get Early Access" with a neutral design that works for both contexts).
+- Use `useEffect` on the client to detect device and swap to the platform-specific version. This avoids hydration mismatch because server and client initially render the same thing.
+- Use CSS `min-height` on the CTA container to prevent CLS during the swap.
+- Do NOT use raw `navigator.userAgent` parsing for iOS detection -- combine feature detection with UA: `'ontouchstart' in window && /iPhone/.test(navigator.userAgent)`.
+- Do NOT use `suppressHydrationWarning` as a fix -- it masks the problem.
+- Consider `next/dynamic` with `ssr: false` ONLY for the device-specific inner content, not the entire CTA component.
+
+**Detection:** View page source -- HTML should show the universal CTA. Client-rendered swap should happen after hydration with no console errors. Test with JavaScript disabled: universal CTA should still be functional and link to TestFlight.
+
+**Phase:** CTA-* (TestFlight CTA). Can be implemented independently of theme/glass work.
+
+**Confidence:** HIGH -- Next.js official docs explicitly document this hydration mismatch pattern.
 
 ## Moderate Pitfalls
 
-### Pitfall 6: Sinusoidal Waveform Animation Causes CLS in Hero
+### Pitfall 7: Liquid Glass + Light Mode Interaction Breaks Visual Effect
 
-**What goes wrong:** The hero section features a sinusoidal waveform animation with text appearing word-by-word. If the animation container does not have a fixed height, the word-by-word reveal shifts content below it as each word appears. Similarly, if the waveform SVG/canvas element loads after initial paint, it pushes content down.
+**What goes wrong:** Liquid Glass effects rely on `backdrop-filter: blur()` which blurs content behind the element. On dark backgrounds, blurred dark content through a semi-transparent panel produces the premium glass look. On light backgrounds, the same blur creates a washed-out, low-contrast surface that loses the "glass" feel entirely and makes text unreadable.
+
+**Why it happens:** The perceptual impact of blur and transparency is asymmetric between dark and light themes. Dark-on-dark blur preserves depth cues. Light-on-light blur flattens everything.
 
 **Prevention:**
-- Reserve exact dimensions for the waveform container with CSS (`min-height`, `aspect-ratio`)
-- Use `position: absolute` or `position: fixed` for the waveform so it does not participate in document flow
-- For the word-by-word text, pre-render the full text invisibly (`visibility: hidden`) to reserve space, then reveal words with `opacity` transitions (not `display: none` to `display: block`)
-- Alternatively, use a fixed-height container for the text area sized to fit the longest translation (EN/FR)
+- Design Liquid Glass tokens separately for each theme:
+  - Dark mode: higher blur (12-16px), lower background opacity (0.1-0.2), white border highlights.
+  - Light mode: lower blur (8-10px), slightly higher background opacity (0.15-0.25), subtle dark border for definition, tinted background (not pure white).
+- The specular highlight (rim light) needs to be inverted: white highlights for dark mode, dark/subtle highlights for light mode.
+- Test each glass element in both themes during development, not at the end.
 
-**Detection:** Lighthouse CLS audit. Record a slow-motion page load and watch for content jumping below the hero.
+**Phase:** GLASS-* must be implemented AFTER THEME-* is complete, because glass parameters depend on theme context.
 
-**Phase:** Hero component build phase. Must be designed with CLS prevention from the start.
+**Confidence:** MEDIUM -- logical deduction from how backdrop-filter composites with different backgrounds. No specific source for this exact combination, but consistent with glassmorphism best practices.
 
 ---
 
-### Pitfall 7: `"use client"` Boundary Creep Defeats SSR Benefits
+### Pitfall 8: backdrop-filter Performance Death by Multiple Glass Elements
 
-**What goes wrong:** Framer Motion and any interactive animation requires `"use client"`. Developers place `"use client"` at the page or section level, which forces the entire component tree below that boundary to be client-rendered. For a landing page, this means the hero, features, and CTA sections all ship as client JS -- defeating Next.js SSR and inflating Time to Interactive.
+**What goes wrong:** Each element with `backdrop-filter` triggers a separate GPU blur pass. With 3+ glass elements visible simultaneously during scroll, mobile devices (especially older iPhones like SE, 12, 13 mini) drop to 30fps or lower. Smooth scroll becomes stuttery.
+
+**Why it happens:** Each blur operation samples pixels in a radius around the element. Multiple overlapping glass elements compound the cost. Combined with the existing canvas animation in the hero and Motion-powered scroll animations, the GPU compositing budget overflows.
 
 **Prevention:**
-- Push `"use client"` boundaries as deep as possible in the component tree
-- Create thin animation wrapper components (`<FadeIn>`, `<SlideUp>`) that are `"use client"` and wrap server-rendered content
-- The content itself (headings, paragraphs, feature descriptions) should remain Server Components
-- Structure: `ServerSection > ClientAnimationWrapper > ServerContent`
-- Never put `"use client"` on layout.tsx or page.tsx
+- Limit to 2-3 glass elements per viewport maximum. Nav bar + one card + one CTA is the practical limit.
+- Reduce blur radius on mobile: 6-8px instead of 12-16px. Higher values are exponentially more expensive.
+- Never animate elements that have `backdrop-filter` applied (no translateY transitions on glass cards during scroll reveals).
+- Add `transform: translateZ(0)` to force GPU layer promotion, but be aware this increases memory usage.
+- Profile on a real iPhone 12 or older -- simulator and DevTools performance is not representative.
+- Consider disabling glass effects entirely on low-end devices via a performance detection heuristic.
 
-**Detection:** Check `next build` output for "First Load JS" per route. Compare with and without animation wrappers. If removing animations dramatically reduces JS, the boundary is too high.
+**Phase:** GLASS-* (Liquid Glass). Performance testing per-element during implementation, not as a final pass.
 
-**Phase:** Architecture decision. Must be established as a pattern before building any section components.
+**Confidence:** HIGH -- multiple sources confirm backdrop-filter is GPU-intensive and cost is per-element.
 
 ---
 
-### Pitfall 8: Missing `prefers-reduced-motion` Breaks Accessibility
+### Pitfall 9: Video Format Incompatibility on iOS Safari
 
-**What goes wrong:** The site has heavy animations (sinusoidal waveform, word-by-word text reveal, glassmorphic transitions, scroll-triggered fade-ins). Users with vestibular disorders who enable "Reduce motion" in their OS settings expect these animations to stop. Ignoring `prefers-reduced-motion` is a WCAG 2.1 Level AAA failure and causes real physical discomfort (nausea, dizziness) for affected users.
+**What goes wrong:** WebM/VP9 is not supported on iOS Safari. If only WebM sources are provided, iPhone users (the primary target audience for an iOS app landing page) see a broken video element or nothing at all.
 
 **Prevention:**
-- Implement a global CSS rule: `@media (prefers-reduced-motion: reduce) { *, *::before, *::after { animation-duration: 0.01ms !important; animation-iteration-count: 1 !important; transition-duration: 0.01ms !important; } }`
-- For Framer Motion, check the `useReducedMotion()` hook and conditionally disable or simplify animations
-- The sinusoidal waveform should display as a static image/SVG when reduced motion is active
-- Word-by-word text reveal should show the complete text immediately
-- Also implement `prefers-reduced-transparency`: replace blur/glass effects with solid backgrounds
+- Always provide H.264/MP4 as the fallback `<source>` and WebM as progressive enhancement:
+  ```html
+  <video playsinline muted>
+    <source src="demo.webm" type="video/webm">
+    <source src="demo.mp4" type="video/mp4">
+  </video>
+  ```
+- Include `playsinline` -- without it, iOS Safari forces fullscreen video playback.
+- Include `muted` if using autoplay -- iOS requires muted for autoplay.
+- Test on real iOS device -- Chrome DevTools does not accurately simulate iOS video behavior.
 
-**Detection:** Toggle "Reduce motion" in macOS System Settings > Accessibility > Display, or in Chrome DevTools > Rendering > Emulate CSS media feature `prefers-reduced-motion`. Verify all animations stop.
+**Phase:** DEMO-* (Demo Videos).
 
-**Phase:** Must be implemented alongside each animation component, not as an afterthought. Build the reduced-motion variant first, then add animations on top.
+**Confidence:** HIGH -- well-documented iOS Safari limitation.
 
 ---
 
-### Pitfall 9: Responsive Animations Break on Mobile Viewports
+### Pitfall 10: Comparison Table Unusable on Mobile
 
-**What goes wrong:** Animations designed for desktop (wide sinusoidal waveform, horizontal word reveal, multi-column glassmorphic cards with staggered entrance) are tested at 1440px. On 375px mobile screens, the waveform overflows, text animations stack awkwardly, and staggered card animations look chaotic because cards are stacked vertically instead of in a grid.
+**What goes wrong:** A 6-column comparison table (Dictus + 4 competitors + feature column) does not fit on a 375px mobile screen. Horizontal scrolling is confusing without affordances, and stacking rows into cards loses the comparison context that makes the table valuable in the first place.
+
+**Why it happens:** Tables are inherently two-dimensional. Comparison tables specifically need columns visible side-by-side to be useful. Mobile screens can show 2-3 columns at most.
 
 **Prevention:**
-- Design animations mobile-first: start with the 375px behavior, then enhance for larger screens
-- Use CSS container queries or viewport-aware animation parameters
-- The sinusoidal waveform should reduce in amplitude and complexity on mobile (fewer cycles, smaller canvas)
-- Disable staggered entrance animations on mobile when items are stacked -- use a simple fade-in instead
-- Test at 375px, 390px (iPhone 14/15), and 428px (iPhone Pro Max) throughout development, not just at the end
+- Pin the first column (feature names) and the Dictus column as sticky. Make remaining competitor columns horizontally scrollable.
+- Add a visible scroll indicator ("Swipe to compare") that fades after first interaction.
+- Ensure the scroll container has `tabindex="0"` and `role="region"` with `aria-label` for keyboard accessibility (WCAG requirement for scrollable regions).
+- Consider a mobile-specific card layout as an alternative: one card per competitor showing their values vs Dictus, swipeable.
+- Use icon/checkmark patterns instead of text where possible to reduce column width requirements.
 
-**Detection:** Chrome DevTools device emulation at various iPhone sizes. Check for horizontal overflow, animation clipping, and visual chaos on small screens.
+**Phase:** COMP-* (Comparison Table).
 
-**Phase:** Must be considered during each component build, not as a post-development responsive pass.
+**Confidence:** HIGH -- responsive table challenges are well-documented and this table has 6+ columns by design.
 
 ---
+
+### Pitfall 11: Enhanced Waveform State Machine Timing Bugs
+
+**What goes wrong:** The v1.1 hero waveform needs three states: flat (idle) -> voice simulation -> transcription synced. Managing transitions between these states with smooth interpolation creates a complex state machine. Off-by-one timing errors, stuck states, and jarring transitions between energy functions are common.
+
+**Why it happens:** The current `Waveform.tsx` uses a single `processingEnergy` function driven by a continuous sinusoidal wave. Adding discrete states with transitions requires interpolating between different energy functions, which introduces edge cases around transition boundaries.
+
+**Prevention:**
+- Define a clear state enum: `IDLE | LISTENING | TRANSCRIBING` with explicit transition rules (IDLE->LISTENING, LISTENING->TRANSCRIBING, TRANSCRIBING->IDLE, no skipping).
+- Each state defines its own energy function (replacing the current single `processingEnergy`). Transitions lerp between outgoing and incoming energy functions over a fixed duration (300-500ms).
+- Keep the existing `useAnimationFrame` hook (which already has proper `cancelAnimationFrame` cleanup). Extend `useHeroDemoState` for state management.
+- Do NOT use `setTimeout` for state transitions in animation code -- use the animation timestamp to track elapsed time for deterministic behavior.
+- Do NOT add additional `requestAnimationFrame` loops -- keep the single loop pattern.
+
+**Phase:** HERO-* (Hero Animation).
+
+**Confidence:** MEDIUM -- based on analysis of existing code structure in `Waveform.tsx` and `useHeroDemoState.ts`.
 
 ## Minor Pitfalls
 
-### Pitfall 10: Google Fonts Download Failure at Build Time
+### Pitfall 12: next-themes + Tailwind v4 @theme Directive Token Conflict
 
-**What goes wrong:** `next/font/google` downloads fonts from Google Fonts API at build time. If the build environment has network restrictions (CI/CD behind a proxy, Vercel cold start), the download can fail with `ENETUNREACH`, causing the build to fail or falling back to system fonts in production.
+**What goes wrong:** Tailwind v4 uses `@theme` to register CSS custom properties at build time for utility class generation. If the token values in `@theme` are static hex values (as they currently are in `globals.css`), Tailwind generates utilities referencing those fixed values. The theme toggle changes the class on `<html>`, but the utilities still resolve to the dark-mode hex values.
+
+**Why it happens:** `@theme` runs at build time. Theme switching happens at runtime. The two systems operate at different lifecycle stages.
 
 **Prevention:**
-- Download DM Sans and DM Mono font files manually and use `next/font/local` instead -- this eliminates the network dependency entirely and is the most reliable approach
-- If using `next/font/google`, verify font loading works in Vercel's build environment by checking build logs
+- Keep `@theme` values as they are for Tailwind utility generation (so `bg-ink`, `text-accent`, etc. continue to work as class names).
+- Override the CSS custom properties at runtime using `@layer base` with `:root` / `.dark` selectors. The `@theme` values become defaults, and the runtime layer overrides them based on active theme.
+- This is the pattern recommended in the Tailwind v4 community (GitHub Discussion #15083).
 
-**Detection:** Build log warnings about font download failures. Production site rendering in system font instead of DM Sans.
+**Phase:** THEME-* (Light Mode) -- must be resolved during initial theme architecture, before any component work.
 
-**Phase:** Project setup phase.
+**Confidence:** MEDIUM -- based on Tailwind v4 docs and community discussion. Specific interaction with `next-themes` needs validation during implementation.
 
 ---
 
-### Pitfall 11: Glow Effects Compound with Blur to Create Visual Noise
+### Pitfall 13: prefers-reduced-motion Ignored for New Feature Animations
 
-**What goes wrong:** The brand kit includes glow effects (`rgba(61,126,255,0.35)` and `rgba(61,126,255,0.12)`). When glow elements overlap with glassmorphic blurred cards, the blur picks up the glow color and amplifies it, creating an unintended bright haze that reduces text readability and looks messy.
+**What goes wrong:** The existing site properly respects `prefers-reduced-motion` via Motion's `useReducedMotion()` hook and the Waveform's static fallback. New features (Liquid Glass hover transitions, video autoplay, enhanced waveform states, comparison table scroll animations) might skip this check, breaking the established accessibility pattern.
 
 **Prevention:**
-- Place glow elements on a separate z-index layer below the blur source
-- Use `isolation: isolate` on glassmorphic cards to create a new stacking context that excludes glow elements from the blur calculation
-- Test glow + glass combinations visually across all sections, not in isolation
+- Every new animation must check `useReducedMotion()` or use CSS `@media (prefers-reduced-motion: reduce)`.
+- Videos: disable autoplay when reduced motion is preferred. Show static poster image instead.
+- Liquid Glass: disable animated transitions (e.g., blur intensity changes on hover/scroll). Static glass effect is acceptable.
+- Comparison table: disable any scroll-triggered entry animations. Show table immediately.
+- Maintain the existing pattern from `useAnimationFrame`: the `isActive` boolean should incorporate reduced motion check.
 
-**Detection:** Visual review with all sections visible. Scroll slowly and watch for areas where glow bleeds through glassmorphic cards.
+**Phase:** All phases. Each feature implementation must include reduced-motion handling.
 
-**Phase:** Component design phase.
+**Confidence:** HIGH -- existing pattern is established in the codebase (`Waveform.tsx` line 29, `useAnimationFrame.ts`) and must be maintained.
 
 ---
 
-### Pitfall 12: i18n Text Length Differences Break Layouts
+### Pitfall 14: Comparison Table Data Staleness and Accuracy Risk
 
-**What goes wrong:** French text is typically 15-30% longer than English for the same content. A hero headline that fits beautifully in English ("Your voice, your privacy.") may overflow or wrap awkwardly in French ("Votre voix, votre vie privee."). Fixed-width containers, truncated text, or single-line constraints break when switching languages.
+**What goes wrong:** Competitor features, pricing, and capabilities change. Hardcoded comparison data becomes inaccurate, making the table a liability. Competitors may object to misrepresentation. Claims about competitors' privacy practices especially carry reputational risk if wrong.
 
 **Prevention:**
-- Design layouts with the longer language (French) as the default
-- Never use fixed pixel widths for text containers -- use `max-width` with flexible height
-- Test every section in both languages during development, not just at the end
-- For the hero word-by-word animation, ensure the container can accommodate the longer French text without layout shift
+- Add a visible "Last updated: [date]" footer to the comparison table.
+- Use only factual, verifiable claims (pricing tiers, platform availability, open source status, stated privacy policy). Avoid subjective quality claims.
+- Store comparison data in a structured JSON/TS file separate from the component, making updates easy without touching component code.
+- Include source URLs for each factual claim in code comments.
+- Avoid "X competitor does NOT have Y" claims unless verifiable -- use "Not available" or leave blank.
 
-**Detection:** Switch between FR and EN and verify no text truncation, overflow, or awkward wrapping occurs.
+**Phase:** COMP-* (Comparison Table).
 
-**Phase:** Every component build phase. Each section should be tested in both languages before being considered complete.
+**Confidence:** HIGH -- common content maintenance pitfall.
 
 ---
+
+### Pitfall 15: Video Files Bloating Git Repository
+
+**What goes wrong:** Committing 5-50MB video files to the Git repository makes clone times slow, increases repo size permanently (even after deletion from HEAD), and slows CI/CD.
+
+**Prevention:**
+- Store videos in `/public/videos/` but gitignore them if large.
+- Preferred: host on Vercel Blob or equivalent CDN, reference by URL.
+- Alternative: keep in repo ONLY if total video assets < 10MB and there are 2-3 files maximum. Current repo is lean (1,600 LOC, 27 files) -- adding 30MB of video would dominate the repo size.
+- Decide hosting strategy before recording/encoding videos.
+
+**Phase:** DEMO-* (Demo Videos) -- decide hosting strategy before implementation begins.
+
+**Confidence:** HIGH -- standard Git best practice.
 
 ## Phase-Specific Warnings
 
 | Phase Topic | Likely Pitfall | Mitigation |
 |-------------|---------------|------------|
-| Project setup / Scaffolding | Font loading CLS (#3), Google Fonts build failure (#10) | Use `next/font/local` with downloaded DM Sans/Mono files, configure font variables in layout.tsx from day one |
-| i18n configuration | Missing hreflang (#4), text length differences (#12) | Set up next-intl with URL-based routing, custom sitemap route handler, and alternates in generateMetadata before building any page content |
-| Design system / Components | Glassmorphism contrast (#5), blur performance (#1), glow noise (#11) | Build a `<GlassCard>` component with built-in contrast-safe background layer, blur radius cap at 8-12px, and `prefers-reduced-transparency` fallback |
-| Hero section | Waveform CLS (#6), animation bundle bloat (#2), responsive breakpoints (#9) | Use CSS/Canvas for waveform (not Framer Motion), fixed-height container, mobile-first design |
-| Animation system | `"use client"` creep (#7), reduced motion (#8), bundle size (#2) | Establish thin client wrapper pattern, implement `prefers-reduced-motion` from the start, use LazyMotion + `m` components |
-| Features / Content sections | Responsive animations (#9), contrast on glass (#5) | Test each section at 375px in both languages with Lighthouse accessibility audit |
-| Pre-launch audit | All pitfalls compound | Run Lighthouse on mobile with CPU throttling, validate hreflang with external tool, toggle reduced-motion/reduced-transparency in OS settings |
+| THEME-* (Light Mode) | FOWT flash (#1), 72 hardcoded color refs (#2), canvas colors (#3), Tailwind v4 @theme conflict (#12) | Implement first. Use next-themes with defaultTheme="dark". Refactor tokens to be theme-conditional via @layer base overrides. Audit all 15 component files. Fix Waveform canvas colors. |
+| GLASS-* (Liquid Glass) | Safari SVG filter failure (#4), performance on mobile (#8), light mode interaction (#7) | Tiered fallback: Chromium gets full effect, Safari gets enhanced blur, others get solid. Limit 2-3 elements per viewport. Implement AFTER theme work is complete. |
+| DEMO-* (Demo Videos) | LCP regression (#5), iOS format incompatibility (#9), Git bloat (#15) | preload="none" + IntersectionObserver. Dual format MP4+WebM. playsinline+muted for iOS. Decide hosting strategy upfront. |
+| HERO-* (Hero Animation) | State machine complexity (#11), theme-aware canvas (#3) | Timestamp-based transitions, not setTimeout. Read CSS vars for colors. Keep single rAF loop. |
+| CTA-* (TestFlight CTA) | Hydration mismatch (#6) | Universal server render + client-side useEffect enhancement. min-height to prevent CLS. |
+| COMP-* (Comparison Table) | Mobile usability (#10), data staleness (#14) | Sticky first + Dictus columns, horizontal scroll for rest. Separate data from presentation component. |
+| All phases | Reduced motion regression (#13) | Every new animation checks useReducedMotion(). Maintain existing accessibility pattern. |
+
+## Implementation Order Rationale (Based on Pitfall Dependencies)
+
+The pitfall analysis reveals clear dependency chains that dictate implementation order:
+
+1. **THEME-* first** -- Light mode token system is a hard dependency for Liquid Glass (glass parameters differ per theme, Pitfall #7) and canvas colors (waveform needs theme-reactive colors, Pitfall #3). Doing this first prevents rework across all other features.
+2. **HERO-* second** -- Canvas already needs theme-awareness from step 1. Adding animation states while refactoring the canvas code avoids touching `Waveform.tsx` twice.
+3. **GLASS-* third** -- Depends on stable theme system (Pitfall #7). Performance testing is only meaningful after theme is finalized and background colors are correct.
+4. **COMP-*, DEMO-*, CTA-*** -- These three features have no cross-dependencies. They can be implemented in parallel or in any order after the first three are stable.
 
 ## Sources
 
-- [Axess Lab: Glassmorphism Meets Accessibility](https://axesslab.com/glassmorphism-meets-accessibility-can-frosted-glass-be-inclusive/)
-- [shadcn/ui: backdrop-filter performance issues](https://github.com/shadcn-ui/ui/issues/327)
-- [MDN: prefers-reduced-motion](https://developer.mozilla.org/en-US/docs/Web/CSS/Reference/At-rules/@media/prefers-reduced-motion)
-- [MDN: prefers-reduced-transparency](https://developer.mozilla.org/en-US/docs/Web/CSS/Reference/At-rules/@media/prefers-reduced-transparency)
-- [Motion.dev: Reduce bundle size](https://motion.dev/docs/react-reduce-bundle-size)
-- [Next.js: Font Optimization](https://nextjs.org/docs/app/getting-started/fonts)
-- [next-intl: Metadata and Route Handlers](https://next-intl.dev/docs/environments/actions-metadata-route-handlers)
-- [next-intl: Routing configuration](https://next-intl.dev/docs/routing/configuration)
-- [QED42: Next.js Lighthouse Performance Tuning](https://www.qed42.com/insights/next-js-performance-tuning-practical-fixes-for-better-lighthouse-scores)
-- [App Router pitfalls (imidef.com)](https://imidef.com/en/2026-02-11-app-router-pitfalls)
-- [GitHub: next-intl sitemap discussion](https://github.com/amannn/next-intl/discussions/888)
-- [web.dev: prefers-reduced-motion](https://web.dev/articles/prefers-reduced-motion)
-- [New Target: Glassmorphism with Accessibility](https://www.newtarget.com/web-insights-blog/glassmorphism/)
+- [next-themes -- GitHub](https://github.com/pacocoursey/next-themes) -- FOWT prevention via blocking script injection
+- [Fixing Dark Mode Flickering in React/Next.js -- Not A Number](https://notanumber.in/blog/fixing-react-dark-mode-flickering) -- FOWT root cause analysis
+- [Next.js Dark Mode Guide -- BetterLink](https://eastondev.com/blog/en/posts/dev/20251220-nextjs-dark-mode-guide/) -- next-themes + Tailwind integration
+- [Tailwind v4 CSS Variables Discussion #15083](https://github.com/tailwindlabs/tailwindcss/discussions/15083) -- Theme-conditional token overrides
+- [Tailwind CSS Dark Mode Docs](https://tailwindcss.com/docs/dark-mode) -- Class strategy configuration
+- [Liquid Glass in CSS and SVG -- kube.io](https://kube.io/blog/liquid-glass-css-svg/) -- SVG filter browser limitations
+- [Getting Clarity on Apple's Liquid Glass -- CSS-Tricks](https://css-tricks.com/getting-clarity-on-apples-liquid-glass/) -- Implementation reality check
+- [How to Create Liquid Glass Effects -- LogRocket](https://blog.logrocket.com/how-create-liquid-glass-effects-css-and-svg/) -- Performance and fallback strategies
+- [nikdelvin/liquid-glass -- GitHub](https://github.com/nikdelvin/liquid-glass) -- Reference CSS/SVG implementation
+- [Glassmorphism Implementation Guide 2025](https://playground.halfaccessible.com/blog/glassmorphism-design-trend-implementation-guide) -- Mobile performance limits
+- [Largest Contentful Paint -- web.dev](https://web.dev/articles/lcp) -- Video poster as LCP element specification
+- [Next.js Hydration Error Docs](https://nextjs.org/docs/messages/react-hydration-error) -- Official hydration mismatch documentation
+- [Device Detection in Next.js SSR -- codestudy.net](https://www.codestudy.net/blog/how-to-detect-the-device-on-react-ssr-app-with-next-js/) -- UA detection patterns and pitfalls
+- [Fix Hydration Mismatch Errors -- OneUptime](https://oneuptime.com/blog/post/2026-01-24-fix-hydration-mismatch-errors-nextjs/view) -- 2026 hydration fix patterns
+- [backdrop-filter -- Can I Use](https://caniuse.com/css-backdrop-filter) -- Browser support data (95% global)
+- [CSS Responsive Tables Guide 2025](https://dev.to/satyam_gupta_0d1ff2152dcc/css-responsive-tables-complete-guide-with-code-examples-for-2025-225p) -- Mobile table patterns
+- [Accessible Responsive Tables -- tempertemper](https://www.tempertemper.net/blog/accessible-responsive-tables) -- WCAG scrollable region requirements
+- [Canvas Memory Leak Study -- stackinsight.dev](https://stackinsight.dev/blog/memory-leak-empirical-study/) -- requestAnimationFrame cleanup impact (819KB vs 2.5KB)

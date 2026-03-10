@@ -1,213 +1,426 @@
-# Technology Stack
+# Technology Stack — v1.1 Additions
 
-**Project:** dictus Landing Page
-**Researched:** 2026-03-09
+**Project:** dictus Landing Page v1.1
+**Researched:** 2026-03-10
+**Scope:** NEW stack additions only. See v1.0 research for base stack (Next.js 16, Tailwind v4, Motion v12, next-intl v4).
 
-## Recommended Stack
+## New Dependencies
 
-### Core Framework
-
-| Technology | Version | Purpose | Why | Confidence |
-|------------|---------|---------|-----|------------|
-| Next.js | 16.1.x | Framework, SSG, routing | Project requirement. v16 brings Turbopack as default bundler (5x faster builds), stable App Router, React 19. Use static export for a landing page. | HIGH |
-| React | 19.x | UI library | Ships with Next.js 16. Server Components reduce client JS. | HIGH |
-| Tailwind CSS | 4.2.x | Styling | Project requirement. v4 uses CSS-first config (no tailwind.config.js), Rust-based compiler (100x faster incremental), OKLCH colors, cascade layers. | HIGH |
-
-### Animation
+### Theme Management
 
 | Technology | Version | Purpose | Why | Confidence |
 |------------|---------|---------|-----|------------|
-| Motion (framer-motion) | 12.x | UI animations, scroll-triggered reveals, micro-interactions | Best React animation library for declarative animations. Native gesture support, layout animations, AnimatePresence for mount/unmount. Import from `motion/react` (new package name). Use `LazyMotion` + `m` components to reduce initial bundle from ~34kb to ~4.6kb. | HIGH |
+| next-themes | 0.4.6 | Light/dark mode toggle with SSR | Prevents flash of unstyled content (FOUC) on page load. Handles localStorage persistence, system preference detection, `<html>` class toggling. 2 lines of setup. React 19 compatible (peer dep: `^19`). 3M+ weekly npm downloads. The standard solution for Next.js theming. | HIGH |
 
-**Why Motion over GSAP:** Motion is React-native (declarative props, not imperative refs), has smaller bundle with LazyMotion, better DX for component-level animations. GSAP is superior for complex SVG timelines and ScrollTrigger, but this project needs scroll-reveal, micro-interactions, and state-based animations (recording/transcribing states) -- all Motion strengths. GSAP also has licensing concerns for commercial use.
+**Why next-themes over rolling our own:**
+- FOUC prevention requires an inline `<script>` in `<head>` that runs before React hydration. next-themes handles this correctly with its `ThemeProvider` + blocking script injection. Getting this right manually is error-prone and a known pain point.
+- Handles the three-way toggle (light / dark / system) with localStorage persistence out of the box.
+- Zero bundle cost at runtime beyond the tiny provider (~1.5kb).
 
-**Why not lighter alternatives (AutoAnimate, Motion One):** The sinusoidal waveform animation, state-based color transitions, and word-by-word text reveal require a full-featured animation library. AutoAnimate is too simple. Motion One lacks React integration depth.
+**Why not cookies-based approach:** next-themes uses localStorage + blocking script. Some guides suggest cookies for SSR theme detection, but this adds server complexity for zero benefit on a static-ish landing page. The blocking script approach eliminates FOUC without server involvement.
 
-### Internationalization
+### No Other New Dependencies
 
-| Technology | Version | Purpose | Why | Confidence |
-|------------|---------|---------|-----|------------|
-| next-intl | 4.x | FR/EN bilingual support | Built specifically for Next.js App Router. ~2KB bundle, native Server Component support, built-in locale routing via middleware, TypeScript type safety. 1.8M weekly npm downloads. The clear winner over next-i18next for App Router projects. | HIGH |
+Everything else needed for v1.1 features is achievable with the existing stack plus native browser APIs. Specifically:
 
-**Why not next-i18next:** Designed for Pages Router era. Requires more configuration for App Router, needs react-i18next as dependency, more complex server-side setup. next-intl was built for the App Router from day one.
-
-### Fonts & Assets
-
-| Technology | Version | Purpose | Why | Confidence |
-|------------|---------|---------|-----|------------|
-| next/font | (built-in) | Font loading (DM Sans, DM Mono) | Eliminates render-blocking font requests, improves FCP by 200-500ms, prevents CLS. Self-hosts Google Fonts at build time. | HIGH |
-| next/image | (built-in) | Image optimization | Auto WebP conversion, lazy loading, responsive sizing. Critical for Lighthouse scores. | HIGH |
-
-### Performance & Analytics
-
-| Technology | Version | Purpose | Why | Confidence |
-|------------|---------|---------|-----|------------|
-| @next/bundle-analyzer | latest | Bundle analysis | Essential for monitoring animation library impact on bundle size. Zero-tracking philosophy means no analytics SDK needed. | HIGH |
-
-### Development Tools
-
-| Technology | Version | Purpose | Why | Confidence |
-|------------|---------|---------|-----|------------|
-| TypeScript | 5.x | Type safety | Ships with Next.js 16 setup. Type-safe routes, typed translations with next-intl. | HIGH |
-| ESLint | 9.x | Linting | Next.js built-in ESLint config. Flat config format in v9. | HIGH |
-
-## Glassmorphism / Liquid Glass: CSS-Only (No Library)
-
-This is a critical design decision. **Do not use a glassmorphism library.** Implement with pure CSS:
-
-```css
-/* Core glass effect */
-.glass {
-  background: rgba(22, 28, 44, 0.6);        /* Surface color with alpha */
-  backdrop-filter: blur(12px);                /* 8-15px sweet spot */
-  -webkit-backdrop-filter: blur(12px);        /* Safari prefix still needed */
-  border: 1px solid rgba(255, 255, 255, 0.07); /* Brand border token */
-  border-radius: 16px;
-  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.3);
-}
-
-/* Liquid glass highlight (top edge light refraction) */
-.glass::before {
-  content: '';
-  position: absolute;
-  top: 0;
-  left: 0;
-  right: 0;
-  height: 1px;
-  background: linear-gradient(
-    90deg,
-    transparent,
-    rgba(255, 255, 255, 0.15),
-    transparent
-  );
-}
-```
-
-**Why CSS-only:**
-- Browser support for `backdrop-filter` is 95%+ (2025 data)
-- No JS overhead -- critical for Lighthouse performance score
-- Full control over the brand kit tokens
-- Advanced SVG liquid glass filters (feTurbulence, feSpecularLighting) are NOT cross-browser safe (Safari/Firefox don't support SVG filters as backdrop-filter inputs). Keep it simple.
-
-**Performance rule:** Keep `backdrop-filter` to max 5-6 elements per viewport. Each blurred element is GPU-expensive. Use `will-change: transform` sparingly.
-
-## Alternatives Considered
-
-| Category | Recommended | Alternative | Why Not |
-|----------|-------------|-------------|---------|
-| Animation | Motion 12.x | GSAP | Imperative API, licensing concerns, heavier for React patterns |
-| Animation | Motion 12.x | React Spring | Less maintained, steeper learning curve, weaker ecosystem |
-| Animation | Motion 12.x | CSS animations only | Insufficient for sinusoidal waveform, state transitions, word-by-word reveal |
-| i18n | next-intl 4.x | next-i18next | Pages Router legacy, complex App Router setup, larger dependency tree |
-| i18n | next-intl 4.x | Intlayer | Newer, smaller community, less battle-tested |
-| Glass effects | CSS backdrop-filter | Glass UI libraries | Unnecessary dependency, less control, performance overhead |
-| Fonts | next/font | Google Fonts CDN | Render-blocking, CLS issues, privacy concern (Google tracking) |
+| Feature | Approach | New Dependency? |
+|---------|----------|-----------------|
+| Liquid Glass effects | Pure CSS (backdrop-filter + SVG filter fallback) | NO |
+| Light mode theming | Tailwind v4 `@custom-variant` + CSS custom properties | NO (next-themes only) |
+| Video embedding | Native `<video>` element + Intersection Observer | NO |
+| Canvas animation enhancements | Extend existing Waveform.tsx | NO |
+| Device detection (iOS) | `navigator.userAgent` regex, client-side | NO |
+| Comparison table | Static React component + next-intl translations | NO |
 
 ## Installation
 
 ```bash
-# Create Next.js project (Turbopack default in v16)
-npx create-next-app@latest dictus-website --typescript --tailwind --app --src-dir
-
-# Animation
-npm install motion
-
-# Internationalization
-npm install next-intl
-
-# Dev tools
-npm install -D @next/bundle-analyzer
+# Only new dependency for v1.1
+npm install next-themes
 ```
 
-## Key Configuration Notes
+---
 
-### Motion: Use LazyMotion for Performance
+## Feature-Specific Stack Guidance
 
-```tsx
-// app/providers.tsx
-"use client";
-import { LazyMotion, domAnimation } from "motion/react";
+### 1. Light/Dark Mode with Tailwind v4
 
-export function Providers({ children }: { children: React.ReactNode }) {
-  return <LazyMotion features={domAnimation}>{children}</LazyMotion>;
-}
-```
+**Architecture:** CSS custom properties scoped to `.dark` / default (light), toggled via next-themes.
 
-Use `m` component instead of `motion` for tree-shakeable animations:
-```tsx
-import { m } from "motion/react";
-// NOT: import { motion } from "motion/react";
-```
-
-### next-intl: App Router Setup
-
-Directory structure:
-```
-src/
-  app/
-    [locale]/
-      layout.tsx
-      page.tsx
-  i18n/
-    routing.ts
-    request.ts
-  messages/
-    fr.json
-    en.json
-  middleware.ts
-```
-
-### Tailwind v4: CSS-First Config
+**Tailwind v4 approach — @custom-variant:**
 
 ```css
-/* app/globals.css */
-@import "tailwindcss";
+/* globals.css — add after @import "tailwindcss" */
+@custom-variant dark (&:where(.dark, .dark *));
+```
 
-/* Custom brand tokens via CSS custom properties */
+This replaces the old `darkMode: "class"` from tailwind.config.js. The `dark:` prefix will activate when `.dark` class is present on any ancestor element.
+
+**Token strategy — override CSS custom properties per theme:**
+
+```css
+/* globals.css */
+@import "tailwindcss";
+@custom-variant dark (&:where(.dark, .dark *));
+
+/* Light mode tokens (default) */
 @theme {
-  --color-ink-deep: #0A1628;
-  --color-ink: #0B0F1A;
-  --color-ink-2: #111827;
-  --color-surface: #161C2C;
+  --color-bg-primary: #F8FAFC;
+  --color-bg-secondary: #F1F5F9;
+  --color-bg-surface: #FFFFFF;
+  --color-text-primary: #0B0F1A;
+  --color-text-secondary: rgba(11, 15, 26, 0.60);
+  --color-border: rgba(11, 15, 26, 0.10);
+  --color-border-hi: rgba(11, 15, 26, 0.18);
+  /* Accent colors stay the same across themes */
   --color-accent: #3D7EFF;
   --color-accent-hi: #6BA3FF;
-  --color-sky: #93C5FD;
+  /* ... other shared tokens ... */
+}
+
+/* Dark mode overrides via CSS layer */
+.dark {
+  --color-bg-primary: #0A1628;
+  --color-bg-secondary: #0B0F1A;
+  --color-bg-surface: #161C2C;
+  --color-text-primary: #FFFFFF;
+  --color-text-secondary: rgba(255, 255, 255, 0.70);
+  --color-border: rgba(255, 255, 255, 0.07);
+  --color-border-hi: rgba(255, 255, 255, 0.14);
 }
 ```
 
-No `tailwind.config.js` needed in v4. All configuration lives in CSS.
+**Key decision — semantic token renaming:** The current v1.0 tokens (`ink-deep`, `ink`, `surface`, `white-70`, `white-40`) are dark-mode-specific names. For dual-theme support, introduce semantic aliases (`bg-primary`, `text-primary`, etc.) that resolve to different values per theme. Keep the raw brand tokens available for cases where you explicitly want the dark value regardless of theme.
 
-### Static Export for Landing Page
+**next-themes setup:**
 
-```ts
-// next.config.ts
-const nextConfig = {
-  output: 'export',  // Static HTML export -- no server needed
-  // OR keep default for Vercel (recommended for i18n middleware)
+```tsx
+// components/shared/ThemeProvider.tsx
+"use client";
+import { ThemeProvider } from "next-themes";
+
+export function DictusThemeProvider({ children }: { children: React.ReactNode }) {
+  return (
+    <ThemeProvider attribute="class" defaultTheme="dark" enableSystem>
+      {children}
+    </ThemeProvider>
+  );
+}
+```
+
+**Default to dark:** The current site is dark-only. Set `defaultTheme="dark"` so existing visitors see no change. Light mode is opt-in via a toggle.
+
+**Confidence:** HIGH — Tailwind v4 official docs confirm `@custom-variant` syntax, next-themes 0.4.6 confirmed React 19 compatible via npm.
+
+---
+
+### 2. Liquid Glass Effects
+
+**Approach:** Pure CSS with layered composition. No library.
+
+The v1.0 glassmorphism is basic (`backdrop-filter: blur` + semi-transparent background). Liquid Glass adds three visual enhancements:
+
+1. **Light refraction highlight** on curved edges (top/bottom)
+2. **Specular reflection** that responds to element position
+3. **Subtle distortion** of background content
+
+**Recommended CSS implementation (three-layer composition):**
+
+```css
+/* Liquid Glass container */
+.liquid-glass {
+  position: relative;
+  background: rgba(22, 28, 44, 0.45);
+  backdrop-filter: blur(16px) saturate(180%);
+  -webkit-backdrop-filter: blur(16px) saturate(180%);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  border-radius: 20px;
+  overflow: hidden;
+}
+
+/* Layer 1: Top edge highlight (light refraction) */
+.liquid-glass::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  border-radius: inherit;
+  background: linear-gradient(
+    180deg,
+    rgba(255, 255, 255, 0.12) 0%,
+    rgba(255, 255, 255, 0.03) 30%,
+    transparent 50%
+  );
+  pointer-events: none;
+}
+
+/* Layer 2: Inner glow (specular highlight) */
+.liquid-glass::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  border-radius: inherit;
+  box-shadow:
+    inset 0 1px 0 rgba(255, 255, 255, 0.15),
+    inset 0 -1px 0 rgba(255, 255, 255, 0.05);
+  pointer-events: none;
+}
+```
+
+**What NOT to do:**
+- Do NOT use SVG `feDisplacementMap` / `feTurbulence` filters for backdrop distortion. Safari does not support SVG filters as `backdrop-filter` inputs (auto-falls back to plain blur). The `nikdelvin/liquid-glass` library documents this: "Safari automatically falls back to a blurred glassmorphism effect." Since Safari/iOS is the primary audience for a Dictus landing page, SVG filter distortion would be invisible to target users.
+- Do NOT use the `liquid-glass` npm package (Astro-based, not React, adds Anime.js dependency).
+- Do NOT apply `backdrop-filter` to more than 5-6 elements per viewport. Each is GPU-composited.
+
+**Light mode adaptation:** In light mode, swap the rgba values:
+```css
+/* Light mode liquid glass */
+.light .liquid-glass {
+  background: rgba(255, 255, 255, 0.55);
+  border: 1px solid rgba(0, 0, 0, 0.06);
+}
+.light .liquid-glass::before {
+  background: linear-gradient(
+    180deg,
+    rgba(255, 255, 255, 0.60) 0%,
+    rgba(255, 255, 255, 0.20) 30%,
+    transparent 50%
+  );
+}
+```
+
+**Tailwind integration:** Define as a utility class in globals.css or as a reusable component. Use Tailwind's `backdrop-blur-xl` (`blur(24px)`) and `backdrop-saturate-[180%]` utilities where possible, with custom CSS for the pseudo-element layers.
+
+**Confidence:** HIGH for the CSS approach. MEDIUM for visual fidelity (true Liquid Glass distortion requires SVG filters that Safari blocks — the CSS-only version is a convincing approximation, not pixel-perfect iOS 26).
+
+---
+
+### 3. Video Embedding (Self-Hosted Short Clips)
+
+**Approach:** Native `<video>` element with Intersection Observer lazy loading. No video library.
+
+**Format recommendation:**
+
+| Format | Codec | Use Case | Browser Support |
+|--------|-------|----------|-----------------|
+| MP4 (H.264) | AVC | Primary source, universal fallback | 99%+ |
+| WebM (VP9) | VP9 | Smaller file size for Chrome/Firefox/Edge | ~95% (not Safari) |
+
+Serve both with `<source>` elements. Browser picks the first supported format.
+
+**Encoding with FFmpeg (run before build, commit optimized files):**
+
+```bash
+# MP4 (H.264) — universal compatibility
+ffmpeg -i raw-demo.mov \
+  -c:v libx264 -crf 28 -preset slow \
+  -vf "scale=960:-2" \
+  -an -movflags faststart \
+  -f mp4 demo.mp4
+
+# WebM (VP9) — 20-50% smaller for supported browsers
+ffmpeg -i raw-demo.mov \
+  -c:v libvpx-vp9 -crf 35 -b:v 0 \
+  -vf "scale=960:-2" \
+  -an \
+  -f webm demo.webm
+```
+
+Key flags:
+- `-an`: Strip audio track (demo clips are silent, removes empty audio metadata)
+- `-movflags faststart`: Move MOOV atom to file start for progressive playback
+- `-crf 28` (H.264) / `-crf 35` (VP9): Quality sweet spot for screen recordings
+- `scale=960:-2`: Cap at 960px width (sufficient for inline demos), keep aspect ratio
+
+**Target file sizes:** Each clip should be under 2MB (ideally under 1MB). Screen recordings of an iOS app compress well.
+
+**Video component pattern:**
+
+```tsx
+// components/shared/LazyVideo.tsx
+"use client";
+import { useRef, useEffect, useState } from "react";
+
+interface LazyVideoProps {
+  mp4Src: string;
+  webmSrc?: string;
+  poster?: string;
+  className?: string;
+  alt: string;
+}
+
+export function LazyVideo({ mp4Src, webmSrc, poster, className, alt }: LazyVideoProps) {
+  const videoRef = useRef<HTMLVideoElement>(null);
+  const [isVisible, setIsVisible] = useState(false);
+
+  useEffect(() => {
+    const video = videoRef.current;
+    if (!video) return;
+
+    const observer = new IntersectionObserver(
+      ([entry]) => {
+        if (entry.isIntersecting) {
+          setIsVisible(true);
+          observer.disconnect();
+        }
+      },
+      { rootMargin: "200px" } // Start loading 200px before viewport
+    );
+    observer.observe(video);
+    return () => observer.disconnect();
+  }, []);
+
+  return (
+    <video
+      ref={videoRef}
+      autoPlay={isVisible}
+      loop
+      muted
+      playsInline  // Required for iOS inline playback
+      preload="none"
+      poster={poster}
+      className={className}
+      aria-label={alt}
+    >
+      {isVisible && (
+        <>
+          {webmSrc && <source src={webmSrc} type="video/webm" />}
+          <source src={mp4Src} type="video/mp4" />
+        </>
+      )}
+    </video>
+  );
+}
+```
+
+**Key attributes for iOS:**
+- `playsInline`: Mandatory for autoplay on iOS Safari (without it, video opens fullscreen)
+- `muted`: Required for autoplay to work on all browsers
+- `autoPlay` + `muted` + `playsInline`: The trio that enables silent inline autoplay
+
+**File placement:** `/public/videos/demo-*.mp4` and `/public/videos/demo-*.webm`. Vercel CDN serves these with proper caching headers automatically.
+
+**Do NOT use:**
+- `next-video` package (adds Mux dependency, overkill for 2-3 self-hosted clips)
+- Vercel Blob (unnecessary for a handful of small pre-encoded files committed to repo)
+- Any video player library (no controls needed for autoplay demo clips)
+
+**Confidence:** HIGH — Next.js 16 official docs confirm native `<video>` as recommended approach for self-hosted videos. Intersection Observer is a mature browser API.
+
+---
+
+### 4. Canvas Animation Enhancements (Hero Waveform)
+
+**Approach:** Extend existing `Waveform.tsx` with new animation states. No new dependencies.
+
+The current Waveform.tsx already has the architecture needed:
+- `useAnimationFrame` custom hook for 60fps rendering
+- `displayLevelsRef` (Float32Array) for smooth interpolation
+- `processingEnergy()` for sinusoidal envelope
+- `resolveBarColor()` for state-based coloring
+
+**Enhancements for v1.1 (flat -> voice -> transcription):**
+
+1. **Accept an `animationState` prop** from `useHeroDemoState` to drive waveform behavior:
+   - `idle`: Bars at minimum height, subtle breathing animation
+   - `recording`: Bars simulate voice input (randomized amplitudes with envelope)
+   - `transcribing`: Current sinusoidal traveling wave (already implemented)
+   - `smart`: Purple-tinted bars with different wave pattern
+   - `inserted`: Bars settle to flat baseline
+
+2. **Color adaptation for light mode:** The `resolveBarColor()` function currently hardcodes `BRAND_BLUE` and white edge colors. Pass theme context or accept color props to adapt:
+   - Dark mode: White edges on dark background (current)
+   - Light mode: Dark gray edges (`#1E293B`) on light background, keep brand blue center
+
+3. **Voice simulation during `recording` state:** Replace the current static sinusoidal with pseudo-random amplitudes modulated by an envelope:
+
+```typescript
+// Pseudo-voice: Perlin-like noise modulated by speech envelope
+const voiceEnergy = (index: number, time: number): number => {
+  const freq1 = Math.sin(time / 300 + index * 0.7) * 0.3;
+  const freq2 = Math.sin(time / 150 + index * 1.3) * 0.2;
+  const freq3 = Math.sin(time / 80 + index * 2.1) * 0.15;
+  const envelope = 0.4 + 0.3 * Math.sin(time / 800); // Speech rhythm
+  return Math.max(0.05, (freq1 + freq2 + freq3 + 0.35) * envelope);
 };
 ```
 
-**Note:** next-intl middleware requires server runtime for locale detection. If deploying on Vercel, keep the default output mode (not static export). Vercel handles middleware at the edge for free.
+**No Web Audio API needed.** The waveform is purely visual (decorative). Do not add microphone access or audio processing — it would contradict the privacy-first positioning and add unnecessary complexity.
 
-## Performance Budget
+**Performance note:** The existing `useAnimationFrame` + `Float32Array` approach is already optimal. Canvas 2D with 30 rounded rects at 60fps is lightweight. No WebGL upgrade needed.
 
-| Metric | Target | Strategy |
-|--------|--------|----------|
-| LCP | < 2.5s | next/font preload, above-fold static content, no heavy animation on hero initial paint |
-| FID | < 100ms | LazyMotion deferred loading, minimal client JS |
-| CLS | < 0.1 | next/font with display:swap, reserved image dimensions |
-| Bundle (JS) | < 100kb gzipped | LazyMotion (~4.6kb), next-intl (~2kb), minimal client components |
-| Lighthouse | 90+ all categories | Static content where possible, proper image/font optimization |
+**Confidence:** HIGH — extending existing patterns, no new APIs or dependencies.
+
+---
+
+### 5. Device Detection (iOS vs Desktop)
+
+**Approach:** Client-side User-Agent string check. No library.
+
+**Implementation:**
+
+```typescript
+// utils/device.ts
+export function isIOSDevice(): boolean {
+  if (typeof navigator === "undefined") return false;
+  return /iPad|iPhone|iPod/.test(navigator.userAgent) ||
+    (navigator.userAgent.includes("Mac") && "ontouchend" in document);
+}
+```
+
+The second condition catches iPadOS, which reports as "Macintosh" in the UA string since iPadOS 13 but has touch support.
+
+**Important 2025+ caveat:** Starting with Safari 26 (iOS 26), Apple freezes the OS version in the UA string (reports as `OS 18_6` regardless of actual version). This does NOT affect our use case — we only need to detect "is this an iOS device" (not which iOS version), and the `iPhone` / `iPad` / `iPod` tokens remain in the UA string.
+
+**CTA behavior:**
+
+| Device | CTA Text | Action |
+|--------|----------|--------|
+| iPhone | "Get TestFlight Beta" | Link to TestFlight URL |
+| iPad | "Get TestFlight Beta" | Link to TestFlight URL |
+| Desktop/Android | "Available on iPhone" + QR or email reminder | Informational, no direct download |
+
+**Why not `navigator.userAgentData` (Client Hints):** Safari does not implement the User-Agent Client Hints API. Since iOS Safari is our primary target, Client Hints would require a fallback to UA parsing anyway. Just use UA parsing directly.
+
+**Why no library (ua-parser-js, bowser, etc.):** We need a single boolean check (`isIOS`). A library adds 10-30kb for comprehensive device/browser/OS parsing we will never use.
+
+**Server-side detection consideration:** For the initial render, the CTA could show a neutral state ("Coming to iPhone") and upgrade to the TestFlight link on the client after detection. This avoids hydration mismatches and works correctly for all users.
+
+**Confidence:** HIGH — UA string detection for iOS is well-established and our use case (device family, not version) is unaffected by Safari 26 UA freezing.
+
+---
+
+## Summary: v1.1 Dependency Changes
+
+| Action | Package | Version | Bundle Impact |
+|--------|---------|---------|---------------|
+| ADD | next-themes | 0.4.6 | ~1.5kb gzipped |
+
+**Total new JS added:** ~1.5kb gzipped. Well within the existing < 100kb budget.
+
+Everything else (Liquid Glass, video, canvas, device detection) uses native browser APIs and CSS. This is intentional — the zero-dependency philosophy aligns with the project's privacy-first, performance-first constraints.
+
+## Performance Budget Update
+
+| Metric | v1.0 Actual | v1.1 Target | Risk |
+|--------|-------------|-------------|------|
+| Lighthouse Performance | 97-98 | 90+ | Video files are the main risk. Lazy loading + `preload="none"` mitigates. |
+| Lighthouse Accessibility | 93 | 93+ | Light mode needs WCAG AA contrast validation for all new color pairs. |
+| Lighthouse Best Practices | 100 | 100 | No new third-party scripts. |
+| Lighthouse SEO | 92 | 92+ | No regression expected. |
+| JS Bundle | ~7kb (Motion + next-intl) | ~8.5kb | +1.5kb from next-themes only. |
+| Total page weight | ~150kb | ~500kb-1MB | Video files dominate. Keep each clip under 1MB. |
 
 ## Sources
 
-- [Motion documentation](https://motion.dev/docs) -- animation API, LazyMotion, bundle optimization
-- [Motion reduce bundle size guide](https://motion.dev/docs/react-reduce-bundle-size) -- LazyMotion strategy
-- [Motion vs GSAP comparison](https://motion.dev/docs/feature-comparison)
-- [next-intl App Router docs](https://next-intl.dev/docs/getting-started/app-router) -- setup, routing, Server Components
-- [next-intl 4.0 release](https://next-intl.dev/blog/next-intl-4-0)
-- [Tailwind CSS v4.0 release](https://tailwindcss.com/blog/tailwindcss-v4) -- CSS-first config, new engine
-- [Next.js 16 release](https://nextjs.org/blog/next-16) -- Turbopack, App Router stability
-- [Glassmorphism implementation guide](https://playground.halfaccessible.com/blog/glassmorphism-design-trend-implementation-guide)
-- [Liquid Glass CSS techniques](https://dev.to/gruszdev/apples-liquid-glass-revolution-how-glassmorphism-is-shaping-ui-design-in-2025-with-css-code-1221)
-- [Next.js Lighthouse optimization](https://www.qed42.com/insights/next-js-performance-tuning-practical-fixes-for-better-lighthouse-scores)
+- [Tailwind CSS v4 dark mode docs](https://tailwindcss.com/docs/dark-mode) — `@custom-variant` syntax, class-based toggle, system preference (verified 2026-03-10)
+- [next-themes GitHub](https://github.com/pacocoursey/next-themes) — React 19 peer dependency, ThemeProvider API
+- [CSS-Tricks: Getting Clarity on Apple's Liquid Glass](https://css-tricks.com/getting-clarity-on-apples-liquid-glass/) — CSS techniques, SVG filter limitations, Safari compatibility
+- [Liquid Glass with Pure CSS (DEV Community)](https://dev.to/kevinbism/recreating-apples-liquid-glass-effect-with-pure-css-3gpl) — backdrop-filter approach, SVG filter limitations confirmed
+- [nikdelvin/liquid-glass GitHub](https://github.com/nikdelvin/liquid-glass) — Safari fallback behavior documented, browser compatibility matrix
+- [Next.js Video Guide](https://nextjs.org/docs/app/guides/videos) — self-hosted `<video>` recommendation, `playsInline` for iOS, preload="none"
+- [FFmpeg web optimization (Transloadit)](https://transloadit.com/devtips/reducing-video-file-size-with-ffmpeg-for-web-optimization/) — CRF values, movflags faststart, format comparison
+- [Web optimized video with VP9/H265 (Pixel Point)](https://pixelpoint.io/blog/web-optimized-video-ffmpeg/) — WebM vs MP4 size comparison (20-50% savings)
+- [Detect iOS versions (Evil Martians, 2025)](https://evilmartians.com/chronicles/how-to-detect-safari-and-ios-versions-with-ease) — Safari 26 UA freezing, detection strategies
+- [Client Hints browser support (Corbado)](https://www.corbado.com/blog/client-hints-user-agent-chrome-safari-firefox) — Safari does not implement UA-CH
+- [Tailwind v4 dark mode discussion #15083](https://github.com/tailwindlabs/tailwindcss/discussions/15083) — CSS variable theming patterns
+- [Dark mode with Tailwind v4 + Next.js guide](https://www.sujalvanjare.com/blog/dark-mode-nextjs15-tailwind-v4) — next-themes + @custom-variant integration (updated Jan 2026)

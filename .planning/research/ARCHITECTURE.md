@@ -1,449 +1,701 @@
 # Architecture Patterns
 
-**Domain:** Premium animated Next.js landing page (single-page, bilingual, static)
-**Researched:** 2026-03-09
+**Domain:** Feature integration for existing Next.js landing page (v1.1)
+**Researched:** 2026-03-10
+**Confidence:** HIGH (existing codebase fully audited, external research verified with official docs)
 
-## Recommended Architecture
-
-A statically generated, single-page Next.js App Router site with locale-segmented routing (`/fr`, `/en`), server-rendered content, and client-side animation islands. Zero backend, zero API routes, zero dynamic rendering.
-
-### High-Level Structure
-
-```
-Request -> Middleware (locale detection + redirect)
-        -> /[locale]/page.tsx (Server Component, loads dictionary)
-           -> <Layout> (server: fonts, metadata, html lang)
-              -> <Header /> (client: locale switch, scroll state)
-              -> <Hero /> (client: sine wave animation, word-by-word text)
-              -> <Features /> (client: scroll-triggered reveals)
-              -> <OpenSource /> (server-first, minimal interactivity)
-              -> <CTA /> (client: glow/pulse animation)
-              -> <Footer /> (server)
-```
-
-**Key principle:** Server Components by default. Only add `"use client"` for components that need animation, scroll listeners, or user interaction. This keeps the JS bundle minimal for Lighthouse 90+.
-
-### File/Folder Structure
+## Current Architecture Snapshot
 
 ```
 src/
   app/
+    globals.css          -- @theme tokens (dark-only today)
     [locale]/
-      layout.tsx          # Root layout: html lang, fonts, global styles
-      page.tsx            # Single landing page (composes sections)
-      dictionaries.ts     # Dictionary loader (server-only)
-      not-found.tsx       # 404 page
-    dictionaries/
-      fr.json             # French translations
-      en.json             # English translations
-    globals.css           # Tailwind directives + custom CSS vars
-    sitemap.ts            # Dynamic sitemap generation
-    robots.ts             # Robots.txt generation
+      layout.tsx         -- html + body, Nav, MotionProvider, NextIntlClientProvider
+      page.tsx           -- 7 sections composed linearly with ScrollReveal wrappers
   components/
-    layout/
-      Header.tsx          # Navigation + locale switcher
-      Footer.tsx          # Links, legal, branding
-    sections/
-      Hero.tsx            # Hero with sine animation + typed text
-      Features.tsx        # Feature cards grid
-      SmartMode.tsx       # Smart Mode showcase
-      Privacy.tsx         # Privacy/offline section
-      OpenSource.tsx      # GitHub CTA section
-      Download.tsx        # TestFlight / App Store CTA
-    ui/
-      Button.tsx          # Reusable CTA button with glow
-      Card.tsx            # Glassmorphism card
-      Badge.tsx           # Status badges (coming soon, etc.)
-      SineWave.tsx        # Animated sine wave canvas/SVG
-      WordReveal.tsx      # Word-by-word text animation
-      GlassPanel.tsx      # Glassmorphism container
-      LocaleSwitcher.tsx  # FR/EN toggle
-    icons/
-      DictusLogo.tsx      # SVG logo component (waveform icon)
-      DictusWordmark.tsx  # SVG wordmark
-  lib/
-    i18n.ts               # Locale config, supported locales array
-    fonts.ts              # DM Sans + DM Mono font config (next/font/google)
-    metadata.ts           # Shared metadata generation helpers
-  middleware.ts           # Locale detection + redirect
-  types/
-    dictionary.ts         # TypeScript type for translation keys
-public/
-  og-image-fr.png         # OpenGraph image (French)
-  og-image-en.png         # OpenGraph image (English)
-  favicon.ico
-  apple-touch-icon.png
+    Hero/                -- Hero.tsx (client), Waveform.tsx (canvas), StateIndicator, TextReveal
+    Features/            -- Features.tsx (server) - 4 glassmorphism cards
+    HowItWorks/          -- HowItWorks.tsx (server) - 3-step flow
+    DataFlow/            -- DataFlow.tsx (server) - flow diagram in glass card
+    OpenSource/          -- OpenSource.tsx (server) - GitHub CTA
+    Community/           -- Community.tsx (server) - Telegram CTA
+    Footer/              -- Footer.tsx
+    Nav/                 -- Nav.tsx (client), Logo.tsx, LanguageToggle.tsx
+    shared/              -- MotionProvider.tsx (LazyMotion), ScrollReveal.tsx (motion/react)
+  hooks/
+    useAnimationFrame.ts -- rAF loop for Waveform
+    useHeroDemoState.ts  -- state machine: idle->recording->transcribing->smart->inserted
+  i18n/
+    routing.ts           -- next-intl routing config
+  messages/
+    fr.json, en.json     -- i18n dictionaries
 ```
 
-### Component Boundaries
+**Key constraints:**
+- All sections are server components except Hero, Nav, ScrollReveal, and MotionProvider
+- Motion v12 LazyMotion wraps only `<main>` -- Nav is outside it
+- Canvas Waveform runs at 60fps via `useAnimationFrame` with `prefers-reduced-motion` support
+- Glassmorphism pattern already established: `bg-surface/50 backdrop-blur-md border border-border`
+- Design tokens live in `globals.css` `@theme` block -- single source of truth
+- Body class: `bg-ink font-sans text-white antialiased` (dark-only)
 
-| Component | Responsibility | Rendering | Communicates With |
-|-----------|---------------|-----------|-------------------|
-| `middleware.ts` | Locale detection, redirect to /fr or /en | Edge | Browser request |
-| `[locale]/layout.tsx` | HTML shell, fonts, global metadata, `<html lang>` | Server | All children, dictionaries.ts |
-| `[locale]/page.tsx` | Section composition, dictionary loading | Server | All section components |
-| `Header` | Navigation, logo, locale switcher, scroll-aware bg | Client | LocaleSwitcher, scroll events |
-| `Hero` | Primary CTA, sine wave animation, typed text effect | Client | SineWave, WordReveal, Button |
-| `Features` | Feature cards with scroll-triggered entry | Client | Card, scroll observer |
-| `SmartMode` | LLM mode visual showcase | Client | Animation state |
-| `Privacy` | Offline/privacy messaging | Server (or light client) | Card |
-| `OpenSource` | GitHub repo link, community CTA | Server | Button |
-| `Download` | TestFlight/App Store CTA | Server (or light client) | Button, Badge |
-| `Footer` | Links, legal, branding | Server | DictusWordmark |
-| `LocaleSwitcher` | FR/EN toggle, updates URL locale segment | Client | next/navigation router |
-| `SineWave` | Canvas or SVG sine animation with state colors | Client | requestAnimationFrame loop |
-| `WordReveal` | Word-by-word text appearance animation | Client | Motion (framer) |
+---
 
-### Data Flow
+## Recommended Architecture for v1.1 Features
+
+### Component Boundaries: New vs Modified
+
+| Feature | Component | Status | Location |
+|---------|-----------|--------|----------|
+| Light/dark mode | ThemeProvider | **NEW** | `src/components/shared/ThemeProvider.tsx` |
+| Light/dark mode | ThemeToggle | **NEW** | `src/components/Nav/ThemeToggle.tsx` |
+| Light/dark mode | globals.css | **MODIFIED** | Token overrides via CSS custom properties |
+| Light/dark mode | layout.tsx | **MODIFIED** | Add ThemeProvider, `suppressHydrationWarning` |
+| Light/dark mode | ALL sections | **MODIFIED** | Migrate from hardcoded dark tokens to semantic tokens |
+| Liquid Glass | GlassCard | **NEW** | `src/components/shared/GlassCard.tsx` |
+| Liquid Glass | Features.tsx | **MODIFIED** | Replace inline glass styles with GlassCard |
+| Liquid Glass | DataFlow.tsx | **MODIFIED** | Replace inline glass styles with GlassCard |
+| Liquid Glass | Nav.tsx | **MODIFIED** | Enhanced glass effect on scroll |
+| Comparison table | ComparisonTable | **NEW** | `src/components/Comparison/ComparisonTable.tsx` |
+| Comparison table | page.tsx | **MODIFIED** | Add section between Features and HowItWorks |
+| Demo videos | VideoSection | **NEW** | `src/components/shared/VideoSection.tsx` |
+| Demo videos | HowItWorks.tsx | **MODIFIED** | Integrate video alongside steps |
+| Demo videos | DataFlow.tsx | **MODIFIED** | Integrate video alongside flow diagram |
+| Hero animation | Waveform.tsx | **MODIFIED** | Multi-phase animation (flat -> voice -> transcription) |
+| Hero animation | Hero.tsx | **MODIFIED** | Pass demoPhase prop to Waveform |
+| TestFlight CTA | TestFlightCTA | **NEW** | `src/components/shared/TestFlightCTA.tsx` |
+| TestFlight CTA | useDeviceDetect.ts | **NEW** | `src/hooks/useDeviceDetect.ts` |
+| TestFlight CTA | Community.tsx | **MODIFIED** | Add TestFlight CTA alongside Telegram |
+| TestFlight CTA | Hero.tsx | **MODIFIED** | Replace "Coming Soon" badge with adaptive CTA |
+
+---
+
+## Pattern 1: Light/Dark Theme System
+
+**What:** Dual-theme support using CSS custom properties + `next-themes` + Tailwind v4 `@custom-variant`
+
+**Why this approach:** Tailwind v4 removed `tailwind.config.js` for dark mode config. The correct v4 pattern is `@custom-variant` in CSS combined with `next-themes` for persistence and flash prevention.
+
+**Architecture:**
 
 ```
-1. ROUTING FLOW
-   Browser Request
-     -> middleware.ts (reads Accept-Language header)
-     -> Redirects to /fr/ or /en/ (or stays if locale present)
-     -> [locale]/layout.tsx receives locale param
-     -> [locale]/page.tsx receives locale param
-
-2. TRANSLATION FLOW
-   page.tsx (Server Component)
-     -> getDictionary(locale) loads fr.json or en.json
-     -> Dictionary object passed as props to section components
-     -> Each section reads its keys from the dictionary
-     -> Client components receive translations as props (NOT via context)
-
-3. ANIMATION FLOW
-   Page loads (SSR HTML visible immediately)
-     -> Client hydration activates "use client" components
-     -> SineWave starts requestAnimationFrame loop
-     -> WordReveal triggers Motion enter animation
-     -> Scroll observer activates section reveal animations
-     -> All animations are progressive enhancement (content visible without JS)
-
-4. LOCALE SWITCH FLOW
-   User clicks FR/EN toggle
-     -> LocaleSwitcher uses next/navigation to push new locale path
-     -> Full re-render with new locale (static pages, instant from cache)
+globals.css (@custom-variant + semantic token overrides)
+    |
+ThemeProvider (next-themes, wraps body content)
+    |
+ThemeToggle (in Nav, uses useTheme hook)
+    |
+All components (use semantic token classes that resolve per theme)
 ```
 
-## i18n Architecture: Lightweight Dictionary Pattern
+**Implementation in globals.css:**
 
-**Decision: Use Next.js built-in pattern (no next-intl).** Rationale: this is a single-page landing with ~50-80 translation keys. next-intl adds 2KB+ and middleware complexity for features (pluralization, ICU messages, number formatting) this project does not need. The official Next.js dictionary pattern is sufficient and keeps dependencies minimal.
+```css
+@import "tailwindcss";
 
-### How It Works
+@custom-variant dark (&:where(.dark, .dark *));
 
-```typescript
-// src/app/[locale]/dictionaries.ts
-import 'server-only'
+@theme {
+  /* Semantic tokens -- light mode values (new default) */
+  --color-bg-primary: #FFFFFF;
+  --color-bg-secondary: #F8FAFC;
+  --color-bg-deep: #F1F5F9;
+  --color-bg-surface: rgba(0, 0, 0, 0.03);
+  --color-text-primary: #0A1628;
+  --color-text-secondary: rgba(10, 22, 40, 0.70);
+  --color-text-muted: rgba(10, 22, 40, 0.50);
+  --color-border-subtle: rgba(0, 0, 0, 0.07);
+  --color-border-emphasis: rgba(0, 0, 0, 0.14);
+  --color-glass-bg: rgba(255, 255, 255, 0.60);
+  --color-glass-border: rgba(0, 0, 0, 0.08);
 
-const dictionaries = {
-  fr: () => import('../dictionaries/fr.json').then(m => m.default),
-  en: () => import('../dictionaries/en.json').then(m => m.default),
+  /* Brand tokens -- same in both modes */
+  --color-accent: #3D7EFF;
+  --color-accent-hi: #6BA3FF;
+  --color-sky: #93C5FD;
+  --color-mist: #DBEAFE;
+  --color-navy: #0F3460;
+  --color-recording: #EF4444;
+  --color-smart: #8B5CF6;
+  --color-success: #22C55E;
+  --color-warning: #F59E0B;
+  --color-glow: rgba(61, 126, 255, 0.35);
+  --color-glow-soft: rgba(61, 126, 255, 0.12);
+
+  /* Keep legacy tokens for backward compat during migration */
+  --color-ink-deep: #0A1628;
+  --color-ink: #0B0F1A;
+  --color-ink-2: #111827;
+  --color-surface: #161C2C;
 }
 
-export type Locale = keyof typeof dictionaries
-export const locales: Locale[] = ['fr', 'en']
-export const defaultLocale: Locale = 'fr'
-
-export const hasLocale = (locale: string): locale is Locale =>
-  locale in dictionaries
-
-export const getDictionary = async (locale: Locale) => dictionaries[locale]()
+/* Dark mode overrides -- current v1.0 values preserved */
+.dark {
+  --color-bg-primary: #0B0F1A;
+  --color-bg-secondary: #111827;
+  --color-bg-deep: #0A1628;
+  --color-bg-surface: rgba(22, 28, 44, 0.50);
+  --color-text-primary: #FFFFFF;
+  --color-text-secondary: rgba(255, 255, 255, 0.70);
+  --color-text-muted: rgba(255, 255, 255, 0.60);
+  --color-border-subtle: rgba(255, 255, 255, 0.07);
+  --color-border-emphasis: rgba(255, 255, 255, 0.14);
+  --color-glass-bg: rgba(255, 255, 255, 0.08);
+  --color-glass-border: rgba(255, 255, 255, 0.12);
+}
 ```
 
-```typescript
-// src/app/[locale]/page.tsx
-import { getDictionary, hasLocale } from './dictionaries'
-import { notFound } from 'next/navigation'
+**Critical architectural decision:** The existing tokens (`ink`, `ink-2`, `surface`, `white-70`, `white-40`) are dark-mode-specific names. For theme switching, introduce semantic aliases (`bg-primary`, `bg-secondary`, `text-primary`, etc.) that swap values via CSS custom properties in the `.dark` scope. Keep legacy tokens temporarily for backward compatibility, then migrate component by component.
 
-export async function generateStaticParams() {
-  return [{ locale: 'fr' }, { locale: 'en' }]
+**ThemeProvider setup (layout.tsx):**
+
+```tsx
+<html lang={locale} className={`${dmSans.variable} ${dmMono.variable}`}
+      suppressHydrationWarning>
+  <body className="overflow-x-hidden bg-bg-primary font-sans text-text-primary antialiased">
+    <ThemeProvider attribute="class" defaultTheme="dark" enableSystem={false}>
+      <NextIntlClientProvider messages={messages}>
+        ...
+      </NextIntlClientProvider>
+    </ThemeProvider>
+  </body>
+</html>
+```
+
+**Why `defaultTheme="dark"`:** The site shipped dark-only. Dark is the brand identity. Light mode is additive. `enableSystem={false}` because brand identity should not be overridden by OS preference unless the user explicitly picks light.
+
+**Impact on existing components:** Every component using `bg-ink`, `bg-ink-2`, `bg-ink-deep`, `text-white`, `text-white-70`, `text-white-40`, `bg-surface`, `border-border` needs migration to semantic tokens. The semantic token approach is cleaner than adding `dark:` prefix to every class because it avoids doubling the class count.
+
+**Canvas Waveform special case:** The Waveform component uses hardcoded hex values (`#3D7EFF`, `rgba(255,255,255,...)`) in Canvas drawing calls. These cannot use Tailwind classes. Solution: read CSS custom properties via `getComputedStyle()` at draw time, or pass color props from parent.
+
+**Confidence:** HIGH -- Tailwind v4 `@custom-variant` is official docs, `next-themes` is de facto standard for Next.js.
+
+---
+
+## Pattern 2: Liquid Glass Shared Component
+
+**What:** Reusable `GlassCard` component that upgrades existing glassmorphism to iOS 26 Liquid Glass style.
+
+**Why a shared component:** The glass pattern (`bg-surface/50 backdrop-blur-md border border-border`) is duplicated across Features (4x), DataFlow (1x), TextReveal (1x). A shared component centralizes the effect and makes the Liquid Glass upgrade a single-point change.
+
+**CSS approach (pure CSS, no SVG filters):**
+
+```css
+.glass-card {
+  background: var(--color-glass-bg);
+  backdrop-filter: blur(12px) saturate(180%);
+  -webkit-backdrop-filter: blur(12px) saturate(180%);
+  border: 1px solid var(--color-glass-border);
+  border-radius: 1rem;
+  box-shadow:
+    0 8px 32px rgba(0, 0, 0, 0.12),
+    inset 0 1px 0 rgba(255, 255, 255, 0.15);
+  position: relative;
+  overflow: hidden;
 }
 
-export default async function Home({ params }: { params: { locale: string } }) {
-  const { locale } = await params
-  if (!hasLocale(locale)) notFound()
-  const dict = await getDictionary(locale)
+/* Specular highlight -- the "liquid" shine */
+.glass-card::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  border-radius: inherit;
+  background: linear-gradient(
+    135deg,
+    rgba(255, 255, 255, 0.12) 0%,
+    transparent 40%,
+    transparent 60%,
+    rgba(255, 255, 255, 0.04) 100%
+  );
+  pointer-events: none;
+}
+```
 
+**Why pure CSS (no SVG displacement maps):** The SVG filter approach for true distortion is not supported as `backdrop-filter` input in Safari or Firefox. Since the primary audience visits from iOS Safari (it is an iOS app landing page), SVG filters are a non-starter. CSS-only Liquid Glass provides ~90% of the visual effect with full browser support and zero performance risk.
+
+**Theme adaptation:** Glass variables (`--color-glass-bg`, `--color-glass-border`) swap between light and dark via the `.dark` scope defined in Pattern 1. In light mode: white glass with dark shadows. In dark mode: dark glass with light edge highlights.
+
+**GlassCard component:**
+
+```tsx
+type GlassCardProps = {
+  children: React.ReactNode;
+  className?: string;
+  hover?: boolean;
+};
+
+export default function GlassCard({ children, className, hover = false }: GlassCardProps) {
   return (
-    <>
-      <Hero dict={dict.hero} locale={locale} />
-      <Features dict={dict.features} />
-      {/* ... */}
-    </>
-  )
-}
-```
-
-```typescript
-// src/middleware.ts
-import { NextResponse } from 'next/server'
-import type { NextRequest } from 'next/server'
-import Negotiator from 'negotiator'
-import { match } from '@formatjs/intl-localematcher'
-
-const locales = ['fr', 'en']
-const defaultLocale = 'fr'
-
-function getLocale(request: NextRequest): string {
-  const headers = { 'accept-language': request.headers.get('accept-language') || '' }
-  const languages = new Negotiator({ headers }).languages()
-  return match(languages, locales, defaultLocale)
-}
-
-export function middleware(request: NextRequest) {
-  const { pathname } = request.nextUrl
-  const hasLocale = locales.some(
-    l => pathname.startsWith(`/${l}/`) || pathname === `/${l}`
-  )
-  if (hasLocale) return
-  const locale = getLocale(request)
-  request.nextUrl.pathname = `/${locale}${pathname}`
-  return NextResponse.redirect(request.nextUrl)
-}
-
-export const config = {
-  matcher: ['/((?!_next|.*\\.).*)'],
-}
-```
-
-**Upgrade path:** If the site ever needs pluralization, date formatting, or grows beyond a single page, migrate to next-intl. The `[locale]` folder structure is compatible.
-
-## Animation Architecture: Motion (formerly Framer Motion)
-
-**Decision: Use Motion (`motion/react`).** The library formerly known as Framer Motion, now rebranded as Motion, is the standard for React animation. It provides declarative animation props, scroll-triggered animations, and layout animations out of the box.
-
-### Animation Strategy
-
-| Animation | Technique | Component | Bundle Impact |
-|-----------|-----------|-----------|---------------|
-| Sine wave (hero) | Canvas API + requestAnimationFrame | `SineWave.tsx` | Zero library dependency (vanilla Canvas) |
-| Word-by-word text | Motion `animate` + staggered children | `WordReveal.tsx` | Motion |
-| Section scroll reveals | Motion `whileInView` | Each section wrapper | Motion |
-| Button glow/pulse | CSS animations + Tailwind | `Button.tsx` | Zero JS |
-| Glassmorphism hover | CSS transitions + Tailwind | `Card.tsx`, `GlassPanel.tsx` | Zero JS |
-| State color transitions | CSS transitions | `SineWave.tsx` | Zero JS |
-| Locale switch | No animation (instant page swap) | Router | Zero |
-
-**Key principle: CSS-first animation.** Use Motion only where CSS cannot achieve the effect (orchestrated sequences, scroll-triggered staggered reveals, spring physics). Keep glows, pulses, hovers, and color transitions in CSS/Tailwind for zero JS overhead.
-
-### Motion Component Pattern
-
-```typescript
-// "use client" only on components that animate
-'use client'
-
-import { motion } from 'motion/react'
-
-export function SectionReveal({ children }: { children: React.ReactNode }) {
-  return (
-    <motion.div
-      initial={{ opacity: 0, y: 30 }}
-      whileInView={{ opacity: 1, y: 0 }}
-      viewport={{ once: true, margin: '-100px' }}
-      transition={{ duration: 0.6, ease: 'easeOut' }}
-    >
+    <div className={`glass-card ${hover ? "transition-colors hover:border-border-emphasis" : ""} ${className ?? ""}`}>
       {children}
-    </motion.div>
-  )
+    </div>
+  );
 }
 ```
 
-### Sine Wave: Vanilla Canvas (No Library)
+**Where to apply:** Features cards (4x), DataFlow container, TextReveal box, Nav (scrolled state). NOT on section backgrounds -- Liquid Glass works on discrete floating elements, not full-width sections.
 
-The hero sine wave animation should use raw Canvas API, not Motion or any library. Reasons: (1) sine wave is a continuous rAF loop, not a declarative animation; (2) avoids Motion's overhead for something it was not designed for; (3) matches the app's native Swift sine animation more closely.
+**Performance:** `backdrop-filter` is already used on 7 elements. Upgrading from `blur(12px)` to `blur(12px) saturate(180%)` adds negligible GPU cost. The `::after` pseudo-element is static (no animation). Keep total glass elements under ~15 for safe mobile GPU performance.
 
-```typescript
-'use client'
-import { useRef, useEffect } from 'react'
+**Confidence:** HIGH -- pure CSS approach, existing backdrop-filter usage proves browser compat.
 
-export function SineWave({ state }: { state: 'idle' | 'recording' | 'transcribing' | 'smart' | 'inserted' }) {
-  const canvasRef = useRef<HTMLCanvasElement>(null)
+---
+
+## Pattern 3: Video Sections with Lazy Loading
+
+**What:** Self-hosted `.mp4` demo videos in HowItWorks and DataFlow sections, loaded only when scrolled into view.
+
+**Architecture:**
+
+```
+VideoSection (client component)
+  +-- uses IntersectionObserver to detect viewport entry
+  +-- renders <video> with preload="none" until in view
+  +-- switches to play on intersection
+  +-- poster image shown before load (static frame from video)
+```
+
+**Why self-hosted (not YouTube/Vimeo):** Zero third-party scripts is a hard constraint (PROJECT.md: "Zero third-party scripts, zero tracking, zero cookies"). Embedding YouTube would add ~500KB of JS and tracking. Self-hosted `.mp4` with H.264 baseline profile is universally supported and keeps the zero-tracking promise.
+
+**VideoSection component pattern:**
+
+```tsx
+"use client";
+
+import { useRef, useState, useEffect } from "react";
+
+type VideoSectionProps = {
+  src: string;
+  poster: string;
+  alt: string;
+  className?: string;
+};
+
+export default function VideoSection({ src, poster, alt, className }: VideoSectionProps) {
+  const videoRef = useRef<HTMLVideoElement>(null);
+  const [isVisible, setIsVisible] = useState(false);
 
   useEffect(() => {
-    const canvas = canvasRef.current
-    if (!canvas) return
-    const ctx = canvas.getContext('2d')
-    let animationId: number
+    const video = videoRef.current;
+    if (!video) return;
 
-    const draw = (time: number) => {
-      // Clear, draw sine wave based on state
-      // Color and amplitude vary by state
-      animationId = requestAnimationFrame(draw)
+    const observer = new IntersectionObserver(
+      ([entry]) => {
+        if (entry.isIntersecting) {
+          setIsVisible(true);
+          video.play().catch(() => {}); // autoplay may be blocked
+          observer.disconnect();
+        }
+      },
+      { threshold: 0.3 }
+    );
+
+    observer.observe(video);
+    return () => observer.disconnect();
+  }, []);
+
+  return (
+    <video
+      ref={videoRef}
+      poster={poster}
+      preload={isVisible ? "auto" : "none"}
+      muted
+      loop
+      playsInline
+      aria-label={alt}
+      className={className}
+    >
+      {isVisible && <source src={src} type="video/mp4" />}
+    </video>
+  );
+}
+```
+
+**Key decisions for Lighthouse performance:**
+1. `preload="none"` until visible -- zero network cost on initial load
+2. `<source>` element only rendered after intersection -- browser does not even resolve the URL
+3. `poster` image provides visual content before video loads (compress as WebP, ~20KB)
+4. `muted playsInline` required for iOS autoplay policy
+5. Videos stored in `public/videos/` -- served directly by Vercel CDN
+6. Set explicit `width` and `height` on video element to prevent CLS
+
+**Video encoding specs for performance:**
+- Resolution: 390x844 (iPhone 15 Pro native width at 1x) -- no need for retina video
+- Codec: H.264 Baseline Profile (universal support)
+- Duration: 5-10 seconds per clip, looping
+- File size target: < 1MB per video (bitrate ~800kbps)
+- Format: `.mp4` container
+- Encoding command: `ffmpeg -i raw.mov -vcodec h264 -b:v 800k -vf scale=390:-2 -an output.mp4`
+
+**Where videos integrate:**
+- HowItWorks: Replace static 3-step icons with video showing tap -> speak -> text flow
+- DataFlow: Add video showing on-device processing indicator
+
+**Impact on existing components:** HowItWorks and DataFlow are currently server components. Adding VideoSection (client) as a child works fine -- server components can compose client components. No need to convert the parent to client.
+
+**Confidence:** HIGH -- IntersectionObserver is universally supported, self-hosted video avoids all third-party concerns.
+
+---
+
+## Pattern 4: Comparison Table
+
+**What:** Responsive comparison table: Dictus vs Apple Dictation, WhisperFlow, SuperWhisper, MacWhisper.
+
+**Architecture:** Server component (no interactivity needed), data-driven from i18n JSON + static competitor data.
+
+**Component structure:**
+
+```
+src/components/Comparison/
+  ComparisonTable.tsx     -- Main component, renders table
+  comparisonData.ts       -- Type definitions, static competitor data (not translatable)
+```
+
+**Why a server component:** The table is static content. No hover states beyond CSS, no dynamic filtering, no JS interactions. Keeping it as a server component means zero JS shipped for this section.
+
+**Data architecture:**
+
+- Criteria labels and title: i18n in `messages/fr.json` and `messages/en.json`
+- Competitor data (boolean features, platform strings, price): static TypeScript file -- not translatable content
+
+```typescript
+// comparisonData.ts
+export type Competitor = {
+  name: string;
+  offline: boolean;
+  privacy: boolean;
+  price: string; // "Free", "$9.99/mo", etc. -- not translated
+  platforms: string[];
+  aiRewrite: boolean;
+  openSource: boolean;
+};
+
+export const competitors: Competitor[] = [
+  { name: "Dictus", offline: true, privacy: true, price: "Free", platforms: ["iOS"], aiRewrite: true, openSource: true },
+  { name: "Apple Dictation", offline: false, privacy: false, price: "Free", platforms: ["iOS", "macOS"], aiRewrite: false, openSource: false },
+  // ...
+];
+```
+
+**Responsive strategy:**
+- Desktop (md+): Standard HTML `<table>` with sticky first column
+- Mobile: Horizontal scroll with snap points via `overflow-x-auto` with `-webkit-overflow-scrolling: touch`
+
+Use semantic HTML: `<table>`, `<thead>`, `<th scope="col">`, `<th scope="row">` for accessibility.
+
+**Placement in page:** After Features, before HowItWorks. Features establishes what Dictus does, Comparison proves it is better, HowItWorks shows how to use it.
+
+**Confidence:** HIGH -- standard HTML table, server-rendered, no external dependencies.
+
+---
+
+## Pattern 5: Enhanced Hero Waveform Animation
+
+**What:** Multi-phase waveform synchronized with the existing demo state machine.
+
+**Architecture change:** The `useHeroDemoState` hook already drives states `idle | recording | transcribing | smart | inserted`. The Waveform currently ignores this state and runs a continuous sinusoidal wave. The enhancement connects the two by passing `demoPhase` as a prop.
+
+**Phase behavior:**
+
+| Phase | Amplitude | Color | Animation Style |
+|-------|-----------|-------|-----------------|
+| idle | MIN_BAR_HEIGHT (flat line) | text-muted (theme-aware) | None (static) |
+| recording | 30-50% MAX_HEIGHT, random variation | recording (#EF4444) | Organic jitter |
+| transcribing | 60-80% MAX_HEIGHT, traveling wave | accent (#3D7EFF) | Sinusoidal (current behavior) |
+| smart | 40-60% MAX_HEIGHT, pulsing | smart (#8B5CF6) | Slow pulse |
+| inserted | Decay to MIN_BAR_HEIGHT | success (#22C55E) | Fade to flat |
+
+**Integration:**
+
+1. Hero.tsx already has `demoState.currentState` -- pass it to Waveform as a prop
+2. Waveform receives `demoPhase: DemoState` and adjusts `targetEnergy()` per phase
+3. Transitions between phases use the existing `smoothingFactor` / `decayFactor` lerp -- no abrupt jumps
+4. Color transitions use the existing `resolveBarColor()` function, extended to accept phase
+
+**Key modification to Waveform.tsx:**
+
+```tsx
+export default function Waveform({ demoPhase }: { demoPhase: DemoState }) {
+  // Replace static processingEnergy with phase-aware function
+  const targetEnergy = useCallback((index: number, phase: number, demoPhase: DemoState) => {
+    switch (demoPhase) {
+      case "idle": return 0;
+      case "recording": return randomJitter(index, phase, 0.3, 0.5);
+      case "transcribing": return processingEnergy(index, phase); // existing sine
+      case "smart": return pulsingEnergy(phase, 0.4, 0.6);
+      case "inserted": return 0; // decay handled by smoothing
     }
-
-    animationId = requestAnimationFrame(draw)
-    return () => cancelAnimationFrame(animationId)
-  }, [state])
-
-  return <canvas ref={canvasRef} className="w-full h-32" />
+  }, []);
 }
 ```
 
-## SEO / Metadata Architecture
+**Theme impact on Waveform:** In light mode, the edge bar color needs to change from white to dark. The `EDGE_COLOR_RGB` constant becomes theme-aware -- read from CSS custom property or receive via prop.
 
-### Static Metadata + generateMetadata Per Locale
+**Confidence:** HIGH -- the state machine exists, this is wiring + canvas math, no new dependencies.
 
-```typescript
-// src/app/[locale]/layout.tsx
-import type { Metadata } from 'next'
+---
 
-export async function generateMetadata({ params }: { params: { locale: string } }): Promise<Metadata> {
-  const { locale } = await params
-  const isEn = locale === 'en'
+## Pattern 6: Adaptive TestFlight CTA with Device Detection
 
-  return {
-    title: isEn ? 'dictus — Private voice dictation for iOS' : 'dictus — Dictation vocale privee pour iOS',
-    description: isEn
-      ? '100% offline voice transcription keyboard. No data leaves your device.'
-      : 'Clavier de transcription vocale 100% offline. Aucune donnee ne quitte votre appareil.',
-    openGraph: {
-      title: isEn ? 'dictus' : 'dictus',
-      images: [`/og-image-${locale}.png`],
-      locale: locale === 'fr' ? 'fr_FR' : 'en_US',
-    },
-    alternates: {
-      canonical: `https://getdictus.com/${locale}`,
-      languages: { fr: '/fr', en: '/en' },
-    },
-  }
+**What:** Show "TestFlight" button on iPhone, different messaging on desktop/Android.
+
+**Architecture:**
+
+```
+useDeviceDetect.ts (client hook)
+  +-- Checks navigator.userAgent for iPhone/iPad
+  +-- Returns { isIOS: boolean, isMobile: boolean }
+  +-- Defaults to desktop (SSR-safe)
+
+TestFlightCTA.tsx (client component)
+  +-- Uses useDeviceDetect
+  +-- iPhone: "Rejoindre le TestFlight" -> testflight.apple.com/join/{CODE}
+  +-- Desktop: "Disponible sur iPhone" or QR code
+```
+
+**Why client-side detection (not server):** The site is statically generated (`generateStaticParams`). Server-side UA detection would require dynamic rendering, breaking static export and Vercel edge caching. Client-side detection with a safe default (desktop messaging) means the page loads instantly from CDN, then adapts after hydration. The brief flash is acceptable because:
+- Default CTA (desktop) is meaningful on all devices
+- TestFlight CTA upgrade happens within ~50ms of hydration
+- CTA locations are below the fold (Hero badge area scrolled past initial viewport on mobile)
+
+**Hook:**
+
+```tsx
+"use client";
+import { useState, useEffect } from "react";
+
+export function useDeviceDetect() {
+  const [device, setDevice] = useState({ isIOS: false, isMobile: false });
+
+  useEffect(() => {
+    const ua = navigator.userAgent;
+    const isIOS = /iPhone|iPad|iPod/.test(ua);
+    const isMobile = /iPhone|iPad|iPod|Android/.test(ua) || window.innerWidth < 768;
+    setDevice({ isIOS, isMobile });
+  }, []);
+
+  return device;
 }
 ```
 
-### Additional SEO Files
+**CTA placement:**
+1. **Hero:** Replace "Coming Soon" badge with adaptive CTA
+2. **Community section:** Add TestFlight CTA alongside Telegram CTA
 
-- `src/app/sitemap.ts` -- generates sitemap with both `/fr` and `/en` entries
-- `src/app/robots.ts` -- allows all crawlers, points to sitemap
-- `src/app/[locale]/opengraph-image.tsx` (optional) -- dynamic OG image generation via `ImageResponse`
+**TestFlight link:** `https://testflight.apple.com/join/{CODE}` -- universal link, works everywhere.
 
-## Patterns to Follow
+**Confidence:** HIGH -- client-side UA detection is simple, TestFlight universal links are standard.
 
-### Pattern 1: Server-First with Client Islands
+---
 
-**What:** Default to Server Components. Only mark components as `"use client"` when they need browser APIs (animation, scroll, interaction).
+## Data Flow: Before and After
 
-**When:** Every component decision.
+### Before (v1.0)
 
-**Why:** Keeps JS bundle under control. For a landing page targeting Lighthouse 90+, most content is static HTML/CSS. Only the hero animation, scroll observers, and locale switcher need client JS.
-
-### Pattern 2: Props-Down Translation (No Context)
-
-**What:** Load dictionary in the server page component, pass relevant sub-objects as props to each section.
-
-**When:** All translated content.
-
-**Why:** Avoids wrapping the app in a translation context provider (which forces client rendering). Each section receives only its own translation keys, making components self-contained and testable.
-
-```typescript
-// page.tsx
-<Hero dict={dict.hero} />       // dict.hero has title, subtitle, cta
-<Features dict={dict.features} /> // dict.features has items[]
+```
+layout.tsx (server)
+  +-- Nav (client) -- scroll state, language toggle
+  +-- MotionProvider (client) -- LazyMotion wrapper
+      +-- page.tsx (server)
+           +-- Hero (client) -- self-contained state machine + canvas
+           +-- ScrollReveal > Features (server)
+           +-- ScrollReveal > HowItWorks (server)
+           +-- ScrollReveal > DataFlow (server)
+           +-- ScrollReveal > OpenSource (server)
+           +-- ScrollReveal > Community (server)
+           +-- Footer (server)
 ```
 
-### Pattern 3: Design Tokens as Tailwind Config
+### After (v1.1)
 
-**What:** Map all brand kit tokens (colors, gradients, typography) into `tailwind.config.ts` as custom theme values.
-
-**When:** Project setup.
-
-**Why:** Single source of truth for design tokens. Avoids CSS variables scattered across files. Enables `bg-ink-deep`, `text-accent-blue`, `font-display` etc. throughout the codebase.
-
-```typescript
-// tailwind.config.ts (excerpt)
-theme: {
-  extend: {
-    colors: {
-      ink: { DEFAULT: '#0B0F1A', deep: '#0A1628', 2: '#111827' },
-      surface: '#161C2C',
-      accent: { blue: '#3D7EFF', hi: '#6BA3FF' },
-      sky: '#93C5FD',
-      // ...semantic colors
-      recording: '#EF4444',
-      smart: '#8B5CF6',
-      success: '#22C55E',
-    },
-    fontFamily: {
-      display: ['DM Sans', 'sans-serif'],
-      mono: ['DM Mono', 'monospace'],
-    },
-  }
-}
+```
+layout.tsx (server, MODIFIED -- suppressHydrationWarning)
+  +-- ThemeProvider (NEW, client -- manages .dark class on <html>)
+      +-- Nav (client, MODIFIED)
+      |    +-- Logo
+      |    +-- ThemeToggle (NEW, client)
+      |    +-- LanguageToggle
+      +-- MotionProvider (client)
+          +-- page.tsx (server, MODIFIED -- new section)
+               +-- Hero (client, MODIFIED)
+               |    +-- Waveform (MODIFIED -- receives demoPhase prop)
+               |    +-- TestFlightCTA (NEW, client)
+               +-- ScrollReveal > Features (server, MODIFIED -- uses GlassCard)
+               +-- ScrollReveal > ComparisonTable (NEW, server)
+               +-- ScrollReveal > HowItWorks (MODIFIED)
+               |    +-- VideoSection (NEW, client)
+               +-- ScrollReveal > DataFlow (MODIFIED -- uses GlassCard)
+               |    +-- VideoSection (NEW, client)
+               +-- ScrollReveal > OpenSource (server)
+               +-- ScrollReveal > Community (MODIFIED)
+               |    +-- TestFlightCTA (NEW, client)
+               +-- Footer (server)
 ```
 
-### Pattern 4: Static Generation with generateStaticParams
+### New Client JS Budget
 
-**What:** Pre-render both `/fr` and `/en` at build time.
+| Component | JS Bundle Impact | Justification |
+|-----------|-----------------|---------------|
+| ThemeProvider (next-themes) | ~2KB | Flash-free theme switching |
+| ThemeToggle | <1KB | Icon button + useTheme hook |
+| VideoSection (x2) | ~1KB (shared) | IntersectionObserver + video element |
+| TestFlightCTA (x2) | <1KB (shared) | Device detection + conditional render |
+| GlassCard | 0KB | Server component or CSS-only |
 
-**When:** Build configuration.
+**Total new client JS: ~5KB.** Current bundle is ~8KB (Motion LazyMotion + hooks). New total ~13KB. Well within Lighthouse 90+ budget.
 
-**Why:** This is a static marketing site. No SSR needed. Both locale pages are generated as static HTML, served from Vercel's edge CDN. Instant TTFB, perfect for Lighthouse.
+---
 
 ## Anti-Patterns to Avoid
 
-### Anti-Pattern 1: Client-Side Translation Loading
+### Anti-Pattern 1: Duplicating every Tailwind class with `dark:` prefix
+**What:** Adding `dark:bg-ink dark:text-white` to every element.
+**Why bad:** Doubles CSS output, makes every component unreadable, maintenance nightmare.
+**Instead:** Use CSS custom properties that swap in `.dark` scope. Components use semantic token classes (`bg-bg-primary`, `text-text-primary`) that resolve differently per theme.
 
-**What:** Loading translations via `useEffect` or context providers on the client.
+### Anti-Pattern 2: SVG displacement filters for Liquid Glass
+**What:** Using `<feTurbulence>` and `<feDisplacementMap>` for true glass distortion.
+**Why bad:** Not supported as `backdrop-filter` input in Safari or Firefox. Primary audience is iOS Safari.
+**Instead:** Pure CSS `backdrop-filter` + `::after` specular gradient.
 
-**Why bad:** Causes translation flash (FOUC), increases bundle size, defeats static generation. Translation strings end up in the JS bundle instead of the HTML.
+### Anti-Pattern 3: YouTube/Vimeo embeds for demo videos
+**What:** `<iframe src="youtube.com/embed/...">` for app demos.
+**Why bad:** Violates zero-third-party-scripts constraint. Adds ~500KB JS, tracking, cookies.
+**Instead:** Self-hosted `.mp4` with `preload="none"` and IntersectionObserver.
 
-**Instead:** Load dictionaries in Server Components, pass as props.
+### Anti-Pattern 4: Server-side UA detection for TestFlight CTA
+**What:** Using `headers()` in server components to detect iPhone.
+**Why bad:** Breaks static generation. Every page becomes dynamically rendered, losing edge cache.
+**Instead:** Client-side `navigator.userAgent` in `useEffect` with desktop default.
 
-### Anti-Pattern 2: Wrapping Everything in "use client"
+### Anti-Pattern 5: Uncompressed videos in `public/`
+**What:** Dropping raw iPhone screen recordings into `public/videos/`.
+**Why bad:** Raw recordings are 30-60MB. Even 10 seconds at native resolution is 5MB+.
+**Instead:** Compress with FFmpeg: `ffmpeg -i raw.mov -vcodec h264 -b:v 800k -vf scale=390:-2 -an output.mp4`. Target < 1MB per clip.
 
-**What:** Making the root layout or page a client component to use Motion or state.
+### Anti-Pattern 6: Converting server components to client for video
+**What:** Making HowItWorks.tsx a client component because it contains a VideoSection.
+**Why bad:** Loses server rendering benefits, ships unnecessary JS.
+**Instead:** Keep parent as server component. Client VideoSection is composed as a child -- React supports this pattern.
 
-**Why bad:** Forces the entire page into client-side rendering. Destroys SEO benefits, bloats bundle, kills Lighthouse scores.
+---
 
-**Instead:** Keep layout and page as Server Components. Create small client component wrappers only for interactive parts.
+## Suggested Build Order (Dependency-Driven)
 
-### Anti-Pattern 3: Heavy Animation Library for Simple Effects
+Each phase produces a working, deployable state.
 
-**What:** Using Motion for hover effects, color transitions, or opacity fades that CSS handles natively.
+### Phase 1: Theme System (Light/Dark Mode) -- BUILD FIRST
+**Rationale:** Every subsequent feature must work in both modes. Building theme infrastructure first means Liquid Glass, ComparisonTable, VideoSection, and TestFlightCTA are built theme-aware from day one. Retrofitting light mode onto completed features is 3-5x more work.
 
-**Why bad:** Unnecessary JS bundle for effects Tailwind/CSS can achieve with `transition-all duration-300`.
+**Steps:**
+1. `npm install next-themes`
+2. Add `@custom-variant dark (&:where(.dark, .dark *))` to globals.css
+3. Create semantic token layer (`bg-primary`, `text-primary`, etc.) alongside legacy tokens
+4. Create ThemeProvider wrapping body in layout.tsx with `suppressHydrationWarning`
+5. Add ThemeToggle to Nav
+6. Migrate ALL existing components from hardcoded dark tokens to semantic tokens
+7. Define light mode color palette (inspired by Dictus iOS app)
+8. Test every section in both modes, verify WCAG contrast in light mode
 
-**Instead:** CSS for simple transitions. Motion only for orchestrated sequences, scroll-triggered staggered reveals, and spring physics.
+**Depends on:** Nothing
+**Blocks:** Everything else
 
-### Anti-Pattern 4: Single Giant Page Component
+### Phase 2: Liquid Glass Shared Component
+**Rationale:** GlassCard is consumed by Features, DataFlow, and ComparisonTable. Build before consumers.
 
-**What:** Putting all sections in one massive `page.tsx` file.
+**Steps:**
+1. Create `.glass-card` CSS in globals.css with theme-aware variables
+2. Create GlassCard component
+3. Refactor Features.tsx cards to use GlassCard
+4. Refactor DataFlow.tsx container to use GlassCard
+5. Upgrade Nav scrolled state to use glass effect
+6. Verify in both light and dark mode
 
-**Why bad:** Unmaintainable, hard to split server/client boundaries, poor code organization.
+**Depends on:** Phase 1
+**Blocks:** Phase 3
 
-**Instead:** One component per section, composed in page.tsx.
+### Phase 3: Comparison Table
+**Rationale:** Pure content, server-rendered, no complex interactions. Uses GlassCard.
+
+**Steps:**
+1. Define competitor data types and static data
+2. Add i18n strings to fr.json and en.json
+3. Build ComparisonTable component (responsive, accessible table)
+4. Insert in page.tsx between Features and HowItWorks
+5. Wrap with ScrollReveal
+
+**Depends on:** Phase 2 (GlassCard)
+**Blocks:** Nothing
+
+### Phase 4: Enhanced Hero Waveform
+**Rationale:** Modifying existing components, no new dependencies. Independent of video work.
+
+**Steps:**
+1. Add `demoPhase` prop to Waveform
+2. Implement phase-aware energy functions
+3. Implement phase-aware color resolution (theme-aware)
+4. Pass `demoState.currentState` from Hero to Waveform
+5. Test with reduced motion
+
+**Depends on:** Phase 1 (theme-aware colors)
+**Blocks:** Nothing
+
+### Phase 5: Demo Video Sections
+**Rationale:** Requires video assets. Build component infrastructure, integrate when videos ready.
+
+**Steps:**
+1. Build VideoSection shared component with IntersectionObserver
+2. Prepare poster images (WebP, compressed)
+3. Compress video files with FFmpeg
+4. Integrate into HowItWorks
+5. Integrate into DataFlow
+6. Lighthouse audit (verify no LCP/CLS regression)
+
+**Depends on:** Phase 1 (theme-aware styling), video assets from user
+**Blocks:** Nothing
+
+### Phase 6: Adaptive TestFlight CTA
+**Rationale:** Last because it replaces the "Coming Soon" badge. Build when TestFlight link is available.
+
+**Steps:**
+1. Create useDeviceDetect hook
+2. Build TestFlightCTA component with iPhone/desktop variants
+3. Replace Hero "Coming Soon" badge
+4. Add to Community section
+5. Add i18n strings for both variants
+
+**Depends on:** Phase 1 (theme-aware), TestFlight link from app team
+**Blocks:** Nothing
+
+**Phase ordering rationale:** Theme system is foundational (touches every component). Liquid Glass builds the shared component needed by ComparisonTable. Phases 4-6 are independent and can be parallelized if multiple developers are available.
+
+---
 
 ## Scalability Considerations
 
-| Concern | Current (Landing) | If Grows to Multi-Page | If Grows to Full Site |
-|---------|-------------------|----------------------|---------------------|
-| i18n | Dictionary pattern, ~80 keys | Still fine up to ~500 keys | Migrate to next-intl |
-| Routing | Single page + locale | Add pages under [locale]/ | Same pattern scales |
-| Animation | Motion + Canvas | Same | Consider code-splitting Motion |
-| SEO | generateMetadata per locale | Add generateMetadata per page | Same pattern |
-| Styling | Tailwind tokens | Same | Same |
+| Concern | Current (v1.0) | After v1.1 | Risk |
+|---------|----------------|------------|------|
+| Client JS bundle | ~8KB | ~13KB (+next-themes, video, device detect) | Low -- well within budget |
+| Glassmorphism/glass elements | 7 | ~12 (+ComparisonTable, glass cards) | Low -- under 15 safe for mobile GPU |
+| CSS custom properties | 15 tokens | ~30 tokens (+semantic layer) | None -- no perf impact |
+| Video files | 0 | 2-3 (< 1MB each) | Medium -- lazy loaded but adds total page weight |
+| i18n keys | ~40 | ~70 (+Comparison, CTA variants) | None -- negligible bundle impact |
+| `prefers-reduced-motion` | Handled in Waveform + ScrollReveal | Must extend to video autoplay + new animations | Medium -- test carefully |
 
-## Suggested Build Order
-
-Based on component dependencies, build in this order:
-
-1. **Project scaffold + Tailwind config + fonts** -- everything depends on this
-2. **i18n infrastructure** (middleware, dictionaries, [locale] layout) -- pages depend on this
-3. **Design system primitives** (Button, Card, GlassPanel, Badge) -- sections depend on these
-4. **Logo/Icon components** (DictusLogo, DictusWordmark) -- Header/Footer depend on these
-5. **Layout components** (Header, Footer) -- page structure depends on these
-6. **Static sections** (Privacy, OpenSource, Download) -- simplest sections, no complex animation
-7. **Animated sections** (Features with scroll reveal) -- builds on Motion integration
-8. **Hero section** (SineWave canvas + WordReveal) -- most complex, builds on everything above
-9. **SEO files** (sitemap.ts, robots.ts, OG images, metadata) -- polish layer
-10. **Performance optimization** (Lighthouse audit, bundle analysis) -- final validation
-
-**Rationale:** Foundation first (config, i18n, tokens), then reusable primitives, then simple sections to validate the pattern, then complex animated sections last when the system is proven.
+---
 
 ## Sources
 
-- [Next.js Official i18n Guide (App Router)](https://nextjs.org/docs/app/guides/internationalization) -- HIGH confidence
-- [Next.js Project Structure](https://nextjs.org/docs/app/getting-started/project-structure) -- HIGH confidence
-- [Motion for React (formerly Framer Motion)](https://motion.dev/docs/react) -- HIGH confidence
-- [next-intl App Router docs](https://next-intl.dev/docs/getting-started/app-router) -- HIGH confidence (evaluated, not recommended for this scope)
-- [Next.js generateMetadata API](https://nextjs.org/docs/app/api-reference/functions/generate-metadata) -- HIGH confidence
-- [GSAP vs Motion comparison](https://motion.dev/docs/gsap-vs-motion) -- MEDIUM confidence
-- [Next.js folder structure best practices 2025](https://dev.to/bajrayejoon/best-practices-for-organizing-your-nextjs-15-2025-53ji) -- MEDIUM confidence
+- [Tailwind CSS v4 Dark Mode -- official docs](https://tailwindcss.com/docs/dark-mode) (HIGH confidence)
+- [next-themes -- GitHub](https://github.com/pacocoursey/next-themes) (HIGH confidence)
+- [Theming in Tailwind CSS v4 with @custom-variant](https://medium.com/@sir.raminyavari/theming-in-tailwind-css-v4-support-multiple-color-schemes-and-dark-mode-ba97aead5c14) (MEDIUM confidence)
+- [Dark mode with Tailwind v4 and Next.js](https://www.thingsaboutweb.dev/en/posts/dark-mode-with-tailwind-v4-nextjs) (MEDIUM confidence)
+- [Dark Mode in Next.js 15 with Tailwind v4](https://www.sujalvanjare.com/blog/dark-mode-nextjs15-tailwind-v4) (MEDIUM confidence)
+- [Recreating Apple's Liquid Glass Effect with Pure CSS](https://dev.to/kevinbism/recreating-apples-liquid-glass-effect-with-pure-css-3gpl) (MEDIUM confidence)
+- [Getting Clarity on Apple's Liquid Glass -- CSS-Tricks](https://css-tricks.com/getting-clarity-on-apples-liquid-glass/) (HIGH confidence)
+- [How to create Liquid Glass effects with CSS and SVG -- LogRocket](https://blog.logrocket.com/how-create-liquid-glass-effects-css-and-svg/) (MEDIUM confidence)
+- [Liquid Glass CSS Generator](https://liquidglassgen.com/) (LOW confidence -- tool reference)
+- [Lazy-Load Videos in Next.js -- Cloudinary](https://cloudinary.com/blog/lazy-load-videos-in-next-js-pages) (MEDIUM confidence)
+- [Next.js userAgent function -- official docs](https://nextjs.org/docs/app/api-reference/functions/userAgent) (HIGH confidence)
+- [Tailwind CSS v4 dark mode discussion](https://github.com/tailwindlabs/tailwindcss/discussions/16925) (MEDIUM confidence)
