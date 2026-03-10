@@ -66,8 +66,8 @@ Plans:
 **Plans**: 2 plans
 
 Plans:
-- [ ] 03-01-PLAN.md -- LazyMotion provider, ScrollReveal component, scroll-triggered section reveals
-- [ ] 03-02-PLAN.md -- Canvas sinusoidal waveform, word-by-word text reveal, state micro-animation, hero rework
+- [x] 03-01-PLAN.md -- LazyMotion provider, ScrollReveal component, scroll-triggered section reveals
+- [x] 03-02-PLAN.md -- Canvas sinusoidal waveform, word-by-word text reveal, state micro-animation, hero rework
 
 ### Phase 4: Polish & Performance
 **Goal**: The site ships production-ready -- Lighthouse 90+ on all metrics, complete SEO metadata, and verified accessibility
@@ -77,10 +77,11 @@ Plans:
   1. Lighthouse scores 90+ on Performance, Accessibility, Best Practices, and SEO for both /fr and /en
   2. Sharing the site URL on social media shows correct Open Graph title, description, and image per locale
   3. Search engines see hreflang tags linking FR/EN alternates and a valid sitemap.xml
-**Plans**: TBD
+**Plans**: 2 plans
 
 Plans:
-- [ ] 04-01: Lighthouse audit fixes, OG images, meta tags, JSON-LD, hreflang, sitemap
+- [ ] 04-01-PLAN.md -- SEO metadata (generateMetadata, OG tags, hreflang), sitemap, robots, JSON-LD, OG image, accessibility fixes (contrast, skip-to-content, ARIA)
+- [ ] 04-02-PLAN.md -- Lighthouse audit on /fr and /en, fix issues until 90+ on all metrics, human verification
 
 ## Progress
 
@@ -92,4 +93,4 @@ Phases execute in numeric order: 1 --> 2 --> 3 --> 4
 | 1. Foundation | 2/2 | Complete | 2026-03-09 |
 | 2. Content & Layout | 4/4 | Complete   | 2026-03-09 |
 | 3. Animations | 2/2 | Complete   | 2026-03-09 |
-| 4. Polish & Performance | 0/1 | Not started | - |
+| 4. Polish & Performance | 0/2 | Not started | - |
