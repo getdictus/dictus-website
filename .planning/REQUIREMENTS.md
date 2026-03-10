@@ -92,40 +92,40 @@ Which phases cover which requirements. Updated during roadmap creation.
 
 | Requirement | Phase | Status |
 |-------------|-------|--------|
-| THEME-01 | — | Pending |
-| THEME-02 | — | Pending |
-| THEME-03 | — | Pending |
-| THEME-04 | — | Pending |
-| THEME-05 | — | Pending |
-| THEME-06 | — | Pending |
-| COMP-01 | — | Pending |
-| COMP-02 | — | Pending |
-| COMP-03 | — | Pending |
-| COMP-04 | — | Pending |
-| COMP-05 | — | Pending |
-| COMP-06 | — | Pending |
-| COMP-07 | — | Pending |
-| HERO-01 | — | Pending |
-| HERO-02 | — | Pending |
-| HERO-03 | — | Pending |
-| HERO-04 | — | Pending |
-| HERO-05 | — | Pending |
-| GLASS-01 | — | Pending |
-| GLASS-02 | — | Pending |
-| GLASS-03 | — | Pending |
-| GLASS-04 | — | Pending |
-| GLASS-05 | — | Pending |
-| CTA-01 | — | Pending |
-| CTA-02 | — | Pending |
-| CTA-03 | — | Pending |
-| CTA-04 | — | Pending |
-| CTA-05 | — | Pending |
+| THEME-01 | Phase 5 | Pending |
+| THEME-02 | Phase 5 | Pending |
+| THEME-03 | Phase 5 | Pending |
+| THEME-04 | Phase 5 | Pending |
+| THEME-05 | Phase 5 | Pending |
+| THEME-06 | Phase 5 | Pending |
+| GLASS-01 | Phase 6 | Pending |
+| GLASS-02 | Phase 6 | Pending |
+| GLASS-03 | Phase 6 | Pending |
+| GLASS-04 | Phase 6 | Pending |
+| GLASS-05 | Phase 6 | Pending |
+| HERO-01 | Phase 6 | Pending |
+| HERO-02 | Phase 6 | Pending |
+| HERO-03 | Phase 6 | Pending |
+| HERO-04 | Phase 6 | Pending |
+| HERO-05 | Phase 6 | Pending |
+| COMP-01 | Phase 7 | Pending |
+| COMP-02 | Phase 7 | Pending |
+| COMP-03 | Phase 7 | Pending |
+| COMP-04 | Phase 7 | Pending |
+| COMP-05 | Phase 7 | Pending |
+| COMP-06 | Phase 7 | Pending |
+| COMP-07 | Phase 7 | Pending |
+| CTA-01 | Phase 7 | Pending |
+| CTA-02 | Phase 7 | Pending |
+| CTA-03 | Phase 7 | Pending |
+| CTA-04 | Phase 7 | Pending |
+| CTA-05 | Phase 7 | Pending |
 
 **Coverage:**
 - v1.1 requirements: 28 total
-- Mapped to phases: 0
-- Unmapped: 28 ⚠️
+- Mapped to phases: 28
+- Unmapped: 0
 
 ---
 *Requirements defined: 2026-03-10*
-*Last updated: 2026-03-10 after initial definition*
+*Last updated: 2026-03-10 after roadmap creation*
