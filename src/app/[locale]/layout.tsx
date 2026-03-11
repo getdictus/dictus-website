@@ -10,6 +10,7 @@ import { notFound } from "next/navigation";
 import { routing } from "@/i18n/routing";
 import Nav from "@/components/Nav/Nav";
 import MotionProvider from "@/components/shared/MotionProvider";
+import ThemeProvider from "@/components/shared/ThemeProvider";
 import "../globals.css";
 
 const dmSans = DM_Sans({
@@ -102,19 +103,21 @@ export default async function LocaleLayout({ children, params }: Props) {
   const tNav = await getTranslations({ locale, namespace: "Nav" });
 
   return (
-    <html lang={locale} className={`${dmSans.variable} ${dmMono.variable}`}>
-      <body className="overflow-x-hidden bg-ink font-sans text-white antialiased">
+    <html lang={locale} className={`${dmSans.variable} ${dmMono.variable}`} suppressHydrationWarning>
+      <body className="overflow-x-hidden bg-ink font-sans text-[var(--theme-text-primary)] antialiased">
         <NextIntlClientProvider messages={messages}>
-          <a
-            href="#main-content"
-            className="sr-only focus:not-sr-only focus:fixed focus:left-4 focus:top-4 focus:z-50 focus:rounded-lg focus:bg-accent focus:px-4 focus:py-2 focus:text-white focus:outline-none"
-          >
-            {tNav("skip_to_content")}
-          </a>
-          <Nav />
-          <MotionProvider>
-            <main id="main-content" className="pt-16">{children}</main>
-          </MotionProvider>
+          <ThemeProvider attribute="class" defaultTheme="system" enableSystem>
+            <a
+              href="#main-content"
+              className="sr-only focus:not-sr-only focus:fixed focus:left-4 focus:top-4 focus:z-50 focus:rounded-lg focus:bg-accent focus:px-4 focus:py-2 focus:text-white focus:outline-none"
+            >
+              {tNav("skip_to_content")}
+            </a>
+            <Nav />
+            <MotionProvider>
+              <main id="main-content" className="pt-16">{children}</main>
+            </MotionProvider>
+          </ThemeProvider>
         </NextIntlClientProvider>
       </body>
     </html>
