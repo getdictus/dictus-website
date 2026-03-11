@@ -6,7 +6,7 @@ export default function OpenSource() {
   return (
     <section className="bg-ink py-28">
       <div className="mx-auto max-w-6xl px-6 text-center">
-        <h2 className="text-2xl font-normal text-white">{t("title")}</h2>
+        <h2 className="text-2xl font-normal text-text-primary">{t("title")}</h2>
         <p className="mx-auto mt-4 max-w-2xl text-white-70">{t("desc")}</p>
         <a
           href="https://github.com/Pivii/dictus"

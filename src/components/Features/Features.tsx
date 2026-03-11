@@ -9,7 +9,7 @@ export default function Features() {
         <div className="grid grid-cols-1 gap-6 md:grid-cols-2">
           {/* Privacy / Offline */}
           <div className="rounded-2xl border border-border bg-surface/50 p-6 backdrop-blur-md transition-colors hover:border-border-hi">
-            <div className="flex h-12 w-12 items-center justify-center rounded-xl bg-navy/50">
+            <div className="flex h-12 w-12 items-center justify-center rounded-xl bg-navy">
               <svg
                 width="24"
                 height="24"
@@ -25,7 +25,7 @@ export default function Features() {
                 <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z" />
               </svg>
             </div>
-            <h3 className="mt-4 text-lg font-normal text-white">
+            <h3 className="mt-4 text-lg font-normal text-text-primary">
               {t("privacy_title")}
             </h3>
             <p className="mt-2 text-sm leading-relaxed text-white-70">
@@ -35,7 +35,7 @@ export default function Features() {
 
           {/* Smart Mode */}
           <div className="rounded-2xl border border-border bg-surface/50 p-6 backdrop-blur-md transition-colors hover:border-border-hi">
-            <div className="flex h-12 w-12 items-center justify-center rounded-xl bg-navy/50">
+            <div className="flex h-12 w-12 items-center justify-center rounded-xl bg-navy">
               <svg
                 width="24"
                 height="24"
@@ -53,7 +53,7 @@ export default function Features() {
                 <path d="M19 16l.82 2.46L22 19.5l-1.64 1.2.55 2.56L19 22l-1.91 1.26.55-2.56L16 19.5l2.18-.54z" />
               </svg>
             </div>
-            <h3 className="mt-4 text-lg font-normal text-white">
+            <h3 className="mt-4 text-lg font-normal text-text-primary">
               {t("smart_title")}
             </h3>
             <p className="mt-2 text-sm leading-relaxed text-white-70">
@@ -63,7 +63,7 @@ export default function Features() {
 
           {/* Keyboard Integration */}
           <div className="rounded-2xl border border-border bg-surface/50 p-6 backdrop-blur-md transition-colors hover:border-border-hi">
-            <div className="flex h-12 w-12 items-center justify-center rounded-xl bg-navy/50">
+            <div className="flex h-12 w-12 items-center justify-center rounded-xl bg-navy">
               <svg
                 width="24"
                 height="24"
@@ -82,7 +82,7 @@ export default function Features() {
                 <path d="M8 16h8" />
               </svg>
             </div>
-            <h3 className="mt-4 text-lg font-normal text-white">
+            <h3 className="mt-4 text-lg font-normal text-text-primary">
               {t("keyboard_title")}
             </h3>
             <p className="mt-2 text-sm leading-relaxed text-white-70">
@@ -92,7 +92,7 @@ export default function Features() {
 
           {/* Open Source */}
           <div className="rounded-2xl border border-border bg-surface/50 p-6 backdrop-blur-md transition-colors hover:border-border-hi">
-            <div className="flex h-12 w-12 items-center justify-center rounded-xl bg-navy/50">
+            <div className="flex h-12 w-12 items-center justify-center rounded-xl bg-navy">
               <svg
                 width="24"
                 height="24"
@@ -109,7 +109,7 @@ export default function Features() {
                 <polyline points="8 6 2 12 8 18" />
               </svg>
             </div>
-            <h3 className="mt-4 text-lg font-normal text-white">
+            <h3 className="mt-4 text-lg font-normal text-text-primary">
               {t("opensource_title")}
             </h3>
             <p className="mt-2 text-sm leading-relaxed text-white-70">

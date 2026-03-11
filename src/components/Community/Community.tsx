@@ -6,7 +6,7 @@ export default function Community() {
   return (
     <section className="bg-ink-2 py-28">
       <div className="mx-auto max-w-6xl px-6 text-center">
-        <h2 className="text-3xl font-extralight text-white md:text-4xl">
+        <h2 className="text-3xl font-extralight text-text-primary md:text-4xl">
           {t("title")}
         </h2>
         <p className="mt-4 text-white-70">{t("desc")}</p>

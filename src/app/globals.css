@@ -9,7 +9,7 @@
   --theme-bg-body: #F2F2F7;
   --theme-bg-secondary: #EFF1F5;
   --theme-surface: #FFFFFF;
-  --theme-navy: #1A4E8A;
+  --theme-navy: #0D2040;
   --theme-text-primary: #000000;
   --theme-text-body: rgba(0, 0, 0, 0.60);
   --theme-text-secondary: rgba(0, 0, 0, 0.40);
@@ -18,6 +18,7 @@
   --theme-waveform-edge-rgb: 128, 128, 128;
   --theme-waveform-gradient-start: #6BA3FF;
   --theme-waveform-gradient-end: #2563EB;
+  --theme-sky: #6BA3FF;
 }
 
 .dark {
@@ -34,6 +35,7 @@
   --theme-waveform-edge-rgb: 255, 255, 255;
   --theme-waveform-gradient-start: #6BA3FF;
   --theme-waveform-gradient-end: #2563EB;
+  --theme-sky: #93C5FD;
 }
 
 @theme {
@@ -45,6 +47,7 @@
   --color-navy: var(--theme-navy);
 
   /* Text — swappable */
+  --color-text-primary: var(--theme-text-primary);
   --color-white-70: var(--theme-text-body);
   --color-white-40: var(--theme-text-secondary);
 
@@ -55,7 +58,7 @@
   /* Accent — static (identical both modes) */
   --color-accent: #3D7EFF;
   --color-accent-hi: #6BA3FF;
-  --color-sky: #93C5FD;
+  --color-sky: var(--theme-sky);
   --color-mist: #DBEAFE;
 
   /* Semantic — static */

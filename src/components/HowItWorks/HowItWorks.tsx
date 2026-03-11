@@ -9,7 +9,7 @@ export default function HowItWorks() {
         <div className="flex flex-col items-center gap-8 md:flex-row md:justify-between">
           {/* Step 1: Tap the mic */}
           <div className="flex max-w-[200px] flex-col items-center text-center md:max-w-none">
-            <div className="flex h-16 w-16 items-center justify-center rounded-full border border-border bg-surface/30">
+            <div className="flex h-16 w-16 items-center justify-center rounded-full border border-border bg-navy">
               <svg
                 width="24"
                 height="24"
@@ -27,7 +27,7 @@ export default function HowItWorks() {
                 <line x1="12" y1="19" x2="12" y2="22" />
               </svg>
             </div>
-            <h3 className="mt-3 text-base font-normal text-white">
+            <h3 className="mt-3 text-base font-normal text-text-primary">
               {t("step1_title")}
             </h3>
             <p className="mt-1 text-sm text-white-40">{t("step1_desc")}</p>
@@ -52,7 +52,7 @@ export default function HowItWorks() {
 
           {/* Step 2: Speak */}
           <div className="flex max-w-[200px] flex-col items-center text-center md:max-w-none">
-            <div className="flex h-16 w-16 items-center justify-center rounded-full border border-border bg-surface/30">
+            <div className="flex h-16 w-16 items-center justify-center rounded-full border border-border bg-navy">
               <svg
                 width="24"
                 height="24"
@@ -73,7 +73,7 @@ export default function HowItWorks() {
                 <path d="M22 12c.3-.8.5-1.7.5-2.5" />
               </svg>
             </div>
-            <h3 className="mt-3 text-base font-normal text-white">
+            <h3 className="mt-3 text-base font-normal text-text-primary">
               {t("step2_title")}
             </h3>
             <p className="mt-1 text-sm text-white-40">{t("step2_desc")}</p>
@@ -98,7 +98,7 @@ export default function HowItWorks() {
 
           {/* Step 3: Text appears */}
           <div className="flex max-w-[200px] flex-col items-center text-center md:max-w-none">
-            <div className="flex h-16 w-16 items-center justify-center rounded-full border border-border bg-surface/30">
+            <div className="flex h-16 w-16 items-center justify-center rounded-full border border-border bg-navy">
               <svg
                 width="24"
                 height="24"
@@ -117,7 +117,7 @@ export default function HowItWorks() {
                 <line x1="8" y1="17" x2="12" y2="17" />
               </svg>
             </div>
-            <h3 className="mt-3 text-base font-normal text-white">
+            <h3 className="mt-3 text-base font-normal text-text-primary">
               {t("step3_title")}
             </h3>
             <p className="mt-1 text-sm text-white-40">{t("step3_desc")}</p>

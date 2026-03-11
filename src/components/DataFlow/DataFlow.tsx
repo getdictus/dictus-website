@@ -11,7 +11,7 @@ export default function DataFlow() {
           <div className="flex flex-col items-center gap-6 md:flex-row md:justify-center md:gap-8">
             {/* Voice node */}
             <div className="flex flex-col items-center">
-              <div className="flex h-14 w-14 items-center justify-center rounded-full border border-border bg-surface/30">
+              <div className="flex h-14 w-14 items-center justify-center rounded-full border border-border bg-navy">
                 <svg
                   width="24"
                   height="24"
@@ -64,7 +64,7 @@ export default function DataFlow() {
 
             {/* On-Device Model node */}
             <div className="flex flex-col items-center">
-              <div className="flex h-14 w-14 items-center justify-center rounded-full border border-border bg-surface/30">
+              <div className="flex h-14 w-14 items-center justify-center rounded-full border border-border bg-navy">
                 <svg
                   width="24"
                   height="24"
@@ -117,7 +117,7 @@ export default function DataFlow() {
 
             {/* Text node */}
             <div className="flex flex-col items-center">
-              <div className="flex h-14 w-14 items-center justify-center rounded-full border border-border bg-surface/30">
+              <div className="flex h-14 w-14 items-center justify-center rounded-full border border-border bg-navy">
                 <svg
                   width="24"
                   height="24"
@@ -160,7 +160,7 @@ export default function DataFlow() {
           </div>
 
           {/* Text content */}
-          <h2 className="mt-6 text-center text-xl font-normal text-white">
+          <h2 className="mt-6 text-center text-xl font-normal text-text-primary">
             {t("title")}
           </h2>
           <p className="mt-3 text-center text-white-70">{t("desc")}</p>

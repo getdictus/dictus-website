@@ -46,7 +46,7 @@ export default function Logo() {
 
       {/* Wordmark */}
       <span
-        className="text-xl text-white"
+        className="text-xl text-text-primary"
         style={{
           fontWeight: 200,
           letterSpacing: "-0.04em",
