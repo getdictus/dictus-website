@@ -3,14 +3,14 @@ gsd_state_version: 1.0
 milestone: v1.1
 milestone_name: Polish & Differentiation
 status: executing
-stopped_at: Completed 05-01-PLAN.md
-last_updated: "2026-03-11T10:06:35.472Z"
-last_activity: 2026-03-11 — 05-01 CSS variable foundation complete
+stopped_at: Completed 05-02-PLAN.md — all plans in phase 05 done
+last_updated: "2026-03-11T10:30:00.000Z"
+last_activity: 2026-03-11 — 05-02 Theme toggle + waveform + light mode fixes complete
 progress:
   total_phases: 3
   completed_phases: 0
   total_plans: 2
-  completed_plans: 1
+  completed_plans: 2
 ---
 
 # Project State
@@ -25,9 +25,9 @@ See: .planning/PROJECT.md (updated 2026-03-10)
 ## Current Position
 
 Phase: 5 of 7 (Theme System) — first phase of v1.1
-Plan: 1 of 2 in current phase
-Status: Executing — Plan 01 complete, Plan 02 next
-Last activity: 2026-03-11 — 05-01 CSS variable foundation complete
+Plan: 2 of 2 in current phase (all complete)
+Status: Executing — Both plans complete, awaiting phase verification
+Last activity: 2026-03-11 — 05-02 Theme toggle + waveform + light mode fixes
 
 ## Accumulated Context
 
@@ -44,6 +44,9 @@ Recent decisions affecting current work:
 - [05-01]: Kept dark-origin token names for zero-churn migration
 - [05-01]: text-[var(--theme-text-primary)] instead of --color-white to avoid Tailwind v4 conflict
 - [05-01]: 9 swappable tokens via var() indirection, 10 static tokens
+- [05-02]: Added --color-text-primary to @theme for theme-safe headings
+- [05-02]: Light mode icon containers use logo-matching dark navy (#0D2040)
+- [05-02]: Made --color-sky theme-aware (#6BA3FF light, #93C5FD dark)
 
 ### Pending Todos
 
@@ -57,6 +60,6 @@ None.
 
 ## Session Continuity
 
-Last session: 2026-03-11T10:06:00Z
-Stopped at: Completed 05-01-PLAN.md
-Resume file: .planning/phases/05-theme-system/05-01-SUMMARY.md
+Last session: 2026-03-11T10:30:00Z
+Stopped at: Completed all plans in phase 05
+Resume file: .planning/phases/05-theme-system/05-02-SUMMARY.md
