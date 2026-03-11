@@ -2,6 +2,7 @@
 
 import { useState, useEffect } from "react";
 import Logo from "./Logo";
+import ThemeToggle from "./ThemeToggle";
 import LanguageToggle from "./LanguageToggle";
 
 export default function Nav() {
@@ -24,7 +25,10 @@ export default function Nav() {
     >
       <div className="mx-auto flex max-w-6xl items-center justify-between px-6 py-4">
         <Logo />
-        <LanguageToggle />
+        <div className="flex items-center gap-1">
+          <ThemeToggle />
+          <LanguageToggle />
+        </div>
       </div>
     </nav>
   );
