@@ -10,11 +10,11 @@ Requirements for milestone v1.1 — Polish & Differentiation. Each maps to roadm
 ### Theme (Light/Dark Mode)
 
 - [ ] **THEME-01**: User can toggle between light, dark, and system theme via Nav toggle
-- [ ] **THEME-02**: All 72 dark-only color references migrated to semantic tokens that swap per theme
+- [x] **THEME-02**: All 72 dark-only color references migrated to semantic tokens that swap per theme
 - [ ] **THEME-03**: Canvas waveform reads colors from CSS custom properties (theme-aware)
-- [ ] **THEME-04**: Theme preference persists across sessions (localStorage)
-- [ ] **THEME-05**: Theme switch animates with smooth 200ms cross-fade transition
-- [ ] **THEME-06**: No flash of wrong theme on page load (FOWT prevention)
+- [x] **THEME-04**: Theme preference persists across sessions (localStorage)
+- [x] **THEME-05**: Theme switch animates with smooth 200ms cross-fade transition
+- [x] **THEME-06**: No flash of wrong theme on page load (FOWT prevention)
 
 ### Comparison Table
 
@@ -93,11 +93,11 @@ Which phases cover which requirements. Updated during roadmap creation.
 | Requirement | Phase | Status |
 |-------------|-------|--------|
 | THEME-01 | Phase 5 | Pending |
-| THEME-02 | Phase 5 | Pending |
+| THEME-02 | Phase 5 | Complete |
 | THEME-03 | Phase 5 | Pending |
-| THEME-04 | Phase 5 | Pending |
-| THEME-05 | Phase 5 | Pending |
-| THEME-06 | Phase 5 | Pending |
+| THEME-04 | Phase 5 | Complete |
+| THEME-05 | Phase 5 | Complete |
+| THEME-06 | Phase 5 | Complete |
 | GLASS-01 | Phase 6 | Pending |
 | GLASS-02 | Phase 6 | Pending |
 | GLASS-03 | Phase 6 | Pending |
