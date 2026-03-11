@@ -1,39 +1,86 @@
 @import "tailwindcss";
 
-@theme {
-  /* Background */
-  --color-ink-deep: #0A1628;
-  --color-ink: #0B0F1A;
-  --color-ink-2: #111827;
-  --color-surface: #161C2C;
-  --color-navy: #0F3460;
+@custom-variant dark (&:where(.dark, .dark *));
 
-  /* Accent */
+/* ─── Theme variable swap: light (default) / dark ─── */
+
+:root {
+  --theme-bg-primary: #F2F2F7;
+  --theme-bg-body: #F2F2F7;
+  --theme-bg-secondary: #EFF1F5;
+  --theme-surface: #FFFFFF;
+  --theme-navy: #1A4E8A;
+  --theme-text-primary: #000000;
+  --theme-text-body: rgba(0, 0, 0, 0.60);
+  --theme-text-secondary: rgba(0, 0, 0, 0.40);
+  --theme-border: rgba(0, 0, 0, 0.08);
+  --theme-border-hi: rgba(0, 0, 0, 0.14);
+  --theme-waveform-edge-rgb: 128, 128, 128;
+  --theme-waveform-gradient-start: #6BA3FF;
+  --theme-waveform-gradient-end: #2563EB;
+}
+
+.dark {
+  --theme-bg-primary: #0A1628;
+  --theme-bg-body: #0B0F1A;
+  --theme-bg-secondary: #111827;
+  --theme-surface: #161C2C;
+  --theme-navy: #0F3460;
+  --theme-text-primary: #FFFFFF;
+  --theme-text-body: rgba(255, 255, 255, 0.70);
+  --theme-text-secondary: rgba(255, 255, 255, 0.60);
+  --theme-border: rgba(255, 255, 255, 0.07);
+  --theme-border-hi: rgba(255, 255, 255, 0.14);
+  --theme-waveform-edge-rgb: 255, 255, 255;
+  --theme-waveform-gradient-start: #6BA3FF;
+  --theme-waveform-gradient-end: #2563EB;
+}
+
+@theme {
+  /* Background — swappable via var() indirection */
+  --color-ink-deep: var(--theme-bg-primary);
+  --color-ink: var(--theme-bg-body);
+  --color-ink-2: var(--theme-bg-secondary);
+  --color-surface: var(--theme-surface);
+  --color-navy: var(--theme-navy);
+
+  /* Text — swappable */
+  --color-white-70: var(--theme-text-body);
+  --color-white-40: var(--theme-text-secondary);
+
+  /* Border — swappable */
+  --color-border: var(--theme-border);
+  --color-border-hi: var(--theme-border-hi);
+
+  /* Accent — static (identical both modes) */
   --color-accent: #3D7EFF;
   --color-accent-hi: #6BA3FF;
   --color-sky: #93C5FD;
   --color-mist: #DBEAFE;
 
-  /* Semantic */
+  /* Semantic — static */
   --color-recording: #EF4444;
   --color-smart: #8B5CF6;
   --color-success: #22C55E;
   --color-warning: #F59E0B;
 
-  /* Border & Glow */
-  --color-border: rgba(255, 255, 255, 0.07);
-  --color-border-hi: rgba(255, 255, 255, 0.14);
+  /* Glow — static */
   --color-glow: rgba(61, 126, 255, 0.35);
   --color-glow-soft: rgba(61, 126, 255, 0.12);
-
-  /* White variants */
-  --color-white-70: rgba(255, 255, 255, 0.70);
-  --color-white-40: rgba(255, 255, 255, 0.60); /* WCAG AA: ~9.3:1 contrast on #0B0F1A */
 }
 
 @theme inline {
   --font-sans: var(--font-dm-sans);
   --font-mono: var(--font-dm-mono);
+}
+
+/* ─── Theme transition (toggled by ThemeToggle component) ─── */
+
+html.theme-transition,
+html.theme-transition *,
+html.theme-transition *::before,
+html.theme-transition *::after {
+  transition: color 200ms ease, background-color 200ms ease, border-color 200ms ease, fill 200ms ease, stroke 200ms ease !important;
 }
 
 @keyframes blink {
