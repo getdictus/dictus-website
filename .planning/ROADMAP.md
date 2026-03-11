@@ -41,11 +41,11 @@ Full details: `.planning/milestones/v1.0-ROADMAP.md`
   3. Canvas waveform colors adapt to the active theme without page reload
   4. Theme preference survives browser restart and there is no flash of wrong theme on initial load
   5. Theme transition feels smooth (no harsh snap between color schemes)
-**Plans**: TBD
+**Plans**: 2 plans
 
 Plans:
-- [ ] 05-01: TBD
-- [ ] 05-02: TBD
+- [ ] 05-01-PLAN.md — Theme infrastructure: CSS variable swap, next-themes provider, FOWT prevention
+- [ ] 05-02-PLAN.md — Theme toggle UI, waveform theme adaptation, visual verification
 
 ### Phase 6: Visual Effects
 **Goal**: Site elements gain iOS 26 Liquid Glass depth and the hero waveform tells a choreographed product story
@@ -90,6 +90,6 @@ Note: Phase 7 depends only on Phase 5, not Phase 6. If Phase 6 is blocked, Phase
 | 2. Content & Layout | v1.0 | 4/4 | Complete | 2026-03-09 |
 | 3. Animations | v1.0 | 2/2 | Complete | 2026-03-09 |
 | 4. Polish & Performance | v1.0 | 2/2 | Complete | 2026-03-10 |
-| 5. Theme System | v1.1 | 0/? | Not started | - |
+| 5. Theme System | v1.1 | 0/2 | Not started | - |
 | 6. Visual Effects | v1.1 | 0/? | Not started | - |
 | 7. Content & CTA | v1.1 | 0/? | Not started | - |
