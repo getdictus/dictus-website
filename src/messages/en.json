@@ -12,7 +12,10 @@
   "Hero": {
     "headline": "Your voice stays yours.",
     "subtitle": "100% offline voice dictation for iOS.",
-    "badge": "Coming soon"
+    "badge": "Coming soon",
+    "cta_testflight": "Join TestFlight",
+    "cta_available_iphone": "Available on iPhone",
+    "cta_testflight_link": "Open in TestFlight"
   },
   "HeroDemo": {
     "sentences": {
@@ -60,6 +63,30 @@
     "title": "Join the community",
     "desc": "Follow development, suggest ideas, and connect with other users.",
     "cta": "Join on Telegram"
+  },
+  "Comparison": {
+    "title": "How Dictus compares",
+    "feature_price": "Price",
+    "feature_offline": "100% Offline",
+    "feature_privacy": "Privacy-first",
+    "feature_platforms": "Platforms",
+    "feature_ai_rewrite": "AI Rewrite",
+    "feature_opensource": "Open Source",
+    "dictus_name": "Dictus",
+    "dictus_price": "Free",
+    "dictus_platforms": "iOS",
+    "apple_name": "Apple Dictation",
+    "apple_price": "Built-in",
+    "apple_platforms": "iOS, macOS",
+    "whisperflow_name": "WhisperFlow",
+    "whisperflow_price": "$4.99/mo",
+    "whisperflow_platforms": "iOS",
+    "superwhisper_name": "SuperWhisper",
+    "superwhisper_price": "$29",
+    "superwhisper_platforms": "macOS",
+    "macwhisper_name": "MacWhisper",
+    "macwhisper_price": "$29",
+    "macwhisper_platforms": "macOS"
   },
   "Footer": {
     "copyright": "PIVI Solutions",

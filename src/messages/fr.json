@@ -12,7 +12,10 @@
   "Hero": {
     "headline": "Votre voix reste la v\u00f4tre.",
     "subtitle": "Dictation vocale 100% offline pour iOS.",
-    "badge": "Bient\u00f4t disponible"
+    "badge": "Bient\u00f4t disponible",
+    "cta_testflight": "Rejoindre TestFlight",
+    "cta_available_iphone": "Disponible sur iPhone",
+    "cta_testflight_link": "Ouvrir dans TestFlight"
   },
   "HeroDemo": {
     "sentences": {
@@ -60,6 +63,30 @@
     "title": "Rejoignez la communauté",
     "desc": "Suivez le développement, proposez des idées et échangez avec d\u2019autres utilisateurs.",
     "cta": "Rejoindre sur Telegram"
+  },
+  "Comparison": {
+    "title": "Comment Dictus se compare",
+    "feature_price": "Prix",
+    "feature_offline": "100% Offline",
+    "feature_privacy": "Respect de la vie priv\u00e9e",
+    "feature_platforms": "Plateformes",
+    "feature_ai_rewrite": "R\u00e9\u00e9criture IA",
+    "feature_opensource": "Open Source",
+    "dictus_name": "Dictus",
+    "dictus_price": "Gratuit",
+    "dictus_platforms": "iOS",
+    "apple_name": "Apple Dictation",
+    "apple_price": "Int\u00e9gr\u00e9",
+    "apple_platforms": "iOS, macOS",
+    "whisperflow_name": "WhisperFlow",
+    "whisperflow_price": "4,99\u00a0$/mois",
+    "whisperflow_platforms": "iOS",
+    "superwhisper_name": "SuperWhisper",
+    "superwhisper_price": "29\u00a0$",
+    "superwhisper_platforms": "macOS",
+    "macwhisper_name": "MacWhisper",
+    "macwhisper_price": "29\u00a0$",
+    "macwhisper_platforms": "macOS"
   },
   "Footer": {
     "copyright": "PIVI Solutions",
