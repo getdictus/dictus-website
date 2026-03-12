@@ -1,6 +1,7 @@
 import { setRequestLocale, getTranslations } from "next-intl/server";
 import Hero from "@/components/Hero/Hero";
 import Features from "@/components/Features/Features";
+import Comparison from "@/components/Comparison/Comparison";
 import HowItWorks from "@/components/HowItWorks/HowItWorks";
 import DataFlow from "@/components/DataFlow/DataFlow";
 import OpenSource from "@/components/OpenSource/OpenSource";
@@ -40,6 +41,7 @@ export default async function HomePage({ params }: Props) {
     <>
       <Hero />
       <ScrollReveal><Features /></ScrollReveal>
+      <ScrollReveal><Comparison /></ScrollReveal>
       <ScrollReveal><HowItWorks /></ScrollReveal>
       <ScrollReveal><DataFlow /></ScrollReveal>
       <ScrollReveal><OpenSource /></ScrollReveal>

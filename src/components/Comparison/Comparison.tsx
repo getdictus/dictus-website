@@ -2,6 +2,7 @@
 
 import { useTranslations } from "next-intl";
 import ComparisonTable from "./ComparisonTable";
+import ComparisonCards from "./ComparisonCards";
 
 export default function Comparison() {
   const t = useTranslations("Comparison");
@@ -21,11 +22,9 @@ export default function Comparison() {
           <ComparisonTable />
         </div>
 
-        {/* Mobile cards (placeholder until Task 2) */}
+        {/* Mobile cards */}
         <div className="mt-12 md:hidden">
-          <div className="text-white-40 text-center text-sm">
-            Comparison cards loading...
-          </div>
+          <ComparisonCards />
         </div>
       </div>
     </section>
