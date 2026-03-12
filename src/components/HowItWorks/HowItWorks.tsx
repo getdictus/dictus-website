@@ -6,6 +6,7 @@ export default function HowItWorks() {
   return (
     <section className="bg-ink-2 py-28">
       <div className="mx-auto max-w-6xl px-6">
+        <div className="rounded-2xl border border-border bg-[var(--glass-t2-bg)] p-6 backdrop-blur-[12px] backdrop-saturate-[1.2] sm:p-8 md:p-12">
         <div className="flex flex-col items-center gap-8 md:flex-row md:justify-between">
           {/* Step 1: Tap the mic */}
           <div className="flex max-w-[200px] flex-col items-center text-center md:max-w-none">
@@ -122,6 +123,7 @@ export default function HowItWorks() {
             </h3>
             <p className="mt-1 text-sm text-white-40">{t("step3_desc")}</p>
           </div>
+        </div>
         </div>
       </div>
     </section>

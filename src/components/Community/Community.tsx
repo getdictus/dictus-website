@@ -5,7 +5,8 @@ export default function Community() {
 
   return (
     <section className="bg-ink-2 py-28">
-      <div className="mx-auto max-w-6xl px-6 text-center">
+      <div className="mx-auto max-w-6xl px-6">
+        <div className="rounded-2xl border border-border bg-[var(--glass-t2-bg)] px-6 py-12 text-center backdrop-blur-[12px] backdrop-saturate-[1.2]">
         <h2 className="text-3xl font-extralight text-text-primary md:text-4xl">
           {t("title")}
         </h2>
@@ -27,6 +28,7 @@ export default function Community() {
           </svg>
           {t("cta")}
         </a>
+        </div>
       </div>
     </section>
   );

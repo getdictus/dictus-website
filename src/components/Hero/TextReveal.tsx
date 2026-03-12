@@ -11,7 +11,7 @@ export default function TextReveal({ visibleText, showCursor }: TextRevealProps)
   const shouldReduce = useReducedMotion() ?? false;
 
   return (
-    <div className="w-full max-w-md rounded-xl border border-border bg-surface/50 px-4 py-3 backdrop-blur-md">
+    <div className="w-full max-w-md rounded-xl border border-border bg-[var(--glass-t2-bg)] px-4 py-3">
       <span className="font-mono text-sm text-white-70">
         {visibleText}
         {showCursor && (

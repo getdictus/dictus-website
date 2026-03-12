@@ -8,7 +8,7 @@ export default function Features() {
       <div className="mx-auto max-w-6xl px-6">
         <div className="grid grid-cols-1 gap-6 md:grid-cols-2">
           {/* Privacy / Offline */}
-          <div className="rounded-2xl border border-border bg-surface/50 p-6 backdrop-blur-md transition-colors hover:border-border-hi">
+          <div className="rounded-2xl border border-border bg-[var(--glass-t2-bg)] p-6 backdrop-blur-[12px] backdrop-saturate-[1.2] transition-colors hover:border-border-hi">
             <div className="flex h-12 w-12 items-center justify-center rounded-xl bg-navy">
               <svg
                 width="24"
@@ -34,7 +34,7 @@ export default function Features() {
           </div>
 
           {/* Smart Mode */}
-          <div className="rounded-2xl border border-border bg-surface/50 p-6 backdrop-blur-md transition-colors hover:border-border-hi">
+          <div className="rounded-2xl border border-border bg-[var(--glass-t2-bg)] p-6 backdrop-blur-[12px] backdrop-saturate-[1.2] transition-colors hover:border-border-hi">
             <div className="flex h-12 w-12 items-center justify-center rounded-xl bg-navy">
               <svg
                 width="24"
@@ -62,7 +62,7 @@ export default function Features() {
           </div>
 
           {/* Keyboard Integration */}
-          <div className="rounded-2xl border border-border bg-surface/50 p-6 backdrop-blur-md transition-colors hover:border-border-hi">
+          <div className="rounded-2xl border border-border bg-[var(--glass-t2-bg)] p-6 backdrop-blur-[12px] backdrop-saturate-[1.2] transition-colors hover:border-border-hi">
             <div className="flex h-12 w-12 items-center justify-center rounded-xl bg-navy">
               <svg
                 width="24"
@@ -91,7 +91,7 @@ export default function Features() {
           </div>
 
           {/* Open Source */}
-          <div className="rounded-2xl border border-border bg-surface/50 p-6 backdrop-blur-md transition-colors hover:border-border-hi">
+          <div className="rounded-2xl border border-border bg-[var(--glass-t2-bg)] p-6 backdrop-blur-[12px] backdrop-saturate-[1.2] transition-colors hover:border-border-hi">
             <div className="flex h-12 w-12 items-center justify-center rounded-xl bg-navy">
               <svg
                 width="24"

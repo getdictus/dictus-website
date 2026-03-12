@@ -6,7 +6,7 @@ export default function DataFlow() {
   return (
     <section className="bg-ink-deep py-28">
       <div className="mx-auto max-w-6xl px-6">
-        <div className="rounded-2xl border border-border bg-surface/50 p-6 backdrop-blur-md sm:p-8 md:p-12">
+        <div className="rounded-2xl border border-border bg-[var(--glass-t2-bg)] p-6 backdrop-blur-[12px] backdrop-saturate-[1.2] sm:p-8 md:p-12">
           {/* Flow diagram */}
           <div className="flex flex-col items-center gap-6 md:flex-row md:justify-center md:gap-8">
             {/* Voice node */}

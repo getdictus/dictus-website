@@ -5,7 +5,8 @@ export default function OpenSource() {
 
   return (
     <section className="bg-ink py-28">
-      <div className="mx-auto max-w-6xl px-6 text-center">
+      <div className="mx-auto max-w-6xl px-6">
+        <div className="rounded-2xl border border-border bg-[var(--glass-t2-bg)] px-6 py-12 text-center backdrop-blur-[12px] backdrop-saturate-[1.2]">
         <h2 className="text-2xl font-normal text-text-primary">{t("title")}</h2>
         <p className="mx-auto mt-4 max-w-2xl text-white-70">{t("desc")}</p>
         <a
@@ -25,6 +26,7 @@ export default function OpenSource() {
           </svg>
           {t("cta")}
         </a>
+        </div>
       </div>
     </section>
   );
