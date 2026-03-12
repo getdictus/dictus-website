@@ -23,6 +23,12 @@ export default function Hero() {
 
   const translatedStateLabel = tDemo(`states.${demoState.currentState}`);
 
+  const showPill =
+    demoState.currentState === "recording" ||
+    demoState.currentState === "transcribing";
+
+  const showText = demoState.currentState === "inserted";
+
   return (
     <section className="relative flex min-h-dvh flex-col items-center justify-center overflow-hidden bg-ink-deep px-6">
       {/* Large waveform anchored to top of hero */}
@@ -41,18 +47,22 @@ export default function Hero() {
           {t("subtitle")}
         </p>
 
-        {/* Demo area: state indicator + text reveal */}
+        {/* Demo area: state indicator OR text result */}
         <div className="mt-10 flex flex-col items-center gap-4">
-          <StateIndicator
-            currentState={demoState.currentState}
-            stateColor={demoState.stateColor}
-            shouldPulse={demoState.shouldPulse}
-            stateLabel={translatedStateLabel}
-          />
-          <TextReveal
-            visibleText={demoState.visibleText}
-            showCursor={demoState.showCursor}
-          />
+          {showPill && (
+            <StateIndicator
+              currentState={demoState.currentState}
+              stateColor={demoState.stateColor}
+              shouldPulse={demoState.shouldPulse}
+              stateLabel={translatedStateLabel}
+            />
+          )}
+          {showText && (
+            <TextReveal
+              visibleText={demoState.visibleText}
+              showCursor={false}
+            />
+          )}
         </div>
 
         {/* Coming Soon badge */}

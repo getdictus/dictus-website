@@ -25,8 +25,8 @@ const DEFAULT_COLORS: ThemeColors = {
   gradientEnd: "#2563EB",
 };
 
-type WaveformPhase = "flat" | "active" | "calm";
-type DemoState = "idle" | "recording" | "transcribing" | "smart" | "inserted";
+type WaveformPhase = "flat" | "active" | "processing" | "calm";
+type DemoState = "idle" | "recording" | "transcribing" | "inserted";
 
 interface WaveformProps {
   demoState?: DemoState;
@@ -187,13 +187,12 @@ export default function Waveform({ demoState = "idle" }: WaveformProps) {
     };
   }, [resolveThemeColors, lerpColors]);
 
-  // Map demoState to waveform phase (loose sync)
+  // Map demoState to waveform phase
   useEffect(() => {
     const phaseMap: Record<DemoState, WaveformPhase> = {
       idle: "flat",
       recording: "active",
-      transcribing: "active",
-      smart: "calm",
+      transcribing: "processing",
       inserted: "calm",
     };
     const newPhase = phaseMap[demoState];
@@ -247,6 +246,15 @@ export default function Waveform({ demoState = "idle" }: WaveformProps) {
 
       if (phase === "active") {
         return targets[index]; // targets updated every ~150ms externally
+      }
+
+      if (phase === "processing") {
+        // Smooth pulsing wave — a traveling sine that sweeps across bars
+        const center = (BAR_COUNT - 1) / 2;
+        const distFromCenter = Math.abs(index - center) / center;
+        const wave = Math.sin(phaseElapsed / 400 + index * 0.35) * 0.5 + 0.5;
+        const centerWeight = 1 - distFromCenter * 0.5;
+        return 0.15 + wave * 0.45 * centerWeight;
       }
 
       if (phase === "calm") {
