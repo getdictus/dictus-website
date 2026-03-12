@@ -29,7 +29,7 @@ export default function Hero() {
       <Waveform />
 
       {/* Content */}
-      <div className="relative z-10 mx-auto max-w-6xl text-center">
+      <div className="relative z-10 mx-auto max-w-3xl rounded-2xl bg-[var(--glass-t1-bg)] px-8 py-12 text-center backdrop-blur-[20px] backdrop-saturate-[1.5] shadow-[inset_1px_1px_0_0_var(--glass-t1-border-highlight)]">
         <h1
           className="text-4xl text-text-primary sm:text-5xl md:text-7xl"
           style={{ fontWeight: 200, letterSpacing: "-0.03em" }}

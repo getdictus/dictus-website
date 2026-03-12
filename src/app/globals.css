@@ -19,6 +19,11 @@
   --theme-waveform-gradient-start: #6BA3FF;
   --theme-waveform-gradient-end: #2563EB;
   --theme-sky: #6BA3FF;
+
+  /* Glass tiers */
+  --glass-t1-bg: rgba(255, 255, 255, 0.6);
+  --glass-t1-border-highlight: rgba(0, 0, 0, 0.08);
+  --glass-t2-bg: rgba(255, 255, 255, 0.5);
 }
 
 .dark {
@@ -36,6 +41,11 @@
   --theme-waveform-gradient-start: #6BA3FF;
   --theme-waveform-gradient-end: #2563EB;
   --theme-sky: #93C5FD;
+
+  /* Glass tiers */
+  --glass-t1-bg: rgba(22, 28, 44, 0.4);
+  --glass-t1-border-highlight: rgba(255, 255, 255, 0.15);
+  --glass-t2-bg: rgba(22, 28, 44, 0.5);
 }
 
 @theme {

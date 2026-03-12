@@ -19,8 +19,10 @@ export default function Nav() {
 
   return (
     <nav
-      className={`fixed top-0 left-0 right-0 z-50 border-b border-border transition-all duration-300 ${
-        scrolled ? "bg-ink-deep/80 backdrop-blur-md" : "bg-ink-deep"
+      className={`fixed top-0 left-0 right-0 z-50 transition-all duration-300 ${
+        scrolled
+          ? "border-b border-border bg-[var(--glass-t1-bg)] backdrop-blur-[20px] backdrop-saturate-[1.5] shadow-[inset_1px_1px_0_0_var(--glass-t1-border-highlight)]"
+          : "bg-ink-deep"
       }`}
     >
       <div className="mx-auto flex max-w-6xl items-center justify-between px-6 py-4">
