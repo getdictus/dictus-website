@@ -36,11 +36,11 @@ Requirements for milestone v1.1 — Polish & Differentiation. Each maps to roadm
 
 ### Liquid Glass
 
-- [ ] **GLASS-01**: Liquid Glass effect applied to nav bar, hero overlay, and 2-3 feature cards
-- [ ] **GLASS-02**: CSS baseline: backdrop-filter blur + saturate works in all browsers
-- [ ] **GLASS-03**: SVG displacement filter adds refraction effect on Chromium (progressive enhancement)
-- [ ] **GLASS-04**: Liquid Glass tuned for both light and dark themes
-- [ ] **GLASS-05**: Performance acceptable on mobile Safari (no jank, no battery drain)
+- [x] **GLASS-01**: Liquid Glass effect applied to nav bar, hero overlay, and 2-3 feature cards
+- [x] **GLASS-02**: CSS baseline: backdrop-filter blur + saturate works in all browsers
+- [x] **GLASS-03**: SVG displacement filter adds refraction effect on Chromium (progressive enhancement)
+- [x] **GLASS-04**: Liquid Glass tuned for both light and dark themes
+- [x] **GLASS-05**: Performance acceptable on mobile Safari (no jank, no battery drain)
 
 ### Adaptive CTA
 
@@ -98,11 +98,11 @@ Which phases cover which requirements. Updated during roadmap creation.
 | THEME-04 | Phase 5 | Complete |
 | THEME-05 | Phase 5 | Complete |
 | THEME-06 | Phase 5 | Complete |
-| GLASS-01 | Phase 6 | Pending |
-| GLASS-02 | Phase 6 | Pending |
-| GLASS-03 | Phase 6 | Pending |
-| GLASS-04 | Phase 6 | Pending |
-| GLASS-05 | Phase 6 | Pending |
+| GLASS-01 | Phase 6 | Complete |
+| GLASS-02 | Phase 6 | Complete |
+| GLASS-03 | Phase 6 | Complete |
+| GLASS-04 | Phase 6 | Complete |
+| GLASS-05 | Phase 6 | Complete |
 | HERO-01 | Phase 6 | Pending |
 | HERO-02 | Phase 6 | Pending |
 | HERO-03 | Phase 6 | Pending |

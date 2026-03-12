@@ -91,5 +91,5 @@ Note: Phase 7 depends only on Phase 5, not Phase 6. If Phase 6 is blocked, Phase
 | 3. Animations | v1.0 | 2/2 | Complete | 2026-03-09 |
 | 4. Polish & Performance | v1.0 | 2/2 | Complete | 2026-03-10 |
 | 5. Theme System | v1.1 | 0/2 | Not started | - |
-| 6. Visual Effects | v1.1 | 0/2 | Not started | - |
+| 6. Visual Effects | 1/2 | In Progress|  | - |
 | 7. Content & CTA | v1.1 | 0/? | Not started | - |

@@ -3,14 +3,14 @@ gsd_state_version: 1.0
 milestone: v1.1
 milestone_name: Polish & Differentiation
 status: executing
-stopped_at: Phase 6 context gathered
-last_updated: "2026-03-12T09:37:20.044Z"
-last_activity: 2026-03-11 — 05-02 Theme toggle + waveform + light mode fixes
+stopped_at: Completed 06-01-PLAN.md
+last_updated: "2026-03-12T10:30:46.596Z"
+last_activity: 2026-03-12 — 06-01 Two-tier Liquid Glass glassmorphism
 progress:
   total_phases: 3
   completed_phases: 1
-  total_plans: 2
-  completed_plans: 2
+  total_plans: 4
+  completed_plans: 3
 ---
 
 # Project State
@@ -20,14 +20,14 @@ progress:
 See: .planning/PROJECT.md (updated 2026-03-10)
 
 **Core value:** Convaincre un visiteur en quelques secondes que dictus est l'alternative privacy-first a la dictation vocale, et lui donner envie de tester l'app.
-**Current focus:** Phase 5 — Theme System (Light/Dark Mode)
+**Current focus:** Phase 6 — Visual Effects (Liquid Glass)
 
 ## Current Position
 
-Phase: 5 of 7 (Theme System) — first phase of v1.1
-Plan: 2 of 2 in current phase (all complete)
-Status: Executing — Both plans complete, awaiting phase verification
-Last activity: 2026-03-11 — 05-02 Theme toggle + waveform + light mode fixes
+Phase: 6 of 7 (Visual Effects) — second phase of v1.1
+Plan: 1 of 1 in current phase (complete)
+Status: Executing — 06-01 glassmorphism complete
+Last activity: 2026-03-12 — 06-01 Two-tier Liquid Glass glassmorphism
 
 ## Accumulated Context
 
@@ -47,6 +47,9 @@ Recent decisions affecting current work:
 - [05-02]: Added --color-text-primary to @theme for theme-safe headings
 - [05-02]: Light mode icon containers use logo-matching dark navy (#0D2040)
 - [05-02]: Made --color-sky theme-aware (#6BA3FF light, #93C5FD dark)
+- [06-01]: Two-tier glass system via CSS custom properties (--glass-t1-bg, --glass-t2-bg)
+- [06-01]: Inset box-shadow for Tier 1 gradient border (simpler than pseudo-element)
+- [06-01]: No nested backdrop-filter -- TextReveal uses bg-only inside Hero glass
 
 ### Pending Todos
 
@@ -60,6 +63,6 @@ None.
 
 ## Session Continuity
 
-Last session: 2026-03-12T09:37:20.038Z
-Stopped at: Phase 6 context gathered
-Resume file: .planning/phases/06-visual-effects/06-CONTEXT.md
+Last session: 2026-03-12T10:30:46.595Z
+Stopped at: Completed 06-01-PLAN.md
+Resume file: None
