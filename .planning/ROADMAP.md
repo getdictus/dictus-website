@@ -56,11 +56,11 @@ Plans:
   2. Liquid Glass looks correct in both light and dark themes and does not cause jank or battery drain on mobile Safari
   3. Hero waveform plays a visible multi-phase sequence: starts flat, animates with voice energy, then calms as transcription text appears
   4. Users with prefers-reduced-motion see static or minimal alternatives for all animations
-**Plans**: TBD
+**Plans**: 2 plans
 
 Plans:
-- [ ] 06-01: TBD
-- [ ] 06-02: TBD
+- [ ] 06-01-PLAN.md — Liquid Glass: CSS tokens, Tier 1 glass on Nav/Hero, Tier 2 glass on all section cards
+- [ ] 06-02-PLAN.md — Waveform 3-phase choreography (flat/active/calm), Hero prop wiring, reduced motion static frame
 
 ### Phase 7: Content & CTA
 **Goal**: Visitors can compare Dictus against competitors at a glance and iPhone users get a direct path to TestFlight
@@ -91,5 +91,5 @@ Note: Phase 7 depends only on Phase 5, not Phase 6. If Phase 6 is blocked, Phase
 | 3. Animations | v1.0 | 2/2 | Complete | 2026-03-09 |
 | 4. Polish & Performance | v1.0 | 2/2 | Complete | 2026-03-10 |
 | 5. Theme System | v1.1 | 0/2 | Not started | - |
-| 6. Visual Effects | v1.1 | 0/? | Not started | - |
+| 6. Visual Effects | v1.1 | 0/2 | Not started | - |
 | 7. Content & CTA | v1.1 | 0/? | Not started | - |
