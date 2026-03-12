@@ -72,11 +72,11 @@ Plans:
   3. Comparison data displays in the correct language (FR or EN) matching the site locale
   4. iPhone visitors see a "Join TestFlight" button while desktop visitors see an "Available on iPhone" message with TestFlight URL or QR code
   5. CTA gracefully falls back to current "Coming Soon" behavior if TestFlight URL is not yet configured
-**Plans**: TBD
+**Plans**: 2 plans
 
 Plans:
-- [ ] 07-01: TBD
-- [ ] 07-02: TBD
+- [ ] 07-01-PLAN.md — Comparison table: desktop table with sticky header, mobile card stack, i18n data, page integration
+- [ ] 07-02-PLAN.md — Adaptive CTA: device detection, TestFlight button/QR code, fallback badge, Hero integration
 
 ## Progress
 
@@ -91,5 +91,5 @@ Note: Phase 7 depends only on Phase 5, not Phase 6. If Phase 6 is blocked, Phase
 | 3. Animations | v1.0 | 2/2 | Complete | 2026-03-09 |
 | 4. Polish & Performance | v1.0 | 2/2 | Complete | 2026-03-10 |
 | 5. Theme System | v1.1 | 0/2 | Not started | - |
-| 6. Visual Effects | 2/2 | Complete   | 2026-03-12 | - |
-| 7. Content & CTA | v1.1 | 0/? | Not started | - |
+| 6. Visual Effects | v1.1 | 2/2 | Complete | 2026-03-12 |
+| 7. Content & CTA | v1.1 | 0/2 | Not started | - |
