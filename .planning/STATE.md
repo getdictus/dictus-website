@@ -3,14 +3,14 @@ gsd_state_version: 1.0
 milestone: v1.1
 milestone_name: Polish & Differentiation
 status: executing
-stopped_at: Phase 7 context gathered
-last_updated: "2026-03-12T22:54:26.730Z"
-last_activity: 2026-03-12 — 06-02 Waveform choreography state machine
+stopped_at: Completed 07-02-PLAN.md
+last_updated: "2026-03-12T22:55:00Z"
+last_activity: 2026-03-12 — 07-02 Adaptive CTA with device detection
 progress:
   total_phases: 3
-  completed_phases: 2
+  completed_phases: 3
   total_plans: 6
-  completed_plans: 5
+  completed_plans: 6
 ---
 
 # Project State
@@ -20,14 +20,14 @@ progress:
 See: .planning/PROJECT.md (updated 2026-03-10)
 
 **Core value:** Convaincre un visiteur en quelques secondes que dictus est l'alternative privacy-first a la dictation vocale, et lui donner envie de tester l'app.
-**Current focus:** Phase 7 — Content & CTA
+**Current focus:** Phase 7 — Content & CTA (complete)
 
 ## Current Position
 
 Phase: 7 of 7 (Content & CTA) — third phase of v1.1
-Plan: 1 of 2 in current phase (07-01 complete)
-Status: Executing — 07-01 comparison table complete
-Last activity: 2026-03-12 — 07-01 Comparison table + mobile cards
+Plan: 2 of 2 in current phase (complete)
+Status: Complete — all v1.1 phases finished
+Last activity: 2026-03-12 — 07-02 Adaptive CTA with device detection
 
 ## Accumulated Context
 
@@ -54,6 +54,9 @@ Recent decisions affecting current work:
 - [06-02]: computeBarLayout helper extracted for shared bar positioning (animated + static frames)
 - [07-01]: Exported CheckIcon/CrossIcon and data constants from ComparisonTable for reuse in ComparisonCards
 - [07-01]: Semantic HTML table for desktop, card stack for mobile (responsive comparison pattern)
+- [07-02]: Device detection in useEffect to prevent hydration mismatch (SSR renders fallback badge)
+- [07-02]: QR code uses ink-deep foreground on white for brand consistency
+- [07-02]: Other-mobile path shows text link only (cannot scan own screen)
 
 ### Pending Todos
 
@@ -67,6 +70,6 @@ None.
 
 ## Session Continuity
 
-Last session: 2026-03-12T22:53:48Z
-Stopped at: Completed 07-01-PLAN.md
-Resume file: .planning/phases/07-content-cta/07-01-SUMMARY.md
+Last session: 2026-03-12T22:55:00Z
+Stopped at: Completed 07-02-PLAN.md
+Resume file: .planning/phases/07-content-cta/07-02-SUMMARY.md

@@ -44,11 +44,11 @@ Requirements for milestone v1.1 — Polish & Differentiation. Each maps to roadm
 
 ### Adaptive CTA
 
-- [ ] **CTA-01**: iPhone visitors see "Join TestFlight" button with deep link
-- [ ] **CTA-02**: Desktop visitors see "Available on iPhone" with QR code pointing to TestFlight
-- [ ] **CTA-03**: CTA text is bilingual (FR + EN)
-- [ ] **CTA-04**: Graceful fallback if TestFlight URL not yet available (current "Coming Soon" behavior)
-- [ ] **CTA-05**: Device detection is client-side only (no hydration mismatch)
+- [x] **CTA-01**: iPhone visitors see "Join TestFlight" button with deep link
+- [x] **CTA-02**: Desktop visitors see "Available on iPhone" with QR code pointing to TestFlight
+- [x] **CTA-03**: CTA text is bilingual (FR + EN)
+- [x] **CTA-04**: Graceful fallback if TestFlight URL not yet available (current "Coming Soon" behavior)
+- [x] **CTA-05**: Device detection is client-side only (no hydration mismatch)
 
 ## Future Requirements
 
@@ -115,11 +115,11 @@ Which phases cover which requirements. Updated during roadmap creation.
 | COMP-05 | Phase 7 | Complete |
 | COMP-06 | Phase 7 | Complete |
 | COMP-07 | Phase 7 | Complete |
-| CTA-01 | Phase 7 | Pending |
-| CTA-02 | Phase 7 | Pending |
-| CTA-03 | Phase 7 | Pending |
-| CTA-04 | Phase 7 | Pending |
-| CTA-05 | Phase 7 | Pending |
+| CTA-01 | Phase 7 | Complete |
+| CTA-02 | Phase 7 | Complete |
+| CTA-03 | Phase 7 | Complete |
+| CTA-04 | Phase 7 | Complete |
+| CTA-05 | Phase 7 | Complete |
 
 **Coverage:**
 - v1.1 requirements: 28 total

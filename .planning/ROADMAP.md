@@ -27,7 +27,7 @@ Full details: `.planning/milestones/v1.0-ROADMAP.md`
 
 - [ ] **Phase 5: Theme System** - Light/dark mode with semantic token migration, toggle, and FOWT prevention
 - [x] **Phase 6: Visual Effects** - Liquid Glass glassmorphism and enhanced hero waveform animation sequence (completed 2026-03-12)
-- [ ] **Phase 7: Content & CTA** - Competitor comparison table and adaptive TestFlight call-to-action
+- [x] **Phase 7: Content & CTA** - Competitor comparison table and adaptive TestFlight call-to-action (completed 2026-03-12)
 
 ## Phase Details
 
@@ -92,4 +92,4 @@ Note: Phase 7 depends only on Phase 5, not Phase 6. If Phase 6 is blocked, Phase
 | 4. Polish & Performance | v1.0 | 2/2 | Complete | 2026-03-10 |
 | 5. Theme System | v1.1 | 0/2 | Not started | - |
 | 6. Visual Effects | v1.1 | 2/2 | Complete | 2026-03-12 |
-| 7. Content & CTA | 1/2 | In Progress|  | - |
+| 7. Content & CTA | 2/2 | Complete   | 2026-03-12 | - |
