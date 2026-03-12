@@ -28,11 +28,11 @@ Requirements for milestone v1.1 — Polish & Differentiation. Each maps to roadm
 
 ### Hero Waveform
 
-- [ ] **HERO-01**: Waveform starts flat/idle when section enters viewport
-- [ ] **HERO-02**: Waveform animates with simulated voice energy (random amplitude movement)
-- [ ] **HERO-03**: Waveform transitions to transcription state with rhythmic pattern
-- [ ] **HERO-04**: Text reveal timing syncs with waveform energy (text appears as waveform calms)
-- [ ] **HERO-05**: Full sequence respects prefers-reduced-motion
+- [x] **HERO-01**: Waveform starts flat/idle when section enters viewport
+- [x] **HERO-02**: Waveform animates with simulated voice energy (random amplitude movement)
+- [x] **HERO-03**: Waveform transitions to transcription state with rhythmic pattern
+- [x] **HERO-04**: Text reveal timing syncs with waveform energy (text appears as waveform calms)
+- [x] **HERO-05**: Full sequence respects prefers-reduced-motion
 
 ### Liquid Glass
 
@@ -103,11 +103,11 @@ Which phases cover which requirements. Updated during roadmap creation.
 | GLASS-03 | Phase 6 | Complete |
 | GLASS-04 | Phase 6 | Complete |
 | GLASS-05 | Phase 6 | Complete |
-| HERO-01 | Phase 6 | Pending |
-| HERO-02 | Phase 6 | Pending |
-| HERO-03 | Phase 6 | Pending |
-| HERO-04 | Phase 6 | Pending |
-| HERO-05 | Phase 6 | Pending |
+| HERO-01 | Phase 6 | Complete |
+| HERO-02 | Phase 6 | Complete |
+| HERO-03 | Phase 6 | Complete |
+| HERO-04 | Phase 6 | Complete |
+| HERO-05 | Phase 6 | Complete |
 | COMP-01 | Phase 7 | Pending |
 | COMP-02 | Phase 7 | Pending |
 | COMP-03 | Phase 7 | Pending |

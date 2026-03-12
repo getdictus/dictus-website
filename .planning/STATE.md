@@ -3,14 +3,14 @@ gsd_state_version: 1.0
 milestone: v1.1
 milestone_name: Polish & Differentiation
 status: executing
-stopped_at: Completed 06-01-PLAN.md
-last_updated: "2026-03-12T10:30:46.596Z"
-last_activity: 2026-03-12 — 06-01 Two-tier Liquid Glass glassmorphism
+stopped_at: Completed 06-02-PLAN.md
+last_updated: "2026-03-12T10:34:31.539Z"
+last_activity: 2026-03-12 — 06-02 Waveform choreography state machine
 progress:
   total_phases: 3
-  completed_phases: 1
+  completed_phases: 2
   total_plans: 4
-  completed_plans: 3
+  completed_plans: 4
 ---
 
 # Project State
@@ -25,9 +25,9 @@ See: .planning/PROJECT.md (updated 2026-03-10)
 ## Current Position
 
 Phase: 6 of 7 (Visual Effects) — second phase of v1.1
-Plan: 1 of 1 in current phase (complete)
-Status: Executing — 06-01 glassmorphism complete
-Last activity: 2026-03-12 — 06-01 Two-tier Liquid Glass glassmorphism
+Plan: 2 of 2 in current phase (complete)
+Status: Executing — 06-02 waveform choreography complete
+Last activity: 2026-03-12 — 06-02 Waveform choreography state machine
 
 ## Accumulated Context
 
@@ -50,6 +50,8 @@ Recent decisions affecting current work:
 - [06-01]: Two-tier glass system via CSS custom properties (--glass-t1-bg, --glass-t2-bg)
 - [06-01]: Inset box-shadow for Tier 1 gradient border (simpler than pseudo-element)
 - [06-01]: No nested backdrop-filter -- TextReveal uses bg-only inside Hero glass
+- [06-02]: phaseStartTimeRef initialized to 0 (not performance.now()) for React purity
+- [06-02]: computeBarLayout helper extracted for shared bar positioning (animated + static frames)
 
 ### Pending Todos
 
@@ -63,6 +65,6 @@ None.
 
 ## Session Continuity
 
-Last session: 2026-03-12T10:30:46.595Z
-Stopped at: Completed 06-01-PLAN.md
+Last session: 2026-03-12T10:34:30.945Z
+Stopped at: Completed 06-02-PLAN.md
 Resume file: None
