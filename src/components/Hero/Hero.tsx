@@ -6,6 +6,7 @@ import { useHeroDemoState } from "@/hooks/useHeroDemoState";
 import Waveform from "@/components/Hero/Waveform";
 import StateIndicator from "@/components/Hero/StateIndicator";
 import TextReveal from "@/components/Hero/TextReveal";
+import AdaptiveCTA from "@/components/Hero/AdaptiveCTA";
 
 export default function Hero() {
   const t = useTranslations("Hero");
@@ -65,14 +66,8 @@ export default function Hero() {
           )}
         </div>
 
-        {/* Coming Soon badge */}
-        <span className="mt-6 inline-flex items-center gap-2 rounded-full border border-accent/30 bg-accent/10 px-5 py-2.5 text-sm font-light text-accent">
-          <span
-            className="inline-block h-2 w-2 rounded-full bg-accent"
-            aria-hidden="true"
-          />
-          {t("badge")}
-        </span>
+        {/* Adaptive CTA: TestFlight button / QR / Coming Soon fallback */}
+        <AdaptiveCTA />
       </div>
     </section>
   );
