@@ -18,13 +18,13 @@ Requirements for milestone v1.1 — Polish & Differentiation. Each maps to roadm
 
 ### Comparison Table
 
-- [ ] **COMP-01**: User can view a comparison table with Dictus, Apple Dictation, WhisperFlow, SuperWhisper, MacWhisper
-- [ ] **COMP-02**: Table compares: price, offline capability, privacy, platforms, AI rewrite, open source
-- [ ] **COMP-03**: Dictus column visually highlighted with accent border and subtle glow
-- [ ] **COMP-04**: Table has sticky header row on scroll
-- [ ] **COMP-05**: Table displays as card stack on mobile (responsive)
-- [ ] **COMP-06**: Table rows stagger-animate on scroll entry
-- [ ] **COMP-07**: Comparison data is bilingual (FR + EN via i18n)
+- [x] **COMP-01**: User can view a comparison table with Dictus, Apple Dictation, WhisperFlow, SuperWhisper, MacWhisper
+- [x] **COMP-02**: Table compares: price, offline capability, privacy, platforms, AI rewrite, open source
+- [x] **COMP-03**: Dictus column visually highlighted with accent border and subtle glow
+- [x] **COMP-04**: Table has sticky header row on scroll
+- [x] **COMP-05**: Table displays as card stack on mobile (responsive)
+- [x] **COMP-06**: Table rows stagger-animate on scroll entry
+- [x] **COMP-07**: Comparison data is bilingual (FR + EN via i18n)
 
 ### Hero Waveform
 
@@ -108,13 +108,13 @@ Which phases cover which requirements. Updated during roadmap creation.
 | HERO-03 | Phase 6 | Complete |
 | HERO-04 | Phase 6 | Complete |
 | HERO-05 | Phase 6 | Complete |
-| COMP-01 | Phase 7 | Pending |
-| COMP-02 | Phase 7 | Pending |
-| COMP-03 | Phase 7 | Pending |
-| COMP-04 | Phase 7 | Pending |
-| COMP-05 | Phase 7 | Pending |
-| COMP-06 | Phase 7 | Pending |
-| COMP-07 | Phase 7 | Pending |
+| COMP-01 | Phase 7 | Complete |
+| COMP-02 | Phase 7 | Complete |
+| COMP-03 | Phase 7 | Complete |
+| COMP-04 | Phase 7 | Complete |
+| COMP-05 | Phase 7 | Complete |
+| COMP-06 | Phase 7 | Complete |
+| COMP-07 | Phase 7 | Complete |
 | CTA-01 | Phase 7 | Pending |
 | CTA-02 | Phase 7 | Pending |
 | CTA-03 | Phase 7 | Pending |
