@@ -26,7 +26,7 @@ export default function Hero() {
   return (
     <section className="relative flex min-h-dvh flex-col items-center justify-center overflow-hidden bg-ink-deep px-6">
       {/* Large waveform anchored to top of hero */}
-      <Waveform />
+      <Waveform demoState={demoState.currentState} />
 
       {/* Content */}
       <div className="relative z-10 mx-auto max-w-3xl rounded-2xl bg-[var(--glass-t1-bg)] px-8 py-12 text-center backdrop-blur-[20px] backdrop-saturate-[1.5] shadow-[inset_1px_1px_0_0_var(--glass-t1-border-highlight)]">

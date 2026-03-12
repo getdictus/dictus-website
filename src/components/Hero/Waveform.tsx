@@ -25,6 +25,13 @@ const DEFAULT_COLORS: ThemeColors = {
   gradientEnd: "#2563EB",
 };
 
+type WaveformPhase = "flat" | "active" | "calm";
+type DemoState = "idle" | "recording" | "transcribing" | "smart" | "inserted";
+
+interface WaveformProps {
+  demoState?: DemoState;
+}
+
 /** Parse a hex color (#RRGGBB) to [r, g, b] */
 function hexToRgb(hex: string): [number, number, number] {
   const h = hex.replace("#", "");
@@ -59,17 +66,27 @@ function lerpRgb(
   ];
 }
 
+/** Generate random target amplitudes for active phase with center weighting */
+function generateActiveTargets(targets: Float32Array) {
+  const center = (BAR_COUNT - 1) / 2;
+  for (let i = 0; i < BAR_COUNT; i++) {
+    const distFromCenter = Math.abs(i - center) / center;
+    const centerBonus = (1 - distFromCenter) * 0.15;
+    targets[i] = 0.3 + Math.random() * 0.6 + centerBonus;
+  }
+}
+
 /**
  * Port of iOS BrandWaveform.swift to Canvas.
  *
  * 30 vertical rounded bars with:
  * - Center 40%: blue gradient (theme-aware)
  * - Outer 60%: edge color with opacity decreasing toward edges
- * - Sinusoidal traveling wave envelope for processing animation
+ * - 3-phase state machine: flat (idle), active (voice energy), calm (settling)
  * - Smooth lerp rise + exponential decay fall
  * - MutationObserver watches .dark class for theme changes with 300ms color lerp
  */
-export default function Waveform() {
+export default function Waveform({ demoState = "idle" }: WaveformProps) {
   const canvasRef = useRef<HTMLCanvasElement>(null);
   const dimensionsRef = useRef({ width: 0, height: 0 });
   const shouldReduce = useReducedMotion() ?? false;
@@ -77,6 +94,14 @@ export default function Waveform() {
   const displayLevelsRef = useRef<Float32Array>(new Float32Array(BAR_COUNT));
   const colorsRef = useRef<ThemeColors>({ ...DEFAULT_COLORS });
   const lerpAnimRef = useRef<number | null>(null);
+
+  // Phase state machine refs
+  const waveformPhaseRef = useRef<WaveformPhase>("flat");
+  const phaseStartTimeRef = useRef<number>(0);
+  const targetAmplitudesRef = useRef<Float32Array>(
+    new Float32Array(BAR_COUNT)
+  );
+  const lastTargetUpdateRef = useRef<number>(0);
 
   /** Read CSS custom properties for current theme */
   const resolveThemeColors = useCallback((): ThemeColors => {
@@ -162,6 +187,22 @@ export default function Waveform() {
     };
   }, [resolveThemeColors, lerpColors]);
 
+  // Map demoState to waveform phase (loose sync)
+  useEffect(() => {
+    const phaseMap: Record<DemoState, WaveformPhase> = {
+      idle: "flat",
+      recording: "active",
+      transcribing: "active",
+      smart: "calm",
+      inserted: "calm",
+    };
+    const newPhase = phaseMap[demoState];
+    if (waveformPhaseRef.current !== newPhase) {
+      waveformPhaseRef.current = newPhase;
+      phaseStartTimeRef.current = performance.now();
+    }
+  }, [demoState]);
+
   // Handle retina + resize
   useEffect(() => {
     const canvas = canvasRef.current;
@@ -189,15 +230,34 @@ export default function Waveform() {
   }, []);
 
   /**
-   * Compute sinusoidal processing energy for a bar at given index.
-   * Mirrors iOS: sin(2pi * (normalizedIndex + phase)) mapped to 0.2..0.7
+   * Compute target energy for a bar based on current waveform phase.
+   * flat: minimal idle presence, active: random targets, calm: smoothstep decay
    */
-  const processingEnergy = useCallback(
-    (index: number, phase: number): number => {
-      const normalizedIndex = index / Math.max(BAR_COUNT - 1, 1);
-      const sineValue = Math.sin(2 * Math.PI * (normalizedIndex + phase));
-      // Map sine (-1..1) to energy (0.2..0.7)
-      return 0.2 + 0.25 * (sineValue + 1.0);
+  const computePhaseEnergy = useCallback(
+    (
+      index: number,
+      targets: Float32Array,
+      phaseElapsed: number
+    ): number => {
+      const phase = waveformPhaseRef.current;
+
+      if (phase === "flat") {
+        return 0.05; // minimal idle presence
+      }
+
+      if (phase === "active") {
+        return targets[index]; // targets updated every ~150ms externally
+      }
+
+      if (phase === "calm") {
+        // Exponential decay from active levels toward flat over ~800ms
+        const t = Math.min(phaseElapsed / 800, 1);
+        const eased = smoothstep(t);
+        const activeLevel = targets[index]; // last active targets
+        return activeLevel * (1 - eased) + 0.05 * eased;
+      }
+
+      return 0.05;
     },
     []
   );
@@ -234,11 +294,27 @@ export default function Waveform() {
   );
 
   /**
+   * Compute bar layout values (shared between drawBars and static frame).
+   */
+  const computeBarLayout = useCallback((width: number) => {
+    const totalSpacing = BAR_SPACING * (BAR_COUNT - 1);
+    const totalBarWidth = width * 0.6; // Use 60% of container width
+    const barWidth = Math.max(
+      (totalBarWidth - totalSpacing) / BAR_COUNT,
+      2
+    );
+    const actualTotalWidth =
+      barWidth * BAR_COUNT + BAR_SPACING * (BAR_COUNT - 1);
+    const offsetX = (width - actualTotalWidth) / 2;
+    return { barWidth, offsetX };
+  }, []);
+
+  /**
    * Draw all 30 bars as rounded rectangles on canvas.
-   * Mirrors iOS Canvas rendering approach for 60fps single draw call.
+   * Uses 3-phase state machine for energy computation.
    */
   const drawBars = useCallback(
-    (time: number) => {
+    () => {
       const canvas = canvasRef.current;
       if (!canvas) return;
       const ctx = canvas.getContext("2d");
@@ -249,8 +325,18 @@ export default function Waveform() {
 
       ctx.clearRect(0, 0, width, height);
 
-      // Processing phase: time / 2000 to match iOS (timeInterval / 2.0)
-      const phase = time / 2000;
+      // Phase timing -- compute once per frame
+      const now = performance.now();
+      const phaseElapsed = now - phaseStartTimeRef.current;
+
+      // Update active targets every ~150ms during active phase
+      if (
+        waveformPhaseRef.current === "active" &&
+        now - lastTargetUpdateRef.current > 150
+      ) {
+        generateActiveTargets(targetAmplitudesRef.current);
+        lastTargetUpdateRef.current = now;
+      }
 
       // Smoothing constants matching iOS
       const smoothingFactor = 0.3;
@@ -258,19 +344,15 @@ export default function Waveform() {
       const displayLevels = displayLevelsRef.current;
 
       // Compute bar layout -- center the waveform
-      const totalSpacing = BAR_SPACING * (BAR_COUNT - 1);
-      const totalBarWidth = width * 0.6; // Use 60% of container width
-      const barWidth = Math.max(
-        (totalBarWidth - totalSpacing) / BAR_COUNT,
-        2
-      );
-      const actualTotalWidth =
-        barWidth * BAR_COUNT + BAR_SPACING * (BAR_COUNT - 1);
-      const offsetX = (width - actualTotalWidth) / 2;
+      const { barWidth, offsetX } = computeBarLayout(width);
 
       for (let i = 0; i < BAR_COUNT; i++) {
-        // Target energy from sinusoidal processing wave
-        const targetEnergy = processingEnergy(i, phase);
+        // Target energy from phase state machine
+        const targetEnergy = computePhaseEnergy(
+          i,
+          targetAmplitudesRef.current,
+          phaseElapsed
+        );
 
         // Smooth interpolation: lerp up, decay down (matching iOS)
         const current = displayLevels[i];
@@ -303,29 +385,59 @@ export default function Waveform() {
         ctx.fill();
       }
     },
-    [processingEnergy, resolveBarColor]
+    [computePhaseEnergy, resolveBarColor, computeBarLayout]
   );
 
   // Animated loop
   useAnimationFrame(
     useCallback(
-      (time: number) => {
-        drawBars(time);
+      () => {
+        drawBars();
       },
       [drawBars]
     ),
     !shouldReduce
   );
 
-  // Static frame for reduced motion
+  // Static frame for reduced motion: mid-energy with center weighting
   useEffect(() => {
     if (shouldReduce && !hasDrawnStaticRef.current) {
-      requestAnimationFrame((time) => {
-        drawBars(time);
+      requestAnimationFrame(() => {
+        const canvas = canvasRef.current;
+        if (!canvas) return;
+        const ctx = canvas.getContext("2d");
+        if (!ctx) return;
+
+        const { width, height } = dimensionsRef.current;
+        if (width === 0 || height === 0) return;
+
+        ctx.clearRect(0, 0, width, height);
+
+        const { barWidth, offsetX } = computeBarLayout(width);
+        const center = (BAR_COUNT - 1) / 2;
+
+        for (let i = 0; i < BAR_COUNT; i++) {
+          const distFromCenter = Math.abs(i - center) / center;
+          const energy = 0.4 + (1 - distFromCenter) * 0.15;
+          const barHeight = Math.max(
+            MIN_BAR_HEIGHT + energy * (MAX_HEIGHT - MIN_BAR_HEIGHT),
+            MIN_BAR_HEIGHT
+          );
+
+          const x = offsetX + i * (barWidth + BAR_SPACING);
+          const y = (height - barHeight) / 2;
+          const radius = barWidth / 2;
+
+          ctx.beginPath();
+          ctx.roundRect(x, y, barWidth, barHeight, radius);
+          ctx.fillStyle = resolveBarColor(i, ctx, y, barHeight);
+          ctx.fill();
+        }
+
         hasDrawnStaticRef.current = true;
       });
     }
-  }, [shouldReduce, drawBars]);
+  }, [shouldReduce, resolveBarColor, computeBarLayout]);
 
   return (
     <canvas
