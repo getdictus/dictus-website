@@ -3,6 +3,7 @@
 import { useTranslations } from "next-intl";
 import ComparisonTable from "./ComparisonTable";
 import ComparisonCards from "./ComparisonCards";
+import { CheckIcon, CrossIcon, PartialIcon } from "./ComparisonTable";
 
 export default function Comparison() {
   const t = useTranslations("Comparison");
@@ -25,6 +26,19 @@ export default function Comparison() {
         {/* Mobile cards */}
         <div className="mt-12 md:hidden">
           <ComparisonCards />
+        </div>
+
+        {/* Legend */}
+        <div className="mt-6 flex flex-wrap items-center gap-x-6 gap-y-2 text-xs text-white-40">
+          <span className="inline-flex items-center gap-1.5">
+            <CheckIcon /> {t("legend_yes")}
+          </span>
+          <span className="inline-flex items-center gap-1.5">
+            <CrossIcon /> {t("legend_no")}
+          </span>
+          <span className="inline-flex items-center gap-1.5">
+            <PartialIcon /> {t("legend_partial")}
+          </span>
         </div>
       </div>
     </section>

@@ -111,19 +111,21 @@ function PartialIcon() {
   return (
     <span className="inline-flex items-center">
       <svg
-        width="20"
-        height="20"
+        width="18"
+        height="18"
         viewBox="0 0 20 20"
         fill="none"
-        stroke="currentColor"
-        strokeWidth="2"
-        strokeLinecap="round"
-        strokeLinejoin="round"
         className="text-warning"
         aria-hidden="true"
       >
-        <path d="M10 4v8" />
-        <circle cx="10" cy="15" r="0.5" fill="currentColor" />
+        <path
+          d="M10 2L1.5 17h17L10 2z"
+          stroke="currentColor"
+          strokeWidth="1.5"
+          strokeLinejoin="round"
+        />
+        <path d="M10 8v4" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" />
+        <circle cx="10" cy="14.5" r="0.8" fill="currentColor" />
       </svg>
       <span className="sr-only">Partial</span>
     </span>
