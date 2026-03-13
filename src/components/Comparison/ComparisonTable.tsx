@@ -4,37 +4,46 @@ import { useTranslations } from "next-intl";
 import { m, useReducedMotion } from "motion/react";
 import type { Variants } from "motion/react";
 
-const products = ["dictus", "apple", "whisperflow", "superwhisper", "macwhisper"] as const;
+const products = ["dictus", "apple", "wisprflow", "superwhisper", "macwhisper"] as const;
 
 type Product = (typeof products)[number];
 
-// Boolean feature data: true = has feature, false = does not
-const booleanFeatures: Record<string, Record<Product, boolean>> = {
+// Three-state feature: true = yes, false = no, "partial" = conditional/optional
+type FeatureValue = boolean | "partial";
+
+const booleanFeatures: Record<string, Record<Product, FeatureValue>> = {
   feature_offline: {
     dictus: true,
-    apple: false,
-    whisperflow: true,
-    superwhisper: true,
-    macwhisper: true,
+    apple: "partial",
+    wisprflow: false,
+    superwhisper: "partial",
+    macwhisper: "partial",
   },
   feature_privacy: {
     dictus: true,
-    apple: false,
-    whisperflow: true,
-    superwhisper: true,
-    macwhisper: true,
-  },
-  feature_ai_rewrite: {
-    dictus: true,
-    apple: false,
-    whisperflow: false,
-    superwhisper: true,
-    macwhisper: true,
+    apple: "partial",
+    wisprflow: false,
+    superwhisper: "partial",
+    macwhisper: "partial",
   },
   feature_opensource: {
     dictus: true,
     apple: false,
-    whisperflow: false,
+    wisprflow: false,
+    superwhisper: false,
+    macwhisper: false,
+  },
+  feature_language_lock: {
+    dictus: true,
+    apple: false,
+    wisprflow: "partial",
+    superwhisper: "partial",
+    macwhisper: false,
+  },
+  feature_custom_keyboard: {
+    dictus: true,
+    apple: false,
+    wisprflow: false,
     superwhisper: false,
     macwhisper: false,
   },
@@ -49,8 +58,9 @@ const featureRows = [
   "feature_offline",
   "feature_privacy",
   "feature_platforms",
-  "feature_ai_rewrite",
   "feature_opensource",
+  "feature_language_lock",
+  "feature_custom_keyboard",
 ] as const;
 
 function CheckIcon() {
@@ -97,7 +107,37 @@ function CrossIcon() {
   );
 }
 
-export { CheckIcon, CrossIcon, products, booleanFeatures, textFeatures, featureRows };
+function PartialIcon() {
+  return (
+    <span className="inline-flex items-center">
+      <svg
+        width="20"
+        height="20"
+        viewBox="0 0 20 20"
+        fill="none"
+        stroke="currentColor"
+        strokeWidth="2"
+        strokeLinecap="round"
+        strokeLinejoin="round"
+        className="text-warning"
+        aria-hidden="true"
+      >
+        <path d="M10 4v8" />
+        <circle cx="10" cy="15" r="0.5" fill="currentColor" />
+      </svg>
+      <span className="sr-only">Partial</span>
+    </span>
+  );
+}
+
+function FeatureIcon({ value }: { value: FeatureValue }) {
+  if (value === true) return <CheckIcon />;
+  if (value === "partial") return <PartialIcon />;
+  return <CrossIcon />;
+}
+
+export { CheckIcon, CrossIcon, PartialIcon, FeatureIcon, products, booleanFeatures, textFeatures, featureRows };
+export type { FeatureValue };
 
 export default function ComparisonTable() {
   const t = useTranslations("Comparison");
@@ -194,11 +234,11 @@ export default function ComparisonTable() {
                 );
               }
 
-              // Boolean features
-              const hasFeature = booleanFeatures[feature]?.[product] ?? false;
+              // Boolean/partial features
+              const value = booleanFeatures[feature]?.[product] ?? false;
               return (
                 <td key={product} className={cellClass}>
-                  {hasFeature ? <CheckIcon /> : <CrossIcon />}
+                  <FeatureIcon value={value} />
                 </td>
               );
             })}

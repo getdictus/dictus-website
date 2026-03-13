@@ -5,8 +5,7 @@ import { useTranslations } from "next-intl";
 import { m, AnimatePresence, useReducedMotion } from "motion/react";
 import type { Variants } from "motion/react";
 import {
-  CheckIcon,
-  CrossIcon,
+  FeatureIcon,
   products,
   booleanFeatures,
   textFeatures,
@@ -34,10 +33,8 @@ function FeatureRow({
           <span className={product === "dictus" ? "text-accent font-medium" : "text-white-70"}>
             {t(feature === "feature_price" ? `${product}_price` : `${product}_platforms`)}
           </span>
-        ) : booleanFeatures[feature]?.[product] ? (
-          <CheckIcon />
         ) : (
-          <CrossIcon />
+          <FeatureIcon value={booleanFeatures[feature]?.[product] ?? false} />
         )}
       </span>
     </div>
