@@ -1,5 +1,24 @@
 # Milestones
 
+## v1.1 Polish & Differentiation (Shipped: 2026-03-17)
+
+**Phases completed:** 3 phases, 6 plans
+**Timeline:** 7 days (2026-03-11 → 2026-03-17)
+**Stats:** 50 files changed, +4,838/-389 lines, 2,770 LOC in src/
+
+**Key accomplishments:**
+- Light/dark theme system with CSS variable swap pattern (9 swappable tokens), next-themes, and FOWT prevention
+- Sun/moon animated toggle with framer-motion SVG morph, theme-aware canvas waveform with color lerp
+- Two-tier Liquid Glass glassmorphism: Tier 1 frosted glass on Nav/Hero, Tier 2 soft glass on all section cards
+- 3-phase waveform choreography (flat/active/calm) synced to demo state machine with reduced-motion static frame
+- Competitor comparison table (5 products x 6 dimensions) with desktop sticky header and mobile card stack
+- Adaptive TestFlight CTA with client-side device detection, QR code for desktop, direct button for iPhone
+
+**Known gaps (stale tracking only):**
+- THEME-01 and THEME-03 were completed (per 05-02-SUMMARY.md) but checkboxes not updated in REQUIREMENTS.md before archive
+
+---
+
 ## v1.0 dictus Landing Page (Shipped: 2026-03-10)
 
 **Phases completed:** 4 phases, 10 plans

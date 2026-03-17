@@ -2,7 +2,7 @@
 
 ## What This Is
 
-Premium dark marketing landing page for dictus, an offline iOS voice dictation keyboard. Bilingual FR/EN site featuring animated hero with canvas waveform and word-by-word text reveal, glassmorphism UI, 7 content sections, and Lighthouse 90+ scores. Built with Next.js 16 (App Router) + Tailwind v4, deployed on Vercel. Developed by PIVI Solutions at getdictus.com.
+Premium marketing landing page for dictus, an offline iOS voice dictation keyboard. Bilingual FR/EN site featuring light/dark theme with Liquid Glass glassmorphism, animated hero with choreographed canvas waveform, competitor comparison table, adaptive TestFlight CTA, and Lighthouse 90+ scores. Built with Next.js 16 (App Router) + Tailwind v4 + next-themes, deployed on Vercel. Developed by PIVI Solutions at getdictus.com.
 
 ## Core Value
 
@@ -22,14 +22,16 @@ Convaincre un visiteur en quelques secondes que dictus est l'alternative privacy
 - ✓ Responsive and performant (Lighthouse 97-98/93/100/92, touch targets 44px+) — v1.0
 - ✓ SEO complete (OG tags, JSON-LD, hreflang, sitemap) — v1.0
 - ✓ Zero third-party scripts, zero tracking, zero cookies — v1.0
+- ✓ Light/dark theme system with CSS variable swap, next-themes, FOWT prevention — v1.1
+- ✓ Sun/moon theme toggle with animated SVG morph, theme-aware canvas waveform — v1.1
+- ✓ Two-tier Liquid Glass glassmorphism (Nav/Hero Tier 1, section cards Tier 2) — v1.1
+- ✓ 3-phase waveform choreography (flat/active/calm) synced to demo state — v1.1
+- ✓ Competitor comparison table (5 products x 6 dimensions) with mobile card stack — v1.1
+- ✓ Adaptive TestFlight CTA with device detection, QR code, fallback badge — v1.1
 
 ### Active
 
-- [ ] Comparison table: Dictus vs Apple Dictation, WhisperFlow, SuperWhisper, MacWhisper (COMP-*)
-- [ ] Hero waveform animation: flat → voice simulation → transcription synced (HERO-*)
-- [ ] Liquid Glass effects: iOS 26 style glassmorphism across site elements (GLASS-*)
-- [ ] Light mode: new theme inspired by Dictus iOS app colors (THEME-*)
-- [ ] Adaptive TestFlight CTA: device detection iPhone/desktop, TestFlight link (CTA-*)
+(None — planning next milestone)
 
 ### Out of Scope
 
@@ -43,25 +45,13 @@ Convaincre un visiteur en quelques secondes que dictus est l'alternative privacy
 - Multi-page navigation — single landing page, one flow, one CTA
 - App Store badge + screenshots section — deferred, not yet on TestFlight
 
-## Current Milestone: v1.1 Polish & Differentiation
-
-**Goal:** Enrichir le site avec du contenu comparatif, des demos visuelles, des effets Liquid Glass, un mode clair, et un CTA TestFlight adaptatif.
-
-**Target features:**
-- Tableau comparatif multi-concurrents (prix, offline, privacy, plateformes, IA, open source)
-- Animation hero waveform enrichie (flat → voix → transcription)
-- Sections demo avec videos de l'app (filmees par l'utilisateur)
-- Effets Liquid Glass iOS 26 sur les elements du site
-- Mode clair inspire des couleurs de l'app Dictus
-- CTA adaptatif TestFlight avec detection device
-
 ## Context
 
-Shipped v1.0 with 1,600 LOC TypeScript/CSS across 27 source files.
-Tech stack: Next.js 16 (App Router), Tailwind v4, next-intl v4, Motion v12, Vercel.
+Shipped v1.1 with 2,770 LOC TypeScript/CSS across ~50 source files.
+Tech stack: Next.js 16 (App Router), Tailwind v4, next-intl v4, next-themes, Motion v12, qrcode.react, Vercel.
 dictus app is in active development -- TestFlight is the next milestone for the app itself.
 Telegram group link is placeholder (#) until community is created.
-v1.1 brings light mode back in scope (previously excluded) -- user decision to align website with iOS app theming.
+Adaptive CTA ready for TestFlight URL (env var NEXT_PUBLIC_TESTFLIGHT_URL).
 
 ## Constraints
 
@@ -85,8 +75,12 @@ v1.1 brings light mode back in scope (previously excluded) -- user decision to a
 | Motion v12 LazyMotion (~4.6kb) | Tree-shakeable, small bundle | ✓ Good -- minimal perf impact |
 | Webpack over Turbopack for production | Turbopack PNG processing bug in Next.js 16.1.6 | ⚠️ Revisit -- check newer Next.js versions |
 | white-40 opacity bumped to 0.60 for WCAG AA | Contrast compliance, token name kept | ✓ Good -- passes WCAG AA |
-
-| Light mode added to v1.1 scope | Align website with iOS app theming, user request | -- Pending |
+| Light mode via CSS variable swap (dark-origin names) | Zero-churn migration, no component files needed updating | ✓ Good -- 9 swappable tokens, 10 static |
+| next-themes with class strategy | SSR-safe, system preference support, FOWT prevention | ✓ Good -- seamless light/dark |
+| Two-tier glass system (Tier 1/Tier 2) | Depth hierarchy matches iOS Liquid Glass philosophy | ✓ Good -- clear visual hierarchy |
+| No nested backdrop-filter | Avoids Safari rendering artifacts | ✓ Good -- TextReveal uses bg-only |
+| Client-side device detection in useEffect | Prevents React hydration mismatch | ✓ Good -- SSR renders fallback, detects on mount |
+| qrcode.react for desktop TestFlight QR | Lightweight, no external service dependency | ✓ Good -- privacy-aligned |
 
 ---
-*Last updated: 2026-03-10 after v1.1 milestone start*
+*Last updated: 2026-03-17 after v1.1 milestone*

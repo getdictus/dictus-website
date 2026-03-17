@@ -2,6 +2,49 @@
 
 *A living document updated after each milestone. Lessons feed forward into future planning.*
 
+## Milestone: v1.1 — Polish & Differentiation
+
+**Shipped:** 2026-03-17
+**Phases:** 3 | **Plans:** 6 | **Timeline:** 7 days
+
+### What Was Built
+- Light/dark theme system with CSS variable swap (9 swappable tokens), next-themes, sun/moon toggle with SVG morph
+- Two-tier Liquid Glass glassmorphism: Tier 1 frosted glass on Nav/Hero, Tier 2 soft glass on all section cards
+- 3-phase waveform choreography (flat/active/calm) synced to demo state with reduced-motion static frame
+- Competitor comparison table (5 products x 6 dimensions) with desktop sticky header and mobile card stack
+- Adaptive TestFlight CTA with client-side device detection, QR code for desktop, direct button for iPhone
+
+### What Worked
+- Dark-origin token names for zero-churn migration -- no existing component files needed updating for theme system
+- Two-tier glass hierarchy gave clear design language without over-engineering
+- CSS custom properties as the indirection layer -- theme, glass, and waveform all use the same pattern
+- Coarse granularity (3 phases, 6 plans) matched the scope well -- no unnecessary plan splits
+- UAT passed clean across all 3 phases (16/16 pass, 0 issues)
+
+### What Was Inefficient
+- REQUIREMENTS.md tracking fell behind -- THEME-01 and THEME-03 completed but checkboxes not updated (stale tracking)
+- Phase 5 marked as "Not started" in ROADMAP.md progress table despite being complete (stale ROADMAP tracking)
+- Phase 7 progress table row had misaligned columns
+
+### Patterns Established
+- CSS variable swap pattern: @theme tokens reference var(--theme-*) which resolve differently under :root vs .dark
+- Two-tier glass tokens: --glass-t1-bg (blur-20, saturate-1.5) and --glass-t2-bg (blur-12, saturate-1.2)
+- No nested backdrop-filter: children inside glass panels use bg-only
+- Client-side device branching: unknown state during SSR, detect on mount via useEffect
+- Env-var feature flag: NEXT_PUBLIC_ prefix for build-time inlining, empty = disabled
+
+### Key Lessons
+1. Keep REQUIREMENTS.md and ROADMAP.md progress tables updated during execution, not just at milestone boundaries
+2. CSS variable indirection is the right abstraction for any value that changes by context (theme, glass tier, responsive)
+3. Client-side detection patterns must always have an SSR fallback to prevent hydration mismatches
+
+### Cost Observations
+- Model mix: primarily opus for planning/execution
+- Sessions: ~4 sessions across 7 days
+- Notable: all 6 plans executed in under 3 min each -- high velocity due to clear phase boundaries
+
+---
+
 ## Milestone: v1.0 — dictus Landing Page
 
 **Shipped:** 2026-03-10
@@ -53,14 +96,18 @@
 | Milestone | Timeline | Phases | Key Change |
 |-----------|----------|--------|------------|
 | v1.0 | 2 days | 4 | Initial project -- established GSD workflow |
+| v1.1 | 7 days | 3 | Polish iteration -- all plans under 3 min, zero UAT issues |
 
 ### Cumulative Quality
 
 | Milestone | Lighthouse Perf | Lighthouse A11y | Lighthouse BP | Lighthouse SEO |
 |-----------|-----------------|-----------------|---------------|----------------|
 | v1.0 | 97-98 | 93 | 100 | 92 |
+| v1.1 | TBD | TBD | TBD | TBD |
 
 ### Top Lessons (Verified Across Milestones)
 
 1. Phase ordering matters: build content before animations to avoid rework
 2. Verify i18n integration in every component during its creation phase
+3. CSS variable indirection is the right abstraction for context-dependent values
+4. Keep tracking docs (REQUIREMENTS.md, ROADMAP.md) updated during execution
