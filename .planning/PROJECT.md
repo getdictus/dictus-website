@@ -31,7 +31,14 @@ Convaincre un visiteur en quelques secondes que dictus est l'alternative privacy
 
 ### Active
 
-(None — planning next milestone)
+## Current Milestone: v1.2 Video & Compliance
+
+**Goal:** Créer une vidéo de démo Remotion à intégrer sur le site et rendre le site conforme aux exigences App Store (privacy policy, support URL).
+
+**Target features:**
+- Vidéo de démo Remotion avec feel iOS natif et waveform fidèle
+- Page Privacy Policy dédiée (`/privacy`) avec lien footer
+- Support URL (mailto:) pour App Store Connect
 
 ### Out of Scope
 
@@ -83,4 +90,4 @@ Adaptive CTA ready for TestFlight URL (env var NEXT_PUBLIC_TESTFLIGHT_URL).
 | qrcode.react for desktop TestFlight QR | Lightweight, no external service dependency | ✓ Good -- privacy-aligned |
 
 ---
-*Last updated: 2026-03-17 after v1.1 milestone*
+*Last updated: 2026-03-17 after v1.2 milestone started*
