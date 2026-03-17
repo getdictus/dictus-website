@@ -44,15 +44,13 @@
   "HowItWorks": {
     "step1_title": "Appuyez sur le micro",
     "step1_desc": "Activez la dictation depuis n\u2019importe quelle app avec un seul geste.",
-    "step2_title": "Parlez naturellement",
-    "step2_desc": "Dictus comprend votre voix en temps r\u00e9el, m\u00eame sans connexion internet.",
+    "step2_title": "Transcription sur l\u2019appareil",
+    "step2_desc": "Votre voix est trait\u00e9e localement par un mod\u00e8le embarqu\u00e9. Aucune connexion n\u00e9cessaire.",
     "step3_title": "Le texte appara\u00eet",
-    "step3_desc": "Vos mots s\u2019inscrivent instantan\u00e9ment. Pr\u00e9cis, rapide, priv\u00e9."
-  },
-  "DataFlow": {
-    "title": "Aucune donn\u00e9e ne quitte votre appareil",
-    "desc": "Votre voix est captée par le micro, transcrite par un modèle embarqué, et le texte est inséré. Tout se passe sur votre iPhone.",
-    "no_cloud": "Pas de cloud. Pas de serveur. Juste votre appareil."
+    "step3_desc": "Vos mots s\u2019inscrivent instantan\u00e9ment. Pr\u00e9cis, rapide, priv\u00e9.",
+    "privacy_title": "Aucune donn\u00e9e ne quitte votre appareil",
+    "privacy_desc": "Votre voix est capt\u00e9e par le micro, transcrite par un mod\u00e8le embarqu\u00e9, et le texte est ins\u00e9r\u00e9. Tout se passe sur votre iPhone.",
+    "privacy_accent": "Pas de cloud. Pas de serveur. Juste votre appareil."
   },
   "OpenSource": {
     "title": "Transparent par nature",

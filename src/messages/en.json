@@ -44,15 +44,13 @@
   "HowItWorks": {
     "step1_title": "Tap the mic",
     "step1_desc": "Start dictation from any app with a single tap.",
-    "step2_title": "Speak naturally",
-    "step2_desc": "Dictus understands your voice in real time, even without an internet connection.",
+    "step2_title": "On-device transcription",
+    "step2_desc": "Your voice is processed locally by an embedded model. No internet needed.",
     "step3_title": "Text appears",
-    "step3_desc": "Your words are transcribed instantly. Accurate, fast, private."
-  },
-  "DataFlow": {
-    "title": "No data leaves your device",
-    "desc": "Your voice is captured by the mic, transcribed by an on-device model, and the text is inserted. Everything happens on your iPhone.",
-    "no_cloud": "No cloud. No server. Just your device."
+    "step3_desc": "Your words are transcribed instantly. Accurate, fast, private.",
+    "privacy_title": "No data leaves your device",
+    "privacy_desc": "Your voice is captured by the mic, transcribed by an on-device model, and the text is inserted. Everything happens on your iPhone.",
+    "privacy_accent": "No cloud. No server. Just your device."
   },
   "OpenSource": {
     "title": "Transparent by nature",
