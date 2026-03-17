@@ -1,426 +1,153 @@
-# Technology Stack — v1.1 Additions
+# Technology Stack — v1.2 Additions
 
-**Project:** dictus Landing Page v1.1
-**Researched:** 2026-03-10
-**Scope:** NEW stack additions only. See v1.0 research for base stack (Next.js 16, Tailwind v4, Motion v12, next-intl v4).
+**Project:** dictus Landing Page v1.2 (Video & Compliance)
+**Researched:** 2026-03-17
+**Scope:** NEW stack additions only. See v1.0/v1.1 research for base stack (Next.js 16, Tailwind v4, Motion v12, next-intl v4, next-themes, qrcode.react).
 
-## New Dependencies
+## Recommended Stack
 
-### Theme Management
+### Remotion — Programmatic Video Creation
 
 | Technology | Version | Purpose | Why | Confidence |
 |------------|---------|---------|-----|------------|
-| next-themes | 0.4.6 | Light/dark mode toggle with SSR | Prevents flash of unstyled content (FOUC) on page load. Handles localStorage persistence, system preference detection, `<html>` class toggling. 2 lines of setup. React 19 compatible (peer dep: `^19`). 3M+ weekly npm downloads. The standard solution for Next.js theming. | HIGH |
+| remotion | ^4.0.436 | Core framework — Composition, useCurrentFrame, interpolate, spring, Sequence, Series | React-based video creation using the same component model as the existing site. Write video scenes as React components with frame-based animation. The only serious React video creation framework — no real alternatives exist in this space. | MEDIUM |
+| @remotion/cli | ^4.0.436 | CLI for `remotion studio` (preview) and `remotion render` (export to mp4) | Renders compositions to mp4/webm via headless Chromium + ffmpeg. Required for the dev preview and final video export. | MEDIUM |
+| @remotion/player | ^4.0.436 | Embeddable React player component | Enables interactive preview during development. NOT needed in production — the final output is a pre-rendered mp4 file served statically. Install as devDependency only if embedding a live player; otherwise the CLI preview suffices. | MEDIUM |
 
-**Why next-themes over rolling our own:**
-- FOUC prevention requires an inline `<script>` in `<head>` that runs before React hydration. next-themes handles this correctly with its `ThemeProvider` + blocking script injection. Getting this right manually is error-prone and a known pain point.
-- Handles the three-way toggle (light / dark / system) with localStorage persistence out of the box.
-- Zero bundle cost at runtime beyond the tiny provider (~1.5kb).
+**Version note:** Remotion 4.x is the current major. Version 4.0.436 was the latest at time of research. Pin to `^4.0` — Remotion follows semver within the 4.x line.
 
-**Why not cookies-based approach:** next-themes uses localStorage + blocking script. Some guides suggest cookies for SSR theme detection, but this adds server complexity for zero benefit on a static-ish landing page. The blocking script approach eliminates FOUC without server involvement.
+**Confidence is MEDIUM** because web search was unavailable and version was confirmed via npm registry only. Core API documentation was verified via remotion.dev.
 
-### No Other New Dependencies
+### No New Production Dependencies Needed
 
-Everything else needed for v1.1 features is achievable with the existing stack plus native browser APIs. Specifically:
+The compliance pages (Privacy Policy, Support URL) require zero new libraries:
 
 | Feature | Approach | New Dependency? |
 |---------|----------|-----------------|
-| Liquid Glass effects | Pure CSS (backdrop-filter + SVG filter fallback) | NO |
-| Light mode theming | Tailwind v4 `@custom-variant` + CSS custom properties | NO (next-themes only) |
-| Video embedding | Native `<video>` element + Intersection Observer | NO |
-| Canvas animation enhancements | Extend existing Waveform.tsx | NO |
-| Device detection (iOS) | `navigator.userAgent` regex, client-side | NO |
-| Comparison table | Static React component + next-intl translations | NO |
+| Privacy Policy page (`/privacy`) | Static Next.js page with existing i18n (next-intl) | NO |
+| Support URL | mailto: link — no page needed, just a URL for App Store Connect | NO |
+| Video embed on landing page | Native `<video>` element with pre-rendered mp4 | NO |
+| Waveform animation in video | Port existing Canvas waveform logic into Remotion component | NO |
+| iOS-style animations in video | Remotion `spring()` + `interpolate()` — built into core `remotion` package | NO |
+
+## Remotion Architecture Decision: Separate Subfolder
+
+**Decision:** Remotion lives in a `/remotion` subfolder at project root, NOT mixed into the Next.js app.
+
+**Why separate:**
+- Remotion has its own bundler (Webpack-based), entry point (`Root.tsx`), and rendering pipeline. Mixing it into the Next.js App Router creates config conflicts.
+- Remotion's `remotion.config.ts` is project-root scoped and only affects CLI commands — it does not integrate with `next.config.ts`.
+- The video is rendered offline to a static mp4, then placed in `/public` for the site to serve. There is no runtime dependency between Next.js and Remotion.
+- Remotion requires React but does NOT need Next.js — it renders in its own headless Chromium context.
+- Official Remotion docs mention Next.js App Router templates, but these are for apps that dynamically generate videos (SaaS). For a single pre-rendered demo video, a standalone subfolder is simpler and avoids all integration complexity.
+
+**Folder structure:**
+```
+/remotion/
+  remotion.config.ts    # Remotion CLI config
+  src/
+    Root.tsx            # Composition registry
+    DemoVideo.tsx       # Main composition
+    scenes/             # Individual scenes (Sequence components)
+    components/         # Shared (waveform, phone mockup, etc.)
+  package.json          # Separate deps (remotion, @remotion/cli)
+```
+
+**Workflow:**
+1. `cd remotion && npx remotion studio` — preview in browser
+2. `cd remotion && npx remotion render src/Root.tsx DemoVideo out/demo.mp4` — render final
+3. Copy `out/demo.mp4` to `public/videos/demo.mp4`
+4. Reference in Next.js via `<video src="/videos/demo.mp4">`
+
+### Remotion Key APIs for This Project
+
+| API | Package | Purpose in Dictus Demo |
+|-----|---------|----------------------|
+| `useCurrentFrame()` | remotion | Drive all frame-based animation |
+| `useVideoConfig()` | remotion | Access fps, width, height, duration |
+| `interpolate()` | remotion | Map frame ranges to opacity, position, scale values |
+| `spring()` | remotion | iOS-feel bouncy transitions (stiffness/damping tunable) |
+| `<Sequence>` | remotion | Time-shift scenes — each scene starts at frame 0 internally |
+| `<Series>` | remotion | Auto-sequential scenes without manual frame math |
+| `<AbsoluteFill>` | remotion | Full-frame positioning (like absolute + inset-0) |
+| `<Img>` | remotion | Image loading with render-blocking (waits for load before frame capture) |
+
+### Waveform Reuse Strategy
+
+The existing site has a Canvas-based waveform (`BrandWaveform` pattern ported from iOS `BrandWaveform.swift`). For the Remotion video:
+
+- **Reuse the waveform drawing logic** — extract the bar-height calculation and drawing into a shared utility
+- **Render on Canvas inside Remotion** — Remotion supports `<canvas>` elements; use `useCurrentFrame()` to drive the animation phase (idle -> recording -> transcribing -> inserted)
+- **Match the 3-phase choreography** from v1.1 (flat/active/calm) by mapping frame ranges to waveform states via `interpolate()`
+
+### spring() for iOS-Native Feel
+
+Remotion's `spring()` is physics-based (mass, stiffness, damping) — identical conceptually to iOS `UIView.animate(withSpring:)`. Configure to match iOS defaults:
+- `stiffness: 100, damping: 15, mass: 1` approximates iOS default spring
+- `overshootClamping: false` for natural bounce on element entrances
+- Use `durationInFrames` to constrain spring to specific scene lengths
+
+## What NOT to Add
+
+| Temptation | Why Not |
+|------------|---------|
+| @remotion/player in production | The demo video is pre-rendered. Ship a static mp4, not a client-side player. Zero JS overhead. |
+| @remotion/lambda | Cloud rendering is for SaaS video generation. We render once locally. |
+| @remotion/tailwind | Remotion has its own Webpack config. Tailwind in Remotion adds config complexity for a single video. Use inline styles in Remotion components. |
+| ffmpeg manual install | Remotion bundles its own ffmpeg. Do not install separately. |
+| react-player or video.js | Native `<video>` with `controls` attribute is sufficient for a single mp4. No wrapper needed. |
+| MDX or markdown renderer for privacy policy | Static JSX with i18n strings is simpler. The privacy policy is short and rarely changes. |
+| Cookie consent library | Dictus collects zero data. No cookies. No consent needed. |
+| Legal template generator | Privacy policy content is project-specific. Use Apple's requirements as checklist, write manually. |
 
 ## Installation
 
-```bash
-# Only new dependency for v1.1
-npm install next-themes
-```
-
----
-
-## Feature-Specific Stack Guidance
-
-### 1. Light/Dark Mode with Tailwind v4
-
-**Architecture:** CSS custom properties scoped to `.dark` / default (light), toggled via next-themes.
-
-**Tailwind v4 approach — @custom-variant:**
-
-```css
-/* globals.css — add after @import "tailwindcss" */
-@custom-variant dark (&:where(.dark, .dark *));
-```
-
-This replaces the old `darkMode: "class"` from tailwind.config.js. The `dark:` prefix will activate when `.dark` class is present on any ancestor element.
-
-**Token strategy — override CSS custom properties per theme:**
-
-```css
-/* globals.css */
-@import "tailwindcss";
-@custom-variant dark (&:where(.dark, .dark *));
-
-/* Light mode tokens (default) */
-@theme {
-  --color-bg-primary: #F8FAFC;
-  --color-bg-secondary: #F1F5F9;
-  --color-bg-surface: #FFFFFF;
-  --color-text-primary: #0B0F1A;
-  --color-text-secondary: rgba(11, 15, 26, 0.60);
-  --color-border: rgba(11, 15, 26, 0.10);
-  --color-border-hi: rgba(11, 15, 26, 0.18);
-  /* Accent colors stay the same across themes */
-  --color-accent: #3D7EFF;
-  --color-accent-hi: #6BA3FF;
-  /* ... other shared tokens ... */
-}
-
-/* Dark mode overrides via CSS layer */
-.dark {
-  --color-bg-primary: #0A1628;
-  --color-bg-secondary: #0B0F1A;
-  --color-bg-surface: #161C2C;
-  --color-text-primary: #FFFFFF;
-  --color-text-secondary: rgba(255, 255, 255, 0.70);
-  --color-border: rgba(255, 255, 255, 0.07);
-  --color-border-hi: rgba(255, 255, 255, 0.14);
-}
-```
-
-**Key decision — semantic token renaming:** The current v1.0 tokens (`ink-deep`, `ink`, `surface`, `white-70`, `white-40`) are dark-mode-specific names. For dual-theme support, introduce semantic aliases (`bg-primary`, `text-primary`, etc.) that resolve to different values per theme. Keep the raw brand tokens available for cases where you explicitly want the dark value regardless of theme.
-
-**next-themes setup:**
-
-```tsx
-// components/shared/ThemeProvider.tsx
-"use client";
-import { ThemeProvider } from "next-themes";
-
-export function DictusThemeProvider({ children }: { children: React.ReactNode }) {
-  return (
-    <ThemeProvider attribute="class" defaultTheme="dark" enableSystem>
-      {children}
-    </ThemeProvider>
-  );
-}
-```
-
-**Default to dark:** The current site is dark-only. Set `defaultTheme="dark"` so existing visitors see no change. Light mode is opt-in via a toggle.
-
-**Confidence:** HIGH — Tailwind v4 official docs confirm `@custom-variant` syntax, next-themes 0.4.6 confirmed React 19 compatible via npm.
-
----
-
-### 2. Liquid Glass Effects
-
-**Approach:** Pure CSS with layered composition. No library.
-
-The v1.0 glassmorphism is basic (`backdrop-filter: blur` + semi-transparent background). Liquid Glass adds three visual enhancements:
-
-1. **Light refraction highlight** on curved edges (top/bottom)
-2. **Specular reflection** that responds to element position
-3. **Subtle distortion** of background content
-
-**Recommended CSS implementation (three-layer composition):**
-
-```css
-/* Liquid Glass container */
-.liquid-glass {
-  position: relative;
-  background: rgba(22, 28, 44, 0.45);
-  backdrop-filter: blur(16px) saturate(180%);
-  -webkit-backdrop-filter: blur(16px) saturate(180%);
-  border: 1px solid rgba(255, 255, 255, 0.08);
-  border-radius: 20px;
-  overflow: hidden;
-}
-
-/* Layer 1: Top edge highlight (light refraction) */
-.liquid-glass::before {
-  content: '';
-  position: absolute;
-  inset: 0;
-  border-radius: inherit;
-  background: linear-gradient(
-    180deg,
-    rgba(255, 255, 255, 0.12) 0%,
-    rgba(255, 255, 255, 0.03) 30%,
-    transparent 50%
-  );
-  pointer-events: none;
-}
-
-/* Layer 2: Inner glow (specular highlight) */
-.liquid-glass::after {
-  content: '';
-  position: absolute;
-  inset: 0;
-  border-radius: inherit;
-  box-shadow:
-    inset 0 1px 0 rgba(255, 255, 255, 0.15),
-    inset 0 -1px 0 rgba(255, 255, 255, 0.05);
-  pointer-events: none;
-}
-```
-
-**What NOT to do:**
-- Do NOT use SVG `feDisplacementMap` / `feTurbulence` filters for backdrop distortion. Safari does not support SVG filters as `backdrop-filter` inputs (auto-falls back to plain blur). The `nikdelvin/liquid-glass` library documents this: "Safari automatically falls back to a blurred glassmorphism effect." Since Safari/iOS is the primary audience for a Dictus landing page, SVG filter distortion would be invisible to target users.
-- Do NOT use the `liquid-glass` npm package (Astro-based, not React, adds Anime.js dependency).
-- Do NOT apply `backdrop-filter` to more than 5-6 elements per viewport. Each is GPU-composited.
-
-**Light mode adaptation:** In light mode, swap the rgba values:
-```css
-/* Light mode liquid glass */
-.light .liquid-glass {
-  background: rgba(255, 255, 255, 0.55);
-  border: 1px solid rgba(0, 0, 0, 0.06);
-}
-.light .liquid-glass::before {
-  background: linear-gradient(
-    180deg,
-    rgba(255, 255, 255, 0.60) 0%,
-    rgba(255, 255, 255, 0.20) 30%,
-    transparent 50%
-  );
-}
-```
-
-**Tailwind integration:** Define as a utility class in globals.css or as a reusable component. Use Tailwind's `backdrop-blur-xl` (`blur(24px)`) and `backdrop-saturate-[180%]` utilities where possible, with custom CSS for the pseudo-element layers.
-
-**Confidence:** HIGH for the CSS approach. MEDIUM for visual fidelity (true Liquid Glass distortion requires SVG filters that Safari blocks — the CSS-only version is a convincing approximation, not pixel-perfect iOS 26).
-
----
-
-### 3. Video Embedding (Self-Hosted Short Clips)
-
-**Approach:** Native `<video>` element with Intersection Observer lazy loading. No video library.
-
-**Format recommendation:**
-
-| Format | Codec | Use Case | Browser Support |
-|--------|-------|----------|-----------------|
-| MP4 (H.264) | AVC | Primary source, universal fallback | 99%+ |
-| WebM (VP9) | VP9 | Smaller file size for Chrome/Firefox/Edge | ~95% (not Safari) |
-
-Serve both with `<source>` elements. Browser picks the first supported format.
-
-**Encoding with FFmpeg (run before build, commit optimized files):**
+### Remotion (in `/remotion` subfolder)
 
 ```bash
-# MP4 (H.264) — universal compatibility
-ffmpeg -i raw-demo.mov \
-  -c:v libx264 -crf 28 -preset slow \
-  -vf "scale=960:-2" \
-  -an -movflags faststart \
-  -f mp4 demo.mp4
+# Create remotion subfolder with its own package.json
+mkdir -p remotion/src/scenes remotion/src/components
 
-# WebM (VP9) — 20-50% smaller for supported browsers
-ffmpeg -i raw-demo.mov \
-  -c:v libvpx-vp9 -crf 35 -b:v 0 \
-  -vf "scale=960:-2" \
-  -an \
-  -f webm demo.webm
+cd remotion
+npm init -y
+npm install remotion @remotion/cli
 ```
 
-Key flags:
-- `-an`: Strip audio track (demo clips are silent, removes empty audio metadata)
-- `-movflags faststart`: Move MOOV atom to file start for progressive playback
-- `-crf 28` (H.264) / `-crf 35` (VP9): Quality sweet spot for screen recordings
-- `scale=960:-2`: Cap at 960px width (sufficient for inline demos), keep aspect ratio
+### Main project — no changes needed
 
-**Target file sizes:** Each clip should be under 2MB (ideally under 1MB). Screen recordings of an iOS app compress well.
+No new production dependencies. The pre-rendered mp4 goes in `public/videos/`.
 
-**Video component pattern:**
+## System Requirements for Rendering
 
-```tsx
-// components/shared/LazyVideo.tsx
-"use client";
-import { useRef, useEffect, useState } from "react";
+| Requirement | Details |
+|-------------|---------|
+| Node.js | >=18 (already satisfied — Next.js 16 requires it) |
+| Chromium | Remotion downloads its own Chromium on first run |
+| ffmpeg | Bundled with @remotion/cli — no manual install |
+| Disk space | ~500MB for Chromium + ffmpeg cache |
+| RAM for render | ~2GB recommended for 1080p render |
 
-interface LazyVideoProps {
-  mp4Src: string;
-  webmSrc?: string;
-  poster?: string;
-  className?: string;
-  alt: string;
-}
+## Alternatives Considered
 
-export function LazyVideo({ mp4Src, webmSrc, poster, className, alt }: LazyVideoProps) {
-  const videoRef = useRef<HTMLVideoElement>(null);
-  const [isVisible, setIsVisible] = useState(false);
-
-  useEffect(() => {
-    const video = videoRef.current;
-    if (!video) return;
-
-    const observer = new IntersectionObserver(
-      ([entry]) => {
-        if (entry.isIntersecting) {
-          setIsVisible(true);
-          observer.disconnect();
-        }
-      },
-      { rootMargin: "200px" } // Start loading 200px before viewport
-    );
-    observer.observe(video);
-    return () => observer.disconnect();
-  }, []);
-
-  return (
-    <video
-      ref={videoRef}
-      autoPlay={isVisible}
-      loop
-      muted
-      playsInline  // Required for iOS inline playback
-      preload="none"
-      poster={poster}
-      className={className}
-      aria-label={alt}
-    >
-      {isVisible && (
-        <>
-          {webmSrc && <source src={webmSrc} type="video/webm" />}
-          <source src={mp4Src} type="video/mp4" />
-        </>
-      )}
-    </video>
-  );
-}
-```
-
-**Key attributes for iOS:**
-- `playsInline`: Mandatory for autoplay on iOS Safari (without it, video opens fullscreen)
-- `muted`: Required for autoplay to work on all browsers
-- `autoPlay` + `muted` + `playsInline`: The trio that enables silent inline autoplay
-
-**File placement:** `/public/videos/demo-*.mp4` and `/public/videos/demo-*.webm`. Vercel CDN serves these with proper caching headers automatically.
-
-**Do NOT use:**
-- `next-video` package (adds Mux dependency, overkill for 2-3 self-hosted clips)
-- Vercel Blob (unnecessary for a handful of small pre-encoded files committed to repo)
-- Any video player library (no controls needed for autoplay demo clips)
-
-**Confidence:** HIGH — Next.js 16 official docs confirm native `<video>` as recommended approach for self-hosted videos. Intersection Observer is a mature browser API.
-
----
-
-### 4. Canvas Animation Enhancements (Hero Waveform)
-
-**Approach:** Extend existing `Waveform.tsx` with new animation states. No new dependencies.
-
-The current Waveform.tsx already has the architecture needed:
-- `useAnimationFrame` custom hook for 60fps rendering
-- `displayLevelsRef` (Float32Array) for smooth interpolation
-- `processingEnergy()` for sinusoidal envelope
-- `resolveBarColor()` for state-based coloring
-
-**Enhancements for v1.1 (flat -> voice -> transcription):**
-
-1. **Accept an `animationState` prop** from `useHeroDemoState` to drive waveform behavior:
-   - `idle`: Bars at minimum height, subtle breathing animation
-   - `recording`: Bars simulate voice input (randomized amplitudes with envelope)
-   - `transcribing`: Current sinusoidal traveling wave (already implemented)
-   - `smart`: Purple-tinted bars with different wave pattern
-   - `inserted`: Bars settle to flat baseline
-
-2. **Color adaptation for light mode:** The `resolveBarColor()` function currently hardcodes `BRAND_BLUE` and white edge colors. Pass theme context or accept color props to adapt:
-   - Dark mode: White edges on dark background (current)
-   - Light mode: Dark gray edges (`#1E293B`) on light background, keep brand blue center
-
-3. **Voice simulation during `recording` state:** Replace the current static sinusoidal with pseudo-random amplitudes modulated by an envelope:
-
-```typescript
-// Pseudo-voice: Perlin-like noise modulated by speech envelope
-const voiceEnergy = (index: number, time: number): number => {
-  const freq1 = Math.sin(time / 300 + index * 0.7) * 0.3;
-  const freq2 = Math.sin(time / 150 + index * 1.3) * 0.2;
-  const freq3 = Math.sin(time / 80 + index * 2.1) * 0.15;
-  const envelope = 0.4 + 0.3 * Math.sin(time / 800); // Speech rhythm
-  return Math.max(0.05, (freq1 + freq2 + freq3 + 0.35) * envelope);
-};
-```
-
-**No Web Audio API needed.** The waveform is purely visual (decorative). Do not add microphone access or audio processing — it would contradict the privacy-first positioning and add unnecessary complexity.
-
-**Performance note:** The existing `useAnimationFrame` + `Float32Array` approach is already optimal. Canvas 2D with 30 rounded rects at 60fps is lightweight. No WebGL upgrade needed.
-
-**Confidence:** HIGH — extending existing patterns, no new APIs or dependencies.
-
----
-
-### 5. Device Detection (iOS vs Desktop)
-
-**Approach:** Client-side User-Agent string check. No library.
-
-**Implementation:**
-
-```typescript
-// utils/device.ts
-export function isIOSDevice(): boolean {
-  if (typeof navigator === "undefined") return false;
-  return /iPad|iPhone|iPod/.test(navigator.userAgent) ||
-    (navigator.userAgent.includes("Mac") && "ontouchend" in document);
-}
-```
-
-The second condition catches iPadOS, which reports as "Macintosh" in the UA string since iPadOS 13 but has touch support.
-
-**Important 2025+ caveat:** Starting with Safari 26 (iOS 26), Apple freezes the OS version in the UA string (reports as `OS 18_6` regardless of actual version). This does NOT affect our use case — we only need to detect "is this an iOS device" (not which iOS version), and the `iPhone` / `iPad` / `iPod` tokens remain in the UA string.
-
-**CTA behavior:**
-
-| Device | CTA Text | Action |
-|--------|----------|--------|
-| iPhone | "Get TestFlight Beta" | Link to TestFlight URL |
-| iPad | "Get TestFlight Beta" | Link to TestFlight URL |
-| Desktop/Android | "Available on iPhone" + QR or email reminder | Informational, no direct download |
-
-**Why not `navigator.userAgentData` (Client Hints):** Safari does not implement the User-Agent Client Hints API. Since iOS Safari is our primary target, Client Hints would require a fallback to UA parsing anyway. Just use UA parsing directly.
-
-**Why no library (ua-parser-js, bowser, etc.):** We need a single boolean check (`isIOS`). A library adds 10-30kb for comprehensive device/browser/OS parsing we will never use.
-
-**Server-side detection consideration:** For the initial render, the CTA could show a neutral state ("Coming to iPhone") and upgrade to the TestFlight link on the client after detection. This avoids hydration mismatches and works correctly for all users.
-
-**Confidence:** HIGH — UA string detection for iOS is well-established and our use case (device family, not version) is unaffected by Safari 26 UA freezing.
-
----
-
-## Summary: v1.1 Dependency Changes
-
-| Action | Package | Version | Bundle Impact |
-|--------|---------|---------|---------------|
-| ADD | next-themes | 0.4.6 | ~1.5kb gzipped |
-
-**Total new JS added:** ~1.5kb gzipped. Well within the existing < 100kb budget.
-
-Everything else (Liquid Glass, video, canvas, device detection) uses native browser APIs and CSS. This is intentional — the zero-dependency philosophy aligns with the project's privacy-first, performance-first constraints.
-
-## Performance Budget Update
-
-| Metric | v1.0 Actual | v1.1 Target | Risk |
-|--------|-------------|-------------|------|
-| Lighthouse Performance | 97-98 | 90+ | Video files are the main risk. Lazy loading + `preload="none"` mitigates. |
-| Lighthouse Accessibility | 93 | 93+ | Light mode needs WCAG AA contrast validation for all new color pairs. |
-| Lighthouse Best Practices | 100 | 100 | No new third-party scripts. |
-| Lighthouse SEO | 92 | 92+ | No regression expected. |
-| JS Bundle | ~7kb (Motion + next-intl) | ~8.5kb | +1.5kb from next-themes only. |
-| Total page weight | ~150kb | ~500kb-1MB | Video files dominate. Keep each clip under 1MB. |
+| Category | Recommended | Alternative | Why Not |
+|----------|-------------|-------------|---------|
+| Video creation | Remotion | Motion Canvas | Less mature, smaller ecosystem, no React integration |
+| Video creation | Remotion | After Effects + Lottie export | Requires Adobe license, non-programmatic, can't reuse React components |
+| Video creation | Remotion | FFmpeg scripting | No visual preview, painful for complex animations, no React component reuse |
+| Video creation | Remotion | CSS animation recorded with screen capture | Inconsistent quality, no frame-perfect control, manual process |
+| Video hosting | Static mp4 in /public | YouTube/Vimeo embed | Third-party scripts violate zero-tracking policy |
+| Video hosting | Static mp4 in /public | Cloudinary video | Unnecessary for a single static asset, adds external dependency |
+| Privacy page | Static Next.js page | Notion/Google Docs embed | Third-party iframe, inconsistent styling, tracking scripts |
+| Privacy page | Static Next.js page | iubenda / Termly | External service, adds scripts, overkill for a no-data-collection app |
 
 ## Sources
 
-- [Tailwind CSS v4 dark mode docs](https://tailwindcss.com/docs/dark-mode) — `@custom-variant` syntax, class-based toggle, system preference (verified 2026-03-10)
-- [next-themes GitHub](https://github.com/pacocoursey/next-themes) — React 19 peer dependency, ThemeProvider API
-- [CSS-Tricks: Getting Clarity on Apple's Liquid Glass](https://css-tricks.com/getting-clarity-on-apples-liquid-glass/) — CSS techniques, SVG filter limitations, Safari compatibility
-- [Liquid Glass with Pure CSS (DEV Community)](https://dev.to/kevinbism/recreating-apples-liquid-glass-effect-with-pure-css-3gpl) — backdrop-filter approach, SVG filter limitations confirmed
-- [nikdelvin/liquid-glass GitHub](https://github.com/nikdelvin/liquid-glass) — Safari fallback behavior documented, browser compatibility matrix
-- [Next.js Video Guide](https://nextjs.org/docs/app/guides/videos) — self-hosted `<video>` recommendation, `playsInline` for iOS, preload="none"
-- [FFmpeg web optimization (Transloadit)](https://transloadit.com/devtips/reducing-video-file-size-with-ffmpeg-for-web-optimization/) — CRF values, movflags faststart, format comparison
-- [Web optimized video with VP9/H265 (Pixel Point)](https://pixelpoint.io/blog/web-optimized-video-ffmpeg/) — WebM vs MP4 size comparison (20-50% savings)
-- [Detect iOS versions (Evil Martians, 2025)](https://evilmartians.com/chronicles/how-to-detect-safari-and-ios-versions-with-ease) — Safari 26 UA freezing, detection strategies
-- [Client Hints browser support (Corbado)](https://www.corbado.com/blog/client-hints-user-agent-chrome-safari-firefox) — Safari does not implement UA-CH
-- [Tailwind v4 dark mode discussion #15083](https://github.com/tailwindlabs/tailwindcss/discussions/15083) — CSS variable theming patterns
-- [Dark mode with Tailwind v4 + Next.js guide](https://www.sujalvanjare.com/blog/dark-mode-nextjs15-tailwind-v4) — next-themes + @custom-variant integration (updated Jan 2026)
+- Remotion npm registry: https://registry.npmjs.org/remotion/latest — version 4.0.436 confirmed
+- Remotion official docs (renderer): https://www.remotion.dev/docs/renderer — server-side rendering APIs
+- Remotion official docs (CLI render): https://www.remotion.dev/docs/cli/render — render command options
+- Remotion official docs (spring): https://www.remotion.dev/docs/spring — physics-based animation
+- Remotion official docs (interpolate): https://www.remotion.dev/docs/interpolate — value mapping
+- Remotion official docs (Sequence): https://www.remotion.dev/docs/sequence — scene composition
+- Remotion official docs (Player): https://www.remotion.dev/docs/player — embeddable player
+- Remotion official docs (fundamentals): https://www.remotion.dev/docs/the-fundamentals — core concepts
+- Apple App Store Review Guidelines: https://developer.apple.com/app-store/review/guidelines/ — privacy policy and support URL requirements
