@@ -9,8 +9,8 @@ Requirements for milestone v1.2 Video & Compliance. Each maps to roadmap phases.
 
 ### App Store Compliance
 
-- [ ] **COMP-01**: Page Privacy Policy bilingue FR/EN avec les 8+ sections exigees par Apple (accessible publiquement)
-- [ ] **COMP-02**: Page Support bilingue FR/EN avec email de contact pierre@pivi.solutions
+- [x] **COMP-01**: Page Privacy Policy bilingue FR/EN avec les 8+ sections exigees par Apple (accessible publiquement)
+- [x] **COMP-02**: Page Support bilingue FR/EN avec email de contact pierre@pivi.solutions
 - [ ] **COMP-03**: Liens Privacy Policy et Support ajoutes dans le footer du site
 
 ### Remotion Demo Video
@@ -47,8 +47,8 @@ Which phases cover which requirements. Updated during roadmap creation.
 
 | Requirement | Phase | Status |
 |-------------|-------|--------|
-| COMP-01 | Phase 8 | Pending |
-| COMP-02 | Phase 8 | Pending |
+| COMP-01 | Phase 8 | Complete |
+| COMP-02 | Phase 8 | Complete |
 | COMP-03 | Phase 8 | Pending |
 | VID-01 | Phase 9 | Pending |
 | VID-02 | Phase 9 | Pending |

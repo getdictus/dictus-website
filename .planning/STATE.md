@@ -2,16 +2,16 @@
 gsd_state_version: 1.0
 milestone: v1.2
 milestone_name: Video & Compliance
-status: planning
-stopped_at: Phase 8 context gathered
-last_updated: "2026-03-19T13:15:10.872Z"
-last_activity: 2026-03-17 — v1.2 roadmap created
+status: executing
+stopped_at: Completed 08-01-PLAN.md
+last_updated: "2026-03-19T14:45:58.094Z"
+last_activity: 2026-03-19 — Completed 08-01 Privacy & Support pages
 progress:
   total_phases: 3
   completed_phases: 0
-  total_plans: 0
-  completed_plans: 0
-  percent: 0
+  total_plans: 2
+  completed_plans: 1
+  percent: 50
 ---
 
 # Project State
@@ -26,11 +26,11 @@ See: .planning/PROJECT.md (updated 2026-03-17)
 ## Current Position
 
 Phase: 8 of 10 (App Store Compliance)
-Plan: 0 of ? in current phase
-Status: Ready to plan
-Last activity: 2026-03-17 — v1.2 roadmap created
+Plan: 1 of 2 in current phase
+Status: Executing phase 8
+Last activity: 2026-03-19 — Completed 08-01 Privacy & Support pages
 
-Progress: [░░░░░░░░░░] 0% (v1.2 milestone)
+Progress: [█████░░░░░] 50% (v1.2 milestone)
 
 ## Accumulated Context
 
@@ -42,6 +42,9 @@ Recent decisions affecting current work:
 - [v1.2]: Remotion as dev-only tool, pre-rendered MP4 served as static asset (no Player in production)
 - [v1.2]: Privacy policy must cover all 8+ Apple-required sections even for zero-data app
 - [v1.2]: Support URL must be a web page (not bare mailto:) for App Store Connect
+- [08-01]: Contact email rendered as clickable mailto: link with accent-blue styling
+- [08-01]: Telegram link uses placeholder href (#) pending actual group URL
+- [08-01]: Privacy sections rendered via mapped array for maintainability
 
 ### Pending Todos
 
@@ -55,6 +58,6 @@ None.
 
 ## Session Continuity
 
-Last session: 2026-03-19T13:15:10.870Z
-Stopped at: Phase 8 context gathered
-Resume file: .planning/phases/08-app-store-compliance/08-CONTEXT.md
+Last session: 2026-03-19T14:45:57.571Z
+Stopped at: Completed 08-01-PLAN.md
+Resume file: None
