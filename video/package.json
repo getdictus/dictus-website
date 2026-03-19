@@ -1,0 +1,24 @@
+{
+  "name": "dictus-demo-video",
+  "version": "1.0.0",
+  "private": true,
+  "scripts": {
+    "studio": "remotion studio src/index.ts",
+    "render:fr": "remotion render src/index.ts dictus-demo-fr ../public/videos/demo-fr.mp4 --codec h264 --crf 20",
+    "render:en": "remotion render src/index.ts dictus-demo-en ../public/videos/demo-en.mp4 --codec h264 --crf 20",
+    "render:all": "npm run render:fr && npm run render:en",
+    "poster:fr": "remotion still src/index.ts dictus-demo-fr ../public/videos/poster-fr.png --frame 90",
+    "poster:en": "remotion still src/index.ts dictus-demo-en ../public/videos/poster-en.png --frame 90"
+  },
+  "dependencies": {
+    "remotion": "^4.0.236",
+    "@remotion/cli": "^4.0.236",
+    "react": "19.0.0",
+    "react-dom": "19.0.0"
+  },
+  "devDependencies": {
+    "typescript": "^5.0.0",
+    "@types/react": "^19.0.0",
+    "@types/react-dom": "^19.0.0"
+  }
+}
