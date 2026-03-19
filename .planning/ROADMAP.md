@@ -70,7 +70,7 @@ Plans:
   3. The video shows an iPhone mockup progressing through the complete demo flow: idle -> recording -> transcription -> insertion
   4. Animations use spring physics and transitions that feel iOS-native (not web-generic)
   5. A rendered MP4 (H.264, under 5MB) and poster image exist in `public/videos/`, ready for embedding
-**Plans:** 4 plans
+**Plans:** 2/4 plans executed
 
 Plans:
 - [ ] 09-01-PLAN.md — Remotion workspace setup and shared lib modules (waveform math, colors, i18n, springs)
@@ -106,5 +106,5 @@ Phases 8 and 9 can run in parallel (no dependencies). Phase 10 depends on Phase 
 | 6. Visual Effects | v1.1 | 2/2 | Complete | 2026-03-12 |
 | 7. Content & CTA | v1.1 | 2/2 | Complete | 2026-03-12 |
 | 8. App Store Compliance | v1.2 | 2/2 | Complete | 2026-03-19 |
-| 9. Remotion Demo Video | v1.2 | 0/4 | Planned | - |
+| 9. Remotion Demo Video | 2/4 | In Progress|  | - |
 | 10. Video Integration | v1.2 | 0/? | Not started | - |
