@@ -54,11 +54,11 @@ Full details: `.planning/milestones/v1.1-ROADMAP.md`
   2. Visiting `/fr/support` and `/en/support` displays a support page with contact email (pierre@pivi.solutions)
   3. Footer on every page contains working links to both Privacy Policy and Support pages
   4. New pages appear in the sitemap and follow existing i18n routing patterns
-**Plans**: TBD
+**Plans:** 2 plans
 
 Plans:
-- [ ] 08-01: TBD
-- [ ] 08-02: TBD
+- [ ] 08-01-PLAN.md — Privacy policy and support pages with bilingual i18n content
+- [ ] 08-02-PLAN.md — Footer links and sitemap integration
 
 ### Phase 9: Remotion Demo Video
 **Goal**: A polished MP4 demo video exists showing the full dictus voice dictation flow with iOS-native feel
@@ -103,6 +103,6 @@ Phases 8 and 9 can run in parallel (no dependencies). Phase 10 depends on Phase 
 | 5. Theme System | v1.1 | 2/2 | Complete | 2026-03-11 |
 | 6. Visual Effects | v1.1 | 2/2 | Complete | 2026-03-12 |
 | 7. Content & CTA | v1.1 | 2/2 | Complete | 2026-03-12 |
-| 8. App Store Compliance | v1.2 | 0/? | Not started | - |
+| 8. App Store Compliance | v1.2 | 0/2 | Not started | - |
 | 9. Remotion Demo Video | v1.2 | 0/? | Not started | - |
 | 10. Video Integration | v1.2 | 0/? | Not started | - |
