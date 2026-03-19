@@ -3,12 +3,8 @@ import { AbsoluteFill, Composition } from "remotion";
 
 type Locale = "fr" | "en";
 
-interface DictusDemoProps {
-  locale: Locale;
-}
-
 // Placeholder component — will be replaced by Plan 02
-const DictusDemo: React.FC<DictusDemoProps> = ({ locale }) => {
+const DictusDemo: React.FC<{ locale: Locale }> = ({ locale }) => {
   return (
     <AbsoluteFill
       style={{
@@ -30,18 +26,20 @@ const DictusDemo: React.FC<DictusDemoProps> = ({ locale }) => {
 export const Root: React.FC = () => {
   return (
     <>
+      {/* eslint-disable-next-line @typescript-eslint/no-explicit-any */}
       <Composition
         id="dictus-demo-fr"
-        component={DictusDemo}
+        component={DictusDemo as any}
         durationInFrames={450}
         fps={30}
         width={1080}
         height={1920}
         defaultProps={{ locale: "fr" as const }}
       />
+      {/* eslint-disable-next-line @typescript-eslint/no-explicit-any */}
       <Composition
         id="dictus-demo-en"
-        component={DictusDemo}
+        component={DictusDemo as any}
         durationInFrames={450}
         fps={30}
         width={1080}
