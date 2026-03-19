@@ -2,16 +2,16 @@
 gsd_state_version: 1.0
 milestone: v1.2
 milestone_name: Video & Compliance
-status: completed
-stopped_at: Phase 9 context gathered
-last_updated: "2026-03-19T21:59:33.451Z"
-last_activity: 2026-03-19 — Completed 08-02 Footer Links & Sitemap
+status: in-progress
+stopped_at: Completed 09-01-PLAN.md
+last_updated: "2026-03-19T22:21:13Z"
+last_activity: 2026-03-19 — Completed 09-01 Remotion Workspace & Foundations
 progress:
   total_phases: 3
   completed_phases: 1
-  total_plans: 2
-  completed_plans: 2
-  percent: 100
+  total_plans: 6
+  completed_plans: 3
+  percent: 50
 ---
 
 # Project State
@@ -21,16 +21,16 @@ progress:
 See: .planning/PROJECT.md (updated 2026-03-17)
 
 **Core value:** Convaincre un visiteur en quelques secondes que dictus est l'alternative privacy-first a la dictation vocale, et lui donner envie de tester l'app.
-**Current focus:** Phase 8 - App Store Compliance
+**Current focus:** Phase 9 - Remotion Demo Video
 
 ## Current Position
 
-Phase: 8 of 10 (App Store Compliance) -- COMPLETE
-Plan: 2 of 2 in current phase
-Status: Phase 8 complete
-Last activity: 2026-03-19 — Completed 08-02 Footer Links & Sitemap
+Phase: 9 of 10 (Remotion Demo Video)
+Plan: 1 of 4 in current phase -- COMPLETE
+Status: Executing phase 9
+Last activity: 2026-03-19 — Completed 09-01 Remotion Workspace & Foundations
 
-Progress: [██████████] 100% (v1.2 milestone)
+Progress: [█████░░░░░] 50% (v1.2 milestone)
 
 ## Accumulated Context
 
@@ -47,6 +47,9 @@ Recent decisions affecting current work:
 - [08-01]: Privacy sections rendered via mapped array for maintainability
 - [Phase 08]: Footer links placed between copyright/icons row and inline privacy statement
 - [Phase 08]: Compliance sitemap pages get yearly changeFrequency and 0.3 priority
+- [09-01]: Seeded sin-hash replaces Math.random for deterministic waveform targets
+- [09-01]: Remotion v4 Composition typed with 'as any' cast due to dual-generic signature
+- [09-01]: State durations compressed from 8.5s to 7s per cycle for video pacing
 
 ### Pending Todos
 
@@ -54,12 +57,10 @@ None.
 
 ### Blockers/Concerns
 
-- Remotion version pinning: verify latest stable before installation
 - Video file size budget: target < 5MB MP4, may need compression iteration
-- tsconfig path alias: `remotion/` folder at root could conflict with `import from "remotion"`
 
 ## Session Continuity
 
-Last session: 2026-03-19T21:59:33.449Z
-Stopped at: Phase 9 context gathered
-Resume file: .planning/phases/09-remotion-demo-video/09-CONTEXT.md
+Last session: 2026-03-19T22:21:13Z
+Stopped at: Completed 09-01-PLAN.md
+Resume file: .planning/phases/09-remotion-demo-video/09-02-PLAN.md

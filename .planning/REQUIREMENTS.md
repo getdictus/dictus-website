@@ -15,8 +15,8 @@ Requirements for milestone v1.2 Video & Compliance. Each maps to roadmap phases.
 
 ### Remotion Demo Video
 
-- [ ] **VID-01**: Workspace Remotion separe (subfolder `/remotion`) avec toolchain isolee du projet Next.js
-- [ ] **VID-02**: Port fidele de la waveform canvas vers Remotion (30 barres, gradient center-weighted, 5 etats)
+- [x] **VID-01**: Workspace Remotion separe (subfolder `/remotion`) avec toolchain isolee du projet Next.js
+- [x] **VID-02**: Port fidele de la waveform canvas vers Remotion (30 barres, gradient center-weighted, 5 etats)
 - [ ] **VID-03**: Mockup iPhone avec les scenes de demo (idle -> recording -> transcription -> smart mode -> insertion)
 - [ ] **VID-04**: Animations iOS-native (spring animations, transitions fluides, feel iOS coherent avec l'app)
 - [ ] **VID-05**: Rendu MP4 final optimise pour le web (h264, taille raisonnable)
@@ -50,8 +50,8 @@ Which phases cover which requirements. Updated during roadmap creation.
 | COMP-01 | Phase 8 | Complete |
 | COMP-02 | Phase 8 | Complete |
 | COMP-03 | Phase 8 | Complete |
-| VID-01 | Phase 9 | Pending |
-| VID-02 | Phase 9 | Pending |
+| VID-01 | Phase 9 | Complete |
+| VID-02 | Phase 9 | Complete |
 | VID-03 | Phase 9 | Pending |
 | VID-04 | Phase 9 | Pending |
 | VID-05 | Phase 9 | Pending |
