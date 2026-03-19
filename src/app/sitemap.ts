@@ -28,5 +28,53 @@ export default function sitemap(): MetadataRoute.Sitemap {
         },
       },
     },
+    {
+      url: `${BASE_URL}/fr/privacy`,
+      lastModified: new Date(),
+      changeFrequency: "yearly",
+      priority: 0.3,
+      alternates: {
+        languages: {
+          fr: `${BASE_URL}/fr/privacy`,
+          en: `${BASE_URL}/en/privacy`,
+        },
+      },
+    },
+    {
+      url: `${BASE_URL}/en/privacy`,
+      lastModified: new Date(),
+      changeFrequency: "yearly",
+      priority: 0.3,
+      alternates: {
+        languages: {
+          fr: `${BASE_URL}/fr/privacy`,
+          en: `${BASE_URL}/en/privacy`,
+        },
+      },
+    },
+    {
+      url: `${BASE_URL}/fr/support`,
+      lastModified: new Date(),
+      changeFrequency: "yearly",
+      priority: 0.3,
+      alternates: {
+        languages: {
+          fr: `${BASE_URL}/fr/support`,
+          en: `${BASE_URL}/en/support`,
+        },
+      },
+    },
+    {
+      url: `${BASE_URL}/en/support`,
+      lastModified: new Date(),
+      changeFrequency: "yearly",
+      priority: 0.3,
+      alternates: {
+        languages: {
+          fr: `${BASE_URL}/fr/support`,
+          en: `${BASE_URL}/en/support`,
+        },
+      },
+    },
   ];
 }
