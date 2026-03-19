@@ -3,14 +3,14 @@ gsd_state_version: 1.0
 milestone: v1.2
 milestone_name: Video & Compliance
 status: executing
-stopped_at: Completed 08-01-PLAN.md
-last_updated: "2026-03-19T14:45:58.094Z"
-last_activity: 2026-03-19 — Completed 08-01 Privacy & Support pages
+stopped_at: Completed 08-02-PLAN.md
+last_updated: "2026-03-19T14:49:11.110Z"
+last_activity: 2026-03-19 — Completed 08-02 Footer Links & Sitemap (Phase 8 complete)
 progress:
   total_phases: 3
-  completed_phases: 0
+  completed_phases: 1
   total_plans: 2
-  completed_plans: 1
+  completed_plans: 2
   percent: 50
 ---
 
@@ -25,12 +25,12 @@ See: .planning/PROJECT.md (updated 2026-03-17)
 
 ## Current Position
 
-Phase: 8 of 10 (App Store Compliance)
-Plan: 1 of 2 in current phase
-Status: Executing phase 8
-Last activity: 2026-03-19 — Completed 08-01 Privacy & Support pages
+Phase: 8 of 10 (App Store Compliance) -- COMPLETE
+Plan: 2 of 2 in current phase
+Status: Phase 8 complete
+Last activity: 2026-03-19 — Completed 08-02 Footer Links & Sitemap
 
-Progress: [█████░░░░░] 50% (v1.2 milestone)
+Progress: [██████████] 100% (v1.2 milestone)
 
 ## Accumulated Context
 
@@ -45,6 +45,8 @@ Recent decisions affecting current work:
 - [08-01]: Contact email rendered as clickable mailto: link with accent-blue styling
 - [08-01]: Telegram link uses placeholder href (#) pending actual group URL
 - [08-01]: Privacy sections rendered via mapped array for maintainability
+- [Phase 08]: Footer links placed between copyright/icons row and inline privacy statement
+- [Phase 08]: Compliance sitemap pages get yearly changeFrequency and 0.3 priority
 
 ### Pending Todos
 
@@ -58,6 +60,6 @@ None.
 
 ## Session Continuity
 
-Last session: 2026-03-19T14:45:57.571Z
-Stopped at: Completed 08-01-PLAN.md
+Last session: 2026-03-19T14:49:11.108Z
+Stopped at: Completed 08-02-PLAN.md
 Resume file: None
