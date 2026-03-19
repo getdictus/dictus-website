@@ -3,14 +3,14 @@ gsd_state_version: 1.0
 milestone: v1.2
 milestone_name: Video & Compliance
 status: executing
-stopped_at: Completed 09-02-PLAN.md
-last_updated: "2026-03-19T22:28:20Z"
-last_activity: 2026-03-19 — Completed 09-02 Core Visual Components
+stopped_at: Completed 09-03-PLAN.md
+last_updated: "2026-03-19T22:35:30Z"
+last_activity: 2026-03-19 — Completed 09-03 Scenes & Composition
 progress:
   total_phases: 3
   completed_phases: 1
   total_plans: 6
-  completed_plans: 4
+  completed_plans: 5
   percent: 67
 ---
 
@@ -26,11 +26,11 @@ See: .planning/PROJECT.md (updated 2026-03-17)
 ## Current Position
 
 Phase: 9 of 10 (Remotion Demo Video)
-Plan: 2 of 4 in current phase -- COMPLETE
+Plan: 3 of 4 in current phase -- COMPLETE
 Status: Executing phase 9
-Last activity: 2026-03-19 — Completed 09-02 Core Visual Components
+Last activity: 2026-03-19 — Completed 09-03 Scenes & Composition
 
-Progress: [███████░░░] 67% (v1.2 milestone)
+Progress: [████████░░] 83% (v1.2 milestone)
 
 ## Accumulated Context
 
@@ -52,6 +52,9 @@ Recent decisions affecting current work:
 - [09-01]: State durations compressed from 8.5s to 7s per cycle for video pacing
 - [09-02]: Canvas ref callback redraws on every frame render — no stateful animation
 - [09-02]: IPhoneMockup borderImage used for titanium gradient effect on realistic variant
+- [09-03]: 460 total frames (15.3s): 2x210 scene cycles + 2x20 transitions
+- [09-03]: Cross-fade loop in last 20 frames blends back to idle Messages for seamless looping
+- [09-03]: Horizontal translateX slide with iosSpring.standard for scene transition
 
 ### Pending Todos
 
@@ -63,6 +66,6 @@ None.
 
 ## Session Continuity
 
-Last session: 2026-03-19T22:28:20Z
-Stopped at: Completed 09-02-PLAN.md
-Resume file: .planning/phases/09-remotion-demo-video/09-03-PLAN.md
+Last session: 2026-03-19T22:35:30Z
+Stopped at: Completed 09-03-PLAN.md
+Resume file: .planning/phases/09-remotion-demo-video/09-04-PLAN.md
