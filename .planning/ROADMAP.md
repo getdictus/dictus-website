@@ -54,27 +54,29 @@ Full details: `.planning/milestones/v1.1-ROADMAP.md`
   2. Visiting `/fr/support` and `/en/support` displays a support page with contact email (pierre@pivi.solutions)
   3. Footer on every page contains working links to both Privacy Policy and Support pages
   4. New pages appear in the sitemap and follow existing i18n routing patterns
-**Plans:** 1/2 plans executed
+**Plans:** 2 plans
 
 Plans:
-- [ ] 08-01-PLAN.md — Privacy policy and support pages with bilingual i18n content
-- [ ] 08-02-PLAN.md — Footer links and sitemap integration
+- [x] 08-01-PLAN.md — Privacy policy and support pages with bilingual i18n content
+- [x] 08-02-PLAN.md — Footer links and sitemap integration
 
 ### Phase 9: Remotion Demo Video
 **Goal**: A polished MP4 demo video exists showing the full dictus voice dictation flow with iOS-native feel
 **Depends on**: Nothing (independent of compliance work)
 **Requirements**: VID-01, VID-02, VID-03, VID-04, VID-05
 **Success Criteria** (what must be TRUE):
-  1. A `remotion/` workspace exists with its own package.json, fully isolated from the Next.js build (no Webpack conflicts)
-  2. The video waveform matches the hero canvas waveform (30 bars, gradient center-weighted, 5 states: idle/recording/transcribing/smart/inserted)
-  3. The video shows an iPhone mockup progressing through the complete demo flow: idle -> recording -> transcription -> smart mode -> insertion
+  1. A `video/` workspace exists with its own package.json, fully isolated from the Next.js build (no Webpack conflicts)
+  2. The video waveform matches the hero canvas waveform (30 bars, gradient center-weighted, 4 states: idle/recording/transcribing/inserted)
+  3. The video shows an iPhone mockup progressing through the complete demo flow: idle -> recording -> transcription -> insertion
   4. Animations use spring physics and transitions that feel iOS-native (not web-generic)
   5. A rendered MP4 (H.264, under 5MB) and poster image exist in `public/videos/`, ready for embedding
-**Plans**: TBD
+**Plans:** 4 plans
 
 Plans:
-- [ ] 09-01: TBD
-- [ ] 09-02: TBD
+- [ ] 09-01-PLAN.md — Remotion workspace setup and shared lib modules (waveform math, colors, i18n, springs)
+- [ ] 09-02-PLAN.md — Core visual components (Waveform, DictusKeyboard, StateIndicator, IPhoneMockup)
+- [ ] 09-03-PLAN.md — Scene components (Messages, Notes, TextReveal) and DictusDemo composition
+- [ ] 09-04-PLAN.md — Mockup variant comparison, user selection, and final MP4/poster renders
 
 ### Phase 10: Video Integration
 **Goal**: Visitors see and can play the demo video on the landing page without any performance regression
@@ -103,6 +105,6 @@ Phases 8 and 9 can run in parallel (no dependencies). Phase 10 depends on Phase 
 | 5. Theme System | v1.1 | 2/2 | Complete | 2026-03-11 |
 | 6. Visual Effects | v1.1 | 2/2 | Complete | 2026-03-12 |
 | 7. Content & CTA | v1.1 | 2/2 | Complete | 2026-03-12 |
-| 8. App Store Compliance | 1/2 | In Progress|  | - |
-| 9. Remotion Demo Video | v1.2 | 0/? | Not started | - |
+| 8. App Store Compliance | v1.2 | 2/2 | Complete | 2026-03-19 |
+| 9. Remotion Demo Video | v1.2 | 0/4 | Planned | - |
 | 10. Video Integration | v1.2 | 0/? | Not started | - |
