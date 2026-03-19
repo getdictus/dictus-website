@@ -94,7 +94,9 @@
     "copyright": "PIVI Solutions",
     "privacy": "This site and Dictus collect zero personal data. No cookies, no analytics, no tracking.",
     "github_label": "GitHub",
-    "telegram_label": "Telegram"
+    "telegram_label": "Telegram",
+    "privacy_link": "Privacy Policy",
+    "support_link": "Support"
   },
   "Privacy": {
     "meta_title": "Privacy Policy \u2014 dictus",

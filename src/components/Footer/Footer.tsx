@@ -1,4 +1,5 @@
 import { useTranslations } from "next-intl";
+import { Link } from "@/i18n/navigation";
 
 export default function Footer() {
   const t = useTranslations("Footer");
@@ -46,6 +47,21 @@ export default function Footer() {
               </svg>
             </a>
           </div>
+        </div>
+        <div className="mt-4 flex gap-4 text-sm">
+          <Link
+            href="/privacy"
+            className="text-white-40 transition-colors hover:text-white-70"
+          >
+            {t("privacy_link")}
+          </Link>
+          <span className="text-white-40" aria-hidden="true">·</span>
+          <Link
+            href="/support"
+            className="text-white-40 transition-colors hover:text-white-70"
+          >
+            {t("support_link")}
+          </Link>
         </div>
         <p className="mt-4 text-xs text-white-40">{t("privacy")}</p>
       </div>
