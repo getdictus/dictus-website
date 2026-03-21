@@ -10,7 +10,7 @@ export default function LanguageToggle() {
 
   function switchTo(target: "fr" | "en") {
     if (target === locale) return;
-    router.replace(pathname, { locale: target });
+    router.replace(pathname, { locale: target, scroll: false });
   }
 
   return (

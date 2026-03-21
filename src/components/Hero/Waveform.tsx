@@ -7,7 +7,7 @@ import { useAnimationFrame } from "@/hooks/useAnimationFrame";
 // --- Constants matching iOS BrandWaveform.swift ---
 const BAR_COUNT = 30;
 const BAR_SPACING = 3; // px between bars
-const MAX_HEIGHT = 160; // big imposing bars
+const MAX_HEIGHT = 300; // big imposing bars
 const MIN_BAR_HEIGHT = 2; // baseline visibility even in silence
 
 // Color lerp duration in ms
@@ -26,11 +26,6 @@ const DEFAULT_COLORS: ThemeColors = {
 };
 
 type WaveformPhase = "flat" | "active" | "processing" | "calm";
-type DemoState = "idle" | "recording" | "transcribing" | "inserted";
-
-interface WaveformProps {
-  demoState?: DemoState;
-}
 
 /** Parse a hex color (#RRGGBB) to [r, g, b] */
 function hexToRgb(hex: string): [number, number, number] {
@@ -86,7 +81,7 @@ function generateActiveTargets(targets: Float32Array) {
  * - Smooth lerp rise + exponential decay fall
  * - MutationObserver watches .dark class for theme changes with 300ms color lerp
  */
-export default function Waveform({ demoState = "idle" }: WaveformProps) {
+export default function Waveform() {
   const canvasRef = useRef<HTMLCanvasElement>(null);
   const dimensionsRef = useRef({ width: 0, height: 0 });
   const shouldReduce = useReducedMotion() ?? false;
@@ -187,20 +182,11 @@ export default function Waveform({ demoState = "idle" }: WaveformProps) {
     };
   }, [resolveThemeColors, lerpColors]);
 
-  // Map demoState to waveform phase
+  // Lock waveform to processing phase permanently
   useEffect(() => {
-    const phaseMap: Record<DemoState, WaveformPhase> = {
-      idle: "flat",
-      recording: "active",
-      transcribing: "processing",
-      inserted: "calm",
-    };
-    const newPhase = phaseMap[demoState];
-    if (waveformPhaseRef.current !== newPhase) {
-      waveformPhaseRef.current = newPhase;
-      phaseStartTimeRef.current = performance.now();
-    }
-  }, [demoState]);
+    waveformPhaseRef.current = "processing";
+    phaseStartTimeRef.current = performance.now();
+  }, []);
 
   // Handle retina + resize
   useEffect(() => {
@@ -306,7 +292,7 @@ export default function Waveform({ demoState = "idle" }: WaveformProps) {
    */
   const computeBarLayout = useCallback((width: number) => {
     const totalSpacing = BAR_SPACING * (BAR_COUNT - 1);
-    const totalBarWidth = width * 0.6; // Use 60% of container width
+    const totalBarWidth = width * 0.9; // Use 90% of container width
     const barWidth = Math.max(
       (totalBarWidth - totalSpacing) / BAR_COUNT,
       2
@@ -452,7 +438,7 @@ export default function Waveform({ demoState = "idle" }: WaveformProps) {
       ref={canvasRef}
       aria-hidden="true"
       role="presentation"
-      className="pointer-events-none absolute left-0 top-0 h-[250px] w-full sm:h-[350px]"
+      className="pointer-events-none absolute inset-0 h-full w-full opacity-20"
     />
   );
 }

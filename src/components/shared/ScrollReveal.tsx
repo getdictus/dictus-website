@@ -1,6 +1,7 @@
 "use client";
 
 import { m, useReducedMotion } from "motion/react";
+import { useState, useEffect } from "react";
 import type { Variants } from "motion/react";
 
 type Props = {
@@ -33,6 +34,19 @@ export default function ScrollReveal({
   stagger = false,
 }: Props) {
   const shouldReduceMotion = useReducedMotion();
+  const [skipAnimation, setSkipAnimation] = useState(false);
+
+  useEffect(() => {
+    if (sessionStorage.getItem("page-revealed")) {
+      setSkipAnimation(true);
+    } else {
+      sessionStorage.setItem("page-revealed", "1");
+    }
+  }, []);
+
+  if (skipAnimation || shouldReduceMotion) {
+    return <div className={className}>{children}</div>;
+  }
 
   if (stagger) {
     const containerVariants: Variants = {

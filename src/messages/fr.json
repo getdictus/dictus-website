@@ -17,20 +17,6 @@
     "cta_available_iphone": "Disponible sur iPhone",
     "cta_testflight_link": "Ouvrir dans TestFlight"
   },
-  "HeroDemo": {
-    "sentences": {
-      "0": "Envoie un message a Sophie pour confirmer le rendez-vous de demain",
-      "1": "Note pour plus tard acheter du pain et passer a la pharmacie",
-      "2": "Reponds que je serai disponible a partir de quatorze heures",
-      "3": "Rappelle-moi de verifier les resultats du match ce soir"
-    },
-    "states": {
-      "idle": "En attente",
-      "recording": "Enregistrement",
-      "transcribing": "Transcription",
-      "inserted": "Texte inséré"
-    }
-  },
   "Features": {
     "privacy_title": "100% offline",
     "privacy_desc": "Aucune donn\u00e9e ne quitte votre appareil. Jamais. Votre voix est transcrite localement, sans serveur, sans cloud.",
@@ -124,7 +110,7 @@
     "changes_title": "Modifications de cette politique",
     "changes_text": "Les mises \u00e0 jour seront publi\u00e9es sur cette page avec une date r\u00e9vis\u00e9e.",
     "contact_title": "Contact",
-    "contact_text": "Pour toute question : pierre@pivi.solutions"
+    "contact_text": "Pour toute question : contact@pivi.solutions"
   },
   "Support": {
     "meta_title": "Support \u2014 dictus",
@@ -132,7 +118,7 @@
     "title": "Support",
     "intro": "Besoin d\u2019aide avec Dictus ? Voici comment nous contacter.",
     "email_title": "Email",
-    "email_text": "pierre@pivi.solutions",
+    "email_text": "contact@pivi.solutions",
     "github_title": "GitHub Issues",
     "github_text": "Signalez un bug ou proposez une am\u00e9lioration sur notre d\u00e9p\u00f4t GitHub.",
     "github_link_text": "Ouvrir un issue sur GitHub",

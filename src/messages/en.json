@@ -17,20 +17,6 @@
     "cta_available_iphone": "Available on iPhone",
     "cta_testflight_link": "Open in TestFlight"
   },
-  "HeroDemo": {
-    "sentences": {
-      "0": "Send a message to Sophie to confirm tomorrow's meeting",
-      "1": "Note for later buy some bread and stop by the pharmacy",
-      "2": "Reply that I will be available from two o'clock",
-      "3": "Remind me to check the game results tonight"
-    },
-    "states": {
-      "idle": "Idle",
-      "recording": "Recording",
-      "transcribing": "Transcribing",
-      "inserted": "Text inserted"
-    }
-  },
   "Features": {
     "privacy_title": "100% offline",
     "privacy_desc": "No data ever leaves your device. Your voice is transcribed locally, with no server and no cloud.",
@@ -124,7 +110,7 @@
     "changes_title": "Changes to This Policy",
     "changes_text": "Updates will be posted on this page with a revised date.",
     "contact_title": "Contact",
-    "contact_text": "For any questions: pierre@pivi.solutions"
+    "contact_text": "For any questions: contact@pivi.solutions"
   },
   "Support": {
     "meta_title": "Support \u2014 dictus",
@@ -132,7 +118,7 @@
     "title": "Support",
     "intro": "Need help with Dictus? Here\u2019s how to reach us.",
     "email_title": "Email",
-    "email_text": "pierre@pivi.solutions",
+    "email_text": "contact@pivi.solutions",
     "github_title": "GitHub Issues",
     "github_text": "Report a bug or suggest an improvement on our GitHub repository.",
     "github_link_text": "Open an issue on GitHub",
