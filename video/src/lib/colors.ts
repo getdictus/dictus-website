@@ -34,6 +34,35 @@ export const WAVEFORM_COLORS = {
   gradientEnd: "#2563EB",
 } as const;
 
+// Theme-aware colors for light/dark promo variants
+export type Theme = "dark" | "light";
+
+export const THEME_COLORS: Record<Theme, {
+  background: string;
+  textPrimary: string;
+  textBody: string;
+  textSecondary: string;
+  waveformEdgeRgb: string;
+  glowMultiplier: number;
+}> = {
+  dark: {
+    background: "#0A1628",
+    textPrimary: "#FFFFFF",
+    textBody: "rgba(255,255,255,0.70)",
+    textSecondary: "rgba(255,255,255,0.40)",
+    waveformEdgeRgb: "255, 255, 255",
+    glowMultiplier: 1,
+  },
+  light: {
+    background: "#F2F2F7",
+    textPrimary: "#000000",
+    textBody: "rgba(0,0,0,0.60)",
+    textSecondary: "rgba(0,0,0,0.40)",
+    waveformEdgeRgb: "128, 128, 128",
+    glowMultiplier: 0.4,
+  },
+};
+
 // Gradients from brand kit
 export const GRADIENTS = {
   iconBg: "linear-gradient(135deg, #0D2040, #071020)",

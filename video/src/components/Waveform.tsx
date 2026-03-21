@@ -13,26 +13,32 @@ import type { DemoState } from "../lib/waveform-math";
 import { WAVEFORM_COLORS } from "../lib/colors";
 
 interface WaveformProps {
-  state: DemoState;
-  stateStartFrame: number;
   width: number;
   height: number;
+  /** Pre-computed smoothed energy levels (0-1) per bar — bypasses internal computation */
+  levels?: number[];
+  /** Fallback: drive bars from a single state (no cross-frame smoothing) */
+  state?: DemoState;
+  stateStartFrame?: number;
+  /** Override edge bar RGB color (e.g. "128, 128, 128" for light theme) */
+  edgeRgb?: string;
 }
 
 /**
- * Frame-driven waveform canvas component for Remotion.
- * Renders 30 bars with center-weighted blue gradient and edge opacity.
- * No useState, useEffect, or requestAnimationFrame -- pure frame-based rendering.
+ * Frame-driven waveform for Remotion.
+ * When `levels` is provided, renders bars at those exact energies (smoothed externally).
+ * Otherwise falls back to direct per-frame computation from state.
  */
 export const Waveform: React.FC<WaveformProps> = ({
-  state,
-  stateStartFrame,
   width,
   height,
+  levels,
+  state,
+  stateStartFrame,
+  edgeRgb,
 }) => {
   const frame = useCurrentFrame();
   const { fps } = useVideoConfig();
-  const phase = DEMO_STATE_TO_PHASE[state];
 
   const drawAllBars = (canvas: HTMLCanvasElement) => {
     const ctx = canvas.getContext("2d");
@@ -43,10 +49,14 @@ export const Waveform: React.FC<WaveformProps> = ({
     const { barWidth, offsetX } = computeBarLayout(width);
 
     for (let i = 0; i < BAR_COUNT; i++) {
-      // Compute energy from deterministic phase function
-      const energy = computePhaseEnergy(i, phase, frame, stateStartFrame, fps);
+      let energy: number;
+      if (levels) {
+        energy = levels[i] ?? 0.05;
+      } else {
+        const phase = DEMO_STATE_TO_PHASE[state ?? "idle"];
+        energy = computePhaseEnergy(i, phase, frame, stateStartFrame ?? 0, fps);
+      }
 
-      // Compute bar height
       const barHeight = Math.max(
         MIN_BAR_HEIGHT + energy * (MAX_HEIGHT - MIN_BAR_HEIGHT),
         MIN_BAR_HEIGHT
@@ -56,7 +66,6 @@ export const Waveform: React.FC<WaveformProps> = ({
       const y = (height - barHeight) / 2;
       const radius = barWidth / 2;
 
-      // Resolve bar color
       const colorInfo = resolveBarColor(i);
 
       let fillStyle: string | CanvasGradient;
@@ -66,10 +75,9 @@ export const Waveform: React.FC<WaveformProps> = ({
         gradient.addColorStop(1, WAVEFORM_COLORS.gradientEnd);
         fillStyle = gradient;
       } else {
-        fillStyle = `rgba(${WAVEFORM_COLORS.edgeRgb},${(colorInfo.opacity ?? 0.15).toFixed(3)})`;
+        fillStyle = `rgba(${edgeRgb ?? WAVEFORM_COLORS.edgeRgb},${(colorInfo.opacity ?? 0.15).toFixed(3)})`;
       }
 
-      // Draw rounded rectangle
       ctx.beginPath();
       ctx.roundRect(x, y, barWidth, barHeight, radius);
       ctx.fillStyle = fillStyle;

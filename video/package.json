@@ -7,18 +7,24 @@
     "render:fr": "remotion render src/index.ts dictus-demo-fr ../public/videos/demo-fr.mp4 --codec h264 --crf 20",
     "render:en": "remotion render src/index.ts dictus-demo-en ../public/videos/demo-en.mp4 --codec h264 --crf 20",
     "render:all": "npm run render:fr && npm run render:en",
+    "render:promo:fr-dark": "remotion render src/index.ts dictus-promo-fr-dark ../public/videos/promo-fr-dark.mp4 --codec h264 --crf 20",
+    "render:promo:fr-light": "remotion render src/index.ts dictus-promo-fr-light ../public/videos/promo-fr-light.mp4 --codec h264 --crf 20",
+    "render:promo:en-dark": "remotion render src/index.ts dictus-promo-en-dark ../public/videos/promo-en-dark.mp4 --codec h264 --crf 20",
+    "render:promo:en-light": "remotion render src/index.ts dictus-promo-en-light ../public/videos/promo-en-light.mp4 --codec h264 --crf 20",
+    "render:promo:all": "npm run render:promo:fr-dark && npm run render:promo:fr-light && npm run render:promo:en-dark && npm run render:promo:en-light",
     "poster:fr": "remotion still src/index.ts dictus-demo-fr ../public/videos/poster-fr.png --frame 90",
     "poster:en": "remotion still src/index.ts dictus-demo-en ../public/videos/poster-en.png --frame 90"
   },
   "dependencies": {
-    "remotion": "^4.0.236",
     "@remotion/cli": "^4.0.236",
+    "@remotion/google-fonts": "^4.0.438",
     "react": "19.0.0",
-    "react-dom": "19.0.0"
+    "react-dom": "19.0.0",
+    "remotion": "^4.0.236"
   },
   "devDependencies": {
-    "typescript": "^5.0.0",
     "@types/react": "^19.0.0",
-    "@types/react-dom": "^19.0.0"
+    "@types/react-dom": "^19.0.0",
+    "typescript": "^5.0.0"
   }
 }
