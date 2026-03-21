@@ -8,7 +8,7 @@ Marketing landing page for dictus -- an offline iOS voice dictation keyboard by 
 
 - ✅ **v1.0 dictus Landing Page** — Phases 1-4 (shipped 2026-03-10)
 - ✅ **v1.1 Polish & Differentiation** — Phases 5-7 (shipped 2026-03-17)
-- 🚧 **v1.2 Video & Compliance** — Phases 8-10 (in progress)
+- ✅ **v1.2 Video & Compliance** — Phases 8-9 (shipped 2026-03-21)
 
 ## Phases
 
@@ -35,13 +35,13 @@ Full details: `.planning/milestones/v1.1-ROADMAP.md`
 
 </details>
 
-### 🚧 v1.2 Video & Compliance (In Progress)
+### ✅ v1.2 Video & Compliance — SHIPPED 2026-03-21
 
-**Milestone Goal:** Create a Remotion demo video for the landing page and add App Store compliance pages (privacy policy, support URL).
+**Milestone Goal:** Create a Remotion promo video and add App Store compliance pages (privacy policy, support URL).
 
-- [ ] **Phase 8: App Store Compliance** - Bilingual privacy policy, support page, and footer links to unblock App Store submission
-- [ ] **Phase 9: Remotion Demo Video** - Isolated Remotion workspace with waveform port, iPhone mockup scenes, iOS animations, and final MP4 render
-- [ ] **Phase 10: Video Integration** - Embed pre-rendered video on the landing page with lazy loading, zero Lighthouse regression
+- [x] **Phase 8: App Store Compliance** - Bilingual privacy policy, support page, and footer links to unblock App Store submission
+- [x] **Phase 9: Remotion Promo Video** - Isolated Remotion workspace with promo composition (5-beat storyboard), 4 rendered variants (FR/EN × dark/light)
+- ~~Phase 10: Video Integration~~ — Removed: video integration on landing page deemed unnecessary
 
 ## Phase Details
 
@@ -60,36 +60,25 @@ Plans:
 - [x] 08-01-PLAN.md — Privacy policy and support pages with bilingual i18n content
 - [x] 08-02-PLAN.md — Footer links and sitemap integration
 
-### Phase 9: Remotion Demo Video
-**Goal**: A polished MP4 demo video exists showing the full dictus voice dictation flow with iOS-native feel
+### Phase 9: Remotion Promo Video
+**Goal**: A polished promotional MP4 video showcasing Dictus brand, waveform animation, and key messaging (offline, open source, on-device AI)
 **Depends on**: Nothing (independent of compliance work)
 **Requirements**: VID-01, VID-02, VID-03, VID-04, VID-05
 **Success Criteria** (what must be TRUE):
-  1. A `video/` workspace exists with its own package.json, fully isolated from the Next.js build (no Webpack conflicts)
-  2. The video waveform matches the hero canvas waveform (30 bars, gradient center-weighted, 4 states: idle/recording/transcribing/inserted)
-  3. The video shows an iPhone mockup progressing through the complete demo flow: idle -> recording -> transcription -> insertion
-  4. Animations use spring physics and transitions that feel iOS-native (not web-generic)
-  5. A rendered MP4 (H.264, under 5MB) and poster image exist in `public/videos/`, ready for embedding
+  1. A `video/` workspace exists with its own package.json, fully isolated from the Next.js build
+  2. The promo video features the Dictus waveform as central visual element with 4-state animation
+  3. The video communicates key value props: 100% offline, open source, on-device AI
+  4. Animations use spring physics with premium Apple-style aesthetic and punchy pacing
+  5. FR and EN rendered MP4s (H.264, under 5MB) and poster images exist in `public/videos/`
 **Plans:** 3/4 plans executed
 
 Plans:
-- [ ] 09-01-PLAN.md — Remotion workspace setup and shared lib modules (waveform math, colors, i18n, springs)
-- [ ] 09-02-PLAN.md — Core visual components (Waveform, DictusKeyboard, StateIndicator, IPhoneMockup)
-- [ ] 09-03-PLAN.md — Scene components (Messages, Notes, TextReveal) and DictusDemo composition
-- [ ] 09-04-PLAN.md — Mockup variant comparison, user selection, and final MP4/poster renders
+- [x] 09-01-PLAN.md — Remotion workspace setup and shared lib modules (waveform math, colors, i18n, springs)
+- [x] 09-02-PLAN.md — Core visual components (Waveform, DictusKeyboard, StateIndicator, IPhoneMockup)
+- [x] 09-03-PLAN.md — Scene components (Messages, Notes, TextReveal) and DictusDemo composition
+- [x] 09-04-PLAN.md — DictusPromo: 5-beat storyboard with smoothed waveform, theme variants, bilingual renders
 
-### Phase 10: Video Integration
-**Goal**: Visitors see and can play the demo video on the landing page without any performance regression
-**Depends on**: Phase 9
-**Requirements**: VID-06
-**Success Criteria** (what must be TRUE):
-  1. A DemoVideo section on the landing page displays the video with a poster image and native `<video>` controls
-  2. Video lazy-loads via IntersectionObserver with `preload="none"` -- zero bytes downloaded until the section is near viewport
-  3. Lighthouse scores remain at 90+ on all four metrics after video integration (no regression from v1.1 baseline)
-**Plans**: TBD
-
-Plans:
-- [ ] 10-01: TBD
+NOTE: Demo video (screen recordings) handled separately by user. Video integration on landing page removed (not needed).
 
 ## Progress
 
@@ -106,5 +95,4 @@ Phases 8 and 9 can run in parallel (no dependencies). Phase 10 depends on Phase 
 | 6. Visual Effects | v1.1 | 2/2 | Complete | 2026-03-12 |
 | 7. Content & CTA | v1.1 | 2/2 | Complete | 2026-03-12 |
 | 8. App Store Compliance | v1.2 | 2/2 | Complete | 2026-03-19 |
-| 9. Remotion Demo Video | 3/4 | In Progress|  | - |
-| 10. Video Integration | v1.2 | 0/? | Not started | - |
+| 9. Remotion Promo Video | v1.2 | 4/4 | Complete | 2026-03-21 |
