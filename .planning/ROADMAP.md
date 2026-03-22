@@ -35,55 +35,17 @@ Full details: `.planning/milestones/v1.1-ROADMAP.md`
 
 </details>
 
-### ✅ v1.2 Video & Compliance — SHIPPED 2026-03-21
+<details>
+<summary>✅ v1.2 Video & Compliance (Phases 8-9) — SHIPPED 2026-03-21</summary>
 
-**Milestone Goal:** Create a Remotion promo video and add App Store compliance pages (privacy policy, support URL).
+- [x] Phase 8: App Store Compliance (2/2 plans) — completed 2026-03-19
+- [x] Phase 9: Remotion Promo Video (4/4 plans) — completed 2026-03-21
 
-- [x] **Phase 8: App Store Compliance** - Bilingual privacy policy, support page, and footer links to unblock App Store submission
-- [x] **Phase 9: Remotion Promo Video** - Isolated Remotion workspace with promo composition (5-beat storyboard), 4 rendered variants (FR/EN × dark/light)
-- ~~Phase 10: Video Integration~~ — Removed: video integration on landing page deemed unnecessary
+Full details: `.planning/milestones/v1.2-ROADMAP.md`
 
-## Phase Details
-
-### Phase 8: App Store Compliance
-**Goal**: Visitors can access privacy policy and support information, unblocking App Store submission
-**Depends on**: Nothing (independent of video work)
-**Requirements**: COMP-01, COMP-02, COMP-03
-**Success Criteria** (what must be TRUE):
-  1. Visiting `/fr/privacy` and `/en/privacy` displays a complete bilingual privacy policy covering all 8+ Apple-required sections
-  2. Visiting `/fr/support` and `/en/support` displays a support page with contact email (pierre@pivi.solutions)
-  3. Footer on every page contains working links to both Privacy Policy and Support pages
-  4. New pages appear in the sitemap and follow existing i18n routing patterns
-**Plans:** 2 plans
-
-Plans:
-- [x] 08-01-PLAN.md — Privacy policy and support pages with bilingual i18n content
-- [x] 08-02-PLAN.md — Footer links and sitemap integration
-
-### Phase 9: Remotion Promo Video
-**Goal**: A polished promotional MP4 video showcasing Dictus brand, waveform animation, and key messaging (offline, open source, on-device AI)
-**Depends on**: Nothing (independent of compliance work)
-**Requirements**: VID-01, VID-02, VID-03, VID-04, VID-05
-**Success Criteria** (what must be TRUE):
-  1. A `video/` workspace exists with its own package.json, fully isolated from the Next.js build
-  2. The promo video features the Dictus waveform as central visual element with 4-state animation
-  3. The video communicates key value props: 100% offline, open source, on-device AI
-  4. Animations use spring physics with premium Apple-style aesthetic and punchy pacing
-  5. FR and EN rendered MP4s (H.264, under 5MB) and poster images exist in `public/videos/`
-**Plans:** 3/4 plans executed
-
-Plans:
-- [x] 09-01-PLAN.md — Remotion workspace setup and shared lib modules (waveform math, colors, i18n, springs)
-- [x] 09-02-PLAN.md — Core visual components (Waveform, DictusKeyboard, StateIndicator, IPhoneMockup)
-- [x] 09-03-PLAN.md — Scene components (Messages, Notes, TextReveal) and DictusDemo composition
-- [x] 09-04-PLAN.md — DictusPromo: 5-beat storyboard with smoothed waveform, theme variants, bilingual renders
-
-NOTE: Demo video (screen recordings) handled separately by user. Video integration on landing page removed (not needed).
+</details>
 
 ## Progress
-
-**Execution Order:**
-Phases 8 and 9 can run in parallel (no dependencies). Phase 10 depends on Phase 9.
 
 | Phase | Milestone | Plans Complete | Status | Completed |
 |-------|-----------|----------------|--------|-----------|

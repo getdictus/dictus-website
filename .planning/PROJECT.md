@@ -28,17 +28,15 @@ Convaincre un visiteur en quelques secondes que dictus est l'alternative privacy
 - ✓ 3-phase waveform choreography (flat/active/calm) synced to demo state — v1.1
 - ✓ Competitor comparison table (5 products x 6 dimensions) with mobile card stack — v1.1
 - ✓ Adaptive TestFlight CTA with device detection, QR code, fallback badge — v1.1
+- ✓ Bilingual privacy policy (10 Apple-required sections) and support page — v1.2
+- ✓ Footer links to Privacy Policy and Support on every page — v1.2
+- ✓ Isolated Remotion workspace with deterministic waveform math — v1.2
+- ✓ DictusPromo 5-beat storyboard with smoothed waveform, spring animations — v1.2
+- ✓ 4 rendered MP4 promos (FR/EN × dark/light), H.264, theme-aware — v1.2
 
 ### Active
 
-## Current Milestone: v1.2 Video & Compliance
-
-**Goal:** Créer une vidéo de démo Remotion à intégrer sur le site et rendre le site conforme aux exigences App Store (privacy policy, support URL).
-
-**Target features:**
-- Vidéo de démo Remotion avec feel iOS natif et waveform fidèle
-- Page Privacy Policy dédiée (`/privacy`) avec lien footer
-- Support URL (mailto:) pour App Store Connect
+(No active milestone — run `/gsd:new-milestone` to plan next)
 
 ### Out of Scope
 
@@ -51,11 +49,14 @@ Convaincre un visiteur en quelques secondes que dictus est l'alternative privacy
 - Social media embeds — third-party scripts, contradicts privacy
 - Multi-page navigation — single landing page, one flow, one CTA
 - App Store badge + screenshots section — deferred, not yet on TestFlight
+- Embedding promo video on landing page — tested, deemed unnecessary (video used externally)
 
 ## Context
 
-Shipped v1.1 with 2,770 LOC TypeScript/CSS across ~50 source files.
+Shipped v1.2 with 2,623 LOC TypeScript/CSS across ~50 source files.
 Tech stack: Next.js 16 (App Router), Tailwind v4, next-intl v4, next-themes, Motion v12, qrcode.react, Vercel.
+Remotion workspace in `video/` for promo video generation (dev-only, not shipped to production).
+Contact email updated to contact@pivi.solutions.
 dictus app is in active development -- TestFlight is the next milestone for the app itself.
 Telegram group link is placeholder (#) until community is created.
 Adaptive CTA ready for TestFlight URL (env var NEXT_PUBLIC_TESTFLIGHT_URL).
@@ -88,6 +89,10 @@ Adaptive CTA ready for TestFlight URL (env var NEXT_PUBLIC_TESTFLIGHT_URL).
 | No nested backdrop-filter | Avoids Safari rendering artifacts | ✓ Good -- TextReveal uses bg-only |
 | Client-side device detection in useEffect | Prevents React hydration mismatch | ✓ Good -- SSR renders fallback, detects on mount |
 | qrcode.react for desktop TestFlight QR | Lightweight, no external service dependency | ✓ Good -- privacy-aligned |
+| Remotion as dev-only tool, pre-rendered MP4 | No Player in production (+150-250kb), zero Lighthouse regression | ✓ Good -- static MP4s served |
+| Promo video instead of demo video | Demo screen recordings done separately by user | ✓ Good -- cleaner separation |
+| Video NOT embedded on landing page | Tested integration, deemed unnecessary for conversion | ✓ Good -- simpler Hero |
+| Contact email contact@pivi.solutions | Professional contact vs personal email | ✓ Good |
 
 ---
-*Last updated: 2026-03-17 after v1.2 milestone started*
+*Last updated: 2026-03-22 after v1.2 milestone completed*

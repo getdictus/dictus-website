@@ -1,5 +1,27 @@
 # Milestones
 
+## v1.2 Video & Compliance (Shipped: 2026-03-22)
+
+**Phases completed:** 2 phases, 6 plans
+**Timeline:** 3 days (2026-03-19 → 2026-03-21)
+**Stats:** 58 files changed, +8,609/-321 lines, 2,623 LOC in src/
+
+**Key accomplishments:**
+- Bilingual privacy policy (10 Apple-required sections) and support pages for App Store compliance
+- Footer links and sitemap integration for compliance pages
+- Isolated Remotion workspace with deterministic waveform math (seeded sin-hash, frame-based)
+- DictusPromo composition: 5-beat storyboard with smoothed waveform bars, spring animations
+- 4 rendered MP4 promos (FR/EN × dark/light) with theme-aware colors
+- Hero simplified (demo state machine removed), Logo refined with stroke glow
+
+**Scope changes:**
+- Phase 10 (Video Integration) removed — embedding video on landing page deemed unnecessary
+- VID-06 requirement dropped by design
+- Pivoted from demo video to promo video (screen recordings done separately by user)
+- Contact email updated from pierre@pivi.solutions to contact@pivi.solutions
+
+---
+
 ## v1.1 Polish & Differentiation (Shipped: 2026-03-17)
 
 **Phases completed:** 3 phases, 6 plans

@@ -2,6 +2,51 @@
 
 *A living document updated after each milestone. Lessons feed forward into future planning.*
 
+## Milestone: v1.2 — Video & Compliance
+
+**Shipped:** 2026-03-22
+**Phases:** 2 | **Plans:** 6 | **Timeline:** 3 days
+
+### What Was Built
+- Bilingual privacy policy (10 Apple-required sections) and support pages for App Store compliance
+- Footer links and sitemap integration for compliance pages
+- Isolated Remotion workspace with deterministic frame-based waveform math
+- DictusPromo composition: 5-beat storyboard (accroche, voix, transcription, features, logo reveal)
+- 4 rendered MP4 promos (FR/EN x dark/light) with theme-aware colors and smoothed waveform bars
+- Hero simplified (demo state machine removed), Logo refined, contact email updated
+
+### What Worked
+- Isolated `video/` workspace kept Remotion deps out of the Next.js build -- zero coupling
+- Pivoting from demo to promo video was the right call -- cleaner, more versatile asset
+- Deciding NOT to embed video on landing page avoided unnecessary complexity
+- Phase 8 (compliance) ran fully through GSD with clean UAT (7/7 pass)
+- Waveform math port was reusable across DictusDemo and DictusPromo compositions
+
+### What Was Inefficient
+- Phase 9 plan 04 had significant work done outside GSD -- summary tracking lost
+- VID-05/VID-06 requirements weren't updated during execution (stale tracking again)
+- Some debug screenshots (.png) accumulated in project root during manual iteration
+- Phase 10 was planned but never needed -- scope should have been validated earlier
+
+### Patterns Established
+- `computeSmoothedBars()` IIR filter for buttery waveform animation in Remotion (60fps site -> 30fps video)
+- Theme-aware color system: `THEME_COLORS` record with dark/light variants for video rendering
+- Google Fonts loaded via `@remotion/google-fonts` for consistent typography in video
+- Session-based animation skip in ScrollReveal (sessionStorage flag)
+
+### Key Lessons
+1. Validate phase scope before planning -- Phase 10 was unnecessary and should have been questioned earlier
+2. Work done outside GSD loses tracking -- either commit through GSD or reconcile promptly
+3. REQUIREMENTS.md tracking continues to fall behind during execution (3rd milestone in a row)
+4. Promo videos are more versatile than demo videos -- can be used externally without page integration
+
+### Cost Observations
+- Model mix: opus for GSD phases 8-9, manual work for video iteration
+- Sessions: ~3 sessions across 3 days
+- Notable: significant manual iteration on video aesthetics outside GSD workflow
+
+---
+
 ## Milestone: v1.1 — Polish & Differentiation
 
 **Shipped:** 2026-03-17
@@ -97,6 +142,7 @@
 |-----------|----------|--------|------------|
 | v1.0 | 2 days | 4 | Initial project -- established GSD workflow |
 | v1.1 | 7 days | 3 | Polish iteration -- all plans under 3 min, zero UAT issues |
+| v1.2 | 3 days | 2 | Video + compliance -- significant manual work outside GSD |
 
 ### Cumulative Quality
 
@@ -110,4 +156,5 @@
 1. Phase ordering matters: build content before animations to avoid rework
 2. Verify i18n integration in every component during its creation phase
 3. CSS variable indirection is the right abstraction for context-dependent values
-4. Keep tracking docs (REQUIREMENTS.md, ROADMAP.md) updated during execution
+4. Keep tracking docs (REQUIREMENTS.md, ROADMAP.md) updated during execution (repeated v1.0, v1.1, v1.2)
+5. Validate phase necessity before planning -- unnecessary phases waste planning effort (v1.2 Phase 10)
