@@ -1,7 +1,12 @@
-<svg width="80" height="80" viewBox="0 0 80 80" fill="none" xmlns="http://www.w3.org/2000/svg">
+<svg width="1024" height="1024" viewBox="0 0 80 80" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <!-- App icon squircle background -->
   <rect width="80" height="80" rx="18" fill="url(#grad-dark)"/>
+  <!-- Waveform bars (recentered: y-3 shift to center at y=40) -->
+  <!-- Bar 1 (short left): 18pt height -->
   <rect x="19" y="31" width="9" height="18" rx="4.5" fill="white" opacity="0.45"/>
+  <!-- Bar 2 (tall center): 42pt height -->
   <rect x="35.5" y="19" width="9" height="42" rx="4.5" fill="url(#bar-accent)"/>
+  <!-- Bar 3 (medium right): 27pt height -->
   <rect x="52" y="26" width="9" height="27" rx="4.5" fill="white" opacity="0.65"/>
   <defs>
     <linearGradient id="grad-dark" x1="0" y1="0" x2="80" y2="80" gradientUnits="userSpaceOnUse">
