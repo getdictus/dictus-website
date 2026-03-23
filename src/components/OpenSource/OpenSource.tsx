@@ -10,7 +10,7 @@ export default function OpenSource() {
         <h2 className="text-2xl font-normal text-text-primary">{t("title")}</h2>
         <p className="mx-auto mt-4 max-w-2xl text-white-70">{t("desc")}</p>
         <a
-          href="https://github.com/Pivii/dictus"
+          href="https://github.com/getdictus"
           target="_blank"
           rel="noopener noreferrer"
           className="mt-6 inline-flex min-h-11 min-w-11 items-center gap-2 text-accent transition-colors hover:text-accent-hi"

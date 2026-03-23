@@ -13,7 +13,7 @@ export default function Footer() {
           </span>
           <div className="flex gap-4">
             <a
-              href="https://github.com/Pivii/dictus"
+              href="https://github.com/getdictus"
               target="_blank"
               rel="noopener noreferrer"
               aria-label={t("github_label")}

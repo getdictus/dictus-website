@@ -1,0 +1,17 @@
+<svg width="500" height="500" viewBox="0 0 500 500" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <!-- Full square background — no rounded corners -->
+  <rect width="500" height="500" fill="#0A1628"/>
+  <!-- Waveform bars (scaled from 80x80 viewBox to 500x500, centered) -->
+  <!-- Bar 1 (short left): -->
+  <rect x="118.75" y="193.75" width="56.25" height="112.5" rx="28.125" fill="white" opacity="0.45"/>
+  <!-- Bar 2 (tall center): -->
+  <rect x="221.875" y="118.75" width="56.25" height="262.5" rx="28.125" fill="url(#bar-accent)"/>
+  <!-- Bar 3 (medium right): -->
+  <rect x="325" y="162.5" width="56.25" height="168.75" rx="28.125" fill="white" opacity="0.65"/>
+  <defs>
+    <linearGradient id="bar-accent" x1="221.875" y1="118.75" x2="278.125" y2="381.25" gradientUnits="userSpaceOnUse">
+      <stop offset="0%" stop-color="#6BA3FF"/>
+      <stop offset="100%" stop-color="#2563EB"/>
+    </linearGradient>
+  </defs>
+</svg>
