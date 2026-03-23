@@ -87,15 +87,6 @@
   --font-mono: var(--font-dm-mono);
 }
 
-/* ─── Theme transition (toggled by ThemeToggle component) ─── */
-
-html.theme-transition,
-html.theme-transition *,
-html.theme-transition *::before,
-html.theme-transition *::after {
-  transition: color 200ms ease, background-color 200ms ease, border-color 200ms ease, fill 200ms ease, stroke 200ms ease !important;
-}
-
 @keyframes blink {
   0%,
   100% {
