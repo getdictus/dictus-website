@@ -260,7 +260,7 @@ export const DictusPromo: React.FC<DictusPromoProps> = ({ locale, theme }) => {
 
   // ── Beat 3: Three lines ──
   const lines = [content.beat3.line1, content.beat3.line2, content.beat3.line3];
-  const lineDelay = 35;
+  const lineDelay = 53;
 
   // ── Beat 4: Features ──
   const featureDuration = 50;
