@@ -51,7 +51,7 @@ export const Root: React.FC = () => {
       <Composition
         id="dictus-promo-fr-dark"
         component={DictusPromo as any}
-        durationInFrames={690}
+        durationInFrames={900}
         fps={30}
         width={1920}
         height={1080}
@@ -61,7 +61,7 @@ export const Root: React.FC = () => {
       <Composition
         id="dictus-promo-fr-light"
         component={DictusPromo as any}
-        durationInFrames={690}
+        durationInFrames={900}
         fps={30}
         width={1920}
         height={1080}
@@ -71,7 +71,7 @@ export const Root: React.FC = () => {
       <Composition
         id="dictus-promo-en-dark"
         component={DictusPromo as any}
-        durationInFrames={690}
+        durationInFrames={900}
         fps={30}
         width={1920}
         height={1080}
@@ -81,7 +81,7 @@ export const Root: React.FC = () => {
       <Composition
         id="dictus-promo-en-light"
         component={DictusPromo as any}
-        durationInFrames={690}
+        durationInFrames={900}
         fps={30}
         width={1920}
         height={1080}
