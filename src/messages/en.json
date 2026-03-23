@@ -5,27 +5,36 @@
     "skip_to_content": "Skip to main content"
   },
   "Metadata": {
-    "title": "dictus -- 100% Offline Voice Dictation for iOS",
-    "description": "iOS voice dictation keyboard that works entirely on your device. No data sent to the internet.",
-    "jsonld_description": "Fully offline iOS voice dictation keyboard with real-time on-device transcription."
+    "title": "dictus -- 100% Offline Voice Dictation for iOS & Android",
+    "description": "Voice dictation keyboard that works entirely on your device. No data sent to the internet.",
+    "jsonld_description": "Fully offline voice dictation keyboard with real-time on-device transcription."
   },
   "Hero": {
     "headline": "Your voice stays yours.",
-    "subtitle": "100% offline voice dictation for iOS.",
-    "badge": "Coming soon",
+    "subtitle": "100% offline voice dictation.",
+    "badge_ios": "iOS — Coming soon",
+    "badge_android": "Android — Coming soon",
     "cta_testflight": "Join TestFlight",
     "cta_available_iphone": "Available on iPhone",
-    "cta_testflight_link": "Open in TestFlight"
+    "cta_testflight_link": "Open in TestFlight",
+    "cta_android_soon": "Also coming to Android"
   },
   "Features": {
     "privacy_title": "100% offline",
     "privacy_desc": "No data ever leaves your device. Your voice is transcribed locally, with no server and no cloud.",
-    "smart_title": "Smart Mode",
-    "smart_desc": "An on-device language model rephrases and corrects your sentences right on your iPhone.",
     "keyboard_title": "Universal keyboard",
-    "keyboard_desc": "Works as a third-party iOS keyboard in every app. Messages, notes, emails\u2009\u2014\u2009everywhere.",
+    "keyboard_desc": "Works as a third-party keyboard in every app. Messages, notes, emails\u2009\u2014\u2009everywhere.",
     "opensource_title": "Open source",
-    "opensource_desc": "Transparent and auditable code. You can verify for yourself that no data leaks."
+    "opensource_desc": "Transparent and auditable code. You can verify for yourself that no data leaks.",
+    "coming_soon_label": "Coming soon",
+    "smart_title": "Smart Mode Pro",
+    "smart_desc": "Intelligent reformulation with pre-configured templates via on-device AI.",
+    "vocab_title": "Custom vocabulary",
+    "vocab_desc": "Personal dictionary of technical terms for medical, legal, dev, and business jargon.",
+    "history_title": "Transcription history",
+    "history_desc": "Local journal of past dictations with full-text search.",
+    "audio_title": "Audio file transcription",
+    "audio_desc": "Import audio files and transcribe them locally with Whisper."
   },
   "HowItWorks": {
     "step1_title": "Tap the mic",
@@ -35,7 +44,7 @@
     "step3_title": "Text appears",
     "step3_desc": "Your words are transcribed instantly. Accurate, fast, private.",
     "privacy_title": "No data leaves your device",
-    "privacy_desc": "Your voice is captured by the mic, transcribed by an on-device model, and the text is inserted. Everything happens on your iPhone.",
+    "privacy_desc": "Your voice is captured by the mic, transcribed by an on-device model, and the text is inserted. Everything happens on your device.",
     "privacy_accent": "No cloud. No server. Just your device."
   },
   "OpenSource": {
@@ -62,7 +71,7 @@
     "legend_partial": "Depends on settings or plan",
     "dictus_name": "Dictus",
     "dictus_price": "Free",
-    "dictus_platforms": "iOS (Android soon)",
+    "dictus_platforms": "iOS & Android",
     "apple_name": "Apple Dictation",
     "apple_price": "Built-in",
     "apple_platforms": "iOS, macOS, watchOS",
@@ -86,11 +95,11 @@
   },
   "Privacy": {
     "meta_title": "Privacy Policy \u2014 dictus",
-    "meta_description": "Dictus collects no data. Privacy policy for the iOS app and website.",
+    "meta_description": "Dictus collects no data. Privacy policy for the app and website.",
     "title": "Privacy Policy",
     "last_updated": "Last updated: March 19, 2026",
-    "intro": "Dictus collects no data. Your voice is processed entirely on your device \u2014 no voice data, no transcribed text, and no keystrokes ever leave your iPhone.",
-    "scope": "This policy covers the Dictus iOS app and the getdictus.com website.",
+    "intro": "Dictus collects no data. Your voice is processed entirely on your device \u2014 no voice data, no transcribed text, and no keystrokes ever leave your device.",
+    "scope": "This policy covers the Dictus app and the getdictus.com website.",
     "data_collection_title": "Data Collection",
     "data_collection_text": "Dictus collects no personal data. Your voice is processed on-device via WhisperKit (CoreML). No analytics, no tracking, no cookies.",
     "full_access_title": "Full Access Permission",
@@ -126,6 +135,6 @@
     "telegram_text": "Join our community to discuss Dictus.",
     "telegram_link_text": "Join the Telegram group",
     "compatibility_title": "Compatibility",
-    "compatibility_text": "Dictus requires iOS 18+ and an iPhone with Apple Neural Engine."
+    "compatibility_text": "Dictus requires iOS 18+ (iPhone) \u2014 Android support coming soon."
   }
 }

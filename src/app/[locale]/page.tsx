@@ -24,7 +24,7 @@ export default async function HomePage({ params }: Props) {
     "@type": "MobileApplication",
     name: "dictus",
     description: t("jsonld_description"),
-    operatingSystem: "iOS 18+",
+    operatingSystem: "iOS 18+, Android",
     applicationCategory: "UtilitiesApplication",
     offers: {
       "@type": "Offer",

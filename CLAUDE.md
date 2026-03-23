@@ -2,7 +2,7 @@
 
 ## Projet
 
-Landing page marketing pour **Dictus**, un clavier iOS de dictation vocale 100% offline.
+Landing page marketing pour **Dictus**, un clavier de dictation vocale 100% offline pour iOS et Android.
 Développé par PIVI Solutions. Domaine cible : getdictus.com.
 
 ## Stack
@@ -13,14 +13,20 @@ Développé par PIVI Solutions. Domaine cible : getdictus.com.
 
 ## Produit
 
-Dictus est un clavier iOS de dictation vocale qui fonctionne entièrement sur l'appareil (offline).
+Dictus est un clavier de dictation vocale qui fonctionne entièrement sur l'appareil (offline), disponible sur iOS et Android.
 
-Fonctionnalités clés à mettre en avant :
+Fonctionnalités disponibles (v1) :
 - Transcription vocale en temps réel, 100% on-device
 - Aucune donnée envoyée sur internet — privacy first
-- Fonctionne comme clavier tiers iOS (dans n'importe quelle app)
-- Mode Smart (LLM on-device) pour reformulation intelligente
-- Compatible iOS 18+
+- Fonctionne comme clavier tiers (dans n'importe quelle app)
+- Open source — code transparent et auditable
+- Compatible iOS 18+ (Android en cours de développement)
+
+Fonctionnalités à venir :
+- Smart Mode Pro (reformulation intelligente via IA on-device)
+- Vocabulaire personnalisé (dictionnaire de termes techniques)
+- Historique des transcriptions (journal local avec recherche)
+- Transcription de fichiers audio (import et transcription locale)
 
 ## Design — Brand Kit
 

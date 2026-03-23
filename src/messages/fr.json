@@ -5,27 +5,36 @@
     "skip_to_content": "Aller au contenu principal"
   },
   "Metadata": {
-    "title": "dictus -- Dictation vocale 100% offline pour iOS",
-    "description": "Clavier iOS de dictation vocale qui fonctionne entierement sur votre appareil. Aucune donnee envoyee sur internet.",
-    "jsonld_description": "Clavier iOS de dictation vocale 100% offline avec transcription en temps reel sur l'appareil."
+    "title": "dictus -- Dictation vocale 100% offline pour iOS & Android",
+    "description": "Clavier de dictation vocale qui fonctionne enti\u00e8rement sur votre appareil. Aucune donn\u00e9e envoy\u00e9e sur internet.",
+    "jsonld_description": "Clavier de dictation vocale 100% offline avec transcription en temps r\u00e9el sur l\u2019appareil."
   },
   "Hero": {
     "headline": "Votre voix reste la v\u00f4tre.",
-    "subtitle": "Dictation vocale 100% offline pour iOS.",
-    "badge": "Bient\u00f4t disponible",
+    "subtitle": "Dictation vocale 100% offline.",
+    "badge_ios": "iOS \u2014 Bient\u00f4t disponible",
+    "badge_android": "Android \u2014 Bient\u00f4t disponible",
     "cta_testflight": "Rejoindre TestFlight",
     "cta_available_iphone": "Disponible sur iPhone",
-    "cta_testflight_link": "Ouvrir dans TestFlight"
+    "cta_testflight_link": "Ouvrir dans TestFlight",
+    "cta_android_soon": "Bient\u00f4t sur Android"
   },
   "Features": {
     "privacy_title": "100% offline",
     "privacy_desc": "Aucune donn\u00e9e ne quitte votre appareil. Jamais. Votre voix est transcrite localement, sans serveur, sans cloud.",
-    "smart_title": "Mode Smart",
-    "smart_desc": "Un mod\u00e8le de langage embarqu\u00e9 reformule et corrige vos phrases directement sur l\u2019appareil.",
     "keyboard_title": "Clavier universel",
-    "keyboard_desc": "Fonctionne comme clavier tiers iOS, dans toutes vos apps. Messages, notes, emails\u2009\u2014\u2009partout.",
+    "keyboard_desc": "Fonctionne comme clavier tiers dans toutes vos apps. Messages, notes, emails\u2009\u2014\u2009partout.",
     "opensource_title": "Open source",
-    "opensource_desc": "Code transparent et auditable. Vous pouvez v\u00e9rifier par vous-m\u00eame qu\u2019aucune donn\u00e9e ne fuite."
+    "opensource_desc": "Code transparent et auditable. Vous pouvez v\u00e9rifier par vous-m\u00eame qu\u2019aucune donn\u00e9e ne fuite.",
+    "coming_soon_label": "Bient\u00f4t disponible",
+    "smart_title": "Smart Mode Pro",
+    "smart_desc": "Reformulation intelligente avec mod\u00e8les pr\u00e9configur\u00e9s via IA embarqu\u00e9e.",
+    "vocab_title": "Vocabulaire personnalis\u00e9",
+    "vocab_desc": "Dictionnaire personnel de termes techniques pour le m\u00e9dical, le juridique, le dev et le business.",
+    "history_title": "Historique des transcriptions",
+    "history_desc": "Journal local de vos dictations pass\u00e9es avec recherche plein texte.",
+    "audio_title": "Transcription de fichiers audio",
+    "audio_desc": "Importez des fichiers audio et transcrivez-les localement avec Whisper."
   },
   "HowItWorks": {
     "step1_title": "Appuyez sur le micro",
@@ -35,36 +44,36 @@
     "step3_title": "Le texte appara\u00eet",
     "step3_desc": "Vos mots s\u2019inscrivent instantan\u00e9ment. Pr\u00e9cis, rapide, priv\u00e9.",
     "privacy_title": "Aucune donn\u00e9e ne quitte votre appareil",
-    "privacy_desc": "Votre voix est capt\u00e9e par le micro, transcrite par un mod\u00e8le embarqu\u00e9, et le texte est ins\u00e9r\u00e9. Tout se passe sur votre iPhone.",
+    "privacy_desc": "Votre voix est capt\u00e9e par le micro, transcrite par un mod\u00e8le embarqu\u00e9, et le texte est ins\u00e9r\u00e9. Tout se passe sur votre appareil.",
     "privacy_accent": "Pas de cloud. Pas de serveur. Juste votre appareil."
   },
   "OpenSource": {
     "title": "Transparent par nature",
-    "desc": "Dictus est open source. Chaque ligne de code est publique et auditable. La confiance ne se décrète pas, elle se vérifie.",
+    "desc": "Dictus est open source. Chaque ligne de code est publique et auditable. La confiance ne se d\u00e9cr\u00e8te pas, elle se v\u00e9rifie.",
     "cta": "Voir sur GitHub"
   },
   "Community": {
-    "title": "Rejoignez la communauté",
-    "desc": "Suivez le développement, proposez des idées et échangez avec d\u2019autres utilisateurs.",
+    "title": "Rejoignez la communaut\u00e9",
+    "desc": "Suivez le d\u00e9veloppement, proposez des id\u00e9es et \u00e9changez avec d\u2019autres utilisateurs.",
     "cta": "Rejoindre sur Telegram"
   },
   "Comparison": {
     "title": "Comment Dictus se compare",
     "feature_price": "Prix",
     "feature_offline": "100% Offline",
-    "feature_privacy": "Respect de la vie privée",
+    "feature_privacy": "Respect de la vie priv\u00e9e",
     "feature_platforms": "Plateformes",
     "feature_opensource": "Open Source",
-    "feature_language_lock": "Forçage de langue",
+    "feature_language_lock": "For\u00e7age de langue",
     "feature_custom_keyboard": "Clavier personnalisable",
     "legend_yes": "Oui",
     "legend_no": "Non",
-    "legend_partial": "Selon les réglages ou le plan",
+    "legend_partial": "Selon les r\u00e9glages ou le plan",
     "dictus_name": "Dictus",
     "dictus_price": "Gratuit",
-    "dictus_platforms": "iOS (Android bientôt)",
+    "dictus_platforms": "iOS & Android",
     "apple_name": "Apple Dictation",
-    "apple_price": "Intégré",
+    "apple_price": "Int\u00e9gr\u00e9",
     "apple_platforms": "iOS, macOS, watchOS",
     "wisprflow_name": "Wispr Flow",
     "wisprflow_price": "Gratuit / 15\u00a0$/mois",
@@ -81,16 +90,16 @@
     "privacy": "Ce site et Dictus ne collectent aucune donn\u00e9e personnelle. Pas de cookies, pas d\u2019analytics, pas de tracking.",
     "github_label": "GitHub",
     "telegram_label": "Telegram",
-    "privacy_link": "Politique de confidentialite",
+    "privacy_link": "Politique de confidentialit\u00e9",
     "support_link": "Support"
   },
   "Privacy": {
     "meta_title": "Politique de confidentialit\u00e9 \u2014 dictus",
-    "meta_description": "Dictus ne collecte aucune donn\u00e9e. Politique de confidentialit\u00e9 pour l\u2019app iOS et le site web.",
+    "meta_description": "Dictus ne collecte aucune donn\u00e9e. Politique de confidentialit\u00e9 pour l\u2019app et le site web.",
     "title": "Politique de confidentialit\u00e9",
     "last_updated": "Derni\u00e8re mise \u00e0 jour : 19 mars 2026",
-    "intro": "Dictus ne collecte aucune donn\u00e9e. Votre voix est trait\u00e9e enti\u00e8rement sur votre appareil \u2014 aucune donn\u00e9e vocale, aucun texte transcrit et aucune frappe de clavier ne quittent jamais votre iPhone.",
-    "scope": "Cette politique couvre l\u2019application iOS Dictus et le site web getdictus.com.",
+    "intro": "Dictus ne collecte aucune donn\u00e9e. Votre voix est trait\u00e9e enti\u00e8rement sur votre appareil \u2014 aucune donn\u00e9e vocale, aucun texte transcrit et aucune frappe de clavier ne quittent jamais votre appareil.",
+    "scope": "Cette politique couvre l\u2019application Dictus et le site web getdictus.com.",
     "data_collection_title": "Collecte de donn\u00e9es",
     "data_collection_text": "Dictus ne collecte aucune donn\u00e9e personnelle. Votre voix est trait\u00e9e sur l\u2019appareil via WhisperKit (CoreML). Aucun analytics, aucun tracking, aucun cookie.",
     "full_access_title": "Autorisation Full Access",
@@ -126,6 +135,6 @@
     "telegram_text": "Rejoignez notre communaut\u00e9 pour discuter de Dictus.",
     "telegram_link_text": "Rejoindre le groupe Telegram",
     "compatibility_title": "Compatibilit\u00e9",
-    "compatibility_text": "Dictus n\u00e9cessite iOS 18+ et un iPhone avec Apple Neural Engine."
+    "compatibility_text": "Dictus n\u00e9cessite iOS 18+ (iPhone) \u2014 support Android bient\u00f4t disponible."
   }
 }

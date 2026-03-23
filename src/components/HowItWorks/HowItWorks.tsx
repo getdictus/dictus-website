@@ -7,10 +7,10 @@ export default function HowItWorks() {
     <section className="bg-ink-2 py-28">
       <div className="mx-auto max-w-6xl px-6">
         <div className="rounded-2xl border border-border bg-[var(--glass-t2-bg)] p-6 backdrop-blur-[12px] backdrop-saturate-[1.2] sm:p-8 md:p-12">
-          {/* 3-step flow */}
-          <div className="flex flex-col items-center gap-8 md:flex-row md:justify-between">
+          {/* 3-step flow — grid for consistent alignment */}
+          <div className="grid grid-cols-1 gap-8 md:grid-cols-[1fr_auto_1fr_auto_1fr]">
             {/* Step 1: Tap the mic */}
-            <div className="flex max-w-[200px] flex-col items-center text-center md:max-w-none md:flex-1">
+            <div className="flex flex-col items-center text-center">
               <div className="flex h-16 w-16 items-center justify-center rounded-full border border-border bg-navy">
                 <svg
                   width="24"
@@ -36,7 +36,7 @@ export default function HowItWorks() {
             </div>
 
             {/* Arrow 1 */}
-            <div className="hidden md:flex" aria-hidden="true">
+            <div className="hidden items-center md:flex" aria-hidden="true">
               <svg
                 width="32"
                 height="32"
@@ -53,7 +53,7 @@ export default function HowItWorks() {
             </div>
 
             {/* Step 2: On-device processing */}
-            <div className="flex max-w-[200px] flex-col items-center text-center md:max-w-none md:flex-1">
+            <div className="flex flex-col items-center text-center">
               <div className="flex h-16 w-16 items-center justify-center rounded-full border border-border bg-navy">
                 <svg
                   width="24"
@@ -79,7 +79,7 @@ export default function HowItWorks() {
             </div>
 
             {/* Arrow 2 */}
-            <div className="hidden md:flex" aria-hidden="true">
+            <div className="hidden items-center md:flex" aria-hidden="true">
               <svg
                 width="32"
                 height="32"
@@ -96,7 +96,7 @@ export default function HowItWorks() {
             </div>
 
             {/* Step 3: Text appears */}
-            <div className="flex max-w-[200px] flex-col items-center text-center md:max-w-none md:flex-1">
+            <div className="flex flex-col items-center text-center">
               <div className="flex h-16 w-16 items-center justify-center rounded-full border border-border bg-navy">
                 <svg
                   width="24"
