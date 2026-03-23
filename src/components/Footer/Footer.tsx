@@ -30,7 +30,7 @@ export default function Footer() {
               </svg>
             </a>
             <a
-              href="#"
+              href="https://t.me/getdictus"
               target="_blank"
               rel="noopener noreferrer"
               aria-label={t("telegram_label")}

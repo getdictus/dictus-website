@@ -67,7 +67,7 @@ export default async function SupportPage({ params }: Props) {
           <p className="mt-3 text-white-70">{t("telegram_text")}</p>
           <p className="mt-2">
             <a
-              href="#"
+              href="https://t.me/getdictus"
               target="_blank"
               rel="noopener noreferrer"
               className="text-accent-blue hover:text-accent-hi"

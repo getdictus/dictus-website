@@ -12,7 +12,7 @@ export default function Community() {
         </h2>
         <p className="mt-4 text-white-70">{t("desc")}</p>
         <a
-          href="#"
+          href="https://t.me/getdictus"
           target="_blank"
           rel="noopener noreferrer"
           className="mt-8 inline-flex min-h-11 items-center gap-2 rounded-full bg-accent px-8 py-3 font-normal text-white transition-colors hover:bg-accent-hi"
