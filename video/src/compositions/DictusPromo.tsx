@@ -294,13 +294,8 @@ export const DictusPromo: React.FC<DictusPromoProps> = ({ locale, theme }) => {
     durationInFrames: 30,
   });
 
-  // Final fade out (last 30 frames)
-  const fadeOut = interpolate(
-    frame,
-    [BEATS.b5End - 30, BEATS.b5End],
-    [1, 0],
-    { extrapolateLeft: "clamp", extrapolateRight: "clamp" },
-  );
+  // No visual fade out — handled in post-production
+  const fadeOut = 1;
 
   // ── Background glow ──
   const glowIntensity =
@@ -568,7 +563,7 @@ export const DictusPromo: React.FC<DictusPromoProps> = ({ locale, theme }) => {
                   borderRadius: 999,
                   padding: "8px 24px",
                   backgroundColor: `${COLORS.accentBlue}15`,
-                  minWidth: 120,
+                  width: 140,
                 }}
               >
                 <svg width="18" height="18" viewBox="0 0 24 24" fill={COLORS.accentBlue}>
