@@ -180,9 +180,16 @@ export const DictusDemoFull: React.FC = () => {
     config: { mass: 1, damping: 20, stiffness: 100, overshootClamping: true },
     durationInFrames: 35,
   });
+  // Zoom 4: re-zoom phone to foreground at 14s (frame 420)
+  const zoom4 = spring({
+    frame: frame - 420,
+    fps,
+    config: { mass: 0.8, damping: 16, stiffness: 150, overshootClamping: true },
+    durationInFrames: 25,
+  });
 
-  const zoomScale = 1 + zoom1 * 0.3 + zoom2 * 0.3 + zoom3 * -0.6;
-  const zoomY = zoom1 * 200 + zoom2 * -450 + zoom3 * 250;
+  const zoomScale = 1 + zoom1 * 0.3 + zoom2 * 0.3 + zoom3 * -0.6 + zoom4 * 0.3;
+  const zoomY = zoom1 * 200 + zoom2 * -450 + zoom3 * 250 + zoom4 * 150;
 
   const floatY = Math.sin(((frame % 180) / 180) * Math.PI * 2) * 3;
 
