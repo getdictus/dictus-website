@@ -18,9 +18,9 @@ const { fontFamily } = loadFont("normal", {
 // ─── TIMING (frames at 30fps, total 210 = 7s) ──────────────────────
 const OUTRO = {
   logoStart: 15,
-  taglineStart: 50,
-  platformsStart: 100,
-  urlStart: 145,
+  taglineStart: 40,
+  platformsStart: 120,
+  urlStart: 180,
   end: 210,
 } as const;
 

@@ -5,6 +5,7 @@ interface IPhoneMockupProps {
   variant: "realistic" | "screen-only";
   children: React.ReactNode;
   width?: number;
+  statusBarColor?: "light" | "dark";
 }
 
 // iPhone 15 Pro proportions (logical)
@@ -24,8 +25,11 @@ export const IPhoneMockup: React.FC<IPhoneMockupProps> = ({
   variant,
   children,
   width = 375,
+  statusBarColor = "dark",
 }) => {
   const height = Math.round(width * ASPECT_RATIO);
+  const barColor = statusBarColor === "light" ? "#000000" : COLORS.white;
+  const barColor40 = statusBarColor === "light" ? "rgba(0,0,0,0.4)" : COLORS.white40;
 
   const statusBar = (
     <div
@@ -48,7 +52,7 @@ export const IPhoneMockup: React.FC<IPhoneMockupProps> = ({
           fontFamily: "'DM Sans', sans-serif",
           fontWeight: 600,
           fontSize: 15,
-          color: COLORS.white,
+          color: barColor,
           letterSpacing: "-0.02em",
         }}
       >
@@ -59,33 +63,33 @@ export const IPhoneMockup: React.FC<IPhoneMockupProps> = ({
       <div style={{ display: "flex", alignItems: "center", gap: 6 }}>
         {/* Signal bars */}
         <svg width="17" height="12" viewBox="0 0 17 12" fill="none">
-          <rect x="0" y="8" width="3" height="4" rx="0.5" fill={COLORS.white} />
-          <rect x="4.5" y="5" width="3" height="7" rx="0.5" fill={COLORS.white} />
-          <rect x="9" y="2" width="3" height="10" rx="0.5" fill={COLORS.white} />
-          <rect x="13.5" y="0" width="3" height="12" rx="0.5" fill={COLORS.white} />
+          <rect x="0" y="8" width="3" height="4" rx="0.5" fill={barColor} />
+          <rect x="4.5" y="5" width="3" height="7" rx="0.5" fill={barColor} />
+          <rect x="9" y="2" width="3" height="10" rx="0.5" fill={barColor} />
+          <rect x="13.5" y="0" width="3" height="12" rx="0.5" fill={barColor} />
         </svg>
 
         {/* WiFi icon */}
         <svg width="15" height="12" viewBox="0 0 15 12" fill="none">
           <path
             d="M7.5 10.5a1 1 0 100 2 1 1 0 000-2z"
-            fill={COLORS.white}
+            fill={barColor}
           />
           <path
             d="M4.5 8.5C5.3 7.7 6.35 7.2 7.5 7.2s2.2.5 3 1.3"
-            stroke={COLORS.white}
+            stroke={barColor}
             strokeWidth="1.2"
             strokeLinecap="round"
           />
           <path
             d="M2 6C3.5 4.5 5.4 3.5 7.5 3.5S11.5 4.5 13 6"
-            stroke={COLORS.white}
+            stroke={barColor}
             strokeWidth="1.2"
             strokeLinecap="round"
           />
           <path
             d="M0 3.5C2 1.5 4.6 0 7.5 0S13 1.5 15 3.5"
-            stroke={COLORS.white}
+            stroke={barColor}
             strokeWidth="1.2"
             strokeLinecap="round"
           />
@@ -99,13 +103,13 @@ export const IPhoneMockup: React.FC<IPhoneMockupProps> = ({
             width="21"
             height="11"
             rx="2.5"
-            stroke={COLORS.white}
+            stroke={barColor}
             strokeWidth="1"
           />
-          <rect x="2" y="2" width="18" height="8" rx="1.5" fill={COLORS.white} />
+          <rect x="2" y="2" width="18" height="8" rx="1.5" fill={barColor} />
           <path
             d="M23 4v4a1 1 0 001-1V5a1 1 0 00-1-1z"
-            fill={COLORS.white}
+            fill={barColor}
             opacity={0.4}
           />
         </svg>
@@ -140,7 +144,7 @@ export const IPhoneMockup: React.FC<IPhoneMockupProps> = ({
         transform: "translateX(-50%)",
         width: HOME_INDICATOR_WIDTH,
         height: HOME_INDICATOR_HEIGHT,
-        backgroundColor: COLORS.white40,
+        backgroundColor: barColor40,
         borderRadius: HOME_INDICATOR_HEIGHT / 2,
         zIndex: 10,
       }}
@@ -149,7 +153,7 @@ export const IPhoneMockup: React.FC<IPhoneMockupProps> = ({
 
   if (variant === "realistic") {
     const frameInset = 8;
-    const frameRadius = 50;
+    const frameRadius = 58;
     const innerRadius = frameRadius - frameInset;
 
     return (
@@ -167,10 +171,7 @@ export const IPhoneMockup: React.FC<IPhoneMockupProps> = ({
             inset: 0,
             borderRadius: frameRadius,
             background: "#1C1C1E",
-            border: "3px solid",
-            borderImage:
-              "linear-gradient(135deg, #3A3A3C, #2C2C2E, #48484A) 1",
-            borderImageSlice: 1,
+            border: "3px solid #3A3A3C",
             boxShadow: "0 4px 24px rgba(0,0,0,0.5)",
           }}
         />
@@ -227,10 +228,7 @@ export const IPhoneMockup: React.FC<IPhoneMockupProps> = ({
             backgroundColor: COLORS.inkDeep,
           }}
         >
-          {dynamicIsland}
-          {statusBar}
           {children}
-          {homeIndicator}
         </div>
       </div>
     );

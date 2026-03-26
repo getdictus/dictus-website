@@ -5,6 +5,8 @@ import { DictusPromo } from "./compositions/DictusPromo";
 import { DictusOverlayIntro } from "./compositions/DictusOverlayIntro";
 import { DictusOverlayBg } from "./compositions/DictusOverlayBg";
 import { DictusOverlayOutro } from "./compositions/DictusOverlayOutro";
+import { DictusDemoShowcase } from "./compositions/DictusDemoShowcase";
+import { DictusDemoFull } from "./compositions/DictusDemoFull";
 
 export const Root: React.FC = () => {
   return (
@@ -89,6 +91,37 @@ export const Root: React.FC = () => {
         width={1920}
         height={1080}
         defaultProps={{ locale: "en" as const, theme: "light" as const }}
+      />
+      {/* ── Demo Showcase (iPhone mockup with screen recording) ── */}
+      {/* eslint-disable-next-line @typescript-eslint/no-explicit-any */}
+      <Composition
+        id="demo-showcase-a"
+        component={DictusDemoShowcase as any}
+        durationInFrames={480}
+        fps={30}
+        width={1080}
+        height={1920}
+        defaultProps={{ outroVariant: "in-phone" as const }}
+      />
+      {/* eslint-disable-next-line @typescript-eslint/no-explicit-any */}
+      <Composition
+        id="demo-showcase-b"
+        component={DictusDemoShowcase as any}
+        durationInFrames={570}
+        fps={30}
+        width={1080}
+        height={1920}
+        defaultProps={{ outroVariant: "fullscreen" as const }}
+      />
+      {/* ── Demo Full (intro + demo + outro, 30s) ── */}
+      {/* eslint-disable-next-line @typescript-eslint/no-explicit-any */}
+      <Composition
+        id="demo-full"
+        component={DictusDemoFull as any}
+        durationInFrames={900}
+        fps={30}
+        width={1080}
+        height={1920}
       />
       {/* ── Overlay Kit (intro / bg / outro × landscape / portrait) ── */}
       {/* eslint-disable-next-line @typescript-eslint/no-explicit-any */}
