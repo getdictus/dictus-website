@@ -2,6 +2,9 @@ import React from "react";
 import { Composition } from "remotion";
 import { DictusDemo } from "./compositions/DictusDemo";
 import { DictusPromo } from "./compositions/DictusPromo";
+import { DictusOverlayIntro } from "./compositions/DictusOverlayIntro";
+import { DictusOverlayBg } from "./compositions/DictusOverlayBg";
+import { DictusOverlayOutro } from "./compositions/DictusOverlayOutro";
 
 export const Root: React.FC = () => {
   return (
@@ -86,6 +89,67 @@ export const Root: React.FC = () => {
         width={1920}
         height={1080}
         defaultProps={{ locale: "en" as const, theme: "light" as const }}
+      />
+      {/* ── Overlay Kit (intro / bg / outro × landscape / portrait) ── */}
+      {/* eslint-disable-next-line @typescript-eslint/no-explicit-any */}
+      <Composition
+        id="overlay-intro-landscape"
+        component={DictusOverlayIntro as any}
+        durationInFrames={150}
+        fps={30}
+        width={1920}
+        height={1080}
+        defaultProps={{ format: "landscape" as const }}
+      />
+      {/* eslint-disable-next-line @typescript-eslint/no-explicit-any */}
+      <Composition
+        id="overlay-intro-portrait"
+        component={DictusOverlayIntro as any}
+        durationInFrames={150}
+        fps={30}
+        width={1080}
+        height={1920}
+        defaultProps={{ format: "portrait" as const }}
+      />
+      {/* eslint-disable-next-line @typescript-eslint/no-explicit-any */}
+      <Composition
+        id="overlay-bg-landscape"
+        component={DictusOverlayBg as any}
+        durationInFrames={300}
+        fps={30}
+        width={1920}
+        height={1080}
+        defaultProps={{ format: "landscape" as const }}
+      />
+      {/* eslint-disable-next-line @typescript-eslint/no-explicit-any */}
+      <Composition
+        id="overlay-bg-portrait"
+        component={DictusOverlayBg as any}
+        durationInFrames={300}
+        fps={30}
+        width={1080}
+        height={1920}
+        defaultProps={{ format: "portrait" as const }}
+      />
+      {/* eslint-disable-next-line @typescript-eslint/no-explicit-any */}
+      <Composition
+        id="overlay-outro-landscape"
+        component={DictusOverlayOutro as any}
+        durationInFrames={210}
+        fps={30}
+        width={1920}
+        height={1080}
+        defaultProps={{ format: "landscape" as const }}
+      />
+      {/* eslint-disable-next-line @typescript-eslint/no-explicit-any */}
+      <Composition
+        id="overlay-outro-portrait"
+        component={DictusOverlayOutro as any}
+        durationInFrames={210}
+        fps={30}
+        width={1080}
+        height={1920}
+        defaultProps={{ format: "portrait" as const }}
       />
     </>
   );
