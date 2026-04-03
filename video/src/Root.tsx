@@ -7,6 +7,7 @@ import { DictusOverlayBg } from "./compositions/DictusOverlayBg";
 import { DictusOverlayOutro } from "./compositions/DictusOverlayOutro";
 import { DictusDemoShowcase } from "./compositions/DictusDemoShowcase";
 import { DictusDemoFull } from "./compositions/DictusDemoFull";
+import { DictusAndroidBeta } from "./compositions/DictusAndroidBeta";
 
 export const Root: React.FC = () => {
   return (
@@ -183,6 +184,16 @@ export const Root: React.FC = () => {
         width={1080}
         height={1920}
         defaultProps={{ format: "portrait" as const }}
+      />
+      {/* ── Android Beta Announcement ── */}
+      {/* eslint-disable-next-line @typescript-eslint/no-explicit-any */}
+      <Composition
+        id="android-beta"
+        component={DictusAndroidBeta as any}
+        durationInFrames={900}
+        fps={30}
+        width={1080}
+        height={1920}
       />
     </>
   );
