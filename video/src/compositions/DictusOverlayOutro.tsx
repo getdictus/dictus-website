@@ -49,9 +49,10 @@ const DictusLogoIcon: React.FC<{ size?: number }> = ({ size = 80 }) => (
 
 type Props = {
   format: "landscape" | "portrait";
+  tagline?: string;
 };
 
-export const DictusOverlayOutro: React.FC<Props> = ({ format }) => {
+export const DictusOverlayOutro: React.FC<Props> = ({ format, tagline }) => {
   const frame = useCurrentFrame();
   const { fps } = useVideoConfig();
   const tc = THEME_COLORS.light;
@@ -159,7 +160,7 @@ export const DictusOverlayOutro: React.FC<Props> = ({ format }) => {
               letterSpacing: "0.02em",
             }}
           >
-            No cloud. Just your voice.
+            {tagline ?? "No cloud. Just your voice."}
           </span>
         </div>
 

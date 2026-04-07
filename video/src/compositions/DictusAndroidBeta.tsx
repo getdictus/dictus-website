@@ -10,7 +10,6 @@ import {
 import { DictusOverlayIntro } from "./DictusOverlayIntro";
 import { DictusOverlayOutro } from "./DictusOverlayOutro";
 import { ClaudeCodeTerminal } from "../components/ClaudeCodeTerminal";
-import { AndroidReveal } from "../components/AndroidReveal";
 import { Waveform } from "../components/Waveform";
 import { THEME_COLORS } from "../lib/colors";
 import { iosSpring } from "../lib/spring-configs";
@@ -19,27 +18,21 @@ import type { DemoState } from "../lib/waveform-math";
 
 // ─── TIMING (frames at 30fps, 900 total = 30s) ────────────────────
 //
-// Layer 0: Light background + overlay bg waveform  — CONTINUOUS (0 → 900)
-// Scene 1: Intro overlay         0 → 150   (5s)    — fade out last 20f
-// Scene 2: Claude Code terminal  140 → 500  (12s)   — fade in 20f, fade out 25f
-// Scene 3: Android reveal        490 → 690  (6.7s)  — fade in 20f, fade out 20f
-// Scene 4: Outro overlay         680 → 900  (7.3s)  — fade in 20f
+// Layer 0: Light background continuous
+// Scene 1: Intro overlay         0 → 150    (5s)
+// Scene 2: Claude Code terminal  140 → 510  (12.3s)
+// Scene 3: Outro overlay         500 → 900  (13.3s)
+//          ↳ tagline = "The beta is now open."
+// Waveform bg layer: terminal start → end (140 → 900)
 //
 // Music sync (sound anchor = frame 15 = 0.5s):
-//   6.5s  (f195) → terminal visible
-//   8.8s  (f264) → typing
-//   10.5s (f315) → code scrolling
-//   12s   (f360) → code climax
 //   14.3s (f429) → "✓ Done."
-//   16.7s (f500) → reveal fades in
-//   18s   (f540) → "is now open."
-//   23s   (f690) → outro starts
+//   ~17s  (f510) → outro logo drop
 
 const SCENES = {
   intro:    { start: 0,   duration: 150 },
-  terminal: { start: 140, duration: 360 },  // 140 → 500
-  reveal:   { start: 490, duration: 200 },  // 490 → 690
-  outro:    { start: 680, duration: 220 },   // 680 → 900
+  terminal: { start: 140, duration: 350 },   // 140 → 490
+  outro:    { start: 480, duration: 420 },    // 480 → 900 (logo at 16s = f480)
 } as const;
 
 // ─── FADE WRAPPER ───────────────────────────────────────────────────
@@ -115,6 +108,13 @@ const WaveformOnly: React.FC = () => {
 export const DictusAndroidBeta: React.FC = () => {
   return (
     <AbsoluteFill style={{ backgroundColor: THEME_COLORS.light.background }}>
+      {/* Bottom layer: Waveform bg — starts with terminal, stays until end */}
+      <Sequence from={SCENES.terminal.start} durationInFrames={900 - SCENES.terminal.start}>
+        <AbsoluteFill style={{ opacity: 0.65 }}>
+          <WaveformOnly />
+        </AbsoluteFill>
+      </Sequence>
+
       {/* Scene 1: Intro — waveform + "Stop typing. Just speak." */}
       <Sequence
         from={SCENES.intro.start}
@@ -137,34 +137,15 @@ export const DictusAndroidBeta: React.FC = () => {
         </FadeInOut>
       </Sequence>
 
-      {/* Scene 3: Android reveal */}
-      <Sequence
-        from={SCENES.reveal.start}
-        durationInFrames={SCENES.reveal.duration}
-        premountFor={30}
-      >
-        <FadeInOut durationInFrames={SCENES.reveal.duration} fadeInFrames={20} fadeOutFrames={20}>
-          <AndroidReveal />
-        </FadeInOut>
-      </Sequence>
-
-      {/* Scene 4: Outro */}
+      {/* Scene 3: Outro — "The beta is now open." + badges + URL */}
       <Sequence
         from={SCENES.outro.start}
         durationInFrames={SCENES.outro.duration}
         premountFor={30}
       >
         <FadeInOut durationInFrames={SCENES.outro.duration} fadeInFrames={20} fadeOutFrames={1}>
-          <DictusOverlayOutro format="portrait" />
+          <DictusOverlayOutro format="portrait" tagline="The beta is now open." />
         </FadeInOut>
-      </Sequence>
-
-      {/* Top layer: Waveform bg overlay — starts with terminal, stays until end */}
-      <Sequence from={SCENES.terminal.start} durationInFrames={900 - SCENES.terminal.start}>
-        <AbsoluteFill style={{ opacity: 0.65, pointerEvents: "none" }}>
-          {/* Remove the opaque bg — just the waveform */}
-          <WaveformOnly />
-        </AbsoluteFill>
       </Sequence>
     </AbsoluteFill>
   );

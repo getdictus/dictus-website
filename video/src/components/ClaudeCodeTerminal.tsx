@@ -48,8 +48,8 @@ const T = {
 } as const;
 
 // Typing config
-const COMMAND_TEXT = "ok claude, build Dictus for Android. Make no mistakes.";
-const PAUSE_AFTER = "ok claude, build Dictus for Android.";
+const COMMAND_TEXT = "ok claude, ship Dictus. iOS. Android. Make no mistakes.";
+const PAUSE_AFTER = "ok claude, ship Dictus. iOS. Android.";
 const CHAR_FRAMES = 2;
 const PAUSE_FRAMES = 10;
 
@@ -91,25 +91,24 @@ const DONE_APPEAR = CODE_SCROLL_START + CODE_SCROLL_DURATION + 10;
 // ─── FAKE CODE LINES ────────────────────────────────────────────────
 
 const CODE_LINES = [
-  "⠋ Setting up Android project...",
+  "⠋ Setting up iOS project...",
+  "  Configuring DictusKeyboard.appex",
+  "  Adding Whisper model (CoreML)",
+  "⠙ Setting up Android project...",
   "  Creating app/build.gradle.kts",
-  "  Adding Whisper model integration",
-  "⠙ Configuring on-device ML runtime",
-  "  src/main/kotlin/com/dictus/",
-  "    DictusKeyboardService.kt",
-  "    WhisperEngine.kt",
-  "    AudioProcessor.kt",
-  "  Compiling native libraries...",
+  "  Adding Whisper model (NNAPI)",
   "⠹ Building speech recognition pipeline",
-  "  Linking libwhisper.so (arm64-v8a)",
+  "  Compiling native libraries...",
+  "  Linking libwhisper (arm64)",
   "  Optimizing model quantization",
   "⠸ Running tests...",
   "  ✓ AudioCapture",
   "  ✓ WhisperInference",
-  "  ✓ KeyboardIME",
+  "  ✓ KeyboardExtension (iOS)",
+  "  ✓ KeyboardIME (Android)",
   "  ✓ OfflineMode",
-  "⠼ Generating signed APK",
-  "  Build successful.",
+  "⠼ Packaging builds...",
+  "  Signed IPA + APK ready.",
 ];
 
 // ─── CLAUDE CRAB ASCII LOGO ─────────────────────────────────────────
@@ -270,7 +269,7 @@ export const ClaudeCodeTerminal: React.FC = () => {
     >
       {/* ── Git header ── */}
       <div style={{ opacity: headerIn }}>
-        <span style={{ color: C.textMuted }}>~/dev/dictus-android </span>
+        <span style={{ color: C.textMuted }}>~/dev/dictus </span>
         <span style={{ color: C.textMuted }}>git:</span>
         <span style={{ color: C.accent }}>(develop)</span>
       </div>
@@ -309,7 +308,7 @@ export const ClaudeCodeTerminal: React.FC = () => {
               Opus 4.6 (1M context) · Claude Max
             </span>
             <span style={{ color: C.textMuted, fontSize: fontSize * 0.85 }}>
-              ~/dev/dictus-android
+              ~/dev/dictus
             </span>
           </div>
         </div>
@@ -427,7 +426,7 @@ export const ClaudeCodeTerminal: React.FC = () => {
         <div style={{ display: "flex", alignItems: "center", gap: 8 }}>
           <span style={{ color: C.textMuted }}>Opus 4.6 (1M context)</span>
           <span style={{ color: C.textMuted }}>│</span>
-          <span style={{ color: C.textBody }}>dictus-android</span>
+          <span style={{ color: C.textBody }}>dictus</span>
         </div>
       </div>
     </AbsoluteFill>
