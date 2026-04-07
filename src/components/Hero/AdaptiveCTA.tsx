@@ -2,7 +2,6 @@
 
 import { useState, useEffect } from "react";
 import { useTranslations } from "next-intl";
-import { QRCodeSVG } from "qrcode.react";
 
 type DeviceType = "iphone" | "android" | "desktop" | "other-mobile" | "unknown";
 
@@ -16,6 +15,7 @@ function detectDevice(): DeviceType {
 }
 
 const testflightUrl = process.env.NEXT_PUBLIC_TESTFLIGHT_URL;
+const androidUrl = process.env.NEXT_PUBLIC_ANDROID_RELEASE_URL;
 
 function AppleIcon() {
   return (
@@ -60,6 +60,42 @@ function Badge({
   );
 }
 
+function CtaButton({
+  href,
+  children,
+}: {
+  href: string;
+  children: React.ReactNode;
+}) {
+  return (
+    <a
+      href={href}
+      className="inline-flex items-center gap-2 rounded-full bg-accent px-8 py-3 font-normal text-white transition-colors hover:bg-accent-hi"
+    >
+      {children}
+    </a>
+  );
+}
+
+function SecondaryLink({
+  href,
+  children,
+}: {
+  href: string;
+  children: React.ReactNode;
+}) {
+  return (
+    <a
+      href={href}
+      className="inline-flex items-center gap-2 text-sm text-accent underline underline-offset-4 hover:text-accent-hi"
+    >
+      {children}
+    </a>
+  );
+}
+
+const betaActive = !!(testflightUrl || androidUrl);
+
 export default function AdaptiveCTA() {
   const t = useTranslations("Hero");
   const [device, setDevice] = useState<DeviceType>("unknown");
@@ -72,76 +108,80 @@ export default function AdaptiveCTA() {
   if (device === "unknown") {
     return (
       <div className="mt-6 flex flex-wrap items-center justify-center gap-3">
-        <Badge icon={<AppleIcon />} label={t("badge_ios")} />
-        <Badge icon={<AndroidIcon />} label={t("badge_android")} />
+        <Badge
+          icon={<AppleIcon />}
+          label={betaActive ? t("badge_ios_beta") : t("badge_ios")}
+        />
+        <Badge
+          icon={<AndroidIcon />}
+          label={betaActive ? t("badge_android_beta") : t("badge_android")}
+        />
       </div>
     );
   }
 
-  // iPhone with TestFlight configured: direct button + Android mention
+  // iPhone: primary TestFlight button + secondary Android link
   if (device === "iphone" && testflightUrl) {
     return (
       <div className="mt-6 flex flex-col items-center gap-3">
-        <a
-          href={testflightUrl}
-          className="inline-flex items-center gap-2 rounded-full bg-accent px-8 py-3 font-normal text-white transition-colors hover:bg-accent-hi"
-        >
+        <CtaButton href={testflightUrl}>
+          <AppleIcon />
           {t("cta_testflight")}
-        </a>
-        <span className="text-xs font-light text-white-40">
-          {t("cta_android_soon")}
-        </span>
-      </div>
-    );
-  }
-
-  // Desktop with TestFlight: QR code + Android mention
-  if (device === "desktop" && testflightUrl) {
-    return (
-      <div className="mt-6 flex flex-col items-center gap-4">
-        <p className="text-sm font-light text-white-70">
-          {t("cta_available_iphone")}
-        </p>
-        <div className="rounded-xl bg-white p-3">
-          <QRCodeSVG
-            value={testflightUrl}
-            size={120}
-            level="M"
-            bgColor="#FFFFFF"
-            fgColor="#0A1628"
-          />
-        </div>
-        <a
-          href={testflightUrl}
-          className="text-sm text-accent underline underline-offset-4 hover:text-accent-hi"
-        >
-          {t("cta_testflight_link")}
-        </a>
-        <span className="text-xs font-light text-white-40">
-          {t("cta_android_soon")}
-        </span>
-      </div>
-    );
-  }
-
-  // Android device: Android coming soon badge + iOS TestFlight link if available
-  if (device === "android") {
-    return (
-      <div className="mt-6 flex flex-col items-center gap-3">
-        <Badge icon={<AndroidIcon />} label={t("badge_android")} />
-        {testflightUrl && (
-          <a
-            href={testflightUrl}
-            className="text-xs text-accent underline underline-offset-4 hover:text-accent-hi"
-          >
-            {t("cta_testflight_link")} (iOS)
-          </a>
+        </CtaButton>
+        {androidUrl && (
+          <SecondaryLink href={androidUrl}>
+            <AndroidIcon />
+            {t("cta_android_download")}
+          </SecondaryLink>
         )}
       </div>
     );
   }
 
-  // Fallback: dual badges
+  // Android: primary download button + secondary TestFlight link
+  if (device === "android" && androidUrl) {
+    return (
+      <div className="mt-6 flex flex-col items-center gap-3">
+        <CtaButton href={androidUrl}>
+          <AndroidIcon />
+          {t("cta_android_download")}
+        </CtaButton>
+        {testflightUrl && (
+          <SecondaryLink href={testflightUrl}>
+            <AppleIcon />
+            {t("cta_testflight_link")} (iOS)
+          </SecondaryLink>
+        )}
+      </div>
+    );
+  }
+
+  // Desktop with beta active: two buttons side by side
+  if (device === "desktop" && betaActive) {
+    return (
+      <div className="mt-6 flex flex-col items-center gap-4">
+        <div className="flex items-center gap-3">
+          {testflightUrl && (
+            <CtaButton href={testflightUrl}>
+              <AppleIcon />
+              {t("cta_testflight")}
+            </CtaButton>
+          )}
+          {androidUrl && (
+            <a
+              href={androidUrl}
+              className="inline-flex items-center gap-2 rounded-full border border-accent/40 bg-accent/10 px-8 py-3 font-normal text-accent transition-colors hover:bg-accent/20"
+            >
+              <AndroidIcon />
+              {t("cta_android_download")}
+            </a>
+          )}
+        </div>
+      </div>
+    );
+  }
+
+  // Fallback: dual badges (no URLs configured)
   return (
     <div className="mt-6 flex flex-wrap items-center justify-center gap-3">
       <Badge icon={<AppleIcon />} label={t("badge_ios")} />
