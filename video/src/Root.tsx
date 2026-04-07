@@ -9,10 +9,10 @@ import { DictusDemoShowcase } from "./compositions/DictusDemoShowcase";
 import { DictusDemoFull } from "./compositions/DictusDemoFull";
 import { DictusAndroidBeta } from "./compositions/DictusAndroidBeta";
 
+/* eslint-disable @typescript-eslint/no-explicit-any */
 export const Root: React.FC = () => {
   return (
     <>
-      {/* eslint-disable-next-line @typescript-eslint/no-explicit-any */}
       <Composition
         id="dictus-demo-fr"
         component={DictusDemo as any}
@@ -22,7 +22,6 @@ export const Root: React.FC = () => {
         height={1920}
         defaultProps={{ locale: "fr" as const }}
       />
-      {/* eslint-disable-next-line @typescript-eslint/no-explicit-any */}
       <Composition
         id="dictus-demo-en"
         component={DictusDemo as any}
@@ -32,7 +31,6 @@ export const Root: React.FC = () => {
         height={1920}
         defaultProps={{ locale: "en" as const }}
       />
-      {/* eslint-disable-next-line @typescript-eslint/no-explicit-any */}
       <Composition
         id="dictus-demo-fr-screenonly"
         component={DictusDemo as any}
@@ -42,7 +40,6 @@ export const Root: React.FC = () => {
         height={1920}
         defaultProps={{ locale: "fr" as const, variant: "screen-only" as const }}
       />
-      {/* eslint-disable-next-line @typescript-eslint/no-explicit-any */}
       <Composition
         id="dictus-demo-en-screenonly"
         component={DictusDemo as any}
@@ -53,7 +50,6 @@ export const Root: React.FC = () => {
         defaultProps={{ locale: "en" as const, variant: "screen-only" as const }}
       />
       {/* ── Promo Videos (4 variants: locale × theme) ── */}
-      {/* eslint-disable-next-line @typescript-eslint/no-explicit-any */}
       <Composition
         id="dictus-promo-fr-dark"
         component={DictusPromo as any}
@@ -63,7 +59,6 @@ export const Root: React.FC = () => {
         height={1080}
         defaultProps={{ locale: "fr" as const, theme: "dark" as const }}
       />
-      {/* eslint-disable-next-line @typescript-eslint/no-explicit-any */}
       <Composition
         id="dictus-promo-fr-light"
         component={DictusPromo as any}
@@ -73,7 +68,6 @@ export const Root: React.FC = () => {
         height={1080}
         defaultProps={{ locale: "fr" as const, theme: "light" as const }}
       />
-      {/* eslint-disable-next-line @typescript-eslint/no-explicit-any */}
       <Composition
         id="dictus-promo-en-dark"
         component={DictusPromo as any}
@@ -83,7 +77,6 @@ export const Root: React.FC = () => {
         height={1080}
         defaultProps={{ locale: "en" as const, theme: "dark" as const }}
       />
-      {/* eslint-disable-next-line @typescript-eslint/no-explicit-any */}
       <Composition
         id="dictus-promo-en-light"
         component={DictusPromo as any}
@@ -94,7 +87,6 @@ export const Root: React.FC = () => {
         defaultProps={{ locale: "en" as const, theme: "light" as const }}
       />
       {/* ── Demo Showcase (iPhone mockup with screen recording) ── */}
-      {/* eslint-disable-next-line @typescript-eslint/no-explicit-any */}
       <Composition
         id="demo-showcase-a"
         component={DictusDemoShowcase as any}
@@ -104,7 +96,6 @@ export const Root: React.FC = () => {
         height={1920}
         defaultProps={{ outroVariant: "in-phone" as const }}
       />
-      {/* eslint-disable-next-line @typescript-eslint/no-explicit-any */}
       <Composition
         id="demo-showcase-b"
         component={DictusDemoShowcase as any}
@@ -115,7 +106,6 @@ export const Root: React.FC = () => {
         defaultProps={{ outroVariant: "fullscreen" as const }}
       />
       {/* ── Demo Full (intro + demo + outro, 30s) ── */}
-      {/* eslint-disable-next-line @typescript-eslint/no-explicit-any */}
       <Composition
         id="demo-full"
         component={DictusDemoFull as any}
@@ -125,7 +115,6 @@ export const Root: React.FC = () => {
         height={1920}
       />
       {/* ── Overlay Kit (intro / bg / outro × landscape / portrait) ── */}
-      {/* eslint-disable-next-line @typescript-eslint/no-explicit-any */}
       <Composition
         id="overlay-intro-landscape"
         component={DictusOverlayIntro as any}
@@ -135,7 +124,6 @@ export const Root: React.FC = () => {
         height={1080}
         defaultProps={{ format: "landscape" as const }}
       />
-      {/* eslint-disable-next-line @typescript-eslint/no-explicit-any */}
       <Composition
         id="overlay-intro-portrait"
         component={DictusOverlayIntro as any}
@@ -145,7 +133,6 @@ export const Root: React.FC = () => {
         height={1920}
         defaultProps={{ format: "portrait" as const }}
       />
-      {/* eslint-disable-next-line @typescript-eslint/no-explicit-any */}
       <Composition
         id="overlay-bg-landscape"
         component={DictusOverlayBg as any}
@@ -155,7 +142,6 @@ export const Root: React.FC = () => {
         height={1080}
         defaultProps={{ format: "landscape" as const }}
       />
-      {/* eslint-disable-next-line @typescript-eslint/no-explicit-any */}
       <Composition
         id="overlay-bg-portrait"
         component={DictusOverlayBg as any}
@@ -165,7 +151,6 @@ export const Root: React.FC = () => {
         height={1920}
         defaultProps={{ format: "portrait" as const }}
       />
-      {/* eslint-disable-next-line @typescript-eslint/no-explicit-any */}
       <Composition
         id="overlay-outro-landscape"
         component={DictusOverlayOutro as any}
@@ -175,7 +160,6 @@ export const Root: React.FC = () => {
         height={1080}
         defaultProps={{ format: "landscape" as const }}
       />
-      {/* eslint-disable-next-line @typescript-eslint/no-explicit-any */}
       <Composition
         id="overlay-outro-portrait"
         component={DictusOverlayOutro as any}
@@ -186,7 +170,6 @@ export const Root: React.FC = () => {
         defaultProps={{ format: "portrait" as const }}
       />
       {/* ── Android Beta Announcement ── */}
-      {/* eslint-disable-next-line @typescript-eslint/no-explicit-any */}
       <Composition
         id="android-beta"
         component={DictusAndroidBeta as any}

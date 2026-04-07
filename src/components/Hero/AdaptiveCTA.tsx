@@ -101,7 +101,9 @@ export default function AdaptiveCTA() {
   const [device, setDevice] = useState<DeviceType>("unknown");
 
   useEffect(() => {
-    setDevice(detectDevice());
+    const detected = detectDevice();
+    // Must run after hydration to read navigator.userAgent
+    requestAnimationFrame(() => setDevice(detected));
   }, []);
 
   // Pre-hydration: show dual badges
