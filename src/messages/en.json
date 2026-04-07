@@ -13,8 +13,12 @@
     "headline": "Your voice stays yours.",
     "subtitle": "100% offline voice dictation.",
     "badge_ios": "iOS — Coming soon",
+    "badge_ios_beta": "iOS — Beta",
     "badge_android": "Android — Coming soon",
-    "cta_testflight": "Join TestFlight",
+    "badge_android_beta": "Android — Beta",
+    "cta_testflight": "Join iOS Beta",
+    "cta_android_download": "Download Android Beta",
+    "cta_scan_to_join": "Scan to join the beta",
     "cta_available_iphone": "Available on iPhone",
     "cta_testflight_link": "Open in TestFlight",
     "cta_android_soon": "Also coming to Android"

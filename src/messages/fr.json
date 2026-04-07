@@ -13,8 +13,12 @@
     "headline": "Votre voix reste la v\u00f4tre.",
     "subtitle": "Dictation vocale 100% offline.",
     "badge_ios": "iOS \u2014 Bient\u00f4t disponible",
+    "badge_ios_beta": "iOS \u2014 Beta",
     "badge_android": "Android \u2014 Bient\u00f4t disponible",
-    "cta_testflight": "Rejoindre TestFlight",
+    "badge_android_beta": "Android \u2014 Beta",
+    "cta_testflight": "Rejoindre la beta iOS",
+    "cta_android_download": "T\u00e9l\u00e9charger la beta Android",
+    "cta_scan_to_join": "Scannez pour rejoindre la beta",
     "cta_available_iphone": "Disponible sur iPhone",
     "cta_testflight_link": "Ouvrir dans TestFlight",
     "cta_android_soon": "Bient\u00f4t sur Android"

@@ -1,6 +1,6 @@
 "use client";
 
-import { useCallback, useEffect, useRef } from "react";
+import { useEffect, useRef } from "react";
 
 export function useAnimationFrame(
   callback: (time: number) => void,
@@ -10,29 +10,30 @@ export function useAnimationFrame(
   const previousTimeRef = useRef<number | null>(null);
   const callbackRef = useRef(callback);
 
-  // Keep callback ref current without re-registering rAF
   useEffect(() => {
     callbackRef.current = callback;
   }, [callback]);
 
-  const animate = useCallback((time: number) => {
-    if (previousTimeRef.current === null) {
-      previousTimeRef.current = time;
-    }
-    callbackRef.current(time);
-    requestRef.current = requestAnimationFrame(animate);
-  }, []);
-
   useEffect(() => {
-    if (isActive) {
-      previousTimeRef.current = null;
+    if (!isActive) return;
+
+    previousTimeRef.current = null;
+
+    const animate = (time: number) => {
+      if (previousTimeRef.current === null) {
+        previousTimeRef.current = time;
+      }
+      callbackRef.current(time);
       requestRef.current = requestAnimationFrame(animate);
-    }
+    };
+
+    requestRef.current = requestAnimationFrame(animate);
+
     return () => {
       if (requestRef.current !== null) {
         cancelAnimationFrame(requestRef.current);
         requestRef.current = null;
       }
     };
-  }, [isActive, animate]);
+  }, [isActive]);
 }

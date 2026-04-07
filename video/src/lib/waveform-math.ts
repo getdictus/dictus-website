@@ -44,7 +44,7 @@ export function resolveBarColor(
 
 /** Deterministic pseudo-random using double sin hash for wider distribution */
 function hash(n: number): number {
-  let x = Math.sin(n) * 43758.5453;
+  const x = Math.sin(n) * 43758.5453;
   return x - Math.floor(x);
 }
 

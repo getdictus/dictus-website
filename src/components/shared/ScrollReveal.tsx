@@ -37,11 +37,9 @@ export default function ScrollReveal({
   const [skipAnimation, setSkipAnimation] = useState(false);
 
   useEffect(() => {
-    if (sessionStorage.getItem("page-revealed")) {
-      setSkipAnimation(true);
-    } else {
-      sessionStorage.setItem("page-revealed", "1");
-    }
+    const skip = !!sessionStorage.getItem("page-revealed");
+    if (!skip) sessionStorage.setItem("page-revealed", "1");
+    requestAnimationFrame(() => setSkipAnimation(skip));
   }, []);
 
   if (skipAnimation || shouldReduceMotion) {
