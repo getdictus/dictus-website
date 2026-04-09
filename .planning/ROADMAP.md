@@ -62,7 +62,7 @@ Full details: `.planning/milestones/v1.2-ROADMAP.md`
 
 **Plans:** 1 plan
 Plans:
-- [ ] 10-01-PLAN.md — Add X/Twitter icon to footer with i18n labels
+- [x] 10-01-PLAN.md — Add X/Twitter icon to footer with i18n labels
 
 ### Phase 11: Donation Page
 **Goal**: Visitors can access /donate and choose to contribute via Stripe (fiat) or BTCPay Server (Bitcoin)
@@ -110,7 +110,7 @@ Full details: `.planning/milestones/v1.3-ROADMAP.md`
 | 7. Content & CTA | v1.1 | 2/2 | Complete | 2026-03-12 |
 | 8. App Store Compliance | v1.2 | 2/2 | Complete | 2026-03-19 |
 | 9. Remotion Promo Video | v1.2 | 4/4 | Complete | 2026-03-21 |
-| 10. Social & Footer | v1.3 | 0/1 | Pending | — |
+| 10. Social & Footer | v1.3 | 1/1 | Complete | 2026-04-09 |
 | 11. Donation Page | v1.3 | 0/3 | Pending | — |
 | 12. Webhook Notifications | v1.3 | 0/2 | Pending | — |
 | 13. Desktop Preparation | v1.3 | 0/2 | Pending | — |
