@@ -2,7 +2,8 @@
   "Nav": {
     "fr": "FR",
     "en": "EN",
-    "skip_to_content": "Skip to main content"
+    "skip_to_content": "Skip to main content",
+    "contribute_label": "Contribute"
   },
   "Metadata": {
     "title": "dictus -- 100% Offline Voice Dictation for iOS & Android",
@@ -96,7 +97,8 @@
     "twitter_label": "X (Twitter)",
     "telegram_label": "Telegram",
     "privacy_link": "Privacy Policy",
-    "support_link": "Support"
+    "support_link": "Support",
+    "contribute_link": "Contribute"
   },
   "Privacy": {
     "meta_title": "Privacy Policy \u2014 dictus",

@@ -79,6 +79,13 @@ export default function Footer() {
           >
             {t("support_link")}
           </Link>
+          <span className="text-white-40" aria-hidden="true">&middot;</span>
+          <Link
+            href="/donate"
+            className="text-white-40 transition-colors hover:text-white-70"
+          >
+            {t("contribute_link")}
+          </Link>
         </div>
         <p className="mt-4 text-xs text-white-40">{t("privacy")}</p>
       </div>
