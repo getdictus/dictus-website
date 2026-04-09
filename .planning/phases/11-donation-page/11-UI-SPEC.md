@@ -34,14 +34,14 @@ Declared values (must be multiples of 4):
 | Token | Value | Usage |
 |-------|-------|-------|
 | xs | 4px | Chip gap between icon and label |
-| sm | 8px | Chip internal padding-y, input-button gap |
-| md | 16px | Card internal padding-x on mobile, gap between chips |
+| sm | 8px | Chip internal padding-y, input-button gap, nav pill vertical padding |
+| md | 16px | Card internal padding-x on mobile, gap between chips, chip horizontal padding |
 | lg | 24px | Card internal padding on desktop, gap between cards on desktop |
 | xl | 32px | Section vertical padding (top/bottom within page content) |
 | 2xl | 48px | Gap between heading block and cards block |
 | 3xl | 64px | Page top padding (below nav), page bottom padding |
 
-Exceptions: Amount chips get 12px horizontal padding (px-3) for visual compactness within the chip row. Touch target minimum 44px height on all interactive elements (chips, buttons, inputs).
+Exceptions: Touch target minimum 44px height on all interactive elements (chips, buttons, inputs), enforced via min-height not padding.
 
 ---
 
@@ -49,12 +49,14 @@ Exceptions: Amount chips get 12px horizontal padding (px-3) for visual compactne
 
 | Role | Size | Weight | Line Height | Usage on this page |
 |------|------|--------|-------------|--------------------|
-| Body | 16px (text-base) | 300 (font-light) | 1.5 | Motivation paragraph, thank-you line |
+| Body | 16px (text-base) | 400 (font-normal) | 1.5 | Motivation paragraph, thank-you line |
 | Label | 14px (text-sm) | 400 (font-normal) | 1.4 | Card subtitles, Lightning mention, custom amount label |
 | Heading | 30px / 36px (text-3xl / md:text-4xl) | 200 (font-extralight) | 1.2 | Page heading "Soutenir Dictus" |
 | Chip | 16px (text-base) | 400 (font-normal) | 1.0 | Amount chip labels ("5 EUR", "10 EUR") |
 
-Source: CLAUDE.md typography spec (DM Sans 200 display, 400 heading, 300 body). Matches existing page patterns (privacy/page.tsx uses text-3xl font-extralight).
+Two weights only: 200 (font-extralight) reserved for the page heading, 400 (font-normal) for all other text.
+
+Source: CLAUDE.md typography spec (DM Sans 200 display, 400 heading, 300 body). Body upgraded from 300 to 400 to stay within the 2-weight contract for this phase. Matches existing page patterns (privacy/page.tsx uses text-3xl font-extralight).
 
 ---
 
@@ -80,6 +82,10 @@ Source: CLAUDE.md brand kit, globals.css `@theme` block.
 ---
 
 ## Component Inventory
+
+### Focal Point
+
+Primary focal point: the two-card grid (Fiat + Bitcoin). The heading block draws the eye in, the card grid is where the user acts. All spacing and visual weight funnel toward these two cards.
 
 ### Page Layout (`/[locale]/donate/page.tsx`)
 
@@ -107,13 +113,13 @@ Source: CLAUDE.md brand kit, globals.css `@theme` block.
 - Card icon: credit card or euro SVG icon, 24px, `text-accent`
 - Card title: "Carte bancaire" / "Credit Card" — `text-lg font-normal text-text-primary`
 - Card subtitle: "Visa, Mastercard, Apple Pay..." — `text-sm text-white-40 mt-1`
-- Amount chips row: `flex flex-wrap gap-3 mt-6`
+- Amount chips row: `flex flex-wrap gap-4 mt-6`
 - Each chip: `rounded-full border border-border px-4 py-2 text-base font-normal text-text-primary cursor-pointer transition-all duration-200 hover:border-accent hover:text-accent` — min-height 44px
 - Selected chip: `bg-accent border-accent text-white`
 - No pre-selection on load (all chips in default/unselected state)
-- Chip click = direct redirect to Stripe Payment Link (no confirmation needed)
+- Chip click = direct redirect to Stripe Payment Link with amount pre-filled (no confirmation needed)
 - Custom amount row: `flex items-center gap-2 mt-4`
-- Input: `rounded-lg border border-border bg-transparent px-3 py-2 text-text-primary placeholder:text-white-40 focus:border-accent focus:outline-none w-28` — min-height 44px
+- Input: `rounded-lg border border-border bg-transparent px-4 py-2 text-text-primary placeholder:text-white-40 focus:border-accent focus:outline-none w-28` — min-height 44px
 - "Contribuer" / "Contribute" button: `rounded-full bg-accent px-6 py-2 text-white font-normal transition-colors hover:bg-accent-hi` — min-height 44px
 
 ### Bitcoin Card
@@ -134,9 +140,10 @@ Source: CLAUDE.md brand kit, globals.css `@theme` block.
 ### Nav "Contribuer" Pill Button
 
 - Added to Nav.tsx in the `items-center gap-1` div, before LanguageToggle
-- Styling: `rounded-full bg-accent px-4 py-1.5 text-sm font-normal text-white transition-colors hover:bg-accent-hi`
+- Styling: `rounded-full bg-accent px-4 py-2 text-sm font-normal text-white transition-colors hover:bg-accent-hi` — min-height 44px guaranteed by min-h-[44px] (not by padding)
 - Uses `Link` from `@/i18n/navigation` pointing to `/donate`
 - Label from i18n: "Contribuer" (FR) / "Contribute" (EN)
+- Mobile behavior: text label visible at all viewports (button is compact enough at px-4 py-2). No icon-only fallback needed — the short label "Contribuer" / "Contribute" fits comfortably alongside LanguageToggle on 320px+ screens.
 
 ### Footer "Contribuer" Link
 
@@ -225,9 +232,8 @@ No destructive actions on this page.
 
 ### Nav Pill Button
 
-1. Visible on all pages at all viewport widths
-2. On mobile: consider hiding text and showing only on larger screens, or keeping compact
-3. Click navigates to `/[locale]/donate`
+1. Visible on all pages at all viewport widths with text label ("Contribuer" / "Contribute")
+2. Click navigates to `/[locale]/donate`
 
 ### Card Hover
 
@@ -241,7 +247,7 @@ No destructive actions on this page.
 
 | Breakpoint | Layout |
 |------------|--------|
-| < 768px (mobile) | Cards stacked vertically, full width. Nav pill button text may be shortened or icon-only. |
+| < 768px (mobile) | Cards stacked vertically, full width. Nav pill button shows text label (compact enough for 320px+). |
 | >= 768px (md) | Cards side by side in 2-column grid. Nav pill button shows full text. |
 
 ---
