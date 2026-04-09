@@ -3,13 +3,13 @@ gsd_state_version: 1.0
 milestone: v1.3
 milestone_name: Donate & Desktop
 status: unknown
-stopped_at: Completed 11-01-PLAN.md
-last_updated: "2026-04-09T21:20:35.521Z"
+stopped_at: Completed 11-02-PLAN.md
+last_updated: "2026-04-09T21:23:34.869Z"
 progress:
   total_phases: 4
-  completed_phases: 0
+  completed_phases: 1
   total_plans: 3
-  completed_plans: 2
+  completed_plans: 3
   percent: 12
 ---
 
@@ -53,6 +53,7 @@ Progress: [█░░░░░░░░░] 12% (v1.3 milestone)
 - X/Twitter footer: official X logo SVG, icon order GitHub > X > Telegram
 - [Phase 11]: Setup docs in docs/ directory, written in French, referencing donate.ts
 - [Phase 11]: Fiat chips use <a> tags with direct Stripe Payment Link href; Bitcoin chips use <button> with BTCPay form POST
+- [Phase 11]: Nav CTA uses accent pill button with min-h-[44px] touch target, gap-2 from LanguageToggle
 
 ### Pending Todos
 
@@ -66,5 +67,5 @@ None.
 
 ## Session Continuity
 
-Last session: 2026-04-09T21:20:33.077Z
-Stopped at: Completed 11-01-PLAN.md
+Last session: 2026-04-09T21:23:34.867Z
+Stopped at: Completed 11-02-PLAN.md
