@@ -1,40 +1,56 @@
 ---
 gsd_state_version: 1.0
-milestone: v1.2
-milestone_name: Video & Compliance — SHIPPED 2026-03-22
-status: completed
+milestone: v1.3
+milestone_name: Donate & Desktop
+status: planned
 stopped_at: null
-last_updated: "2026-03-22"
-last_activity: 2026-03-22 — Completed v1.2 milestone
+last_updated: "2026-04-09"
+last_activity: 2026-04-09 — Created v1.3 milestone (requirements + roadmap)
 progress:
-  total_phases: 2
-  completed_phases: 2
-  total_plans: 6
-  completed_plans: 6
-  percent: 100
+  total_phases: 4
+  completed_phases: 0
+  total_plans: 8
+  completed_plans: 0
+  percent: 0
 ---
 
 # Project State
 
 ## Project Reference
 
-See: .planning/PROJECT.md (updated 2026-03-22)
+See: .planning/PROJECT.md (updated 2026-04-09)
 
 **Core value:** Convaincre un visiteur en quelques secondes que dictus est l'alternative privacy-first a la dictation vocale, et lui donner envie de tester l'app.
-**Current focus:** Between milestones — run /gsd:new-milestone to start next
+**Current focus:** v1.3 Donate & Desktop — donation page, webhooks Telegram, desktop badges, X/Twitter footer
 
 ## Current Position
 
-Milestone v1.2 Video & Compliance: COMPLETE
-All phases shipped. No active work.
+Milestone v1.3 Donate & Desktop: PLANNED
+4 phases defined, ready for planning.
 
-Progress: [██████████] 100% (v1.2 milestone)
+Progress: [░░░░░░░░░░] 0% (v1.3 milestone)
+
+## Phase Overview
+
+| Phase | Goal | Status | Depends on |
+|-------|------|--------|------------|
+| 10. Social & Footer | X/Twitter icon in footer | Pending | — |
+| 11. Donation Page | /donate with Stripe + BTCPay | Pending | — |
+| 12. Webhook Notifications | Telegram bot notifications | Pending | Phase 11 |
+| 13. Desktop Preparation | Coming Soon badges Mac/Win/Linux | Pending | — |
+
+**Next action:** `/gsd:plan-phase 10` (quick win) or `/gsd:plan-phase 11` (main feature)
 
 ## Accumulated Context
 
 ### Decisions
 
-Full decision log in PROJECT.md Key Decisions table.
+- BTCPay Server: Cloudflare Tunnel from Umbrel (0 EUR) recommended, Hetzner CAX11 (4 EUR/month) as fallback
+- Stripe: Payment Link with allow_custom_amounts, no backend needed
+- phoenixd for Lightning (officially supported by BTCPay, auto liquidity)
+- Desktop downloads: Coming Soon placeholders, config-driven links in downloads.ts
+- Label "Contribution" not "Don" (PIVI Solutions is a company)
+- Handy.computer inspiration: tabbed OS selector with auto-detection
 
 ### Pending Todos
 
@@ -42,7 +58,9 @@ None.
 
 ### Blockers/Concerns
 
-None.
+- Stripe account not yet created (needs SIRET + IBAN, 1-2 days verification)
+- BTCPay Server not yet deployed (user needs to choose infra option)
+- Telegram bot not yet created (needs @BotFather setup)
 
 ## Session Continuity
 

@@ -9,6 +9,7 @@ Marketing landing page for dictus -- an offline iOS voice dictation keyboard by 
 - ✅ **v1.0 dictus Landing Page** — Phases 1-4 (shipped 2026-03-10)
 - ✅ **v1.1 Polish & Differentiation** — Phases 5-7 (shipped 2026-03-17)
 - ✅ **v1.2 Video & Compliance** — Phases 8-9 (shipped 2026-03-21)
+- **v1.3 Donate & Desktop** — Phases 10-13 (active)
 
 ## Phases
 
@@ -58,3 +59,7 @@ Full details: `.planning/milestones/v1.2-ROADMAP.md`
 | 7. Content & CTA | v1.1 | 2/2 | Complete | 2026-03-12 |
 | 8. App Store Compliance | v1.2 | 2/2 | Complete | 2026-03-19 |
 | 9. Remotion Promo Video | v1.2 | 4/4 | Complete | 2026-03-21 |
+| 10. Social & Footer | v1.3 | 0/1 | Pending | — |
+| 11. Donation Page | v1.3 | 0/3 | Pending | — |
+| 12. Webhook Notifications | v1.3 | 0/2 | Pending | — |
+| 13. Desktop Preparation | v1.3 | 0/2 | Pending | — |

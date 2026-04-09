@@ -1,5 +1,24 @@
 # Milestones
 
+## v1.3 Donate & Desktop (Active: 2026-04-09)
+
+**Phases planned:** 4 phases (10-13), ~8 plans
+**Status:** Planned, ready for phase planning
+
+**Scope:**
+- Page /donate bilingue FR/EN (Stripe fiat + BTCPay Server Bitcoin)
+- Webhook notifications Telegram (API routes Next.js)
+- Desktop platform badges Coming Soon (Mac/Windows/Linux) with OS auto-detection
+- X/Twitter icon in footer
+- Setup guides for Stripe (PIVI Solutions) and BTCPay Server
+
+**Blockers before execution:**
+- Stripe account creation (SIRET + IBAN)
+- BTCPay Server deployment (Umbrel + Cloudflare Tunnel or VPS)
+- Telegram bot creation (@BotFather)
+
+---
+
 ## v1.2 Video & Compliance (Shipped: 2026-03-22)
 
 **Phases completed:** 2 phases, 6 plans
