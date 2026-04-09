@@ -46,6 +46,57 @@ Full details: `.planning/milestones/v1.2-ROADMAP.md`
 
 </details>
 
+### v1.3 Donate & Desktop (Phases 10-13) — ACTIVE
+
+**Milestone Goal:** Add donation page (Stripe fiat + BTCPay Bitcoin), webhook notifications via Telegram bot, Desktop platform badges (Coming Soon), and X/Twitter social link.
+
+### Phase 10: Social & Footer
+**Goal**: X/Twitter icon visible in the footer on every page, linking to https://x.com/getdictus
+**Depends on**: Nothing
+**Requirements**: SOC-01, SOC-02
+**Success Criteria**:
+  1. Footer displays 3 social icons in order: GitHub, X/Twitter, Telegram
+  2. X/Twitter icon links to https://x.com/getdictus (opens in new tab)
+  3. Icon uses the official X logo SVG, same size and style as existing icons
+  4. i18n label twitter_label exists in FR and EN translation files
+
+**Plans:** 1 plan
+Plans:
+- [ ] 10-01-PLAN.md — Add X/Twitter icon to footer with i18n labels
+
+### Phase 11: Donation Page
+**Goal**: Visitors can access /donate and choose to contribute via Stripe (fiat) or BTCPay Server (Bitcoin)
+**Depends on**: Nothing
+**Requirements**: DON-01, DON-02, DON-03, DON-04, DON-05, PAY-01, PAY-02
+**Success Criteria**:
+  1. Visiting /fr/donate and /en/donate displays a bilingual donation page with two cards side by side
+  2. Fiat card shows 4 suggested amounts (5/10/25/50 EUR) as selectable chips + custom amount input
+  3. Bitcoin card has a CTA that opens a BTCPay Server invoice
+  4. Page uses glassmorphism cards with hover glow consistent with design system
+  5. Setup guides for Stripe and BTCPay Server documented
+
+### Phase 12: Webhook Notifications
+**Goal**: Every donation (Stripe or BTCPay) triggers a formatted notification in a Telegram chat via a bot
+**Depends on**: Phase 11
+**Requirements**: HOOK-01, HOOK-02, HOOK-03, HOOK-04
+**Success Criteria**:
+  1. POST to /api/webhooks/stripe with valid signature sends Telegram message
+  2. POST to /api/webhooks/btcpay with valid HMAC sends Telegram message
+  3. Invalid signatures rejected with 400 status
+  4. Environment variables documented
+
+### Phase 13: Desktop Preparation
+**Goal**: The site communicates that Dictus is available on Desktop (Mac, Windows, Linux) with Coming Soon badges
+**Depends on**: Nothing
+**Requirements**: DESK-01, DESK-02, DESK-03, DESK-04
+**Success Criteria**:
+  1. Download section displays tabs (macOS/Windows/Linux) with OS auto-detection
+  2. Each tab shows Coming Soon badge with platform icon
+  3. downloads.ts config centralizes all platform links
+  4. Site copy updated to reflect multi-platform availability
+
+Full details: `.planning/milestones/v1.3-ROADMAP.md`
+
 ## Progress
 
 | Phase | Milestone | Plans Complete | Status | Completed |
