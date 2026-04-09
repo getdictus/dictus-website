@@ -3,13 +3,13 @@ gsd_state_version: 1.0
 milestone: v1.3
 milestone_name: Donate & Desktop
 status: unknown
-stopped_at: Phase 11 UI-SPEC approved
-last_updated: "2026-04-09T20:55:20.722Z"
+stopped_at: Completed 11-03-PLAN.md
+last_updated: "2026-04-09T21:18:51.366Z"
 progress:
   total_phases: 4
   completed_phases: 0
-  total_plans: 0
-  completed_plans: 0
+  total_plans: 3
+  completed_plans: 1
   percent: 12
 ---
 
@@ -51,6 +51,7 @@ Progress: [█░░░░░░░░░] 12% (v1.3 milestone)
 - Label "Contribution" not "Don" (PIVI Solutions is a company)
 - Handy.computer inspiration: tabbed OS selector with auto-detection
 - X/Twitter footer: official X logo SVG, icon order GitHub > X > Telegram
+- [Phase 11]: Setup docs in docs/ directory, written in French, referencing donate.ts
 
 ### Pending Todos
 
@@ -64,5 +65,5 @@ None.
 
 ## Session Continuity
 
-Last session: 2026-04-09T20:55:20.720Z
-Stopped at: Phase 11 UI-SPEC approved
+Last session: 2026-04-09T21:18:51.364Z
+Stopped at: Completed 11-03-PLAN.md
