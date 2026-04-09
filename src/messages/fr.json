@@ -141,5 +141,22 @@
     "telegram_link_text": "Rejoindre le groupe Telegram",
     "compatibility_title": "Compatibilit\u00e9",
     "compatibility_text": "Dictus n\u00e9cessite iOS 18+ (iPhone) \u2014 support Android bient\u00f4t disponible."
+  },
+  "Donate": {
+    "meta_title": "Soutenir Dictus - Contribution",
+    "meta_description": "Soutenez le developpement de Dictus, le clavier de dictation vocale open source et 100% offline.",
+    "heading": "Soutenir Dictus",
+    "motivation": "Dictus est un projet independant et open source. Votre contribution aide a financer le developpement, les serveurs et les futures fonctionnalites. Chaque geste compte.",
+    "fiat_title": "Carte bancaire",
+    "fiat_subtitle": "Visa, Mastercard, Apple Pay...",
+    "btc_title": "Bitcoin",
+    "btc_subtitle": "On-chain & Lightning",
+    "lightning_mention": "Lightning supporte",
+    "chip_eur": "{amount} EUR",
+    "custom_placeholder": "Montant",
+    "custom_submit": "Contribuer",
+    "thank_you": "Merci pour votre soutien",
+    "error_min": "Montant minimum : 1 EUR",
+    "error_max": "Montant maximum : 999 EUR"
   }
 }
