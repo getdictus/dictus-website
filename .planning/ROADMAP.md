@@ -75,6 +75,12 @@ Plans:
   4. Page uses glassmorphism cards with hover glow consistent with design system
   5. Setup guides for Stripe and BTCPay Server documented
 
+**Plans:** 3 plans
+Plans:
+- [ ] 11-01-PLAN.md — Donate page with Fiat (Stripe) and Bitcoin (BTCPay) cards
+- [ ] 11-02-PLAN.md — Nav pill button and Footer link entry points
+- [ ] 11-03-PLAN.md — Stripe and BTCPay Server setup guides
+
 ### Phase 12: Webhook Notifications
 **Goal**: Every donation (Stripe or BTCPay) triggers a formatted notification in a Telegram chat via a bot
 **Depends on**: Phase 11
