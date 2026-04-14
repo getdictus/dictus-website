@@ -4,7 +4,7 @@ milestone: v1.3
 milestone_name: Donate & Desktop
 status: unknown
 stopped_at: Completed 11-05-PLAN.md
-last_updated: "2026-04-14T21:52:22.362Z"
+last_updated: "2026-04-14T21:57:17.856Z"
 progress:
   total_phases: 4
   completed_phases: 1
