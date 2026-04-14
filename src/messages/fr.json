@@ -159,6 +159,10 @@
     "custom_submit": "Soutenir",
     "thank_you": "Merci pour votre soutien",
     "error_min": "Montant minimum : 1 EUR",
-    "error_max": "Montant maximum : 999 EUR"
+    "error_max": "Montant maximum : 999 EUR",
+    "why_support_title": "Pourquoi soutenir ?",
+    "why_support_offline": "100% offline",
+    "why_support_opensource": "Open source",
+    "why_support_independent": "Indépendant"
   }
 }
