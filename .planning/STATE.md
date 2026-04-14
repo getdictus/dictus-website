@@ -3,13 +3,13 @@ gsd_state_version: 1.0
 milestone: v1.3
 milestone_name: Donate & Desktop
 status: unknown
-stopped_at: Completed 11-02-PLAN.md
-last_updated: "2026-04-09T21:27:46.115Z"
+stopped_at: Completed 11-04-PLAN.md
+last_updated: "2026-04-14T21:46:42.166Z"
 progress:
   total_phases: 4
-  completed_phases: 1
-  total_plans: 3
-  completed_plans: 3
+  completed_phases: 0
+  total_plans: 5
+  completed_plans: 4
   percent: 12
 ---
 
@@ -54,6 +54,8 @@ Progress: [█░░░░░░░░░] 12% (v1.3 milestone)
 - [Phase 11]: Setup docs in docs/ directory, written in French, referencing donate.ts
 - [Phase 11]: Fiat chips use <a> tags with direct Stripe Payment Link href; Bitcoin chips use <button> with BTCPay form POST
 - [Phase 11]: Nav CTA uses accent pill button with min-h-[44px] touch target, gap-2 from LanguageToggle
+- [Phase 11]: [Phase 11]: Terminology renamed Contribuer/Contribute -> Soutenir/Support across i18n, Nav, Footer, donate CTA — UAT feedback: 'Contribuer' felt like open-source dev contribution, not financial support
+- [Phase 11]: [Phase 11]: Footer.support_link (was help page link) renamed to Footer.help_link to resolve JSON key collision when donate link was renamed to support_link — Pre-existing support_link key collided with planned rename; renaming the older key preserved both links while honoring the plan's intent
 
 ### Pending Todos
 
@@ -67,5 +69,5 @@ None.
 
 ## Session Continuity
 
-Last session: 2026-04-09T21:23:34.867Z
-Stopped at: Completed 11-02-PLAN.md
+Last session: 2026-04-14T21:46:42.165Z
+Stopped at: Completed 11-04-PLAN.md

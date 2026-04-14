@@ -75,7 +75,7 @@ Plans:
   4. Page uses glassmorphism cards with hover glow consistent with design system
   5. Setup guides for Stripe and BTCPay Server documented
 
-**Plans:** 3/3 plans complete
+**Plans:** 4/5 plans executed
 Plans:
 - [ ] 11-01-PLAN.md — Donate page with Fiat (Stripe) and Bitcoin (BTCPay) cards
 - [ ] 11-02-PLAN.md — Nav pill button and Footer link entry points
@@ -117,6 +117,6 @@ Full details: `.planning/milestones/v1.3-ROADMAP.md`
 | 8. App Store Compliance | v1.2 | 2/2 | Complete | 2026-03-19 |
 | 9. Remotion Promo Video | v1.2 | 4/4 | Complete | 2026-03-21 |
 | 10. Social & Footer | v1.3 | 1/1 | Complete | 2026-04-09 |
-| 11. Donation Page | 3/3 | Complete    | 2026-04-09 | — |
+| 11. Donation Page | 4/5 | In Progress|  | — |
 | 12. Webhook Notifications | v1.3 | 0/2 | Pending | — |
 | 13. Desktop Preparation | v1.3 | 0/2 | Pending | — |
