@@ -3,13 +3,13 @@ gsd_state_version: 1.0
 milestone: v1.3
 milestone_name: Donate & Desktop
 status: unknown
-stopped_at: Completed 11-04-PLAN.md
-last_updated: "2026-04-14T21:46:42.166Z"
+stopped_at: Completed 11-05-PLAN.md
+last_updated: "2026-04-14T21:52:22.362Z"
 progress:
   total_phases: 4
-  completed_phases: 0
+  completed_phases: 1
   total_plans: 5
-  completed_plans: 4
+  completed_plans: 5
   percent: 12
 ---
 
@@ -56,6 +56,10 @@ Progress: [█░░░░░░░░░] 12% (v1.3 milestone)
 - [Phase 11]: Nav CTA uses accent pill button with min-h-[44px] touch target, gap-2 from LanguageToggle
 - [Phase 11]: [Phase 11]: Terminology renamed Contribuer/Contribute -> Soutenir/Support across i18n, Nav, Footer, donate CTA — UAT feedback: 'Contribuer' felt like open-source dev contribution, not financial support
 - [Phase 11]: [Phase 11]: Footer.support_link (was help page link) renamed to Footer.help_link to resolve JSON key collision when donate link was renamed to support_link — Pre-existing support_link key collided with planned rename; renaming the older key preserved both links while honoring the plan's intent
+- [Phase 11]: White Bitcoin glyph in navy tile (not BTC-orange) for visual symmetry with Fiat card per Design Decisions 'icon rendered white/accent inside the tile'
+- [Phase 11]: Digits-only text input (type=text + inputMode=numeric + sanitizeDigits) over type=number to eliminate native browser spinner deterministically across Firefox/Safari
+- [Phase 11]: Custom stepper increments fixed at +/-1 EUR (not chip-value-based) per Design Decisions
+- [Phase 11]: Selected-chip className declared but not applied in redirect-on-click flow; reserved for future staged (pick-then-confirm) interaction
 
 ### Pending Todos
 
@@ -69,5 +73,5 @@ None.
 
 ## Session Continuity
 
-Last session: 2026-04-14T21:46:42.165Z
-Stopped at: Completed 11-04-PLAN.md
+Last session: 2026-04-14T21:52:22.360Z
+Stopped at: Completed 11-05-PLAN.md
