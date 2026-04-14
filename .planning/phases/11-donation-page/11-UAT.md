@@ -60,6 +60,38 @@ issues: 2
 pending: 0
 skipped: 0
 
+## Design Decisions (agreed with user 2026-04-14, consume during planning)
+
+- **Terminology**: rename "Contribuer/Contribute" → "Soutenir/Support" everywhere (i18n keys, Nav pill, Footer link, donate page copy, page metadata, HTML title, OG tags).
+  - i18n keys: `Nav.contribute_label` → `Nav.support_label`, `Footer.contribute_link` → `Footer.support_link`, donate page namespace updated accordingly.
+- **Icon library**: install `@iconify/react` (pick latest stable, tree-shaken on-demand loading). No other icon packs — Iconify sources everything.
+- **Card icons**:
+  - Fiat: `solar:card-bold-duotone` (fallback `solar:card-2-bold-duotone` if rendering feels off — builder decides during implementation).
+  - Bitcoin: `bitcoin-icons:bitcoin-circle-filled`.
+  - **Keep** the existing navy squircle tile around the icon (brand consistency). Icon rendered white/accent inside the tile.
+- **Card layout (Option A1 — stacked hierarchy)**:
+  1. Header row: tile+icon (left) + title + subtitle stacked (right).
+  2. Subtle divider (border-hi at 0.07 opacity).
+  3. Amounts block: fixed **4-column grid** for chips (5 / 10 / 25 / 50 EUR on a single row at all breakpoints >= sm; 2x2 on xs). Below chips: custom amount input + stepper.
+  4. Divider.
+  5. CTA: **full-width** button at the bottom of the card, using the brand `Button gradient` token (`linear-gradient(135deg, #1A4E8A, #0F3460)`).
+- **Custom amount stepper**:
+  - Replace native `<input type="number">` (no browser spinner).
+  - Text input masked to digits only.
+  - Suffix "€" visible at the left or right of the input (builder choice, must read natural in FR/EN).
+  - On the right edge: a **full-height** stepper block with two stacked chevrons (up / down), separated by a 1px divider. Hover = accent glow.
+  - Increment = **+1 EUR** per chevron click (standard, not tied to chip values).
+- **Chip states**:
+  - Default: border-hi outline, text mist.
+  - Hover: micro-scale 1.02 + glow soft.
+  - Selected: accent translucent fill + accent border + glow soft.
+- **Page composition (overall rebalance)**:
+  1. Hero section: title "Soutenir Dictus" / "Support Dictus" + motivation paragraph (keep the current copy or refine lightly).
+  2. Two cards side-by-side (desktop) / stacked (mobile).
+  3. **New "Pourquoi soutenir ?" / "Why support ?" section** — 3 short inline bullets (NOT cards), values-focused: "100% offline", "Open source", "Indépendant / Independent". Sober text-mist styling, small, inline on desktop, stacked on mobile.
+  4. Thank-you line at the bottom (slim, centered, text-mist).
+- **Out of scope for this gap closure**: changing Stripe Payment Link URLs, BTCPay config, or the payment flow itself. This is a UI/UX refinement pass.
+
 ## Gaps
 
 - truth: "Donate page design is polished and uses terminology that clearly signals financial support"
