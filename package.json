@@ -9,6 +9,7 @@
     "lint": "eslint"
   },
   "dependencies": {
+    "@iconify/react": "^6.0.2",
     "motion": "^12.35.2",
     "next": "16.1.6",
     "next-intl": "^4.8.3",
