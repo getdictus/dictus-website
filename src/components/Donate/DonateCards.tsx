@@ -2,6 +2,7 @@
 
 import { useState } from "react";
 import { useTranslations } from "next-intl";
+import { Icon } from "@iconify/react";
 import {
   stripeLinks,
   btcpayConfig,
@@ -9,6 +10,19 @@ import {
   MIN_AMOUNT,
   MAX_AMOUNT,
 } from "@/config/donate";
+
+function sanitizeDigits(raw: string): string {
+  return raw.replace(/[^0-9]/g, "").slice(0, 4);
+}
+
+function clampStep(current: string, delta: number): string {
+  const parsed = parseInt(current || "0", 10);
+  const base = Number.isFinite(parsed) ? parsed : 0;
+  const next = base + delta;
+  if (next < MIN_AMOUNT) return String(MIN_AMOUNT);
+  if (next > MAX_AMOUNT) return String(MAX_AMOUNT);
+  return String(next);
+}
 
 export default function DonateCards() {
   const t = useTranslations("Donate");
@@ -68,158 +82,281 @@ export default function DonateCards() {
     handleBtcPayClick(amount);
   }
 
-  const chipClass =
-    "min-h-[44px] flex items-center rounded-full border border-border px-4 py-2 text-base font-normal text-text-primary cursor-pointer transition-all duration-200 hover:border-accent hover:text-accent focus-visible:ring-2 focus-visible:ring-accent focus-visible:ring-offset-2 focus-visible:ring-offset-ink-deep";
-
-  const inputClass =
-    "min-h-[44px] w-28 rounded-lg border border-border bg-transparent px-4 py-2 text-text-primary placeholder:text-white-40 focus:border-accent focus:outline-none focus-visible:ring-2 focus-visible:ring-accent focus-visible:ring-offset-2 focus-visible:ring-offset-ink-deep";
-
-  const buttonClass =
-    "min-h-[44px] rounded-full bg-accent px-6 py-2 text-white font-normal transition-colors hover:bg-accent-hi focus-visible:ring-2 focus-visible:ring-accent focus-visible:ring-offset-2 focus-visible:ring-offset-ink-deep";
-
   const cardClass =
-    "rounded-2xl border border-border bg-[var(--glass-t2-bg)] p-6 backdrop-blur-[12px] backdrop-saturate-[1.2] transition-all duration-300 hover:border-border-hi hover:shadow-[0_0_20px_var(--color-glow-soft)]";
+    "flex flex-col rounded-2xl border border-border bg-[var(--glass-t2-bg)] p-6 backdrop-blur-[12px] backdrop-saturate-[1.2] transition-all duration-300 hover:border-border-hi hover:shadow-[0_0_20px_var(--color-glow-soft)]";
+
+  const chipBase =
+    "flex min-h-[44px] items-center justify-center rounded-full border border-border-hi px-3 py-2 text-base font-normal text-mist transition-all duration-200 hover:scale-[1.02] hover:shadow-[0_0_12px_var(--color-glow-soft)] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-accent focus-visible:ring-offset-2 focus-visible:ring-offset-ink-deep";
+
+  // Selected variant retained for future staged-flow use (not applied in current redirect-on-click flow).
+  const _chipSelectedModifier =
+    "bg-[rgba(61,126,255,0.18)] border-accent shadow-[0_0_12px_var(--color-glow-soft)]";
+  void _chipSelectedModifier;
+
+  const dividerClass = "my-5 border-t border-white/[0.07]";
+
+  const tileClass =
+    "flex h-10 w-10 items-center justify-center rounded-xl bg-navy";
+
+  const ctaClass =
+    "mt-auto flex min-h-[48px] w-full items-center justify-center rounded-full px-6 py-3 text-base font-normal text-white transition-all duration-200 hover:brightness-110 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-accent focus-visible:ring-offset-2 focus-visible:ring-offset-ink-deep";
+  const ctaStyle = {
+    backgroundImage: "linear-gradient(135deg, #1A4E8A, #0F3460)",
+  };
 
   return (
     <div className="mt-12 grid grid-cols-1 gap-6 md:grid-cols-2">
       {/* Fiat Card */}
       <section aria-labelledby="fiat-title" className={cardClass}>
+        {/* 1. Header row */}
         <div className="flex items-center gap-3">
-          <div className="flex h-10 w-10 items-center justify-center rounded-xl bg-navy">
-            <svg
-              width="24"
-              height="24"
-              viewBox="0 0 24 24"
-              fill="none"
-              stroke="currentColor"
-              strokeWidth="1.5"
-              strokeLinecap="round"
-              strokeLinejoin="round"
-              className="text-accent"
+          <div className={tileClass}>
+            <Icon
+              icon="solar:card-bold-duotone"
+              width={24}
+              height={24}
+              className="text-white"
               aria-hidden="true"
-            >
-              <rect x="1" y="4" width="22" height="16" rx="2" ry="2" />
-              <line x1="1" y1="10" x2="23" y2="10" />
-            </svg>
+            />
           </div>
-          <div>
+          <div className="flex flex-col">
             <h2
               id="fiat-title"
               className="text-lg font-normal text-text-primary"
             >
               {t("fiat_title")}
             </h2>
-            <p className="mt-1 text-sm text-white-40">{t("fiat_subtitle")}</p>
+            <p className="text-sm text-white-40">{t("fiat_subtitle")}</p>
           </div>
         </div>
 
-        <div className="mt-6 flex flex-wrap gap-4">
+        {/* 2. Divider */}
+        <div className={dividerClass} />
+
+        {/* 3. Amounts block */}
+        <div className="grid grid-cols-2 gap-3 sm:grid-cols-4">
           {AMOUNTS.map((amount) => (
             <a
               key={amount}
               href={stripeLinks[amount]}
               role="link"
               aria-label={`${t("custom_submit")} ${amount} EUR`}
-              className={chipClass}
+              className={chipBase}
             >
-              {amount} EUR
+              {amount} €
             </a>
           ))}
         </div>
 
-        <div className="mt-4 flex items-center gap-2">
-          <label htmlFor="fiat-custom" className="sr-only">
-            {t("custom_placeholder")}
-          </label>
-          <input
-            id="fiat-custom"
-            type="number"
-            min={MIN_AMOUNT}
-            max={MAX_AMOUNT}
-            placeholder={t("custom_placeholder")}
-            value={customFiatAmount}
-            onChange={(e) => {
-              setCustomFiatAmount(e.target.value);
-              setFiatError(null);
-            }}
-            className={inputClass}
-          />
-          <button onClick={handleStripeCustom} className={buttonClass}>
-            {t("custom_submit")}
-          </button>
+        <div className="mt-4 flex flex-col gap-2">
+          <div
+            className="relative flex min-h-[44px] w-full items-stretch rounded-lg border border-border-hi bg-transparent focus-within:border-accent focus-within:shadow-[0_0_12px_var(--color-glow-soft)]"
+          >
+            <label htmlFor="fiat-custom" className="sr-only">
+              {t("custom_placeholder")}
+            </label>
+            <input
+              id="fiat-custom"
+              type="text"
+              inputMode="numeric"
+              pattern="[0-9]*"
+              autoComplete="off"
+              placeholder={t("custom_placeholder")}
+              value={customFiatAmount}
+              onChange={(e) => {
+                setCustomFiatAmount(sanitizeDigits(e.target.value));
+                setFiatError(null);
+              }}
+              className="w-full flex-1 bg-transparent px-4 text-text-primary placeholder:text-white-40 focus:outline-none"
+            />
+            <span
+              aria-hidden="true"
+              className="flex items-center pr-2 text-sm text-white-40"
+            >
+              €
+            </span>
+            <div
+              className="flex flex-col border-l border-white/[0.07]"
+              role="group"
+              aria-label={t("custom_placeholder")}
+            >
+              <button
+                type="button"
+                aria-label="+1"
+                onClick={() => {
+                  setCustomFiatAmount((v) => clampStep(v, +1));
+                  setFiatError(null);
+                }}
+                className="flex h-1/2 w-9 items-center justify-center text-white-70 transition-colors hover:bg-[rgba(61,126,255,0.12)] hover:text-accent focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-accent focus-visible:ring-inset"
+              >
+                <Icon icon="solar:alt-arrow-up-linear" width={14} height={14} />
+              </button>
+              <div
+                className="border-t border-white/[0.07]"
+                aria-hidden="true"
+              />
+              <button
+                type="button"
+                aria-label="-1"
+                onClick={() => {
+                  setCustomFiatAmount((v) => clampStep(v, -1));
+                  setFiatError(null);
+                }}
+                className="flex h-1/2 w-9 items-center justify-center text-white-70 transition-colors hover:bg-[rgba(61,126,255,0.12)] hover:text-accent focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-accent focus-visible:ring-inset"
+              >
+                <Icon
+                  icon="solar:alt-arrow-down-linear"
+                  width={14}
+                  height={14}
+                />
+              </button>
+            </div>
+          </div>
+          {fiatError && (
+            <p className="text-sm text-[#EF4444]">{fiatError}</p>
+          )}
         </div>
-        {fiatError && (
-          <p className="mt-2 text-sm text-[#EF4444]">{fiatError}</p>
-        )}
+
+        {/* 4. Divider before CTA */}
+        <div className={dividerClass} />
+
+        {/* 5. Full-width gradient CTA */}
+        <button
+          type="button"
+          onClick={handleStripeCustom}
+          style={ctaStyle}
+          className={ctaClass}
+        >
+          {t("custom_submit")}
+        </button>
       </section>
 
       {/* Bitcoin Card */}
       <section aria-labelledby="btc-title" className={cardClass}>
+        {/* 1. Header row */}
         <div className="flex items-center gap-3">
-          <div className="flex h-10 w-10 items-center justify-center rounded-xl bg-navy">
-            <svg
-              width="24"
-              height="24"
-              viewBox="0 0 24 24"
-              fill="currentColor"
-              className="text-[#F7931A]"
+          <div className={tileClass}>
+            <Icon
+              icon="bitcoin-icons:bitcoin-circle-filled"
+              width={24}
+              height={24}
+              className="text-white"
               aria-hidden="true"
-            >
-              <path d="M15.9 10.1c.3-1.8-1.1-2.8-3-3.4l.6-2.5-1.5-.4-.6 2.4c-.4-.1-.8-.2-1.2-.3l.6-2.4-1.5-.4-.6 2.5c-.3-.1-.7-.2-1-.2v-.1l-2.1-.5-.4 1.6s1.1.3 1.1.3c.6.2.7.6.7 1l-.7 2.8c0 .1.1.1.1.1l-.1 0-.9 3.7c-.1.2-.3.5-.7.4 0 0-1.1-.3-1.1-.3l-.8 1.7 2 .5c.4.1.7.2 1.1.3l-.6 2.5 1.5.4.6-2.5c.4.1.8.2 1.2.3l-.6 2.5 1.5.4.6-2.5c2.5.5 4.4.3 5.2-2 .6-1.8 0-2.9-1.4-3.6 1-.2 1.7-.9 1.9-2.3zM13 13.6c-.5 1.8-3.5.8-4.5.6l.8-3.2c1 .3 4.1.8 3.7 2.6zm.4-4.4c-.4 1.7-3 .8-3.8.6l.7-2.9c.8.2 3.5.6 3.1 2.3z" />
-            </svg>
+            />
           </div>
-          <div>
+          <div className="flex flex-col">
             <h2
               id="btc-title"
               className="text-lg font-normal text-text-primary"
             >
               {t("btc_title")}
             </h2>
-            <p className="mt-1 text-sm text-white-40">{t("btc_subtitle")}</p>
+            <p className="text-sm text-white-40">{t("btc_subtitle")}</p>
+            <p className="text-xs text-white-40">
+              &#9889; {t("lightning_mention")}
+            </p>
           </div>
         </div>
 
-        <p className="mt-2 text-sm text-white-40">
-          &#9889; {t("lightning_mention")}
-        </p>
+        {/* 2. Divider */}
+        <div className={dividerClass} />
 
-        <div className="mt-4 flex flex-wrap gap-4">
+        {/* 3. Amounts block */}
+        <div className="grid grid-cols-2 gap-3 sm:grid-cols-4">
           {AMOUNTS.map((amount) => (
             <button
               key={amount}
+              type="button"
               onClick={() => handleBtcPayClick(amount)}
               aria-label={`${t("custom_submit")} ${amount} EUR Bitcoin`}
-              className={chipClass}
+              className={chipBase}
             >
-              {amount} EUR
+              {amount} €
             </button>
           ))}
         </div>
 
-        <div className="mt-4 flex items-center gap-2">
-          <label htmlFor="btc-custom" className="sr-only">
-            {t("custom_placeholder")}
-          </label>
-          <input
-            id="btc-custom"
-            type="number"
-            min={MIN_AMOUNT}
-            max={MAX_AMOUNT}
-            placeholder={t("custom_placeholder")}
-            value={customBtcAmount}
-            onChange={(e) => {
-              setCustomBtcAmount(e.target.value);
-              setBtcError(null);
-            }}
-            className={inputClass}
-          />
-          <button onClick={handleBtcCustom} className={buttonClass}>
-            {t("custom_submit")}
-          </button>
+        <div className="mt-4 flex flex-col gap-2">
+          <div
+            className="relative flex min-h-[44px] w-full items-stretch rounded-lg border border-border-hi bg-transparent focus-within:border-accent focus-within:shadow-[0_0_12px_var(--color-glow-soft)]"
+          >
+            <label htmlFor="btc-custom" className="sr-only">
+              {t("custom_placeholder")}
+            </label>
+            <input
+              id="btc-custom"
+              type="text"
+              inputMode="numeric"
+              pattern="[0-9]*"
+              autoComplete="off"
+              placeholder={t("custom_placeholder")}
+              value={customBtcAmount}
+              onChange={(e) => {
+                setCustomBtcAmount(sanitizeDigits(e.target.value));
+                setBtcError(null);
+              }}
+              className="w-full flex-1 bg-transparent px-4 text-text-primary placeholder:text-white-40 focus:outline-none"
+            />
+            <span
+              aria-hidden="true"
+              className="flex items-center pr-2 text-sm text-white-40"
+            >
+              €
+            </span>
+            <div
+              className="flex flex-col border-l border-white/[0.07]"
+              role="group"
+              aria-label={t("custom_placeholder")}
+            >
+              <button
+                type="button"
+                aria-label="+1"
+                onClick={() => {
+                  setCustomBtcAmount((v) => clampStep(v, +1));
+                  setBtcError(null);
+                }}
+                className="flex h-1/2 w-9 items-center justify-center text-white-70 transition-colors hover:bg-[rgba(61,126,255,0.12)] hover:text-accent focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-accent focus-visible:ring-inset"
+              >
+                <Icon icon="solar:alt-arrow-up-linear" width={14} height={14} />
+              </button>
+              <div
+                className="border-t border-white/[0.07]"
+                aria-hidden="true"
+              />
+              <button
+                type="button"
+                aria-label="-1"
+                onClick={() => {
+                  setCustomBtcAmount((v) => clampStep(v, -1));
+                  setBtcError(null);
+                }}
+                className="flex h-1/2 w-9 items-center justify-center text-white-70 transition-colors hover:bg-[rgba(61,126,255,0.12)] hover:text-accent focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-accent focus-visible:ring-inset"
+              >
+                <Icon
+                  icon="solar:alt-arrow-down-linear"
+                  width={14}
+                  height={14}
+                />
+              </button>
+            </div>
+          </div>
+          {btcError && (
+            <p className="text-sm text-[#EF4444]">{btcError}</p>
+          )}
         </div>
-        {btcError && (
-          <p className="mt-2 text-sm text-[#EF4444]">{btcError}</p>
-        )}
+
+        {/* 4. Divider before CTA */}
+        <div className={dividerClass} />
+
+        {/* 5. Full-width gradient CTA */}
+        <button
+          type="button"
+          onClick={handleBtcCustom}
+          style={ctaStyle}
+          className={ctaClass}
+        >
+          {t("custom_submit")}
+        </button>
       </section>
     </div>
   );
