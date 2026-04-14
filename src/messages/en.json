@@ -3,7 +3,7 @@
     "fr": "FR",
     "en": "EN",
     "skip_to_content": "Skip to main content",
-    "contribute_label": "Contribute"
+    "support_label": "Support"
   },
   "Metadata": {
     "title": "dictus -- 100% Offline Voice Dictation for iOS & Android",
@@ -97,8 +97,8 @@
     "twitter_label": "X (Twitter)",
     "telegram_label": "Telegram",
     "privacy_link": "Privacy Policy",
-    "support_link": "Support",
-    "contribute_link": "Contribute"
+    "help_link": "Support",
+    "support_link": "Support"
   },
   "Privacy": {
     "meta_title": "Privacy Policy \u2014 dictus",
@@ -156,7 +156,7 @@
     "lightning_mention": "Lightning supported",
     "chip_eur": "{amount} EUR",
     "custom_placeholder": "Amount",
-    "custom_submit": "Contribute",
+    "custom_submit": "Support",
     "thank_you": "Thank you for your support",
     "error_min": "Minimum amount: 1 EUR",
     "error_max": "Maximum amount: 999 EUR"

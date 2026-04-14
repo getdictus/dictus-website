@@ -34,7 +34,7 @@ export default function Nav() {
             href="/donate"
             className="min-h-[44px] flex items-center rounded-full bg-accent px-4 py-2 text-sm font-normal text-white transition-colors hover:bg-accent-hi focus-visible:ring-2 focus-visible:ring-accent focus-visible:ring-offset-2 focus-visible:ring-offset-ink-deep"
           >
-            {t("contribute_label")}
+            {t("support_label")}
           </Link>
           <LanguageToggle />
         </div>
