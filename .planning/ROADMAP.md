@@ -86,10 +86,10 @@ Plans:
 **Goal:** Rework the /donate page into a 2-step flow (Step 1 = pick method, Step 2 = pick amount + confirm). Eliminate the duplicate-card redundancy, the native-feeling mismatch between chip-click redirect and unused Support CTA, and the off-brand navy CTA color. After rework, a user sees one hero method-picker; after choosing, they see a single amount card whose Support button is the SOLE redirect trigger.
 **Requirements**: DON-01, DON-02, DON-03, DON-04
 **Depends on:** Phase 11
-**Plans:** 0 plans
+**Plans:** 1 plan
 
 Plans:
-- [ ] TBD (run /gsd:plan-phase 11.1 to break down)
+- [ ] 11.1-01-PLAN.md — 2-step donate flow rewrite + Accent Blue CTA + i18n keys (gap closure)
 
 ### Phase 12: Webhook Notifications
 **Goal**: Every donation (Stripe or BTCPay) triggers a formatted notification in a Telegram chat via a bot
