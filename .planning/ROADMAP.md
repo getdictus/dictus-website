@@ -81,6 +81,16 @@ Plans:
 - [ ] 11-02-PLAN.md — Nav pill button and Footer link entry points
 - [ ] 11-03-PLAN.md — Stripe and BTCPay Server setup guides
 
+### Phase 11.1: Donate page 2-step UX rework (INSERTED)
+
+**Goal:** Rework the /donate page into a 2-step flow (Step 1 = pick method, Step 2 = pick amount + confirm). Eliminate the duplicate-card redundancy, the native-feeling mismatch between chip-click redirect and unused Support CTA, and the off-brand navy CTA color. After rework, a user sees one hero method-picker; after choosing, they see a single amount card whose Support button is the SOLE redirect trigger.
+**Requirements**: DON-01, DON-02, DON-03, DON-04
+**Depends on:** Phase 11
+**Plans:** 0 plans
+
+Plans:
+- [ ] TBD (run /gsd:plan-phase 11.1 to break down)
+
 ### Phase 12: Webhook Notifications
 **Goal**: Every donation (Stripe or BTCPay) triggers a formatted notification in a Telegram chat via a bot
 **Depends on**: Phase 11

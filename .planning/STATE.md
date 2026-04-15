@@ -61,6 +61,10 @@ Progress: [█░░░░░░░░░] 12% (v1.3 milestone)
 - [Phase 11]: Custom stepper increments fixed at +/-1 EUR (not chip-value-based) per Design Decisions
 - [Phase 11]: Selected-chip className declared but not applied in redirect-on-click flow; reserved for future staged (pick-then-confirm) interaction
 
+### Roadmap Evolution
+
+- Phase 11.1 inserted after Phase 11: Donate page 2-step UX rework (URGENT)
+
 ### Pending Todos
 
 None.
