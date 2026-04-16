@@ -8,10 +8,14 @@ export const runtime = "nodejs";
 // Prevent any static optimization — webhook MUST execute on every POST.
 export const dynamic = "force-dynamic";
 
-// SDK init — webhook signature verification does NOT read STRIPE_SECRET_KEY,
-// so empty-string fallback is safe. If we ever make API calls (we don't here),
-// this would need a real key in env.
-const stripe = new Stripe(process.env.STRIPE_SECRET_KEY ?? "");
+// SDK init — webhook signature verification does NOT call the Stripe API, so
+// the key passed here is never actually used. However stripe@22 validates the
+// constructor argument and throws 'Neither apiKey nor config.authenticator
+// provided' on empty string, which breaks Next's page-data collection at build
+// time when STRIPE_SECRET_KEY is unset (our deployment intentionally does NOT
+// set it — we only receive signed webhooks, we never make outbound API calls).
+// A placeholder value keeps the constructor happy without requiring real env.
+const stripe = new Stripe(process.env.STRIPE_SECRET_KEY ?? "sk_placeholder");
 
 export async function POST(request: Request): Promise<Response> {
   const secret = process.env.STRIPE_WEBHOOK_SECRET;
