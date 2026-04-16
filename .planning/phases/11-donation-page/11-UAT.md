@@ -1,9 +1,9 @@
 ---
-status: diagnosed
+status: resolved
 phase: 11-donation-page
 source: [11-01-SUMMARY.md, 11-02-SUMMARY.md, 11-03-SUMMARY.md]
 started: 2026-04-09T21:30:00Z
-updated: 2026-04-14T20:05:00Z
+updated: 2026-04-16T07:55:00Z
 ---
 
 ## Current Test
@@ -95,7 +95,7 @@ skipped: 0
 ## Gaps
 
 - truth: "Donate page design is polished and uses terminology that clearly signals financial support"
-  status: failed
+  status: resolved
   reason: |
     User reported three combined issues on Test 1:
     1. Word "Contribuer/Contribute" feels like open-source dev contribution, not financial support. Replace with "Soutenir/Support" across Nav, Footer, donate page, i18n keys, and metadata.
@@ -131,7 +131,7 @@ skipped: 0
   debug_session: ""
 
 - truth: "Custom amount input and CTA button inside each card are visually polished and well-placed"
-  status: failed
+  status: resolved
   reason: |
     User reported on Test 3 (with screenshot):
     1. Native number input spinner arrows on custom Montant field look ugly and small. Expected: custom chevron buttons (or +/- controls) taking full cell height, positioned at the right edge of the input field.
