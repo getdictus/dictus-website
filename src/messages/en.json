@@ -6,7 +6,7 @@
     "support_label": "Support"
   },
   "Metadata": {
-    "title": "dictus -- 100% Offline Voice Dictation for iOS & Android",
+    "title": "dictus -- 100% Offline Voice Dictation for Mobile & Desktop",
     "description": "Voice dictation keyboard that works entirely on your device. No data sent to the internet.",
     "jsonld_description": "Fully offline voice dictation keyboard with real-time on-device transcription."
   },
@@ -76,7 +76,7 @@
     "legend_partial": "Depends on settings or plan",
     "dictus_name": "Dictus",
     "dictus_price": "Free",
-    "dictus_platforms": "iOS & Android",
+    "dictus_platforms": "Mobile & Desktop",
     "apple_name": "Apple Dictation",
     "apple_price": "Built-in",
     "apple_platforms": "iOS, macOS, watchOS",
@@ -142,7 +142,24 @@
     "telegram_text": "Join our community to discuss Dictus.",
     "telegram_link_text": "Join the Telegram group",
     "compatibility_title": "Compatibility",
-    "compatibility_text": "Dictus requires iOS 18+ (iPhone) \u2014 Android support coming soon."
+    "compatibility_text": "Dictus runs on iOS 18+ (beta), Android (beta), and macOS, Windows, Linux (coming soon)."
+  },
+  "Platforms": {
+    "heading": "Also coming to Desktop",
+    "subheading": "Dictus is expanding to macOS, Windows, and Linux. Same 100% offline guarantee.",
+    "tablist_label": "Desktop platforms",
+    "tab_mac": "macOS",
+    "tab_win": "Windows",
+    "tab_linux": "Linux",
+    "panel_mac_title": "macOS",
+    "panel_mac_desc": "Apple Silicon (arm64) and Intel (x64). Native app, no login, no telemetry.",
+    "panel_win_title": "Windows",
+    "panel_win_desc": "Windows 10/11, x64 and ARM. Installer and MSI.",
+    "panel_linux_title": "Linux",
+    "panel_linux_desc": "AppImage (universal), .deb (Ubuntu/Debian), .rpm (Fedora/openSUSE).",
+    "coming_soon_label": "Coming Soon",
+    "select_prompt": "Pick a platform to see details.",
+    "star_on_github": "Star on GitHub to follow progress"
   },
   "Donate": {
     "meta_title": "Support Dictus - Contribution",
