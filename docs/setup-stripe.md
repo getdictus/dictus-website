@@ -83,5 +83,56 @@ export const stripeLinks = {
 
 - Les Payment Links sont des URLs publiques (pas des secrets) — safe to commit
 - Aucun Stripe SDK ni API key necessaire pour ce setup
-- Pour les webhooks (Phase 12), la variable d'environnement `STRIPE_WEBHOOK_SECRET` sera necessaire
 - Le produit s'appelle "Contribution Dictus" (pas "Don") car PIVI Solutions est une entreprise
+
+## 9. Webhook Configuration (Phase 12)
+
+Le site ecoute les paiements Stripe via un endpoint webhook pour envoyer une notification Telegram a chaque contribution.
+
+### 9.1 Create Webhook Endpoint (production)
+
+1. Stripe Dashboard > **Developers > Webhooks**
+2. Cliquer **Add endpoint**
+3. **Endpoint URL** : `https://getdictus.com/api/webhooks/stripe`
+4. **Events to send** : selectionner **UNIQUEMENT** `checkout.session.completed` (ne pas activer d'autres events — payload plus leger, moins de signatures a verifier)
+5. **API version** : laisser la valeur par defaut
+6. Cliquer **Add endpoint**
+7. Sur la page du nouvel endpoint, cliquer **Reveal** sous "Signing secret" et copier la valeur `whsec_...`
+8. Coller dans Vercel Environment Variables (production) :
+   ```
+   STRIPE_WEBHOOK_SECRET=whsec_xxxxxxxxxxxx
+   ```
+
+### 9.2 Local Development Testing
+
+En developpement, `stripe listen` forward les events reels vers `localhost` avec un secret ephemere different de celui de production.
+
+1. Installer le Stripe CLI : <https://stripe.com/docs/stripe-cli>
+2. Se connecter : `stripe login`
+3. Dans un terminal dedie, lancer le forwarder :
+   ```bash
+   stripe listen --forward-to localhost:3000/api/webhooks/stripe
+   ```
+   Sortie :
+   ```
+   > Ready! Your webhook signing secret is whsec_abc123... (^C to quit)
+   ```
+4. **Copier ce `whsec_...` dans `.env.local`** (il est different du secret production) :
+   ```
+   STRIPE_WEBHOOK_SECRET=whsec_abc123...
+   ```
+5. Redemarrer `npm run dev` pour que Next.js recharge les env vars
+6. Dans un 3e terminal, declencher un event signe :
+   ```bash
+   stripe trigger checkout.session.completed
+   ```
+7. Verifier :
+   - Le terminal `stripe listen` affiche `2xx` pour l'event
+   - Le chat Telegram recoit un message de notification
+   - Pas de log d'erreur dans `npm run dev`
+
+### 9.3 Troubleshooting
+
+- **400 "invalid signature"** : le secret dans `.env.local` ne correspond pas a celui imprime par `stripe listen`. Chaque `stripe listen` genere un nouveau secret, il faut le recopier.
+- **Timestamp outside the tolerance zone** : l'horloge locale a derive de plus de 5 minutes. Resynchroniser (ntp/macOS System Settings).
+- **Pas de notification Telegram** : verifier `TELEGRAM_BOT_TOKEN` + `TELEGRAM_CHAT_ID` (voir `docs/setup-telegram.md`).

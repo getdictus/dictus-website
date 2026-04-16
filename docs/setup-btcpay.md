@@ -120,5 +120,54 @@ Pour trouver le Store ID : **Store Settings > General > Store ID** field.
 
 - Aucune API key necessaire pour la creation d'invoices (utilise "Allow anyone to create invoice")
 - Le Store ID est public (pas un secret) — safe to commit
-- Pour les webhooks (Phase 12), la variable d'environnement `BTCPAY_WEBHOOK_SECRET` sera necessaire
 - phoenixd gere la liquidite Lightning automatiquement — pas d'intervention manuelle
+
+## 9. Webhook Configuration (Phase 12)
+
+Le site ecoute l'event `InvoiceSettled` pour envoyer une notification Telegram a chaque paiement Bitcoin confirme.
+
+### 9.1 Create Webhook
+
+1. BTCPay Server > **Store > Webhooks > Create Webhook**
+2. **Payload URL** : `https://getdictus.com/api/webhooks/btcpay`
+3. **Events** : choisir **Send specific events** puis cocher **UNIQUEMENT** `InvoiceSettled` (pas `InvoiceCreated`, `InvoiceProcessing`, etc.)
+4. **Secret** : BTCPay genere un secret automatiquement — cliquer l'icone pour le reveler, copier la valeur
+5. Laisser **Automatic redelivery** et **Enabled** coches (defaut)
+6. Cliquer **Add webhook**
+7. Coller dans Vercel Environment Variables :
+   ```
+   BTCPAY_WEBHOOK_SECRET=xxxxxxxxxxxx
+   ```
+
+### 9.2 Create API Key (required for amount/currency lookup)
+
+Le payload `InvoiceSettled` ne contient **pas** le montant ni la devise — il contient seulement l'`invoiceId`. Le handler doit faire un GET authentifie vers l'API Greenfield pour recuperer ces champs.
+
+1. BTCPay Server > **Account > Manage Account > API Keys**
+2. Cliquer **Generate Key**
+3. **Label** : `webhook-invoice-fetch`
+4. **Permissions** : cocher UNIQUEMENT `btcpay.store.canviewinvoices` (scope minimum, lecture seule)
+5. Cliquer **Generate API Key**
+6. Copier la valeur affichee (elle ne sera plus visible apres)
+7. Coller dans Vercel Environment Variables :
+   ```
+   BTCPAY_API_KEY=xxxxxxxxxxxx
+   ```
+
+### 9.3 Testing with "Send Test Webhook"
+
+1. BTCPay Server > **Store > Webhooks** > selectionner le webhook cree
+2. Cliquer **Send test webhook**
+3. Choisir `InvoiceSettled` dans la liste
+4. Cliquer **Send**
+5. Verifier :
+   - La reponse affichee est `200 OK`
+   - Le chat Telegram recoit un message de notification (attention : le test webhook utilise un invoiceId factice, l'appel API secondaire echouera probablement — c'est attendu, le log `console.error` le documentera)
+
+Pour un test end-to-end avec un vrai paiement, creer une invoice de **0.01 EUR** via le formulaire de la page `/donate`, payer via Lightning (instantane), et verifier que le Telegram arrive dans les secondes suivantes.
+
+### 9.4 Troubleshooting
+
+- **400 "invalid signature"** : le secret dans Vercel ne correspond pas a celui configure dans BTCPay. Regenerer et recopier.
+- **200 mais pas de notification** : verifier les logs Vercel — si l'appel `GET /api/v1/stores/{storeId}/invoices/{invoiceId}` retourne `401`, le `BTCPAY_API_KEY` n'a pas le scope `canviewinvoices`.
+- **Invoice fetch returns 404** : verifier que `storeId` dans le payload webhook matche bien celui du store ou la cle API a ete creee.
