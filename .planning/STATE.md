@@ -3,13 +3,13 @@ gsd_state_version: 1.0
 milestone: v1.3
 milestone_name: Donate & Desktop
 status: unknown
-stopped_at: Completed 11-05-PLAN.md
-last_updated: "2026-04-14T21:57:17.856Z"
+stopped_at: Completed 11.1-01-PLAN.md
+last_updated: "2026-04-16T05:55:37.446Z"
 progress:
-  total_phases: 4
-  completed_phases: 1
-  total_plans: 5
-  completed_plans: 5
+  total_phases: 5
+  completed_phases: 2
+  total_plans: 6
+  completed_plans: 6
   percent: 12
 ---
 
@@ -25,20 +25,21 @@ See: .planning/PROJECT.md (updated 2026-04-09)
 ## Current Position
 
 Milestone v1.3 Donate & Desktop: IN PROGRESS
-Phase 10 complete (1/4 phases). Next: Phase 11 or 13.
+Phases 10, 11, and 11.1 complete (3/5 phases). Next: Phase 12 or 13.
 
-Progress: [█░░░░░░░░░] 12% (v1.3 milestone)
+Progress: [█████░░░░░] 50% (v1.3 milestone, Phases 10 + 11 + 11.1 done, Phases 12 + 13 pending)
 
 ## Phase Overview
 
 | Phase | Goal | Status | Depends on |
 |-------|------|--------|------------|
 | 10. Social & Footer | X/Twitter icon in footer | Complete | — |
-| 11. Donation Page | /donate with Stripe + BTCPay | Pending | — |
+| 11. Donation Page | /donate with Stripe + BTCPay | Complete | — |
+| 11.1. Donate 2-step UX rework | Method-picker + amount card, brand-blue CTA | Complete | Phase 11 |
 | 12. Webhook Notifications | Telegram bot notifications | Pending | Phase 11 |
 | 13. Desktop Preparation | Coming Soon badges Mac/Win/Linux | Pending | — |
 
-**Next action:** `/gsd:plan-phase 11` (main feature) or `/gsd:plan-phase 13` (quick win)
+**Next action:** `/gsd:plan-phase 12` (needs Stripe + BTCPay + Telegram creds) or `/gsd:plan-phase 13` (quick win)
 
 ## Accumulated Context
 
@@ -60,6 +61,10 @@ Progress: [█░░░░░░░░░] 12% (v1.3 milestone)
 - [Phase 11]: Digits-only text input (type=text + inputMode=numeric + sanitizeDigits) over type=number to eliminate native browser spinner deterministically across Firefox/Safari
 - [Phase 11]: Custom stepper increments fixed at +/-1 EUR (not chip-value-based) per Design Decisions
 - [Phase 11]: Selected-chip className declared but not applied in redirect-on-click flow; reserved for future staged (pick-then-confirm) interaction
+- [Phase 11.1]: 2-step donate flow (method-picker -> amount card) replaces twin-card layout; CTA is the sole redirect trigger
+- [Phase 11.1]: Accent Blue gradient (#3D7EFF->#2563EB) on CTA + method tiles + amount-card border replaces off-brand navy for consistent brand presence on /donate
+- [Phase 11.1]: Use theme-aware Tailwind tokens (text-text-primary, text-white-70) instead of static text-mist to keep donate-page copy readable in both light and dark themes
+- [Phase 11.1]: Iconify solar:arrow-left-linear replaces Unicode back-arrow glyph for reliable inline-flex vertical alignment with DM Sans
 
 ### Roadmap Evolution
 
@@ -77,5 +82,5 @@ None.
 
 ## Session Continuity
 
-Last session: 2026-04-14T21:52:22.360Z
-Stopped at: Completed 11-05-PLAN.md
+Last session: 2026-04-16T05:55:20.185Z
+Stopped at: Completed 11.1-01-PLAN.md
