@@ -3,14 +3,14 @@ gsd_state_version: 1.0
 milestone: v1.3
 milestone_name: Donate & Desktop
 status: unknown
-stopped_at: Completed 12-01-PLAN.md
-last_updated: "2026-04-16T10:13:16.150Z"
+stopped_at: Completed 12-02-PLAN.md
+last_updated: "2026-04-16T10:19:11.372Z"
 progress:
   total_phases: 5
-  completed_phases: 2
+  completed_phases: 4
   total_plans: 8
-  completed_plans: 7
-  percent: 50
+  completed_plans: 8
+  percent: 80
 ---
 
 # Project State
@@ -25,9 +25,9 @@ See: .planning/PROJECT.md (updated 2026-04-09)
 ## Current Position
 
 Milestone v1.3 Donate & Desktop: IN PROGRESS
-Phases 10, 11, 11.1 complete. Phase 12 plan 01 (foundations) done — plan 02 (webhook routes) next.
+Phases 10, 11, 11.1, 12 complete. Only Phase 13 (Desktop Preparation) remains.
 
-Progress: [█████░░░░░] 50% of phases (3/5 phases) | [█████████░] 88% of plans (7/8 plans done)
+Progress: [██████░░░░] 60% of phases (3 core + phase-12 done, 4/5 including 11.1) | [██████████] 100% of plans (8/8 planned plans done)
 
 ## Phase Overview
 
@@ -36,10 +36,10 @@ Progress: [█████░░░░░] 50% of phases (3/5 phases) | [██�
 | 10. Social & Footer | X/Twitter icon in footer | Complete | — |
 | 11. Donation Page | /donate with Stripe + BTCPay | Complete | — |
 | 11.1. Donate 2-step UX rework | Method-picker + amount card, brand-blue CTA | Complete | Phase 11 |
-| 12. Webhook Notifications | Telegram bot notifications | In Progress (12-01 done, 12-02 next) | Phase 11 |
+| 12. Webhook Notifications | Telegram bot notifications | Complete (12-01 + 12-02 shipped) | Phase 11 |
 | 13. Desktop Preparation | Coming Soon badges Mac/Win/Linux | Pending | — |
 
-**Next action:** `/gsd:execute-phase 12` to run plan 12-02 (webhook routes), or `/gsd:plan-phase 13` for the quick-win desktop badges phase.
+**Next action:** `/gsd:plan-phase 13` for the quick-win desktop badges phase. Operator-side Phase 12 provisioning (Stripe account, BTCPay Server, Telegram bot) remains before webhook notifications can flow end-to-end.
 
 ## Accumulated Context
 
@@ -67,6 +67,8 @@ Progress: [█████░░░░░] 50% of phases (3/5 phases) | [██�
 - [Phase 11.1]: Iconify solar:arrow-left-linear replaces Unicode back-arrow glyph for reliable inline-flex vertical alignment with DM Sans
 - [Phase 12-webhook-notifications]: stripe@22.0.1 installed + shared src/lib/telegram.ts helper + 5 server-only env vars + BotFather setup doc, laying foundation for Wave 2 webhook routes
 - [Phase 12-webhook-notifications]: Added BTCPAY_API_KEY (5th env var beyond HOOK-04's 4) because InvoiceSettled webhook payload omits amount/currency — Greenfield API fetch is required to satisfy HOOK-03
+- [Phase 12-webhook-notifications]: Stripe SDK constructor requires non-empty key (v22.0.1) — placeholder 'sk_placeholder' used since webhook verification never calls Stripe API
+- [Phase 12-webhook-notifications]: Webhook routes follow Node runtime + force-dynamic + raw-body-first convention; failure taxonomy is 500 (misconfig) / 400 (bad sig) / 200 (unsupported event or downstream failure) to prevent provider retry storms
 
 ### Roadmap Evolution
 
@@ -84,5 +86,5 @@ None.
 
 ## Session Continuity
 
-Last session: 2026-04-16T10:13:16.148Z
-Stopped at: Completed 12-01-PLAN.md
+Last session: 2026-04-16T10:19:11.370Z
+Stopped at: Completed 12-02-PLAN.md
