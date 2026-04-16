@@ -134,5 +134,5 @@ Full details: `.planning/milestones/v1.3-ROADMAP.md`
 | 10. Social & Footer | v1.3 | 1/1 | Complete | 2026-04-09 |
 | 11. Donation Page | v1.3 | 5/5 | Complete | 2026-04-14 |
 | 11.1. Donate 2-step UX rework | v1.3 | Complete    | 2026-04-16 | 2026-04-16 |
-| 12. Webhook Notifications | v1.3 | 2/2 | Complete | 2026-04-16 |
+| 12. Webhook Notifications | v1.3 | Complete    | 2026-04-16 | 2026-04-16 |
 | 13. Desktop Preparation | v1.3 | 0/2 | Pending | — |
