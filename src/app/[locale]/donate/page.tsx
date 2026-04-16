@@ -49,31 +49,31 @@ export default async function DonatePage({ params }: Props) {
           >
             {t("why_support_title")}
           </h2>
-          <ul className="mt-3 flex flex-col items-center justify-center gap-2 text-sm text-mist sm:flex-row sm:gap-6">
+          <ul className="mt-3 flex flex-col items-center justify-center gap-2 text-sm text-white-70 sm:flex-row sm:gap-6">
             <li className="flex items-center gap-2">
               <span
                 aria-hidden="true"
-                className="h-1 w-1 rounded-full bg-mist/60"
+                className="h-1 w-1 rounded-full bg-white-40"
               />
               {t("why_support_offline")}
             </li>
             <li className="flex items-center gap-2">
               <span
                 aria-hidden="true"
-                className="h-1 w-1 rounded-full bg-mist/60"
+                className="h-1 w-1 rounded-full bg-white-40"
               />
               {t("why_support_opensource")}
             </li>
             <li className="flex items-center gap-2">
               <span
                 aria-hidden="true"
-                className="h-1 w-1 rounded-full bg-mist/60"
+                className="h-1 w-1 rounded-full bg-white-40"
               />
               {t("why_support_independent")}
             </li>
           </ul>
         </section>
-        <p className="mt-10 text-center text-sm text-mist">
+        <p className="mt-10 text-center text-sm text-white-70">
           {t("thank_you")}
         </p>
       </article>

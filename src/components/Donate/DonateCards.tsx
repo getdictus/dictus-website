@@ -66,19 +66,19 @@ export default function DonateCards() {
   const methodCardClass =
     "group flex flex-col items-start gap-4 rounded-2xl border border-border bg-[var(--glass-t2-bg)] p-8 text-left backdrop-blur-[12px] backdrop-saturate-[1.2] transition-all duration-300 hover:scale-[1.02] hover:border-border-hi hover:shadow-[0_0_24px_var(--color-glow-soft)] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-accent focus-visible:ring-offset-2 focus-visible:ring-offset-ink-deep";
 
-  // Step 2 amount card: single centered card
+  // Step 2 amount card: single centered card (accent-blue tinted border for brand presence)
   const amountCardClass =
-    "mx-auto mt-12 flex max-w-[480px] flex-col rounded-2xl border border-border bg-[var(--glass-t2-bg)] p-6 backdrop-blur-[12px] backdrop-saturate-[1.2] transition-all duration-300 hover:border-border-hi hover:shadow-[0_0_20px_var(--color-glow-soft)]";
+    "mx-auto mt-12 flex max-w-[480px] flex-col rounded-2xl border border-[rgba(61,126,255,0.25)] bg-[var(--glass-t2-bg)] p-6 backdrop-blur-[12px] backdrop-saturate-[1.2] transition-all duration-300 hover:border-accent hover:shadow-[0_0_24px_var(--color-glow-soft)]";
 
-  // Navy squircle tile — large variant for Step 1, regular for Step 2 header
+  // Brand Accent Blue squircle tile — large variant for Step 1, regular for Step 2 header
   const tileLargeClass =
-    "flex h-16 w-16 items-center justify-center rounded-[18px] bg-[linear-gradient(135deg,#0D2040,#071020)]";
+    "flex h-16 w-16 items-center justify-center rounded-[18px] bg-[linear-gradient(135deg,#3D7EFF,#2563EB)]";
   const tileSmallClass =
-    "flex h-10 w-10 items-center justify-center rounded-xl bg-[linear-gradient(135deg,#0D2040,#071020)]";
+    "flex h-10 w-10 items-center justify-center rounded-xl bg-[linear-gradient(135deg,#3D7EFF,#2563EB)]";
 
   // Chip base (default state)
   const chipBase =
-    "flex min-h-[44px] items-center justify-center rounded-full border border-border-hi px-3 py-2 text-base font-normal text-mist transition-all duration-200 hover:scale-[1.02] hover:shadow-[0_0_12px_var(--color-glow-soft)] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-accent focus-visible:ring-offset-2 focus-visible:ring-offset-ink-deep";
+    "flex min-h-[44px] items-center justify-center rounded-full border border-border-hi px-3 py-2 text-base font-normal text-text-primary transition-all duration-200 hover:scale-[1.02] hover:shadow-[0_0_12px_var(--color-glow-soft)] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-accent focus-visible:ring-offset-2 focus-visible:ring-offset-ink-deep";
 
   // Chip selected modifier (APPLIED in this plan — unlike Phase 11-05)
   const chipSelected =
@@ -103,7 +103,7 @@ export default function DonateCards() {
 
   // Back link style
   const backLinkClass =
-    "inline-flex items-center gap-1 text-sm text-white-40 transition-colors hover:text-mist focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-accent focus-visible:ring-offset-2 focus-visible:ring-offset-ink-deep rounded";
+    "inline-flex items-center gap-1 text-sm text-white-40 transition-colors hover:text-text-primary focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-accent focus-visible:ring-offset-2 focus-visible:ring-offset-ink-deep rounded";
 
   // Step 1 — method picker
   if (step === "idle") {
@@ -188,7 +188,13 @@ export default function DonateCards() {
         aria-label={t("change_method")}
         className={backLinkClass}
       >
-        ← {t("change_method")}
+        <Icon
+          icon="solar:arrow-left-linear"
+          width={16}
+          height={16}
+          aria-hidden="true"
+        />
+        {t("change_method")}
       </button>
 
       {/* Method header */}
