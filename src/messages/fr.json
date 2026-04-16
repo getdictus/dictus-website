@@ -6,7 +6,7 @@
     "support_label": "Soutenir"
   },
   "Metadata": {
-    "title": "dictus -- Dictation vocale 100% offline pour iOS & Android",
+    "title": "dictus -- Dictation vocale 100% offline Mobile & Desktop",
     "description": "Clavier de dictation vocale qui fonctionne enti\u00e8rement sur votre appareil. Aucune donn\u00e9e envoy\u00e9e sur internet.",
     "jsonld_description": "Clavier de dictation vocale 100% offline avec transcription en temps r\u00e9el sur l\u2019appareil."
   },
@@ -76,7 +76,7 @@
     "legend_partial": "Selon les r\u00e9glages ou le plan",
     "dictus_name": "Dictus",
     "dictus_price": "Gratuit",
-    "dictus_platforms": "iOS & Android",
+    "dictus_platforms": "Mobile & Desktop",
     "apple_name": "Apple Dictation",
     "apple_price": "Int\u00e9gr\u00e9",
     "apple_platforms": "iOS, macOS, watchOS",
@@ -142,7 +142,24 @@
     "telegram_text": "Rejoignez notre communaut\u00e9 pour discuter de Dictus.",
     "telegram_link_text": "Rejoindre le groupe Telegram",
     "compatibility_title": "Compatibilit\u00e9",
-    "compatibility_text": "Dictus n\u00e9cessite iOS 18+ (iPhone) \u2014 support Android bient\u00f4t disponible."
+    "compatibility_text": "Dictus fonctionne sur iOS 18+ (beta), Android (beta), et macOS, Windows, Linux (bient\u00f4t disponibles)."
+  },
+  "Platforms": {
+    "heading": "Aussi sur Desktop",
+    "subheading": "Dictus arrive sur macOS, Windows et Linux. La m\u00eame garantie 100% offline.",
+    "tablist_label": "Plateformes Desktop",
+    "tab_mac": "macOS",
+    "tab_win": "Windows",
+    "tab_linux": "Linux",
+    "panel_mac_title": "macOS",
+    "panel_mac_desc": "Apple Silicon (arm64) et Intel (x64). App native, sans compte, sans t\u00e9l\u00e9m\u00e9trie.",
+    "panel_win_title": "Windows",
+    "panel_win_desc": "Windows 10/11, x64 et ARM. Installeur et MSI.",
+    "panel_linux_title": "Linux",
+    "panel_linux_desc": "AppImage (universel), .deb (Ubuntu/Debian), .rpm (Fedora/openSUSE).",
+    "coming_soon_label": "Bient\u00f4t disponible",
+    "select_prompt": "S\u00e9lectionnez une plateforme pour voir les d\u00e9tails.",
+    "star_on_github": "Star sur GitHub pour suivre l\u2019avanc\u00e9e"
   },
   "Donate": {
     "meta_title": "Soutenir Dictus - Contribution",
