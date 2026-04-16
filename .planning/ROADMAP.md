@@ -101,6 +101,11 @@ Plans:
   3. Invalid signatures rejected with 400 status
   4. Environment variables documented
 
+**Plans:** 2 plans
+Plans:
+- [ ] 12-01-PLAN.md — Install stripe, create Telegram helper, document env vars + Telegram/Stripe/BTCPay setup
+- [ ] 12-02-PLAN.md — Stripe + BTCPay webhook route handlers with signature verification and Telegram dispatch
+
 ### Phase 13: Desktop Preparation
 **Goal**: The site communicates that Dictus is available on Desktop (Mac, Windows, Linux) with Coming Soon badges
 **Depends on**: Nothing
