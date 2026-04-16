@@ -3,13 +3,13 @@ gsd_state_version: 1.0
 milestone: v1.3
 milestone_name: Donate & Desktop
 status: unknown
-stopped_at: Phase 12 context gathered
-last_updated: "2026-04-16T07:32:06.561Z"
+stopped_at: Completed 12-01-PLAN.md
+last_updated: "2026-04-16T10:13:16.150Z"
 progress:
   total_phases: 5
   completed_phases: 2
-  total_plans: 6
-  completed_plans: 6
+  total_plans: 8
+  completed_plans: 7
   percent: 50
 ---
 
@@ -25,9 +25,9 @@ See: .planning/PROJECT.md (updated 2026-04-09)
 ## Current Position
 
 Milestone v1.3 Donate & Desktop: IN PROGRESS
-Phases 10, 11, and 11.1 complete (3/5 phases). Next: Phase 12 or 13.
+Phases 10, 11, 11.1 complete. Phase 12 plan 01 (foundations) done — plan 02 (webhook routes) next.
 
-Progress: [█████░░░░░] 50% (v1.3 milestone, Phases 10 + 11 + 11.1 done, Phases 12 + 13 pending)
+Progress: [█████░░░░░] 50% of phases (3/5 phases) | [█████████░] 88% of plans (7/8 plans done)
 
 ## Phase Overview
 
@@ -36,10 +36,10 @@ Progress: [█████░░░░░] 50% (v1.3 milestone, Phases 10 + 11 +
 | 10. Social & Footer | X/Twitter icon in footer | Complete | — |
 | 11. Donation Page | /donate with Stripe + BTCPay | Complete | — |
 | 11.1. Donate 2-step UX rework | Method-picker + amount card, brand-blue CTA | Complete | Phase 11 |
-| 12. Webhook Notifications | Telegram bot notifications | Pending | Phase 11 |
+| 12. Webhook Notifications | Telegram bot notifications | In Progress (12-01 done, 12-02 next) | Phase 11 |
 | 13. Desktop Preparation | Coming Soon badges Mac/Win/Linux | Pending | — |
 
-**Next action:** `/gsd:plan-phase 12` (needs Stripe + BTCPay + Telegram creds) or `/gsd:plan-phase 13` (quick win)
+**Next action:** `/gsd:execute-phase 12` to run plan 12-02 (webhook routes), or `/gsd:plan-phase 13` for the quick-win desktop badges phase.
 
 ## Accumulated Context
 
@@ -65,6 +65,8 @@ Progress: [█████░░░░░] 50% (v1.3 milestone, Phases 10 + 11 +
 - [Phase 11.1]: Accent Blue gradient (#3D7EFF->#2563EB) on CTA + method tiles + amount-card border replaces off-brand navy for consistent brand presence on /donate
 - [Phase 11.1]: Use theme-aware Tailwind tokens (text-text-primary, text-white-70) instead of static text-mist to keep donate-page copy readable in both light and dark themes
 - [Phase 11.1]: Iconify solar:arrow-left-linear replaces Unicode back-arrow glyph for reliable inline-flex vertical alignment with DM Sans
+- [Phase 12-webhook-notifications]: stripe@22.0.1 installed + shared src/lib/telegram.ts helper + 5 server-only env vars + BotFather setup doc, laying foundation for Wave 2 webhook routes
+- [Phase 12-webhook-notifications]: Added BTCPAY_API_KEY (5th env var beyond HOOK-04's 4) because InvoiceSettled webhook payload omits amount/currency — Greenfield API fetch is required to satisfy HOOK-03
 
 ### Roadmap Evolution
 
@@ -82,5 +84,5 @@ None.
 
 ## Session Continuity
 
-Last session: 2026-04-16T07:32:06.559Z
-Stopped at: Phase 12 context gathered
+Last session: 2026-04-16T10:13:16.148Z
+Stopped at: Completed 12-01-PLAN.md
