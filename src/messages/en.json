@@ -184,6 +184,8 @@
     "thank_you": "Thank you for your support",
     "error_min": "Minimum amount: 1 EUR",
     "error_max": "Maximum amount: 999 EUR",
+    "error_generic": "Something went wrong. Please try again.",
+    "loading": "Loading…",
     "why_support_title": "Why support?",
     "why_support_offline": "100% offline",
     "why_support_opensource": "Open source",

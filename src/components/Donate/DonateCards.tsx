@@ -1,10 +1,9 @@
 "use client";
 
 import { useState } from "react";
-import { useTranslations } from "next-intl";
+import { useLocale, useTranslations } from "next-intl";
 import { Icon } from "@iconify/react";
 import {
-  stripeLinks,
   btcpayConfig,
   AMOUNTS,
   MIN_AMOUNT,
@@ -28,10 +27,12 @@ type Step = "idle" | "fiat" | "bitcoin";
 
 export default function DonateCards() {
   const t = useTranslations("Donate");
+  const locale = useLocale();
   const [step, setStep] = useState<Step>("idle");
   const [selectedChip, setSelectedChip] = useState<number | null>(null);
   const [customAmount, setCustomAmount] = useState<string>("");
   const [error, setError] = useState<string | null>(null);
+  const [isSubmittingFiat, setIsSubmittingFiat] = useState(false);
 
   // Derived: currently active amount (chip wins over custom; custom is fallback)
   const customParsed = parseInt(customAmount || "", 10);
@@ -167,17 +168,30 @@ export default function DonateCards() {
   const isFiat = step === "fiat";
   const isBitcoin = step === "bitcoin";
 
-  // Fiat href resolver (narrow branch per TS literal-key constraint)
-  const fiatHref =
-    activeAmount === 5
-      ? stripeLinks[5]
-      : activeAmount === 10
-        ? stripeLinks[10]
-        : activeAmount === 25
-          ? stripeLinks[25]
-          : activeAmount === 50
-            ? stripeLinks[50]
-            : stripeLinks.custom;
+  async function startFiatCheckout() {
+    if (activeAmount === null || isSubmittingFiat) return;
+    setError(null);
+    setIsSubmittingFiat(true);
+    try {
+      const res = await fetch("/api/checkout/stripe", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ amount: activeAmount, locale }),
+      });
+      if (!res.ok) {
+        throw new Error(`Checkout failed: ${res.status}`);
+      }
+      const data = (await res.json()) as { url?: string };
+      if (!data.url) {
+        throw new Error("Missing checkout URL");
+      }
+      window.location.href = data.url;
+    } catch (err) {
+      console.error("[donate] stripe checkout error", err);
+      setError(t("error_generic"));
+      setIsSubmittingFiat(false);
+    }
+  }
 
   return (
     <div className={amountCardClass}>
@@ -327,13 +341,16 @@ export default function DonateCards() {
             {t("custom_submit")}
           </button>
         ) : (
-          <a
-            href={fiatHref}
+          <button
+            type="button"
+            onClick={startFiatCheckout}
+            disabled={isSubmittingFiat}
+            aria-busy={isSubmittingFiat}
             style={ctaEnabledStyle}
             className={ctaEnabledClass}
           >
-            {t("custom_submit")}
-          </a>
+            {isSubmittingFiat ? t("loading") : t("custom_submit")}
+          </button>
         ))}
 
       {isBitcoin &&

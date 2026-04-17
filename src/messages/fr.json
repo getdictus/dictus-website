@@ -184,6 +184,8 @@
     "thank_you": "Merci pour votre soutien",
     "error_min": "Montant minimum : 1 EUR",
     "error_max": "Montant maximum : 999 EUR",
+    "error_generic": "Une erreur est survenue. Réessayez.",
+    "loading": "Chargement…",
     "why_support_title": "Pourquoi soutenir ?",
     "why_support_offline": "100% offline",
     "why_support_opensource": "Open source",
