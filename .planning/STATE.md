@@ -2,15 +2,15 @@
 gsd_state_version: 1.0
 milestone: v1.3
 milestone_name: Donate & Desktop
-status: in-progress
-stopped_at: Completed 13-02-copy-sweep-PLAN.md
-last_updated: "2026-04-17T06:02:09.828Z"
+status: unknown
+stopped_at: Completed 13-02-copy-sweep-PLAN.md — Phase 13 fully closed (13-01 + 13-02 both have SUMMARY on disk); v1.3 milestone ready to wrap
+last_updated: "2026-04-17T06:31:36.509Z"
 progress:
   total_phases: 5
   completed_phases: 4
   total_plans: 10
   completed_plans: 10
-  percent: 60
+  percent: 100
 ---
 
 # Project State
