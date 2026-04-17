@@ -36,7 +36,11 @@ Convaincre un visiteur en quelques secondes que dictus est l'alternative privacy
 
 ### Active
 
-(No active milestone — run `/gsd:new-milestone` to plan next)
+- [ ] Page /donate bilingue FR/EN avec Stripe (fiat) + BTCPay Server (Bitcoin) — v1.3
+- [ ] Webhooks Stripe/BTCPay vers bot Telegram pour notifications de dons — v1.3
+- [ ] Badges Desktop Coming Soon (Mac/Windows/Linux) avec auto-detection OS — v1.3
+- [ ] Mise a jour des textes : Dictus n'est plus mobile-only — v1.3
+- [ ] Icone X/Twitter dans le footer — v1.3
 
 ### Out of Scope
 
@@ -57,9 +61,12 @@ Shipped v1.2 with 2,623 LOC TypeScript/CSS across ~50 source files.
 Tech stack: Next.js 16 (App Router), Tailwind v4, next-intl v4, next-themes, Motion v12, qrcode.react, Vercel.
 Remotion workspace in `video/` for promo video generation (dev-only, not shipped to production).
 Contact email updated to contact@pivi.solutions.
-dictus app is in active development -- TestFlight is the next milestone for the app itself.
+dictus app is in active development -- iOS + Android beta, Desktop (Mac/Windows/Linux) in development (fork of Handy).
 Telegram group link is placeholder (#) until community is created.
 Adaptive CTA ready for TestFlight URL (env var NEXT_PUBLIC_TESTFLIGHT_URL).
+Twitter/X account: https://x.com/getdictus
+GitHub issues #3, #4, #5 track donate page, webhooks, and footer social link.
+GitHub issue #2 tracks CDN (blob.getdictus.com) — deferred, not in v1.3.
 
 ## Constraints
 
@@ -95,4 +102,4 @@ Adaptive CTA ready for TestFlight URL (env var NEXT_PUBLIC_TESTFLIGHT_URL).
 | Contact email contact@pivi.solutions | Professional contact vs personal email | ✓ Good |
 
 ---
-*Last updated: 2026-03-22 after v1.2 milestone completed*
+*Last updated: 2026-04-09 after v1.3 milestone created*

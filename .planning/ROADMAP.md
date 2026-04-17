@@ -9,6 +9,7 @@ Marketing landing page for dictus -- an offline iOS voice dictation keyboard by 
 - ✅ **v1.0 dictus Landing Page** — Phases 1-4 (shipped 2026-03-10)
 - ✅ **v1.1 Polish & Differentiation** — Phases 5-7 (shipped 2026-03-17)
 - ✅ **v1.2 Video & Compliance** — Phases 8-9 (shipped 2026-03-21)
+- **v1.3 Donate & Desktop** — Phases 10-13 (active)
 
 ## Phases
 
@@ -45,6 +46,83 @@ Full details: `.planning/milestones/v1.2-ROADMAP.md`
 
 </details>
 
+### v1.3 Donate & Desktop (Phases 10-13) — ACTIVE
+
+**Milestone Goal:** Add donation page (Stripe fiat + BTCPay Bitcoin), webhook notifications via Telegram bot, Desktop platform badges (Coming Soon), and X/Twitter social link.
+
+### Phase 10: Social & Footer
+**Goal**: X/Twitter icon visible in the footer on every page, linking to https://x.com/getdictus
+**Depends on**: Nothing
+**Requirements**: SOC-01, SOC-02
+**Success Criteria**:
+  1. Footer displays 3 social icons in order: GitHub, X/Twitter, Telegram
+  2. X/Twitter icon links to https://x.com/getdictus (opens in new tab)
+  3. Icon uses the official X logo SVG, same size and style as existing icons
+  4. i18n label twitter_label exists in FR and EN translation files
+
+**Plans:** 1 plan
+Plans:
+- [x] 10-01-PLAN.md — Add X/Twitter icon to footer with i18n labels
+
+### Phase 11: Donation Page
+**Goal**: Visitors can access /donate and choose to contribute via Stripe (fiat) or BTCPay Server (Bitcoin)
+**Depends on**: Nothing
+**Requirements**: DON-01, DON-02, DON-03, DON-04, DON-05, PAY-01, PAY-02
+**Success Criteria**:
+  1. Visiting /fr/donate and /en/donate displays a bilingual donation page with two cards side by side
+  2. Fiat card shows 4 suggested amounts (5/10/25/50 EUR) as selectable chips + custom amount input
+  3. Bitcoin card has a CTA that opens a BTCPay Server invoice
+  4. Page uses glassmorphism cards with hover glow consistent with design system
+  5. Setup guides for Stripe and BTCPay Server documented
+
+**Plans:** 5/5 plans complete
+Plans:
+- [ ] 11-01-PLAN.md — Donate page with Fiat (Stripe) and Bitcoin (BTCPay) cards
+- [ ] 11-02-PLAN.md — Nav pill button and Footer link entry points
+- [ ] 11-03-PLAN.md — Stripe and BTCPay Server setup guides
+
+### Phase 11.1: Donate page 2-step UX rework (INSERTED)
+
+**Goal:** Rework the /donate page into a 2-step flow (Step 1 = pick method, Step 2 = pick amount + confirm). Eliminate the duplicate-card redundancy, the native-feeling mismatch between chip-click redirect and unused Support CTA, and the off-brand navy CTA color. After rework, a user sees one hero method-picker; after choosing, they see a single amount card whose Support button is the SOLE redirect trigger.
+**Requirements**: DON-01, DON-02, DON-03, DON-04
+**Depends on:** Phase 11
+**Plans:** 1/1 plans complete
+
+Plans:
+- [x] 11.1-01-PLAN.md — 2-step donate flow rewrite + Accent Blue CTA + i18n keys (gap closure)
+
+### Phase 12: Webhook Notifications
+**Goal**: Every donation (Stripe or BTCPay) triggers a formatted notification in a Telegram chat via a bot
+**Depends on**: Phase 11
+**Requirements**: HOOK-01, HOOK-02, HOOK-03, HOOK-04
+**Success Criteria**:
+  1. POST to /api/webhooks/stripe with valid signature sends Telegram message
+  2. POST to /api/webhooks/btcpay with valid HMAC sends Telegram message
+  3. Invalid signatures rejected with 400 status
+  4. Environment variables documented
+
+**Plans:** 2/2 plans complete
+Plans:
+- [ ] 12-01-PLAN.md — Install stripe, create Telegram helper, document env vars + Telegram/Stripe/BTCPay setup
+- [ ] 12-02-PLAN.md — Stripe + BTCPay webhook route handlers with signature verification and Telegram dispatch
+
+### Phase 13: Desktop Preparation
+**Goal**: The site communicates that Dictus is available on Desktop (Mac, Windows, Linux) with Coming Soon badges
+**Depends on**: Nothing
+**Requirements**: DESK-01, DESK-02, DESK-03, DESK-04
+**Success Criteria**:
+  1. Download section displays tabs (macOS/Windows/Linux) with OS auto-detection
+  2. Each tab shows Coming Soon badge with platform icon
+  3. downloads.ts config centralizes all platform links
+  4. Site copy updated to reflect multi-platform availability
+
+**Plans:** 2/2 plans complete
+Plans:
+- [x] 13-01-platforms-component-PLAN.md — Platforms section + downloads.ts config + page/JSON-LD integration (DESK-01, DESK-02, DESK-03)
+- [x] 13-02-copy-sweep-PLAN.md — i18n copy sweep: Platforms namespace + Metadata/Comparison/Support string updates (DESK-04)
+
+Full details: `.planning/milestones/v1.3-ROADMAP.md`
+
 ## Progress
 
 | Phase | Milestone | Plans Complete | Status | Completed |
@@ -58,3 +136,8 @@ Full details: `.planning/milestones/v1.2-ROADMAP.md`
 | 7. Content & CTA | v1.1 | 2/2 | Complete | 2026-03-12 |
 | 8. App Store Compliance | v1.2 | 2/2 | Complete | 2026-03-19 |
 | 9. Remotion Promo Video | v1.2 | 4/4 | Complete | 2026-03-21 |
+| 10. Social & Footer | v1.3 | 1/1 | Complete | 2026-04-09 |
+| 11. Donation Page | v1.3 | 5/5 | Complete | 2026-04-14 |
+| 11.1. Donate 2-step UX rework | v1.3 | Complete    | 2026-04-16 | 2026-04-16 |
+| 12. Webhook Notifications | v1.3 | Complete    | 2026-04-16 | 2026-04-16 |
+| 13. Desktop Preparation | v1.3 | Complete    | 2026-04-17 | 2026-04-17 |

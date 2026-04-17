@@ -1,5 +1,6 @@
 import { setRequestLocale, getTranslations } from "next-intl/server";
 import Hero from "@/components/Hero/Hero";
+import Platforms from "@/components/Platforms/Platforms";
 import Features from "@/components/Features/Features";
 import Comparison from "@/components/Comparison/Comparison";
 import HowItWorks from "@/components/HowItWorks/HowItWorks";
@@ -24,7 +25,7 @@ export default async function HomePage({ params }: Props) {
     "@type": "MobileApplication",
     name: "dictus",
     description: t("jsonld_description"),
-    operatingSystem: "iOS 18+, Android",
+    operatingSystem: "iOS 18+, Android, macOS, Windows, Linux",
     applicationCategory: "UtilitiesApplication",
     offers: {
       "@type": "Offer",
@@ -40,6 +41,7 @@ export default async function HomePage({ params }: Props) {
   return (
     <>
       <Hero />
+      <ScrollReveal><Platforms /></ScrollReveal>
       <ScrollReveal><Features /></ScrollReveal>
       <ScrollReveal><Comparison /></ScrollReveal>
       <ScrollReveal><HowItWorks /></ScrollReveal>
