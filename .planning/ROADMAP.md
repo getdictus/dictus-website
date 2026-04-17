@@ -116,10 +116,10 @@ Plans:
   3. downloads.ts config centralizes all platform links
   4. Site copy updated to reflect multi-platform availability
 
-**Plans:** 1/2 plans complete
+**Plans:** 2/2 plans complete
 Plans:
 - [x] 13-01-platforms-component-PLAN.md — Platforms section + downloads.ts config + page/JSON-LD integration (DESK-01, DESK-02, DESK-03)
-- [ ] 13-02-copy-sweep-PLAN.md — i18n copy sweep: Platforms namespace + Metadata/Comparison/Support string updates (DESK-04)
+- [x] 13-02-copy-sweep-PLAN.md — i18n copy sweep: Platforms namespace + Metadata/Comparison/Support string updates (DESK-04)
 
 Full details: `.planning/milestones/v1.3-ROADMAP.md`
 
@@ -140,4 +140,4 @@ Full details: `.planning/milestones/v1.3-ROADMAP.md`
 | 11. Donation Page | v1.3 | 5/5 | Complete | 2026-04-14 |
 | 11.1. Donate 2-step UX rework | v1.3 | Complete    | 2026-04-16 | 2026-04-16 |
 | 12. Webhook Notifications | v1.3 | Complete    | 2026-04-16 | 2026-04-16 |
-| 13. Desktop Preparation | 2/2 | Complete   | 2026-04-17 | — |
+| 13. Desktop Preparation | v1.3 | 2/2 | Complete | 2026-04-17 |
