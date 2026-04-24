@@ -145,21 +145,24 @@
     "compatibility_text": "Dictus runs on iOS 18+ (beta), Android (beta), and macOS, Windows, Linux (coming soon)."
   },
   "Platforms": {
-    "heading": "Also coming to Desktop",
-    "subheading": "Dictus is expanding to macOS, Windows, and Linux. Same 100% offline guarantee.",
+    "heading": "Also on Desktop",
+    "subheading": "Dictus runs on macOS, Windows, and Linux. Same 100% offline guarantee.",
     "tablist_label": "Desktop platforms",
     "tab_mac": "macOS",
     "tab_win": "Windows",
     "tab_linux": "Linux",
     "panel_mac_title": "macOS",
-    "panel_mac_desc": "Apple Silicon (arm64) and Intel (x64). Native app, no login, no telemetry.",
+    "panel_mac_desc": "Apple Silicon (arm64) and Intel (x64). Signed and notarized. No login, no telemetry.",
     "panel_win_title": "Windows",
-    "panel_win_desc": "Windows 10/11, x64 and ARM. Installer and MSI.",
+    "panel_win_desc": "Windows 10/11, x64 and ARM64. Standalone installer.",
     "panel_linux_title": "Linux",
-    "panel_linux_desc": "AppImage (universal), .deb (Ubuntu/Debian), .rpm (Fedora/openSUSE).",
+    "panel_linux_desc": "AppImage (universal), .deb (Ubuntu/Debian), .rpm (Fedora/openSUSE). x64 and ARM64.",
     "coming_soon_label": "Coming Soon",
+    "available_label": "Available — {version}",
     "select_prompt": "Pick a platform to see details.",
-    "star_on_github": "Star on GitHub to follow progress"
+    "star_on_github": "Source code on GitHub",
+    "view_all_releases": "All releases & changelogs",
+    "windows_smartscreen_note": "Microsoft-trusted signing is in progress. Until then, Windows SmartScreen will show a warning — click \"More info\" then \"Run anyway\". The installer is cryptographically signed with Dictus's Ed25519 key."
   },
   "Donate": {
     "meta_title": "Support Dictus - Contribution",

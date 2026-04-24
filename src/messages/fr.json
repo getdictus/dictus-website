@@ -146,20 +146,23 @@
   },
   "Platforms": {
     "heading": "Aussi sur Desktop",
-    "subheading": "Dictus arrive sur macOS, Windows et Linux. La m\u00eame garantie 100% offline.",
+    "subheading": "Dictus fonctionne sur macOS, Windows et Linux. La m\u00eame garantie 100% offline.",
     "tablist_label": "Plateformes Desktop",
     "tab_mac": "macOS",
     "tab_win": "Windows",
     "tab_linux": "Linux",
     "panel_mac_title": "macOS",
-    "panel_mac_desc": "Apple Silicon (arm64) et Intel (x64). App native, sans compte, sans t\u00e9l\u00e9m\u00e9trie.",
+    "panel_mac_desc": "Apple Silicon (arm64) et Intel (x64). Sign\u00e9 et notaris\u00e9. Sans compte, sans t\u00e9l\u00e9m\u00e9trie.",
     "panel_win_title": "Windows",
-    "panel_win_desc": "Windows 10/11, x64 et ARM. Installeur et MSI.",
+    "panel_win_desc": "Windows 10/11, x64 et ARM64. Installeur autonome.",
     "panel_linux_title": "Linux",
-    "panel_linux_desc": "AppImage (universel), .deb (Ubuntu/Debian), .rpm (Fedora/openSUSE).",
+    "panel_linux_desc": "AppImage (universel), .deb (Ubuntu/Debian), .rpm (Fedora/openSUSE). x64 et ARM64.",
     "coming_soon_label": "Bient\u00f4t disponible",
+    "available_label": "Disponible \u2014 {version}",
     "select_prompt": "S\u00e9lectionnez une plateforme pour voir les d\u00e9tails.",
-    "star_on_github": "Star sur GitHub pour suivre l\u2019avanc\u00e9e"
+    "star_on_github": "Code source sur GitHub",
+    "view_all_releases": "Toutes les versions & changelogs",
+    "windows_smartscreen_note": "La signature Microsoft est en cours. En attendant, Windows SmartScreen affiche un avertissement \u2014 cliquez \u00ab Informations compl\u00e9mentaires \u00bb puis \u00ab Ex\u00e9cuter quand m\u00eame \u00bb. L'installeur est sign\u00e9 cryptographiquement avec la cl\u00e9 Ed25519 de Dictus."
   },
   "Donate": {
     "meta_title": "Soutenir Dictus - Contribution",
