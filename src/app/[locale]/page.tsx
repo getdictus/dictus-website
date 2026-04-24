@@ -1,4 +1,5 @@
 import { setRequestLocale, getTranslations } from "next-intl/server";
+import { getDesktopDownloads } from "@/lib/downloads";
 import Hero from "@/components/Hero/Hero";
 import Platforms from "@/components/Platforms/Platforms";
 import Features from "@/components/Features/Features";
@@ -19,6 +20,7 @@ export default async function HomePage({ params }: Props) {
   setRequestLocale(locale);
 
   const t = await getTranslations("Metadata");
+  const downloads = await getDesktopDownloads();
 
   const jsonLd = {
     "@context": "https://schema.org",
@@ -41,7 +43,7 @@ export default async function HomePage({ params }: Props) {
   return (
     <>
       <Hero />
-      <ScrollReveal><Platforms /></ScrollReveal>
+      <ScrollReveal><Platforms downloads={downloads} /></ScrollReveal>
       <ScrollReveal><Features /></ScrollReveal>
       <ScrollReveal><Comparison /></ScrollReveal>
       <ScrollReveal><HowItWorks /></ScrollReveal>
