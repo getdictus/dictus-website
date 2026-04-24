@@ -1,8 +1,15 @@
 // src/config/downloads.ts
-// Centralized download links for Dictus Desktop (Mac / Windows / Linux).
-// URLs point to a pinned GitHub release — bump DESKTOP_VERSION on each new
-// dictus-desktop release and GitHub serves the matching assets automatically.
-// Shape convention mirrors src/config/donate.ts (`as const`).
+// Desktop download config for Dictus Desktop (Mac / Windows / Linux).
+//
+// Runtime source of truth is the GitHub Releases API — resolved at build time by
+// `getDesktopDownloads()` in `src/lib/downloads.ts`. This module provides:
+//   1. The type contract (`DownloadsConfig`, variants).
+//   2. A pinned `fallbackDownloads` snapshot used when the API call fails.
+//   3. `ASSET_PATTERNS` — anchored regexes that match each variant slot to an
+//      asset in the release's `assets[]` array.
+//
+// Bump `DESKTOP_VERSION` + the fallback URLs only as a manual safety net; the
+// live site auto-syncs with the latest release without needing changes here.
 
 const DESKTOP_VERSION = "v0.1.2";
 const RELEASE_BASE = `https://github.com/getdictus/dictus-desktop/releases/download/${DESKTOP_VERSION}`;
@@ -33,7 +40,7 @@ export type DownloadsConfig = {
   };
 };
 
-export const downloads: DownloadsConfig = {
+export const fallbackDownloads: DownloadsConfig = {
   version: DESKTOP_VERSION,
   macos: {
     arm64: {
@@ -105,6 +112,23 @@ export const downloads: DownloadsConfig = {
       },
     ],
   },
+} as const;
+
+// Anchored regexes that match each variant slot to an asset filename.
+// Both ends anchored + required `Dictus` prefix block mis-named / attacker-
+// injected assets from matching. Kept alongside the config so changes stay
+// co-located with the data shape.
+export const ASSET_PATTERNS = {
+  macArm64: /^Dictus_[\d.]+_aarch64\.dmg$/,
+  macX64: /^Dictus_[\d.]+_x64\.dmg$/,
+  winX64: /^Dictus_[\d.]+_x64-setup\.exe$/,
+  winArm64: /^Dictus_[\d.]+_arm64-setup\.exe$/,
+  linuxAppX64: /^Dictus_[\d.]+_amd64\.AppImage$/,
+  linuxAppArm64: /^Dictus_[\d.]+_aarch64\.AppImage$/,
+  linuxDebX64: /^Dictus_[\d.]+_amd64\.deb$/,
+  linuxDebArm64: /^Dictus_[\d.]+_arm64\.deb$/,
+  linuxRpmX64: /^Dictus-[\d.]+-\d+\.x86_64\.rpm$/,
+  linuxRpmArm64: /^Dictus-[\d.]+-\d+\.aarch64\.rpm$/,
 } as const;
 
 // Convenience helper used by the Platforms component to decide

@@ -3,7 +3,12 @@
 import { useState, useEffect, useRef, useCallback } from "react";
 import { useTranslations } from "next-intl";
 import { Icon } from "@iconify/react";
-import { downloads, anyEnabled, type DownloadVariant, type LinuxFormat } from "@/config/downloads";
+import {
+  anyEnabled,
+  type DownloadsConfig,
+  type DownloadVariant,
+  type LinuxFormat,
+} from "@/config/downloads";
 
 type Os = "mac" | "win" | "linux";
 type Selection = Os | null;
@@ -26,13 +31,16 @@ function detectOs(): Os | null {
   return null;
 }
 
-function variantsFor(os: Os): readonly DownloadVariant[] {
+function variantsFor(
+  downloads: DownloadsConfig,
+  os: Os
+): readonly DownloadVariant[] {
   if (os === "mac") return [downloads.macos.arm64, downloads.macos.x64];
   if (os === "win") return [downloads.windows.x64, downloads.windows.arm64];
   return downloads.linux.formats;
 }
 
-export default function Platforms() {
+export default function Platforms({ downloads }: { downloads: DownloadsConfig }) {
   const t = useTranslations("Platforms");
   const [selected, setSelected] = useState<Selection>(null);
   const tabsRef = useRef<(HTMLButtonElement | null)[]>([]);
@@ -106,8 +114,8 @@ export default function Platforms() {
         </div>
 
         {selected ? (
-          anyEnabled(variantsFor(selected)) ? (
-            <DownloadCard os={selected} />
+          anyEnabled(variantsFor(downloads, selected)) ? (
+            <DownloadCard os={selected} downloads={downloads} />
           ) : (
             <ComingSoonCard os={selected} />
           )
@@ -119,9 +127,9 @@ export default function Platforms() {
   );
 }
 
-function DownloadCard({ os }: { os: Os }) {
+function DownloadCard({ os, downloads }: { os: Os; downloads: DownloadsConfig }) {
   const t = useTranslations("Platforms");
-  const variants = variantsFor(os).filter((v) => v.enabled);
+  const variants = variantsFor(downloads, os).filter((v) => v.enabled);
 
   return (
     <div
