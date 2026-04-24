@@ -68,7 +68,7 @@ export default function Platforms({ downloads }: { downloads: DownloadsConfig })
   );
 
   return (
-    <section className="bg-ink-2 py-28" aria-labelledby="platforms-heading">
+    <section id="desktop" className="scroll-mt-16 bg-ink-2 py-28" aria-labelledby="platforms-heading">
       <div className="mx-auto max-w-6xl px-6">
         <h2
           id="platforms-heading"
