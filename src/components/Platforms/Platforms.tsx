@@ -3,7 +3,7 @@
 import { useState, useEffect, useRef, useCallback } from "react";
 import { useTranslations } from "next-intl";
 import { Icon } from "@iconify/react";
-import { downloads } from "@/config/downloads";
+import { downloads, anyEnabled, type DownloadVariant, type LinuxFormat } from "@/config/downloads";
 
 type Os = "mac" | "win" | "linux";
 type Selection = Os | null;
@@ -24,6 +24,12 @@ function detectOs(): Os | null {
   if (/Windows/.test(ua)) return "win";
   if (/Linux|X11/.test(ua)) return "linux";
   return null;
+}
+
+function variantsFor(os: Os): readonly DownloadVariant[] {
+  if (os === "mac") return [downloads.macos.arm64, downloads.macos.x64];
+  if (os === "win") return [downloads.windows.x64, downloads.windows.arm64];
+  return downloads.linux.formats;
 }
 
 export default function Platforms() {
@@ -100,7 +106,11 @@ export default function Platforms() {
         </div>
 
         {selected ? (
-          <ComingSoonCard os={selected} />
+          anyEnabled(variantsFor(selected)) ? (
+            <DownloadCard os={selected} />
+          ) : (
+            <ComingSoonCard os={selected} />
+          )
         ) : (
           <p className="mt-8 text-sm text-white-40">{t("select_prompt")}</p>
         )}
@@ -109,12 +119,95 @@ export default function Platforms() {
   );
 }
 
+function DownloadCard({ os }: { os: Os }) {
+  const t = useTranslations("Platforms");
+  const variants = variantsFor(os).filter((v) => v.enabled);
+
+  return (
+    <div
+      role="tabpanel"
+      id={`platforms-panel-${os}`}
+      aria-labelledby={`platforms-tab-${os}`}
+      tabIndex={0}
+      className="mt-8 rounded-2xl border border-border bg-[var(--glass-t2-bg)] p-8 backdrop-blur-[12px] backdrop-saturate-[1.2]"
+    >
+      <div className="flex items-start gap-6">
+        <div className="flex h-16 w-16 shrink-0 items-center justify-center rounded-xl bg-navy">
+          <Icon
+            icon={ICONS[os]}
+            width={32}
+            height={32}
+            className="text-sky"
+            aria-hidden="true"
+          />
+        </div>
+        <div className="flex-1">
+          <div className="flex flex-wrap items-center gap-3">
+            <h3 className="text-lg font-normal text-text-primary">
+              {t(`panel_${os}_title`)}
+            </h3>
+            <span className="inline-flex items-center gap-2 rounded-full border border-[#22C55E]/30 bg-[#22C55E]/10 px-3 py-1 text-xs font-light tracking-wide text-[#22C55E]">
+              {t("available_label", { version: downloads.version })}
+            </span>
+          </div>
+          <p className="mt-2 text-sm leading-relaxed text-white-70">
+            {t(`panel_${os}_desc`)}
+          </p>
+
+          <div className="mt-5 flex flex-wrap gap-2">
+            {variants.map((v) => {
+              const format = isLinuxFormat(v) ? v.type : undefined;
+              return (
+                <a
+                  key={v.url}
+                  href={v.url}
+                  rel="noopener noreferrer"
+                  data-download-os={os}
+                  data-download-format={format}
+                  className="inline-flex min-h-11 items-center gap-2 rounded-full border border-accent/30 bg-accent/10 px-5 py-2 text-sm font-light text-accent transition-colors hover:border-accent/50 hover:bg-accent/20"
+                >
+                  <Icon icon="simple-icons:github" width={16} height={16} aria-hidden="true" />
+                  {v.label}
+                </a>
+              );
+            })}
+          </div>
+
+          {os === "win" && (
+            <p className="mt-4 text-xs text-white-40">{t("windows_smartscreen_note")}</p>
+          )}
+
+          <div className="mt-6 flex flex-wrap items-center gap-x-6 gap-y-2">
+            <a
+              href="https://github.com/getdictus/dictus-desktop/releases"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="inline-flex min-h-11 items-center gap-2 text-sm text-white-70 underline underline-offset-4 hover:text-text-primary"
+            >
+              {t("view_all_releases")}
+            </a>
+            <a
+              href="https://github.com/getdictus/dictus-desktop"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="inline-flex min-h-11 items-center gap-2 text-sm text-accent underline underline-offset-4 hover:text-accent-hi"
+            >
+              <Icon icon="simple-icons:github" width={16} height={16} aria-hidden="true" />
+              {t("star_on_github")}
+            </a>
+          </div>
+        </div>
+      </div>
+    </div>
+  );
+}
+
+function isLinuxFormat(v: DownloadVariant): v is LinuxFormat {
+  return "type" in v;
+}
+
 function ComingSoonCard({ os }: { os: Os }) {
   const t = useTranslations("Platforms");
-  // Touch the config so TS narrows and the reviewer sees downloads is wired in,
-  // even though v1 renders the same Coming Soon state for every OS.
-  // (Future: branch on `downloads.macos.arm64.enabled` to render active CTA.)
-  void downloads;
 
   return (
     <div
@@ -153,20 +246,12 @@ function ComingSoonCard({ os }: { os: Os }) {
           </div>
 
           <a
-            href="https://github.com/Pivii/dictus"
+            href="https://github.com/getdictus/dictus-desktop"
             target="_blank"
             rel="noopener noreferrer"
             className="mt-6 inline-flex min-h-11 items-center gap-2 text-sm text-accent underline underline-offset-4 hover:text-accent-hi"
           >
-            <svg
-              width="16"
-              height="16"
-              viewBox="0 0 24 24"
-              fill="currentColor"
-              aria-hidden="true"
-            >
-              <path d="M12 0C5.37 0 0 5.37 0 12c0 5.31 3.435 9.795 8.205 11.385.6.105.825-.255.825-.57 0-.285-.015-1.23-.015-2.235-3.015.555-3.795-.735-4.035-1.41-.135-.345-.72-1.41-1.23-1.695-.42-.225-1.02-.78-.015-.795.945-.015 1.62.87 1.845 1.23 1.08 1.815 2.805 1.305 3.495.99.105-.78.42-1.305.765-1.605-2.67-.3-5.46-1.335-5.46-5.925 0-1.305.465-2.385 1.23-3.225-.12-.3-.54-1.53.12-3.18 0 0 1.005-.315 3.3 1.23.96-.27 1.98-.405 3-.405s2.04.135 3 .405c2.295-1.56 3.3-1.23 3.3-1.23.66 1.65.24 2.88.12 3.18.765.84 1.23 1.905 1.23 3.225 0 4.605-2.805 5.625-5.475 5.925.435.375.81 1.095.81 2.22 0 1.605-.015 2.895-.015 3.3 0 .315.225.69.825.57A12.02 12.02 0 0024 12c0-6.63-5.37-12-12-12z" />
-            </svg>
+            <Icon icon="simple-icons:github" width={16} height={16} aria-hidden="true" />
             {t("star_on_github")}
           </a>
         </div>
