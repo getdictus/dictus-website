@@ -22,7 +22,8 @@
     "cta_scan_to_join": "Scan to join the beta",
     "cta_available_iphone": "Available on iPhone",
     "cta_testflight_link": "Open in TestFlight",
-    "cta_android_soon": "Also coming to Android"
+    "cta_android_soon": "Also coming to Android",
+    "cta_desktop": "Also on Desktop"
   },
   "Features": {
     "privacy_title": "100% offline",

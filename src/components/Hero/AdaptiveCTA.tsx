@@ -45,6 +45,37 @@ function AndroidIcon() {
   );
 }
 
+function DesktopIcon() {
+  return (
+    <svg
+      width="14"
+      height="14"
+      viewBox="0 0 24 24"
+      fill="none"
+      stroke="currentColor"
+      strokeWidth="2"
+      strokeLinecap="round"
+      strokeLinejoin="round"
+      aria-hidden="true"
+    >
+      <rect x="2" y="3" width="20" height="14" rx="2" />
+      <path d="M8 21h8M12 17v4" />
+    </svg>
+  );
+}
+
+function DesktopLink({ label }: { label: string }) {
+  return (
+    <a
+      href="#desktop"
+      className="inline-flex items-center gap-1.5 text-xs text-white-40 underline-offset-4 transition-colors hover:text-accent hover:underline"
+    >
+      <DesktopIcon />
+      {label}
+    </a>
+  );
+}
+
 function Badge({
   icon,
   label,
@@ -109,15 +140,18 @@ export default function AdaptiveCTA() {
   // Pre-hydration: show dual badges
   if (device === "unknown") {
     return (
-      <div className="mt-6 flex flex-wrap items-center justify-center gap-3">
-        <Badge
-          icon={<AppleIcon />}
-          label={betaActive ? t("badge_ios_beta") : t("badge_ios")}
-        />
-        <Badge
-          icon={<AndroidIcon />}
-          label={betaActive ? t("badge_android_beta") : t("badge_android")}
-        />
+      <div className="mt-6 flex flex-col items-center gap-3">
+        <div className="flex flex-wrap items-center justify-center gap-3">
+          <Badge
+            icon={<AppleIcon />}
+            label={betaActive ? t("badge_ios_beta") : t("badge_ios")}
+          />
+          <Badge
+            icon={<AndroidIcon />}
+            label={betaActive ? t("badge_android_beta") : t("badge_android")}
+          />
+        </div>
+        <DesktopLink label={t("cta_desktop")} />
       </div>
     );
   }
@@ -136,6 +170,7 @@ export default function AdaptiveCTA() {
             {t("cta_android_download")}
           </SecondaryLink>
         )}
+        <DesktopLink label={t("cta_desktop")} />
       </div>
     );
   }
@@ -154,6 +189,7 @@ export default function AdaptiveCTA() {
             {t("cta_testflight_link")} (iOS)
           </SecondaryLink>
         )}
+        <DesktopLink label={t("cta_desktop")} />
       </div>
     );
   }
@@ -179,15 +215,19 @@ export default function AdaptiveCTA() {
             </a>
           )}
         </div>
+        <DesktopLink label={t("cta_desktop")} />
       </div>
     );
   }
 
   // Fallback: dual badges (no URLs configured)
   return (
-    <div className="mt-6 flex flex-wrap items-center justify-center gap-3">
-      <Badge icon={<AppleIcon />} label={t("badge_ios")} />
-      <Badge icon={<AndroidIcon />} label={t("badge_android")} />
+    <div className="mt-6 flex flex-col items-center gap-3">
+      <div className="flex flex-wrap items-center justify-center gap-3">
+        <Badge icon={<AppleIcon />} label={t("badge_ios")} />
+        <Badge icon={<AndroidIcon />} label={t("badge_android")} />
+      </div>
+      <DesktopLink label={t("cta_desktop")} />
     </div>
   );
 }
