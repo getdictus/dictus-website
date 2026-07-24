@@ -53,6 +53,30 @@ export default function sitemap(): MetadataRoute.Sitemap {
       },
     },
     {
+      url: `${BASE_URL}/fr/terms`,
+      lastModified: new Date(),
+      changeFrequency: "yearly",
+      priority: 0.3,
+      alternates: {
+        languages: {
+          fr: `${BASE_URL}/fr/terms`,
+          en: `${BASE_URL}/en/terms`,
+        },
+      },
+    },
+    {
+      url: `${BASE_URL}/en/terms`,
+      lastModified: new Date(),
+      changeFrequency: "yearly",
+      priority: 0.3,
+      alternates: {
+        languages: {
+          fr: `${BASE_URL}/fr/terms`,
+          en: `${BASE_URL}/en/terms`,
+        },
+      },
+    },
+    {
       url: `${BASE_URL}/fr/support`,
       lastModified: new Date(),
       changeFrequency: "yearly",

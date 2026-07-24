@@ -74,6 +74,13 @@ export default function Footer() {
           </Link>
           <span className="text-white-40" aria-hidden="true">·</span>
           <Link
+            href="/terms"
+            className="text-white-40 transition-colors hover:text-white-70"
+          >
+            {t("terms_link")}
+          </Link>
+          <span className="text-white-40" aria-hidden="true">·</span>
+          <Link
             href="/support"
             className="text-white-40 transition-colors hover:text-white-70"
           >
