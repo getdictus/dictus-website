@@ -3,9 +3,10 @@
 // at build / ISR time. Falls back to `fallbackDownloads` on any failure so
 // builds never break and the site stays usable if the API is unreachable.
 //
-// Primary refresh path is a Vercel Deploy Hook triggered by the dictus-desktop
-// release workflow. The `revalidate: 3600` below is a safety net for missed
-// hooks (1h ISR).
+// Primary refresh path is `POST /api/revalidate`, called by the dictus-desktop
+// release workflow: it purges `DOWNLOADS_CACHE_TAG` and the next request re-reads
+// the API — seconds, no rebuild. The `revalidate: 3600` below is a safety net for
+// missed calls (1h ISR).
 
 import {
   fallbackDownloads,
@@ -15,13 +16,17 @@ import {
   type LinuxFormat,
 } from "@/config/downloads";
 
-const RELEASES_URL =
+export const RELEASES_URL =
   "https://api.github.com/repos/getdictus/dictus-desktop/releases/latest";
 const ALLOWED_URL_PREFIX =
   "https://github.com/getdictus/dictus-desktop/releases/download/";
 const TAG_REGEX = /^v\d+\.\d+\.\d+(?:-[a-z0-9.-]+)?$/i;
-const FETCH_TIMEOUT_MS = 10_000;
+export const FETCH_TIMEOUT_MS = 10_000;
 const REVALIDATE_SECONDS = 3600;
+
+// Cache tag carried by the releases fetch below. `POST /api/revalidate` purges it
+// on demand; exported so the route handler shares the literal instead of copying it.
+export const DOWNLOADS_CACHE_TAG = "desktop-downloads";
 
 type Asset = { name: string; browser_download_url: string };
 
@@ -67,19 +72,24 @@ function linuxPatternFor(fmt: LinuxFormat): RegExp | null {
   return null;
 }
 
+// Shared by `/api/downloads-health`, which re-reads the same endpoint uncached to
+// compare the served version against the real latest release.
+export function githubHeaders(): Record<string, string> {
+  const headers: Record<string, string> = {
+    Accept: "application/vnd.github+json",
+    "X-GitHub-Api-Version": "2022-11-28",
+  };
+  const token = process.env.GITHUB_TOKEN;
+  if (token) headers.Authorization = `Bearer ${token}`;
+  return headers;
+}
+
 export async function getDesktopDownloads(): Promise<DownloadsConfig> {
   try {
-    const headers: Record<string, string> = {
-      Accept: "application/vnd.github+json",
-      "X-GitHub-Api-Version": "2022-11-28",
-    };
-    const token = process.env.GITHUB_TOKEN;
-    if (token) headers.Authorization = `Bearer ${token}`;
-
     const res = await fetch(RELEASES_URL, {
-      headers,
+      headers: githubHeaders(),
       signal: AbortSignal.timeout(FETCH_TIMEOUT_MS),
-      next: { revalidate: REVALIDATE_SECONDS },
+      next: { revalidate: REVALIDATE_SECONDS, tags: [DOWNLOADS_CACHE_TAG] },
     });
     if (!res.ok) return fallbackDownloads;
 
