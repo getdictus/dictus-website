@@ -110,3 +110,17 @@ L'icône représente une **onde sonore stylisée** — trois barres verticales d
 - Respecter les proportions de l'icône — ne pas déformer
 - Le site doit être responsive et performant (Lighthouse 90+)
 - Langue principale : français, avec possibilité d'anglais
+
+## Agent skills
+
+### Issue tracker
+
+Les issues vivent dans GitHub Issues (`getdictus/dictus-website`), via la CLI `gh`. Voir `docs/agents/issue-tracker.md`.
+
+### Triage labels
+
+Vocabulaire par défaut : `needs-triage`, `needs-info`, `ready-for-agent`, `ready-for-human`, `wontfix`. Voir `docs/agents/triage-labels.md`.
+
+### Domain docs
+
+Layout single-context : `CONTEXT.md` + `docs/adr/` à la racine. Voir `docs/agents/domain.md`.
