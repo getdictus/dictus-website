@@ -49,3 +49,12 @@ video/node_modules/
 video/.remotion/
 video/out/
 video/public/videos/
+
+# obsidian vault config (personal editor layout)
+docs/.obsidian/
+
+# playwright mcp session artifacts (console logs, page dumps)
+.playwright-mcp/
+
+# ad-hoc screenshots at repo root (verification captures, not site assets)
+/*.png
