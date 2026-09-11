@@ -8,10 +8,16 @@
 //   3. `ASSET_PATTERNS` — anchored regexes that match each variant slot to an
 //      asset in the release's `assets[]` array.
 //
-// Bump `DESKTOP_VERSION` + the fallback URLs only as a manual safety net; the
-// live site auto-syncs with the latest release without needing changes here.
+// Bump `DESKTOP_VERSION` alone as a manual safety net — every fallback URL is
+// derived from it. The live site auto-syncs with the latest release without
+// needing changes here.
 
-const DESKTOP_VERSION = "v0.1.2";
+const DESKTOP_VERSION = "v0.2.1";
+
+// Asset filenames carry the bare number (no `v`), so derive it rather than
+// repeating it in every URL below — that duplication is why the snapshot
+// drifted two releases behind.
+const VERSION_NUMBER = DESKTOP_VERSION.slice(1);
 const RELEASE_BASE = `https://github.com/getdictus/dictus-desktop/releases/download/${DESKTOP_VERSION}`;
 
 export type DownloadVariant = {
@@ -45,24 +51,24 @@ export const fallbackDownloads: DownloadsConfig = {
   macos: {
     arm64: {
       enabled: true,
-      url: `${RELEASE_BASE}/Dictus_0.1.2_aarch64.dmg`,
+      url: `${RELEASE_BASE}/Dictus_${VERSION_NUMBER}_aarch64.dmg`,
       label: "Apple Silicon (.dmg)",
     },
     x64: {
       enabled: true,
-      url: `${RELEASE_BASE}/Dictus_0.1.2_x64.dmg`,
+      url: `${RELEASE_BASE}/Dictus_${VERSION_NUMBER}_x64.dmg`,
       label: "Intel (.dmg)",
     },
   },
   windows: {
     x64: {
       enabled: true,
-      url: `${RELEASE_BASE}/Dictus_0.1.2_x64-setup.exe`,
+      url: `${RELEASE_BASE}/Dictus_${VERSION_NUMBER}_x64-setup.exe`,
       label: "x64 installer (.exe)",
     },
     arm64: {
       enabled: true,
-      url: `${RELEASE_BASE}/Dictus_0.1.2_arm64-setup.exe`,
+      url: `${RELEASE_BASE}/Dictus_${VERSION_NUMBER}_arm64-setup.exe`,
       label: "ARM64 installer (.exe)",
     },
   },
@@ -72,42 +78,42 @@ export const fallbackDownloads: DownloadsConfig = {
         type: "appimage",
         arch: "x64",
         enabled: true,
-        url: `${RELEASE_BASE}/Dictus_0.1.2_amd64.AppImage`,
+        url: `${RELEASE_BASE}/Dictus_${VERSION_NUMBER}_amd64.AppImage`,
         label: "AppImage (x64)",
       },
       {
         type: "appimage",
         arch: "arm64",
         enabled: true,
-        url: `${RELEASE_BASE}/Dictus_0.1.2_aarch64.AppImage`,
+        url: `${RELEASE_BASE}/Dictus_${VERSION_NUMBER}_aarch64.AppImage`,
         label: "AppImage (ARM64)",
       },
       {
         type: "deb",
         arch: "x64",
         enabled: true,
-        url: `${RELEASE_BASE}/Dictus_0.1.2_amd64.deb`,
+        url: `${RELEASE_BASE}/Dictus_${VERSION_NUMBER}_amd64.deb`,
         label: ".deb (x64)",
       },
       {
         type: "deb",
         arch: "arm64",
         enabled: true,
-        url: `${RELEASE_BASE}/Dictus_0.1.2_arm64.deb`,
+        url: `${RELEASE_BASE}/Dictus_${VERSION_NUMBER}_arm64.deb`,
         label: ".deb (ARM64)",
       },
       {
         type: "rpm",
         arch: "x64",
         enabled: true,
-        url: `${RELEASE_BASE}/Dictus-0.1.2-1.x86_64.rpm`,
+        url: `${RELEASE_BASE}/Dictus-${VERSION_NUMBER}-1.x86_64.rpm`,
         label: ".rpm (x64)",
       },
       {
         type: "rpm",
         arch: "arm64",
         enabled: true,
-        url: `${RELEASE_BASE}/Dictus-0.1.2-1.aarch64.rpm`,
+        url: `${RELEASE_BASE}/Dictus-${VERSION_NUMBER}-1.aarch64.rpm`,
         label: ".rpm (ARM64)",
       },
     ],
