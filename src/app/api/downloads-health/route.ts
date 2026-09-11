@@ -38,7 +38,8 @@ async function fetchLatestTag(): Promise<string | null> {
 
 type ServedVersion =
   | { kind: "ok"; version: string }
-  | { kind: "unreadable"; detail: string };
+  | { kind: "unreadable"; detail: string }
+  | { kind: "unverifiable"; detail: string };
 
 // The served side: the rendered page itself, read exactly as a visitor gets it.
 //
@@ -51,7 +52,17 @@ async function fetchServedVersion(origin: string): Promise<ServedVersion> {
     const res = await fetch(new URL(SERVED_PAGE_PATH, origin), {
       signal: AbortSignal.timeout(FETCH_TIMEOUT_MS),
       cache: "no-store",
+      // Manual: a redirect means we are being sent somewhere that is not the page —
+      // a protected preview's SSO login, or an apex->www hop. Following it would hand
+      // us someone else's HTML and we would call the missing links an incident.
+      redirect: "manual",
     });
+    if (res.status >= 300 && res.status < 400) {
+      return {
+        kind: "unverifiable",
+        detail: `page redirected (${res.status}) to ${res.headers.get("location") ?? "unknown"}`,
+      };
+    }
     if (!res.ok) return { kind: "unreadable", detail: `page returned ${res.status}` };
 
     const html = await res.text();
@@ -82,6 +93,13 @@ export async function GET(request: Request): Promise<Response> {
   if (latest === null) {
     console.warn("[downloads-health] GitHub API unreachable, reporting degraded");
     return Response.json({ ok: true, degraded: true });
+  }
+
+  // Not looking at the page is not the same as the page being wrong. A protected
+  // preview deployment lands here, and a monitor must not page anyone over it.
+  if (served.kind === "unverifiable") {
+    console.warn(`[downloads-health] cannot reach the served page: ${served.detail}`);
+    return Response.json({ ok: true, degraded: true, reason: served.detail });
   }
 
   if (served.kind === "unreadable") {
