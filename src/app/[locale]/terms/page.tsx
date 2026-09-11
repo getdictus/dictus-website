@@ -29,6 +29,7 @@ const sections = [
   "license",
   "subscription",
   "trial",
+  "lifetime",
   "refunds",
   "privacy_ref",
   "ip",
