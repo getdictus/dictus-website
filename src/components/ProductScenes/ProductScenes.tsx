@@ -14,9 +14,17 @@ const screens = [
 
 export default function ProductScenes() {
   const t = useTranslations("ProductScenes");
-  const [selected, setSelected] = useState(0);
+  const [selection, setSelection] = useState({ index: 0, transition: "keyboard" });
+  const selected = selection.index;
   const tabs = useRef<(HTMLButtonElement | null)[]>([]);
   const testflightUrl = process.env.NEXT_PUBLIC_TESTFLIGHT_URL;
+
+  function selectScreen(index: number) {
+    setSelection((current) => current.index === index ? current : {
+      index,
+      transition: current.index === 2 || index === 2 ? "app" : "keyboard",
+    });
+  }
 
   function onTabKey(event: KeyboardEvent<HTMLButtonElement>, current: number) {
     let next = current;
@@ -26,7 +34,7 @@ export default function ProductScenes() {
     else if (event.key === "End") next = screens.length - 1;
     else return;
     event.preventDefault();
-    setSelected(next);
+    selectScreen(next);
     tabs.current[next]?.focus();
   }
 
@@ -49,7 +57,7 @@ export default function ProductScenes() {
                   aria-controls={`iphone-screen-${index}`}
                   aria-selected={selected === index}
                   tabIndex={selected === index ? 0 : -1}
-                  onClick={() => setSelected(index)}
+                  onClick={() => selectScreen(index)}
                   onKeyDown={(event) => onTabKey(event, index)}
                 >{t(`screens.${screen.key}.label`)}</button>
               ))}
@@ -63,15 +71,17 @@ export default function ProductScenes() {
         <div className={styles.phoneFigure}>
           <div className={styles.phone}>
             <div className={styles.phoneButtons} aria-hidden="true" />
-            <div className={styles.screen}>
+            <div className={styles.screen} data-transition={selection.transition}>
               {screens.map((screen, index) => (
                 <div
                   key={screen.key}
                   id={`iphone-screen-${index}`}
                   role="tabpanel"
                   aria-labelledby={`iphone-tab-${index}`}
-                  hidden={selected !== index}
-                  tabIndex={0}
+                  aria-hidden={selected !== index}
+                  inert={selected !== index}
+                  tabIndex={selected === index ? 0 : -1}
+                  data-active={selected === index}
                   className={styles.screenPanel}
                 >
                   <Image

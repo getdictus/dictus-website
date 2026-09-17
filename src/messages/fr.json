@@ -36,6 +36,8 @@
     "play_waveform": "Animer la waveform"
   },
   "Features": {
+    "pause_animation": "Mettre l’animation en pause",
+    "play_animation": "Reprendre l’animation",
     "title": "Les mots viennent. Écrivez-les à voix haute.",
     "intro": "Un message à envoyer, une idée à garder, un e-mail à rédiger. Parlez, puis relisez et ajustez vos mots.",
     "messages_title": "Répondre à un message",
@@ -187,6 +189,12 @@
     "compatibility_text": "Dictus pour iPhone nécessite iOS 18 ou ultérieur. Dictus Desktop fonctionne sur macOS, Windows et Linux. La version Android est en développement."
   },
   "Platforms": {
+    "demo_label": "Démonstration animée de la pilule de dictée Dictus",
+    "demo_recording": "Écoute",
+    "demo_transcribing": "Transcription",
+    "demo_idle": "Prêt à dicter",
+    "demo_pause": "Mettre la démonstration en pause",
+    "demo_resume": "Reprendre la démonstration",
     "heading": "Aussi sur Desktop",
     "subheading": "Dictus fonctionne sur macOS, Windows et Linux. La transcription est locale par défaut.",
     "tablist_label": "Plateformes Desktop",
@@ -210,7 +218,7 @@
     "title_line_two": "Un raccourci.",
     "description": "Appuyez sur votre raccourci, parlez, puis retrouvez vos mots dans l’application que vous utilisez. La transcription se fait sur votre ordinateur.",
     "free": "Gratuit. Aujourd’hui et demain.",
-    "screenshot_alt": "Capture réelle des réglages de Dictus Desktop 0.3.0 sur macOS : raccourci, modèle local et microphone.",
+    "screenshot_alt": "Dictus Desktop sur macOS : réglages généraux, raccourci de dictée et modèle local.",
     "screenshot_caption": "Dictus Desktop sur macOS.",
     "noscript_label": "Télécharger Dictus Desktop"
   },

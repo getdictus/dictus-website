@@ -1,25 +1,32 @@
 import { useTranslations } from "next-intl";
+import GlassSurface from "@/components/shared/GlassSurface";
 
 export default function HowItWorks() {
   const t = useTranslations("HowItWorks");
 
   return (
     <section id="local" aria-labelledby="local-title" className="bg-ink-2 px-6 py-24 sm:py-32">
-      <div className="mx-auto max-w-5xl">
-        <div className="max-w-2xl">
+      <div className="mx-auto max-w-4xl">
+        <div className="mx-auto max-w-2xl text-center">
           <h2 id="local-title" className="text-4xl font-extralight tracking-[-0.035em] sm:text-5xl">{t("privacy_title")}</h2>
           <p className="mt-6 text-lg leading-relaxed text-white-70">{t("privacy_desc")}</p>
         </div>
-        <ol className="mt-16 grid gap-10 sm:grid-cols-3 sm:gap-12">
+        <ol className="relative mt-14 before:absolute before:bottom-10 before:left-[23px] before:top-6 before:w-px before:bg-border sm:mt-16">
           {([1, 2, 3] as const).map((step) => (
-            <li key={step}>
-              <span aria-hidden="true" className="text-sm font-normal text-[#2563eb] dark:text-accent-hi">0{step}</span>
-              <h3 className="mt-4 text-xl font-normal tracking-tight">{t(`step${step}_title`)}</h3>
-              <p className="mt-3 leading-relaxed text-white-70">{t(`step${step}_desc`)}</p>
+            <li key={step} className="relative grid grid-cols-[3rem_1fr] gap-x-6 py-7 first:pt-0 last:pb-0 sm:gap-x-10">
+              <span aria-hidden="true" className="relative z-10 mt-0.5 flex h-12 w-12 items-center justify-center rounded-full bg-ink-2">
+                <GlassSurface style={{ display: "grid", placeItems: "center" }} className="h-12 w-12 text-sm font-normal text-[#2563eb] dark:text-accent-hi">
+                  <span className="relative z-10">0{step}</span>
+                </GlassSurface>
+              </span>
+              <div className="grid items-start gap-3 pt-2 sm:grid-cols-[1fr_1.35fr] sm:gap-10">
+                <h3 className="text-xl font-normal leading-snug tracking-tight">{t(`step${step}_title`)}</h3>
+                <p className="leading-relaxed text-white-70">{t(`step${step}_desc`)}</p>
+              </div>
             </li>
           ))}
         </ol>
-        <p className="mt-12 max-w-2xl text-sm leading-relaxed text-white-70">{t("privacy_accent")}</p>
+        <p className="ml-18 mt-12 max-w-2xl text-sm leading-relaxed text-white-70 sm:ml-22">{t("privacy_accent")}</p>
       </div>
     </section>
   );

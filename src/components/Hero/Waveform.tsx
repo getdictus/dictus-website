@@ -1,13 +1,13 @@
 "use client";
 
 import { useCallback, useEffect, useRef, useState } from "react";
-import { useReducedMotion } from "motion/react";
 import { useAnimationFrame } from "@/hooks/useAnimationFrame";
 
 // --- Constants matching iOS BrandWaveform.swift ---
 const BAR_COUNT = 30;
 const BAR_SPACING = 3; // px between bars
-const MAX_HEIGHT = 300; // big imposing bars
+const MAX_HEIGHT = 300;
+const REFERENCE_WIDTH = 1440;
 const MIN_BAR_HEIGHT = 2; // baseline visibility even in silence
 
 // Color lerp duration in ms
@@ -84,7 +84,7 @@ function generateActiveTargets(targets: Float32Array) {
 export default function Waveform({ active = true }: { active?: boolean }) {
   const canvasRef = useRef<HTMLCanvasElement>(null);
   const dimensionsRef = useRef({ width: 0, height: 0 });
-  const shouldReduce = useReducedMotion() ?? false;
+  const [shouldReduce, setShouldReduce] = useState(true);
   const drawOnceRef = useRef<() => void>(() => undefined);
   const displayLevelsRef = useRef<Float32Array>(new Float32Array(BAR_COUNT));
   const colorsRef = useRef<ThemeColors>({ ...DEFAULT_COLORS });
@@ -200,12 +200,18 @@ export default function Waveform({ active = true }: { active?: boolean }) {
     );
     observer.observe(canvas);
 
+    const motionQuery = window.matchMedia("(prefers-reduced-motion: reduce)");
+    const handleMotionPreference = () => setShouldReduce(motionQuery.matches);
+    handleMotionPreference();
+    motionQuery.addEventListener("change", handleMotionPreference);
+
     const handleVisibility = () => setIsDocumentVisible(!document.hidden);
     handleVisibility();
     document.addEventListener("visibilitychange", handleVisibility);
 
     return () => {
       observer.disconnect();
+      motionQuery.removeEventListener("change", handleMotionPreference);
       document.removeEventListener("visibilitychange", handleVisibility);
     };
   }, []);
@@ -343,7 +349,7 @@ export default function Waveform({ active = true }: { active?: boolean }) {
 
       // Phase timing -- compute once per frame
       const now = performance.now();
-      const phaseElapsed = now - phaseStartTimeRef.current;
+      const phaseElapsed = shouldReduce ? 900 : now - phaseStartTimeRef.current;
 
       // Update active targets every ~150ms during active phase
       if (
@@ -361,6 +367,10 @@ export default function Waveform({ active = true }: { active?: boolean }) {
 
       // Compute bar layout -- center the waveform
       const { barWidth, offsetX } = computeBarLayout(width);
+      // Keep the desktop silhouette when the viewport narrows. A fixed 300px
+      // amplitude made thin mobile bars look stretched vertically; the height
+      // follows the available width, never the (often taller) viewport height.
+      const maxHeight = MAX_HEIGHT * Math.min(1, Math.max(0.32, width / REFERENCE_WIDTH));
 
       for (let i = 0; i < BAR_COUNT; i++) {
         // Target energy from phase state machine
@@ -372,7 +382,9 @@ export default function Waveform({ active = true }: { active?: boolean }) {
 
         // Smooth interpolation: lerp up, decay down (matching iOS)
         const current = displayLevels[i];
-        if (targetEnergy > current) {
+        if (shouldReduce) {
+          displayLevels[i] = targetEnergy;
+        } else if (targetEnergy > current) {
           displayLevels[i] =
             current + (targetEnergy - current) * smoothingFactor;
         } else {
@@ -386,7 +398,7 @@ export default function Waveform({ active = true }: { active?: boolean }) {
 
         const energy = displayLevels[i];
         const barHeight = Math.max(
-          MIN_BAR_HEIGHT + energy * (MAX_HEIGHT - MIN_BAR_HEIGHT),
+          MIN_BAR_HEIGHT + energy * (maxHeight - MIN_BAR_HEIGHT),
           MIN_BAR_HEIGHT
         );
 
@@ -401,7 +413,7 @@ export default function Waveform({ active = true }: { active?: boolean }) {
         ctx.fill();
       }
     },
-    [computePhaseEnergy, resolveBarColor, computeBarLayout]
+    [computePhaseEnergy, resolveBarColor, computeBarLayout, shouldReduce]
   );
 
   useEffect(() => {

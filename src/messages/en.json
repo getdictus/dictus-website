@@ -36,6 +36,8 @@
     "play_waveform": "Play animation"
   },
   "Features": {
+    "pause_animation": "Pause animation",
+    "play_animation": "Resume animation",
     "title": "When the words come, say them.",
     "intro": "A message to send, an idea to keep, an email to write. Speak, then read through and make it yours.",
     "messages_title": "Reply to a message",
@@ -187,6 +189,12 @@
     "compatibility_text": "Dictus for iPhone requires iOS 18 or later. Dictus Desktop runs on macOS, Windows and Linux. The Android version is in development."
   },
   "Platforms": {
+    "demo_label": "Animated demonstration of the Dictus dictation pill",
+    "demo_recording": "Listening",
+    "demo_transcribing": "Transcribing",
+    "demo_idle": "Ready to dictate",
+    "demo_pause": "Pause the demonstration",
+    "demo_resume": "Resume the demonstration",
     "heading": "Also on Desktop",
     "subheading": "Dictus runs on macOS, Windows and Linux. Transcription is local by default.",
     "tablist_label": "Desktop platforms",
@@ -210,7 +218,7 @@
     "title_line_two": "A shortcut.",
     "description": "Press your shortcut, speak, and your words appear in the app you are using. Transcription runs on your computer.",
     "free": "Free. Today and tomorrow.",
-    "screenshot_alt": "Actual Dictus Desktop 0.3.0 settings on macOS: shortcut, local model and microphone. Interface shown in French.",
+    "screenshot_alt": "Dictus Desktop on macOS: general settings, dictation shortcut and local model.",
     "screenshot_caption": "Dictus Desktop on macOS.",
     "noscript_label": "Download Dictus Desktop"
   },

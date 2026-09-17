@@ -4,18 +4,19 @@ export default function Community() {
   const t = useTranslations("Community");
 
   return (
-    <section aria-labelledby="community-title" className="bg-ink-2 px-6 py-24 sm:py-32">
-      <div className="mx-auto max-w-3xl">
-        <div className="text-center">
-        <h2 id="community-title" className="text-4xl font-extralight tracking-[-0.035em] text-text-primary sm:text-5xl">
-          {t("title")}
-        </h2>
-        <p className="mx-auto mt-6 max-w-xl text-lg leading-relaxed text-white-70">{t("desc")}</p>
+    <section aria-labelledby="community-title" className="bg-ink-2 px-6 py-20 sm:py-24">
+      <div className="mx-auto flex max-w-5xl flex-col items-start justify-between gap-8 md:flex-row md:items-center md:gap-16">
+        <div>
+          <h2 id="community-title" className="text-3xl font-extralight tracking-[-0.035em] text-text-primary sm:text-4xl">
+            {t("title")}
+          </h2>
+          <p className="mt-5 max-w-xl leading-relaxed text-white-70">{t("desc")}</p>
+        </div>
         <a
           href="https://t.me/getdictus"
           target="_blank"
           rel="noopener noreferrer"
-          className="mt-8 inline-flex min-h-11 items-center gap-2 rounded-full bg-[#2563eb] px-8 py-3 font-normal text-white transition-colors hover:bg-[#1d4ed8]"
+          className="inline-flex min-h-12 max-w-full shrink-0 items-center justify-center gap-2 rounded-full bg-[#2563eb] px-7 py-3 text-center font-normal text-white transition-colors hover:bg-[#1d4ed8]"
         >
           <svg
             width="20"
@@ -28,7 +29,6 @@ export default function Community() {
           </svg>
           {t("cta")}
         </a>
-        </div>
       </div>
     </section>
   );

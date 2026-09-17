@@ -181,17 +181,17 @@ for (const engine of engines) {
 
       for (const width of [320, 390, 768, 1440]) {
         await page.setViewportSize({ width, height: 900 });
-        await page.evaluate(() => {
-          const previous = document.documentElement.style.scrollBehavior;
-          document.documentElement.style.scrollBehavior = "auto";
-          window.scrollTo(0, 0);
-          document.documentElement.style.scrollBehavior = previous;
-        });
+        // Let resize anchoring settle before returning from the last scene.
         await settleFrames(page);
+        await page.evaluate(() => window.scrollTo({ top: 0, behavior: "instant" }));
+        await expect.poll(() => page.evaluate(() => window.scrollY)).toBe(0);
+        await expect(page.locator("h1")).toBeInViewport();
         await noOverflow(page);
+        const usageColumns = await page.locator("#uses > div").evaluate((node) => getComputedStyle(node).gridTemplateColumns.split(" ").length);
+        assert.equal(usageColumns, width >= 1024 ? 2 : 1, "Usage layout must retain its desktop columns and mobile stacking in the compiled CSS");
         for (const link of await nav.getByRole("link").all()) await visibleToReader(link);
         await page.screenshot({ path: join(artifacts, `${engine}-${width}-hero.png`) });
-        for (const scene of ["desktop", "iphone"]) {
+        for (const scene of ["desktop", "iphone", "uses", "local"]) {
           await captureScene(page, scene, join(artifacts, `${engine}-${width}-${scene}.png`));
         }
       }
@@ -336,6 +336,118 @@ for (const engine of engines) {
     } finally {
       await context.close();
     }
+  });
+
+  await check(`${engine}: waveform keeps desktop proportions on narrow and tall windows`, async () => {
+    const context = await browser.newContext({ reducedMotion: "reduce", viewport: { width: 1440, height: 900 } });
+    const page = await context.newPage();
+    const extent = () => page.locator("main canvas").first().evaluate((canvas) => {
+      const pixels = canvas.getContext("2d").getImageData(0, 0, canvas.width, canvas.height).data;
+      let first = canvas.height;
+      let last = -1;
+      for (let row = 0; row < canvas.height; row++) {
+        for (let column = 0; column < canvas.width; column++) {
+          if (pixels[(row * canvas.width + column) * 4 + 3] > 10) {
+            first = Math.min(first, row);
+            last = row;
+            break;
+          }
+        }
+      }
+      return (last - first + 1) / devicePixelRatio;
+    });
+    try {
+      await page.goto(`${origin}/fr`);
+      await expect.poll(extent).toBeGreaterThan(100);
+      const desktop = await extent();
+      assert.ok(desktop <= 190, `Desktop waveform is too tall: ${desktop}`);
+      await page.setViewportSize({ width: 390, height: 600 });
+      await expect.poll(extent).toBeLessThan(desktop * 0.45);
+      const compact = await extent();
+      assert.ok(compact > 20, "Compact waveform remains visible");
+      await page.setViewportSize({ width: 390, height: 1000 });
+      // ResizeObserver clears the canvas, then redraws on the following frame.
+      await expect.poll(async () => Math.abs((await extent()) - compact), {
+        message: "Waveform height must not grow with viewport height",
+      }).toBeLessThanOrEqual(2);
+    } finally { await context.close(); }
+  });
+
+  await check(`${engine}: localized Desktop captures and pausable product motion`, async () => {
+    const context = await browser.newContext({ viewport: { width: 1440, height: 900 } });
+    const page = await context.newPage();
+    const errors = collectBrowserErrors(page);
+    try {
+      await page.goto(`${origin}/fr`);
+      const desktopImage = page.locator("#desktop figure img");
+      await expect(desktopImage).toHaveAttribute("src", /desktop-general-fr\.jpg/);
+      await page.getByRole("button", { name: "Switch to English" }).click();
+      await page.waitForURL("**/en");
+      await expect(desktopImage).toHaveAttribute("src", /desktop-general-en\.jpg/);
+      await page.getByRole("button", { name: "Passer en francais" }).click();
+      await page.waitForURL("**/fr");
+      await expect(desktopImage).toHaveAttribute("src", /desktop-general-fr\.jpg/);
+      const pill = page.locator("[data-dictation-pill]");
+      await pill.scrollIntoViewIfNeeded();
+      await expect(pill).toHaveAttribute("data-running", "true");
+      const bars = () => pill.locator('[role="img"] span').evaluateAll((nodes) => nodes.map((node) => node.style.height));
+      const movingBars = await bars();
+      assert.equal(movingBars.length, 30);
+      await expect.poll(bars).not.toEqual(movingBars);
+      await pill.getByRole("button", { name: "Mettre la démonstration en pause" }).click();
+      await expect(pill).toHaveAttribute("data-running", "false");
+      const pausedBars = await bars();
+      await page.waitForTimeout(180);
+      assert.deepEqual(await bars(), pausedBars);
+      await pill.getByRole("button", { name: "Reprendre la démonstration" }).click();
+      await expect(pill).toHaveAttribute("data-running", "true");
+
+      const story = page.locator("[data-glass-story]");
+      await story.scrollIntoViewIfNeeded();
+      await expect(story).toHaveAttribute("data-playing", "true");
+      await expect(pill).toHaveAttribute("data-running", "false");
+      await page.getByRole("button", { name: "Mettre l’animation en pause", exact: true }).click();
+      await expect(story).toHaveAttribute("data-playing", "false");
+      await story.evaluate((node) => Promise.all(node.getAnimations({ subtree: true }).map((animation) => animation.ready)));
+      const times = () => story.evaluate((node) => node.getAnimations({ subtree: true }).map((animation) => animation.currentTime));
+      const pausedTimes = await times();
+      await page.waitForTimeout(180);
+      assert.deepEqual(await times(), pausedTimes);
+      await page.getByRole("button", { name: "Reprendre l’animation", exact: true }).click();
+      await expect(story).toHaveAttribute("data-playing", "true");
+      await page.emulateMedia({ reducedMotion: "reduce" });
+      await expect(story).toHaveAttribute("data-playing", "false");
+      await page.emulateMedia({ reducedMotion: "no-preference" });
+      await expect(story).toHaveAttribute("data-playing", "true");
+      await page.evaluate(() => {
+        Object.defineProperty(document, "hidden", { configurable: true, get: () => true });
+        document.dispatchEvent(new Event("visibilitychange"));
+      });
+      await expect(story).toHaveAttribute("data-playing", "false");
+      assert.deepEqual(errors, []);
+    } finally { await context.close(); }
+  });
+
+  await check(`${engine}: reduced motion stops the pill, glass story and iPhone transitions`, async () => {
+    const context = await browser.newContext({ reducedMotion: "reduce", viewport: { width: 390, height: 844 } });
+    const page = await context.newPage();
+    try {
+      await page.goto(`${origin}/fr`);
+      const pill = page.locator("[data-dictation-pill]");
+      await pill.scrollIntoViewIfNeeded();
+      await expect(pill).toHaveAttribute("data-running", "false");
+      await expect(pill.getByRole("button")).toHaveCount(0);
+      await page.locator("#iphone-tab-2").click();
+      const screen = page.locator("#iphone").getByRole("tabpanel");
+      await expect(screen).toHaveCount(1);
+      assert.equal(await screen.getAttribute("id"), "iphone-screen-2");
+      const motion = await screen.evaluate((node) => ({ transform: getComputedStyle(node).transform, duration: getComputedStyle(node).transitionDuration }));
+      assert.equal(motion.transform, "none");
+      assert.ok(motion.duration.split(",").every((time) => parseFloat(time) <= 0.01));
+      const story = page.locator("[data-glass-story]");
+      await story.scrollIntoViewIfNeeded();
+      await expect(story).toHaveAttribute("data-playing", "false");
+    } finally { await context.close(); }
   });
 
   await browser.close();

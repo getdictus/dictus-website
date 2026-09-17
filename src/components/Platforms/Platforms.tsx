@@ -2,7 +2,7 @@
 
 import { useState, useEffect, useRef, type KeyboardEvent } from "react";
 import Image from "next/image";
-import { useTranslations } from "next-intl";
+import { useLocale, useTranslations } from "next-intl";
 import {
   anyEnabled,
   type DownloadsConfig,
@@ -10,6 +10,7 @@ import {
   type LinuxFormat,
 } from "@/config/downloads";
 import styles from "./Platforms.module.css";
+import DictationPill from "./DictationPill";
 
 type Os = "mac" | "win" | "linux";
 const ORDERED: readonly Os[] = ["mac", "win", "linux"];
@@ -34,6 +35,7 @@ function variantsFor(downloads: DownloadsConfig, os: Os): readonly DownloadVaria
 
 export default function Platforms({ downloads }: { downloads: DownloadsConfig }) {
   const t = useTranslations("Platforms");
+  const locale = useLocale();
   const [selected, setSelected] = useState<Os | null>(null);
   const tabsRef = useRef<(HTMLButtonElement | null)[]>([]);
 
@@ -67,7 +69,7 @@ export default function Platforms({ downloads }: { downloads: DownloadsConfig })
         </div>
         <figure className={styles.figure}>
           <Image
-            src="/images/products/desktop-general.jpg"
+            src={`/images/products/desktop-general-${locale === "fr" ? "fr" : "en"}.jpg`}
             width={680}
             height={570}
             sizes="(max-width: 740px) calc(100vw - 48px), (max-width: 1080px) 52vw, 580px"
@@ -75,6 +77,7 @@ export default function Platforms({ downloads }: { downloads: DownloadsConfig })
             className={styles.screenshot}
           />
           <figcaption>{t("screenshot_caption")}</figcaption>
+          <DictationPill />
         </figure>
         <div className={styles.downloads}>
           <div
