@@ -4,28 +4,18 @@ export default function OpenSource() {
   const t = useTranslations("OpenSource");
 
   return (
-    <section className="bg-ink py-28">
-      <div className="mx-auto max-w-6xl px-6">
-        <div className="rounded-2xl border border-border bg-[var(--glass-t2-bg)] px-6 py-12 text-center backdrop-blur-[12px] backdrop-saturate-[1.2]">
-        <h2 className="text-2xl font-normal text-text-primary">{t("title")}</h2>
-        <p className="mx-auto mt-4 max-w-2xl text-white-70">{t("desc")}</p>
-        <a
-          href="https://github.com/getdictus"
-          target="_blank"
-          rel="noopener noreferrer"
-          className="mt-6 inline-flex min-h-11 min-w-11 items-center gap-2 text-accent transition-colors hover:text-accent-hi"
-        >
-          <svg
-            width="20"
-            height="20"
-            viewBox="0 0 24 24"
-            fill="currentColor"
-            aria-hidden="true"
-          >
-            <path d="M12 0C5.37 0 0 5.37 0 12c0 5.31 3.435 9.795 8.205 11.385.6.105.825-.255.825-.57 0-.285-.015-1.23-.015-2.235-3.015.555-3.795-.735-4.035-1.41-.135-.345-.72-1.41-1.23-1.695-.42-.225-1.02-.78-.015-.795.945-.015 1.62.87 1.845 1.23 1.08 1.815 2.805 1.305 3.495.99.105-.78.42-1.305.765-1.605-2.67-.3-5.46-1.335-5.46-5.925 0-1.305.465-2.385 1.23-3.225-.12-.3-.54-1.53.12-3.18 0 0 1.005-.315 3.3 1.23.96-.27 1.98-.405 3-.405s2.04.135 3 .405c2.295-1.56 3.3-1.23 3.3-1.23.66 1.65.24 2.88.12 3.18.765.84 1.23 1.905 1.23 3.225 0 4.605-2.805 5.625-5.475 5.925.435.375.81 1.095.81 2.22 0 1.605-.015 2.895-.015 3.3 0 .315.225.69.825.57A12.02 12.02 0 0 0 24 12c0-6.63-5.37-12-12-12z" />
-          </svg>
-          {t("cta")}
-        </a>
+    <section id="open-source" aria-labelledby="source-title" className="px-6 py-24 sm:py-32">
+      <div className="mx-auto grid max-w-5xl gap-8 md:grid-cols-2 md:gap-20">
+        <h2 id="source-title" className="max-w-md text-4xl font-extralight tracking-[-0.035em] sm:text-5xl">{t("title")}</h2>
+        <div>
+          <p className="text-lg leading-relaxed text-white-70">{t("desc")}</p>
+          <a href="https://github.com/getdictus" target="_blank" rel="noopener noreferrer" className="mt-6 inline-flex min-h-11 items-center text-[#2563eb] dark:text-accent-hi underline decoration-accent/30 underline-offset-4 hover:decoration-accent">
+            {t("cta")}
+          </a>
+          <div className="mt-6 flex flex-wrap gap-x-6 gap-y-2 border-t border-border pt-5 text-sm text-white-70">
+            <a href="https://github.com/getdictus/dictus-ios" target="_blank" rel="noopener noreferrer" className="inline-flex min-h-11 items-center underline decoration-border-hi underline-offset-4 hover:text-text-primary">{t("ios_source")}</a>
+            <a href="https://github.com/getdictus/dictus-desktop" target="_blank" rel="noopener noreferrer" className="inline-flex min-h-11 items-center underline decoration-border-hi underline-offset-4 hover:text-text-primary">{t("desktop_source")}</a>
+          </div>
         </div>
       </div>
     </section>

@@ -1,33 +1,32 @@
 "use client";
 
+import { useState } from "react";
 import { useTranslations } from "next-intl";
-import Waveform from "@/components/Hero/Waveform";
-import AdaptiveCTA from "@/components/Hero/AdaptiveCTA";
+import Waveform from "./Waveform";
+import styles from "./Hero.module.css";
 
 export default function Hero() {
   const t = useTranslations("Hero");
-
+  const [paused, setPaused] = useState(false);
   return (
-    <section className="relative flex min-h-dvh flex-col items-center justify-center overflow-hidden bg-ink-deep px-6">
-      {/* Large waveform anchored to top of hero */}
-      <Waveform />
-
-      {/* Content */}
-      <div className="relative z-10 mx-auto max-w-3xl text-center">
-        <h1
-          className="text-4xl text-text-primary sm:text-5xl md:text-7xl"
-          style={{ fontWeight: 200, letterSpacing: "-0.03em" }}
-        >
-          {t("headline")}
-        </h1>
-
-        <p className="mt-6 text-lg font-light text-white-70">
-          {t("subtitle")}
-        </p>
-
-        {/* Adaptive CTA: TestFlight button / QR / Coming Soon fallback */}
-        <AdaptiveCTA />
+    <section className={styles.hero} aria-labelledby="hero-title">
+      <Waveform active={!paused} />
+      <div className={styles.content}>
+        <h1 id="hero-title">{t("headline")}</h1>
+        <p>{t("subtitle")}</p>
+        <a className={styles.cta} href="#desktop">{t("cta_discover")}<span aria-hidden="true">⌄</span></a>
+        <div className={styles.platforms}>
+          <a href="#desktop">{t("platform_desktop")}</a>
+          <span aria-hidden="true">/</span>
+          <a href="#iphone">{t("platform_ios")}</a>
+        </div>
       </div>
+      <button className={styles.motionControl} onClick={() => setPaused(!paused)}
+        aria-label={t(paused ? "play_waveform" : "pause_waveform")}>
+        <svg viewBox="0 0 20 20" width="16" height="16" fill="none" stroke="currentColor" strokeWidth="1.4" aria-hidden="true">
+          {paused ? <path d="m6 4 9 6-9 6Z" /> : <path d="M7 4v12M13 4v12" />}
+        </svg>
+      </button>
     </section>
   );
 }

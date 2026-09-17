@@ -2,8 +2,8 @@
 
 ## Projet
 
-Landing page marketing pour **Dictus**, un clavier de dictation vocale 100% offline pour iOS et Android.
-Développé par PIVI Solutions. Domaine cible : getdictus.com.
+Site marketing de **Dictus**, une suite de dictée vocale locale par défaut pour iPhone et ordinateur.
+Développé par PIVI Solutions. Domaine : getdictus.com.
 
 ## Stack
 
@@ -13,45 +13,47 @@ Développé par PIVI Solutions. Domaine cible : getdictus.com.
 
 ## Produit
 
-Dictus est un clavier de dictation vocale qui fonctionne entièrement sur l'appareil (offline), disponible sur iOS et Android.
+Dictus est disponible sous deux formes :
 
-Fonctionnalités disponibles (v1) :
-- Transcription vocale en temps réel, 100% on-device
-- Aucune donnée envoyée sur internet — privacy first
-- Fonctionne comme clavier tiers (dans n'importe quelle app)
-- Open source — code transparent et auditable
-- Compatible iOS 18+ (Android en cours de développement)
+- **Dictus Desktop**, gratuit aujourd'hui et demain, sur macOS, Windows et Linux. La transcription audio s'effectue localement. Un post-traitement facultatif, désactivé par défaut, peut transmettre le texte au fournisseur choisi par l'utilisateur.
+- **Dictus iOS**, pour iOS 18 ou ultérieur, avec un clavier de dictée utilisable dans les apps compatibles avec les claviers tiers.
 
-Fonctionnalités à venir :
-- Smart Mode Pro (reformulation intelligente via IA on-device)
-- Vocabulaire personnalisé (dictionnaire de termes techniques)
-- Historique des transcriptions (journal local avec recherche)
-- Transcription de fichiers audio (import et transcription locale)
+Le code des applications iOS et Desktop est public et vérifiable. Android reste en développement et ne doit pas être présenté comme disponible. Les offres et prix iOS ne sont pas encore arrêtés.
+
+Toute fonctionnalité à venir doit être vérifiée dans les dépôts produit et les issues en cours avant d'être annoncée sur le site.
 
 ## Design — Brand Kit
 
 Le brand kit complet est dans `/dictus-brand-kit.html` (ouvrir dans un navigateur pour le visualiser).
 
-### Direction artistique
+### Direction artistique du site
 
-- **Ton** : Premium, sombre, glassmorphism
-- **Cohérence** : Aligné avec iOS 26 Liquid Glass
-- **Ambiance** : Dark UI professionnelle, accents bleus lumineux
+- **Clair en premier**, avec la palette existante et le sombre comme variante secondaire.
+- DM Sans fine, beaucoup d'espace, une hiérarchie calme et peu d'éléments simultanés.
+- Waveform de marque en filigrane dans le hero.
+- Vrais écrans des produits dans leurs proportions natives ; ne pas inventer de captures ou de texte dicté.
+- Liquid Glass discret sur des contrôles utiles. La lecture et le repli Safari/Firefox priment sur l'effet.
+- Navigation fixe en pilule : Home, Blog, Pricing, Soutenir. Blog et Pricing restent réservés à la preview jusqu'à livraison de leur contenu.
 
 ### Couleurs principales
 
 | Token | Hex | Usage |
 |-------|-----|-------|
-| Ink Deep | `#0A1628` | Background principal |
-| Ink | `#0B0F1A` | Background body |
-| Ink 2 | `#111827` | Background secondaire |
-| Surface | `#161C2C` | Cards, panels |
+| Light Primary | `#F2F2F7` | Background principal du site |
+| Light Secondary | `#EFF1F5` | Sections alternées |
+| Light Surface | `#FFFFFF` | Surfaces et états actifs |
+| Ink Deep | `#0A1628` | Background principal sombre |
+| Ink | `#0B0F1A` | Background body sombre |
+| Ink 2 | `#111827` | Background secondaire sombre |
+| Surface | `#161C2C` | Surfaces sombres |
 | Navy | `#0F3460` | Gradient icône |
 | Accent Blue | `#3D7EFF` | CTA, boutons, éléments actifs |
 | Accent Hi | `#6BA3FF` | Highlights, hover |
 | Sky | `#93C5FD` | Highlights, icônes |
-| Mist | `#DBEAFE` | Texte sur fond clair |
-| White | `#FFFFFF` | Texte principal sur sombre |
+| Text Light | `#000000` | Texte principal sur clair |
+| Body Light | `rgba(0,0,0,0.60)` | Texte courant sur clair |
+| Mist | `#DBEAFE` | Accent très clair |
+| White | `#FFFFFF` | Texte principal sur sombre et CTA bleus |
 | White 70% | `rgba(255,255,255,0.70)` | Texte body |
 | White 40% | `rgba(255,255,255,0.40)` | Labels, texte secondaire |
 | Border | `rgba(255,255,255,0.07)` | Bordures subtiles |
@@ -71,15 +73,15 @@ Le brand kit complet est dans `/dictus-brand-kit.html` (ouvrir dans un navigateu
 ### Gradients
 
 - **Icon BG** : `linear-gradient(135deg, #0D2040, #071020)`
-- **Button** : `linear-gradient(135deg, #1A4E8A, #0F3460)`
+- **Button** : `linear-gradient(135deg, #2563EB, #1D4ED8)`
 - **Bar accent** : `linear-gradient(180deg, #6BA3FF, #2563EB)`
 
 ### Typographie
 
 | Rôle | Font | Weight | Détails |
 |------|------|--------|---------|
-| Display / Wordmark | DM Sans | 200 | `letter-spacing: -0.03em`, lowercase "dictus" |
-| Heading | DM Sans | 400 | Titres de sections |
+| Display / Wordmark | DM Sans | 200 | `letter-spacing: -0.03em`, « Dictus » |
+| Heading | DM Sans | 200–400 | Titres de sections |
 | Body | DM Sans | 300 | Texte courant |
 | Mono / Code | DM Mono | 400 | Labels techniques |
 
@@ -105,11 +107,13 @@ L'icône représente une **onde sonore stylisée** — trois barres verticales d
 
 ## Règles
 
-- Toujours utiliser le logo sur fond sombre (#0A1628 ou équivalent)
-- Ne pas utiliser le logo sur fond coloré vif ou photographique sans couche sombre
+- Le squircle sombre de l'icône peut être posé sur le fond clair du site ; préserver son contraste et ses proportions.
+- Ne pas poser le wordmark directement sur un fond coloré vif ou photographique sans surface lisible.
 - Respecter les proportions de l'icône — ne pas déformer
 - Le site doit être responsive et performant (Lighthouse 90+)
 - Langue principale : français, avec possibilité d'anglais
+- Employer « local par défaut » avec précision. Ne pas affirmer qu'aucune donnée ne peut jamais être envoyée : les téléchargements, mises à jour, paiements et le post-traitement Desktop choisi explicitement utilisent le réseau.
+- `main` déclenche la production. Blog/Pricing et les captures iPhone de preview ne doivent pas être publiés sans validation distincte.
 
 ## Agent skills
 

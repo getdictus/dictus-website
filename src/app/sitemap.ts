@@ -1,8 +1,11 @@
 import type { MetadataRoute } from "next";
+import { isSitePreview } from "@/config/preview";
 
 const BASE_URL = "https://getdictus.com";
 
 export default function sitemap(): MetadataRoute.Sitemap {
+  if (isSitePreview) return [];
+
   return [
     {
       url: `${BASE_URL}/fr`,
@@ -100,5 +103,16 @@ export default function sitemap(): MetadataRoute.Sitemap {
         },
       },
     },
+    ...(["fr", "en"] as const).map((locale) => ({
+      url: `${BASE_URL}/${locale}/donate`,
+      changeFrequency: "monthly" as const,
+      priority: 0.4,
+      alternates: {
+        languages: {
+          fr: `${BASE_URL}/fr/donate`,
+          en: `${BASE_URL}/en/donate`,
+        },
+      },
+    })),
   ];
 }

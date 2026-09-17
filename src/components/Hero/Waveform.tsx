@@ -1,6 +1,6 @@
 "use client";
 
-import { useCallback, useEffect, useRef } from "react";
+import { useCallback, useEffect, useRef, useState } from "react";
 import { useReducedMotion } from "motion/react";
 import { useAnimationFrame } from "@/hooks/useAnimationFrame";
 
@@ -81,11 +81,11 @@ function generateActiveTargets(targets: Float32Array) {
  * - Smooth lerp rise + exponential decay fall
  * - MutationObserver watches .dark class for theme changes with 300ms color lerp
  */
-export default function Waveform() {
+export default function Waveform({ active = true }: { active?: boolean }) {
   const canvasRef = useRef<HTMLCanvasElement>(null);
   const dimensionsRef = useRef({ width: 0, height: 0 });
   const shouldReduce = useReducedMotion() ?? false;
-  const hasDrawnStaticRef = useRef(false);
+  const drawOnceRef = useRef<() => void>(() => undefined);
   const displayLevelsRef = useRef<Float32Array>(new Float32Array(BAR_COUNT));
   const colorsRef = useRef<ThemeColors>({ ...DEFAULT_COLORS });
   const lerpAnimRef = useRef<number | null>(null);
@@ -97,6 +97,8 @@ export default function Waveform() {
     new Float32Array(BAR_COUNT)
   );
   const lastTargetUpdateRef = useRef<number>(0);
+  const [isInViewport, setIsInViewport] = useState(true);
+  const [isDocumentVisible, setIsDocumentVisible] = useState(true);
 
   /** Read CSS custom properties for current theme */
   const resolveThemeColors = useCallback((): ThemeColors => {
@@ -188,7 +190,27 @@ export default function Waveform() {
     phaseStartTimeRef.current = performance.now();
   }, []);
 
-  // Handle retina + resize
+  useEffect(() => {
+    const canvas = canvasRef.current;
+    if (!canvas) return;
+
+    const observer = new IntersectionObserver(
+      ([entry]) => setIsInViewport(entry.isIntersecting),
+      { rootMargin: "120px" },
+    );
+    observer.observe(canvas);
+
+    const handleVisibility = () => setIsDocumentVisible(!document.hidden);
+    handleVisibility();
+    document.addEventListener("visibilitychange", handleVisibility);
+
+    return () => {
+      observer.disconnect();
+      document.removeEventListener("visibilitychange", handleVisibility);
+    };
+  }, []);
+
+  // Handle retina + resize. Redraw once after resizing even when animation is paused.
   useEffect(() => {
     const canvas = canvasRef.current;
     if (!canvas) return;
@@ -203,7 +225,7 @@ export default function Waveform() {
         ctx.scale(dpr, dpr);
       }
       dimensionsRef.current = { width: rect.width, height: rect.height };
-      hasDrawnStaticRef.current = false;
+      requestAnimationFrame(() => drawOnceRef.current());
     };
 
     updateDimensions();
@@ -382,6 +404,13 @@ export default function Waveform() {
     [computePhaseEnergy, resolveBarColor, computeBarLayout]
   );
 
+  useEffect(() => {
+    drawOnceRef.current = drawBars;
+  }, [drawBars]);
+
+  const shouldAnimate =
+    active && !shouldReduce && isInViewport && isDocumentVisible;
+
   // Animated loop
   useAnimationFrame(
     useCallback(
@@ -390,48 +419,16 @@ export default function Waveform() {
       },
       [drawBars]
     ),
-    !shouldReduce
+    shouldAnimate,
   );
 
-  // Static frame for reduced motion: mid-energy with center weighting
+  // Keep a meaningful static frame when motion is paused for any reason.
   useEffect(() => {
-    if (shouldReduce && !hasDrawnStaticRef.current) {
-      requestAnimationFrame(() => {
-        const canvas = canvasRef.current;
-        if (!canvas) return;
-        const ctx = canvas.getContext("2d");
-        if (!ctx) return;
+    if (shouldAnimate) return;
 
-        const { width, height } = dimensionsRef.current;
-        if (width === 0 || height === 0) return;
-
-        ctx.clearRect(0, 0, width, height);
-
-        const { barWidth, offsetX } = computeBarLayout(width);
-        const center = (BAR_COUNT - 1) / 2;
-
-        for (let i = 0; i < BAR_COUNT; i++) {
-          const distFromCenter = Math.abs(i - center) / center;
-          const energy = 0.4 + (1 - distFromCenter) * 0.15;
-          const barHeight = Math.max(
-            MIN_BAR_HEIGHT + energy * (MAX_HEIGHT - MIN_BAR_HEIGHT),
-            MIN_BAR_HEIGHT
-          );
-
-          const x = offsetX + i * (barWidth + BAR_SPACING);
-          const y = (height - barHeight) / 2;
-          const radius = barWidth / 2;
-
-          ctx.beginPath();
-          ctx.roundRect(x, y, barWidth, barHeight, radius);
-          ctx.fillStyle = resolveBarColor(i, ctx, y, barHeight);
-          ctx.fill();
-        }
-
-        hasDrawnStaticRef.current = true;
-      });
-    }
-  }, [shouldReduce, resolveBarColor, computeBarLayout]);
+    const frame = requestAnimationFrame(drawBars);
+    return () => cancelAnimationFrame(frame);
+  }, [drawBars, shouldAnimate]);
 
   return (
     <canvas

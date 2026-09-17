@@ -8,6 +8,7 @@ import {
 } from "next-intl/server";
 import { notFound } from "next/navigation";
 import { routing } from "@/i18n/routing";
+import { isSitePreview } from "@/config/preview";
 import Nav from "@/components/Nav/Nav";
 import MotionProvider from "@/components/shared/MotionProvider";
 import "../globals.css";
@@ -80,8 +81,8 @@ export async function generateMetadata({
       },
     },
     robots: {
-      index: true,
-      follow: true,
+      index: !isSitePreview,
+      follow: !isSitePreview,
     },
   };
 }
@@ -107,13 +108,13 @@ export default async function LocaleLayout({ children, params }: Props) {
         <NextIntlClientProvider messages={messages}>
           <a
             href="#main-content"
-            className="sr-only focus:not-sr-only focus:fixed focus:left-4 focus:top-4 focus:z-50 focus:rounded-lg focus:bg-accent focus:px-4 focus:py-2 focus:text-white focus:outline-none"
+            className="sr-only focus:not-sr-only focus:fixed focus:left-4 focus:top-4 focus:z-[60] focus:rounded-lg focus:bg-[#2563eb] focus:px-4 focus:py-2 focus:text-white focus:outline-none"
           >
             {tNav("skip_to_content")}
           </a>
-          <Nav />
+          <Nav preview={isSitePreview} />
           <MotionProvider>
-            <main id="main-content" className="pt-16">{children}</main>
+            <main id="main-content">{children}</main>
           </MotionProvider>
         </NextIntlClientProvider>
       </body>

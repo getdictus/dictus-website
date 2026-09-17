@@ -4,18 +4,18 @@ export default function Community() {
   const t = useTranslations("Community");
 
   return (
-    <section className="bg-ink-2 py-28">
-      <div className="mx-auto max-w-6xl px-6">
-        <div className="rounded-2xl border border-border bg-[var(--glass-t2-bg)] px-6 py-12 text-center backdrop-blur-[12px] backdrop-saturate-[1.2]">
-        <h2 className="text-3xl font-extralight text-text-primary md:text-4xl">
+    <section aria-labelledby="community-title" className="bg-ink-2 px-6 py-24 sm:py-32">
+      <div className="mx-auto max-w-3xl">
+        <div className="text-center">
+        <h2 id="community-title" className="text-4xl font-extralight tracking-[-0.035em] text-text-primary sm:text-5xl">
           {t("title")}
         </h2>
-        <p className="mt-4 text-white-70">{t("desc")}</p>
+        <p className="mx-auto mt-6 max-w-xl text-lg leading-relaxed text-white-70">{t("desc")}</p>
         <a
           href="https://t.me/getdictus"
           target="_blank"
           rel="noopener noreferrer"
-          className="mt-8 inline-flex min-h-11 items-center gap-2 rounded-full bg-accent px-8 py-3 font-normal text-white transition-colors hover:bg-accent-hi"
+          className="mt-8 inline-flex min-h-11 items-center gap-2 rounded-full bg-[#2563eb] px-8 py-3 font-normal text-white transition-colors hover:bg-[#1d4ed8]"
         >
           <svg
             width="20"
@@ -24,7 +24,7 @@ export default function Community() {
             fill="currentColor"
             aria-hidden="true"
           >
-            <path d="M11.944 0A12 12 0 0 0 0 12a11.96 11.96 0 0 0 1.744 6.236L.058 24l5.824-1.528A11.936 11.936 0 0 0 12 24a12 12 0 0 0 0-24zm5.09 8.29l-1.89 8.928c-.14.636-.508.79-.99.492l-2.81-2.071-1.354 1.304c-.15.15-.276.276-.566.276l.2-2.862 5.18-4.678c.226-.2-.048-.31-.348-.11L8.312 14.14l-2.8-.878c-.606-.19-.618-.606.128-.898l10.934-4.215c.506-.19.95.122.78.898l-.32.243z" />
+            <path d="M9.78 18.65l.28-4.23 7.68-6.93c.34-.31-.07-.46-.53-.18l-9.48 6-4.1-1.28c-.88-.25-.89-.86.2-1.3l16-6.17c.73-.33 1.43.18 1.15 1.3l-2.73 12.87c-.19.91-.74 1.13-1.5.71l-4.17-3.08-2 1.93c-.23.23-.42.42-.85.42z" />
           </svg>
           {t("cta")}
         </a>

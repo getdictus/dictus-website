@@ -18,18 +18,22 @@ export default function LanguageToggle() {
       <button
         onClick={() => switchTo("fr")}
         className={`min-h-11 min-w-11 px-2 py-2 transition-colors ${
-          locale === "fr" ? "text-accent" : "text-white-40 hover:text-white-70"
+          locale === "fr"
+            ? "text-[#2563eb] dark:text-accent-hi"
+            : "text-white-70 hover:text-text-primary"
         }`}
         aria-label="Passer en francais"
         aria-current={locale === "fr" ? "true" : undefined}
       >
         FR
       </button>
-      <span className="text-white-40">/</span>
+      <span className="text-white-70" aria-hidden="true">/</span>
       <button
         onClick={() => switchTo("en")}
         className={`min-h-11 min-w-11 px-2 py-2 transition-colors ${
-          locale === "en" ? "text-accent" : "text-white-40 hover:text-white-70"
+          locale === "en"
+            ? "text-[#2563eb] dark:text-accent-hi"
+            : "text-white-70 hover:text-text-primary"
         }`}
         aria-label="Switch to English"
         aria-current={locale === "en" ? "true" : undefined}
