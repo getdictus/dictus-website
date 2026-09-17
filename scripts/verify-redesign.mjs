@@ -6,6 +6,7 @@
 // point at an external installation; no browser dependency ships with the app.
 // Set VERIFY_ENGINES=chromium for a shorter pass, CHROME_CHANNEL=chrome to use
 // installed Chrome, and VERIFY_ARTIFACTS to choose the report/screenshot folder.
+// VERIFY_CHECKS is an optional regular expression matching check names.
 // VERIFY_MODE=production checks a separately built production configuration.
 import assert from "node:assert/strict";
 import { mkdir, writeFile } from "node:fs/promises";
@@ -16,14 +17,17 @@ import { join } from "node:path";
 const require = createRequire(import.meta.url);
 const playwright = require(process.env.PLAYWRIGHT_MODULE || "@playwright/test");
 const { expect } = playwright;
+const { Resvg } = require("@resvg/resvg-js");
 const origin = new URL(process.argv[2] || "http://localhost:3000").origin;
 const preview = process.env.VERIFY_MODE !== "production";
 const artifacts = process.env.VERIFY_ARTIFACTS || join(tmpdir(), "dictus-redesign-verification");
 const engines = (process.env.VERIFY_ENGINES || "chromium,firefox,webkit").split(",");
+const selectedChecks = process.env.VERIFY_CHECKS ? new RegExp(process.env.VERIFY_CHECKS) : null;
 const results = [];
 await mkdir(artifacts, { recursive: true });
 
 async function check(name, fn) {
+  if (selectedChecks && !name.endsWith(": browser available") && !selectedChecks.test(name)) return;
   try {
     const details = await fn();
     results.push({ name, passed: true, ...(details ? { details } : {}) });
@@ -85,7 +89,31 @@ async function captureScene(page, scene, path) {
     await image.evaluate((element) => element.decode());
   }
   // Isolate the section for visual review; viewport screenshots retain the nav.
-  await section.screenshot({ path, style: "header { visibility: hidden !important; }" });
+  await section.screenshot({ path, style: "header { display: none !important; }" });
+}
+
+function changedTextInk(refractedPng, plainPng) {
+  // Decode browser PNGs with the image renderer already used by this project.
+  // Compare only dark glyphs, excluding the lens's pale tint and bright border:
+  // a flat Safari fallback must not pass merely because its decoration differs.
+  const pixels = (png) => {
+    const width = png.readUInt32BE(16);
+    const height = png.readUInt32BE(20);
+    return new Resvg(`<svg xmlns="http://www.w3.org/2000/svg" width="${width}" height="${height}"><image width="${width}" height="${height}" href="data:image/png;base64,${png.toString("base64")}"/></svg>`).render().pixels;
+  };
+  const refracted = pixels(refractedPng);
+  const plain = pixels(plainPng);
+  assert.equal(refracted.length, plain.length);
+  let changed = 0;
+  let ink = 0;
+  for (let offset = 0; offset < plain.length; offset += 4) {
+    const a = refracted[offset + 3] > 127 && Math.max(...refracted.subarray(offset, offset + 3)) < 110;
+    const b = plain[offset + 3] > 127 && Math.max(...plain.subarray(offset, offset + 3)) < 110;
+    if (a || b) ink++;
+    if (a !== b) changed++;
+  }
+  assert.ok(ink > 100, "The optical comparison must include readable text");
+  return changed / ink;
 }
 
 for (const engine of engines) {
@@ -287,7 +315,9 @@ for (const engine of engines) {
       await page.waitForTimeout(150);
       assert.equal((await readCanvas()).hash, first.hash, "Reduced-motion waveform must remain static");
       await page.setViewportSize({ width: 768, height: 900 });
-      await settleFrames(page);
+      // ResizeObserver clears the bitmap before its scheduled static redraw.
+      await expect.poll(() => canvas.evaluate((node) => node.width / devicePixelRatio)).toBe(768);
+      await expect.poll(async () => (await readCanvas()).drawn).toBe(true);
       first = await readCanvas();
       assert.ok(first.drawn, "Canvas resize must redraw the static waveform");
       await page.waitForTimeout(150);
@@ -406,24 +436,65 @@ for (const engine of engines) {
       await story.scrollIntoViewIfNeeded();
       await expect(story).toHaveAttribute("data-playing", "true");
       await expect(pill).toHaveAttribute("data-running", "false");
+      const lens = story.locator("[data-glass-lens]");
+      const position = () => lens.evaluate((node) => node.style.transform);
+      await expect(lens).toBeVisible();
+      await expect.poll(position).not.toBe("");
+      const restingPosition = await position();
+      // Wait for real movement after the reading pause, so a permanently static
+      // lens cannot accidentally pass the pause/resume assertions.
+      await expect.poll(position, { timeout: 11_000, intervals: [100] }).not.toBe(restingPosition);
       await page.getByRole("button", { name: "Mettre l’animation en pause", exact: true }).click();
       await expect(story).toHaveAttribute("data-playing", "false");
-      await story.evaluate((node) => Promise.all(node.getAnimations({ subtree: true }).map((animation) => animation.ready)));
-      const times = () => story.evaluate((node) => node.getAnimations({ subtree: true }).map((animation) => animation.currentTime));
-      const pausedTimes = await times();
+      const pausedPosition = await position();
       await page.waitForTimeout(180);
-      assert.deepEqual(await times(), pausedTimes);
+      assert.equal(await position(), pausedPosition, "Pause must freeze the actual lens position");
       await page.getByRole("button", { name: "Reprendre l’animation", exact: true }).click();
       await expect(story).toHaveAttribute("data-playing", "true");
+      await expect.poll(position, { timeout: 2_000, intervals: [100] }).not.toBe(pausedPosition);
       await page.emulateMedia({ reducedMotion: "reduce" });
       await expect(story).toHaveAttribute("data-playing", "false");
+      const reducedPosition = await position();
+      await page.waitForTimeout(180);
+      assert.equal(await position(), reducedPosition, "A preference change must freeze the lens in place");
       await page.emulateMedia({ reducedMotion: "no-preference" });
       await expect(story).toHaveAttribute("data-playing", "true");
+      await story.locator("[data-glass-story-content] p").first().evaluate((paragraph) => {
+        const range = document.createRange();
+        range.selectNodeContents(paragraph);
+        const selection = window.getSelection();
+        selection.removeAllRanges();
+        selection.addRange(range);
+      });
+      await expect(story).toHaveAttribute("data-text-selected", "true");
+      await expect(story).toHaveAttribute("data-playing", "false");
+      await expect(lens).toBeHidden();
+      await expect(story.locator("[data-liquid-glass]")).toBeHidden();
+      await page.evaluate(() => window.getSelection().removeAllRanges());
+      await expect(story).toHaveAttribute("data-text-selected", "false");
+      await expect(story).toHaveAttribute("data-playing", "true");
+      await expect(lens).toBeVisible();
       await page.evaluate(() => {
         Object.defineProperty(document, "hidden", { configurable: true, get: () => true });
         document.dispatchEvent(new Event("visibilitychange"));
       });
       await expect(story).toHaveAttribute("data-playing", "false");
+      const hiddenPosition = await position();
+      await page.waitForTimeout(180);
+      assert.equal(await position(), hiddenPosition, "A hidden document must stop updating the lens");
+      await page.evaluate(() => {
+        delete document.hidden;
+        document.dispatchEvent(new Event("visibilitychange"));
+      });
+      await expect(story).toHaveAttribute("data-playing", "true");
+      await page.evaluate(() => window.scrollTo({ top: 0, behavior: "instant" }));
+      await expect(story).toHaveAttribute("data-playing", "false");
+      const offscreenPosition = await position();
+      await page.waitForTimeout(180);
+      assert.equal(await position(), offscreenPosition, "An offscreen lens must stop updating");
+      await story.scrollIntoViewIfNeeded();
+      await expect(story).toHaveAttribute("data-playing", "true");
+      await expect.poll(position, { timeout: 11_000, intervals: [100] }).not.toBe(offscreenPosition);
       assert.deepEqual(errors, []);
     } finally { await context.close(); }
   });
@@ -447,6 +518,79 @@ for (const engine of engines) {
       const story = page.locator("[data-glass-story]");
       await story.scrollIntoViewIfNeeded();
       await expect(story).toHaveAttribute("data-playing", "false");
+      const lens = story.locator("[data-glass-lens]");
+      await expect(lens).toBeVisible();
+      const position = await lens.evaluate((node) => node.style.transform);
+      await page.waitForTimeout(180);
+      assert.equal(await lens.evaluate((node) => node.style.transform), position);
+      await expect(page.locator("#uses").getByRole("button")).toHaveCount(0);
+    } finally { await context.close(); }
+  });
+
+  await check(`${engine}: reading lens refracts full paragraphs without duplicate accessible content`, async () => {
+    const context = await browser.newContext({ reducedMotion: "reduce", viewport: { width: 1440, height: 900 } });
+    const page = await context.newPage();
+    const errors = collectBrowserErrors(page);
+    try {
+      for (const locale of ["fr", "en"]) {
+        await page.goto(`${origin}/${locale}`);
+        const story = page.locator("[data-glass-story]");
+        const original = story.locator("[data-glass-story-content]");
+        const copy = story.locator("[data-liquid-glass]");
+        const lens = story.locator("[data-glass-lens]");
+        await expect(lens).toBeVisible();
+        await expect(copy).toHaveAttribute("aria-hidden", "true");
+        await expect(copy).toHaveAttribute("inert", "");
+        const headings = original.locator("h3");
+        await expect(headings).toHaveCount(3);
+        await expect(story.getByRole("heading", { level: 3 })).toHaveCount(3);
+        assert.deepEqual(await story.getByRole("heading", { level: 3 }).allTextContents(), await headings.allTextContents());
+        await expect(copy.locator("h3")).toHaveCount(3);
+        for (const width of [320, 390, 768, 1440]) {
+          await page.setViewportSize({ width, height: 900 });
+          await story.scrollIntoViewIfNeeded();
+          await expect.poll(() => story.evaluate((node) => {
+            const bounds = node.getBoundingClientRect();
+            const lensBounds = node.querySelector("[data-glass-lens]").getBoundingClientRect();
+            return Math.abs(lensBounds.width - (bounds.width - 8));
+          }), { message: `${locale}/${width}: lens must span the paragraph column` }).toBeLessThanOrEqual(1);
+          const geometry = await story.evaluate((node) => {
+            const lensBounds = node.querySelector("[data-glass-lens]").getBoundingClientRect();
+            const stopBounds = node.querySelector("[data-glass-story-content] [data-glass-story-stop]").getBoundingClientRect();
+            return {
+              covers: lensBounds.left <= stopBounds.left && lensBounds.right >= stopBounds.right
+                && lensBounds.top <= stopBounds.top && lensBounds.bottom >= stopBounds.bottom,
+              width: lensBounds.width, height: lensBounds.height,
+            };
+          });
+          assert.ok(geometry.covers, `${locale}/${width}: resting lens must enclose the full text block (${JSON.stringify(geometry)})`);
+          await expect.poll(() => copy.evaluate((node) => [...node.querySelectorAll("div")].some((element) => {
+            // Check the actual copied text's SVG displacement filter, not a
+            // decorative backdrop blur or the library's transparent wrapper.
+            if (!element.querySelector("h3")) return false;
+            const filter = getComputedStyle(element).filter;
+            const id = /#([^"')]+)/.exec(filter)?.[1];
+            const definition = id ? document.getElementById(id) : null;
+            return getComputedStyle(element).clipPath !== "none"
+              && !!definition && [...definition.querySelectorAll("feDisplacementMap")]
+                .some((displacement) => Number(displacement.getAttribute("scale")) > 0);
+          })), { message: `${locale}/${width}: text copy must use a real, clipped refraction filter` }).toBe(true);
+          await noOverflow(page);
+          if (locale === "fr" && width === 390) {
+            // Reduced motion fixes the lens over the first paragraph so every
+            // engine gets the same inspectable refraction state.
+            await captureScene(page, "uses", join(artifacts, `${engine}-390-reading-lens-rest.png`));
+            const refractedText = await headings.first().screenshot({ path: join(artifacts, `${engine}-lens-text.png`) });
+            const plainText = await headings.first().screenshot({
+              path: join(artifacts, `${engine}-plain-text.png`),
+              style: "[data-glass-story] [data-liquid-glass], [data-glass-lens] { display: none !important; }",
+            });
+            assert.ok(changedTextInk(refractedText, plainText) > 0.12,
+              `${engine}: glass must visibly refract the text, including on WebKit`);
+          }
+        }
+      }
+      assert.deepEqual(errors, []);
     } finally { await context.close(); }
   });
 
