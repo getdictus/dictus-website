@@ -527,6 +527,77 @@ for (const engine of engines) {
     } finally { await context.close(); }
   });
 
+  await check(`${engine}: reading lens accelerates, brakes and settles between paragraphs`, async () => {
+    const context = await browser.newContext({ viewport: { width: 1440, height: 900 } });
+    const page = await context.newPage();
+    try {
+      await page.goto(`${origin}/fr`);
+      const story = page.locator("[data-glass-story]");
+      await story.scrollIntoViewIfNeeded();
+      await expect(story).toHaveAttribute("data-playing", "true");
+      const trajectory = await story.evaluate((node) => new Promise((resolve, reject) => {
+        const lens = node.querySelector("[data-glass-lens]");
+        const stops = [...node.querySelectorAll("[data-glass-story-content] [data-glass-story-stop]")];
+        const bounds = node.getBoundingClientRect();
+        const center = (stop) => {
+          const rect = stop.getBoundingClientRect();
+          return rect.top - bounds.top + rect.height / 2 - lens.getBoundingClientRect().height / 2;
+        };
+        const from = center(stops[0]);
+        const to = center(stops[1]);
+        const samples = [];
+        const startedAt = performance.now();
+        let settledAt;
+        const sample = (time) => {
+          const y = new DOMMatrixReadOnly(getComputedStyle(lens).transform).m42;
+          samples.push({ time, progress: (y - from) / (to - from) });
+          if (Math.abs(y - to) < 0.05) settledAt ??= time;
+          if (settledAt && time - settledAt >= 240) {
+            resolve(samples);
+          } else if (time - startedAt > 8_000) {
+            reject(new Error("Lens did not complete its first paragraph transition"));
+          } else {
+            requestAnimationFrame(sample);
+          }
+        };
+        requestAnimationFrame(sample);
+      }));
+      assert.ok(trajectory[0].progress < 0.01, "Capture must start during the first reading pause");
+      for (let index = 1; index < trajectory.length; index++) {
+        assert.ok(trajectory[index].progress >= trajectory[index - 1].progress - 0.001,
+          "The lens must travel continuously without reversing direction");
+        assert.ok(trajectory[index].progress <= 1.001, "The reading lens must not overshoot its paragraph");
+      }
+      // Measure speed at equal fractions of the actual path, independently of
+      // the implementation's easing function and display refresh rate.
+      const timeAt = (progress) => {
+        const index = trajectory.findIndex((sample) => sample.progress >= progress);
+        assert.ok(index > 0, `Trajectory must cross ${progress * 100}% of its path`);
+        const before = trajectory[index - 1];
+        const after = trajectory[index];
+        return before.time + (after.time - before.time)
+          * (progress - before.progress) / (after.progress - before.progress);
+      };
+      const speed = (from, to) => (to - from) / (timeAt(to) - timeAt(from));
+      const accelerating = speed(0.05, 0.2);
+      const cruising = speed(0.4, 0.6);
+      const braking = speed(0.8, 0.95);
+      assert.ok(cruising > accelerating * 1.5, "The lens must visibly accelerate away from rest");
+      assert.ok(cruising > braking * 1.5, "The lens must visibly brake before reaching the text");
+      const travelMs = timeAt(0.999) - timeAt(0.001);
+      assert.ok(travelMs <= 1_200, `Paragraph travel feels too slow: ${Math.round(travelMs)} ms`);
+      assert.ok(trajectory.filter(({ progress }) => progress > 0.01 && progress < 0.99).length >= 8,
+        "The transition must contain continuous movement, not a jump between states");
+      assert.ok(trajectory.slice(-5).every(({ progress }) => Math.abs(progress - 1) < 0.001),
+        "The lens must settle at the destination so the paragraph can be read");
+      return {
+        travelMs: Math.round(travelMs),
+        accelerationRatio: Math.round(cruising / accelerating * 10) / 10,
+        brakingRatio: Math.round(cruising / braking * 10) / 10,
+      };
+    } finally { await context.close(); }
+  });
+
   await check(`${engine}: reading lens refracts full paragraphs without duplicate accessible content`, async () => {
     const context = await browser.newContext({ reducedMotion: "reduce", viewport: { width: 1440, height: 900 } });
     const page = await context.newPage();
@@ -561,9 +632,14 @@ for (const engine of engines) {
               covers: lensBounds.left <= stopBounds.left && lensBounds.right >= stopBounds.right
                 && lensBounds.top <= stopBounds.top && lensBounds.bottom >= stopBounds.bottom,
               width: lensBounds.width, height: lensBounds.height,
+              leftClearance: stopBounds.left - lensBounds.left,
+              rightClearance: lensBounds.right - stopBounds.right,
             };
           });
           assert.ok(geometry.covers, `${locale}/${width}: resting lens must enclose the full text block (${JSON.stringify(geometry)})`);
+          const minimumClearance = width < 640 ? 30 : 40;
+          assert.ok(Math.min(geometry.leftClearance, geometry.rightClearance) > minimumClearance,
+            `${locale}/${width}: text needs breathing room inside the glass (${JSON.stringify(geometry)})`);
           await expect.poll(() => copy.evaluate((node) => [...node.querySelectorAll("div")].some((element) => {
             // Check the actual copied text's SVG displacement filter, not a
             // decorative backdrop blur or the library's transparent wrapper.

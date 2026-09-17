@@ -2,11 +2,16 @@
 
 import { useEffect, useRef, useState, type ReactNode } from "react";
 import { Glass, glassValue } from "@samasante/liquid-glass";
+import { cubicBezier } from "motion";
 import styles from "./GlassStory.module.css";
 
-const HOLD_MS = 6_000;
-const TRAVEL_MS = 3_000;
+// Reading time and travel time serve different purposes: rest over the copy,
+// then accelerate into the next paragraph and brake gently at its center.
+const HOLD_MS = 3_600;
+const TRAVEL_MS = 800;
 const STEP_MS = HOLD_MS + TRAVEL_MS;
+// Same on-screen movement curve as --ease-in-out in globals.css.
+const easeTravel = cubicBezier(0.77, 0, 0.175, 1);
 const optics = {
   mapSize: 256, strength: 0.025, depth: 0.8, curvature: 0.16,
   bend: 0.32, bendWidth: 0.12, dispersion: 0.025, frost: 0,
@@ -70,13 +75,13 @@ export default function GlassStory({ children, pauseLabel, playLabel }: {
       const positions = stops.map((stop) => stop.getBoundingClientRect().top - bounds.top + stop.offsetHeight / 2);
       // Travel back through the middle paragraph instead of jumping to the top.
       const route = [...positions, ...positions.slice(1, -1).reverse()];
-      const nextGeometry = { width: bounds.width - 8, height, radius: Math.min(82, height / 2) };
+      const nextGeometry = { width: bounds.width - 8, height, radius: Math.min(72, height / 2) };
       setGeometry(nextGeometry);
       paintRef.current = () => {
         const progress = elapsedRef.current / STEP_MS;
         const index = Math.floor(progress) % route.length;
         const travel = Math.max(0, (elapsedRef.current % STEP_MS - HOLD_MS) / TRAVEL_MS);
-        const eased = travel * travel * (3 - 2 * travel);
+        const eased = easeTravel(travel);
         const y = route[index] + (route[(index + 1) % route.length] - route[index]) * eased;
         centerY.set(y / bounds.height);
         if (rimRef.current) rimRef.current.style.transform = `translateY(${y - height / 2}px)`;
@@ -112,16 +117,13 @@ export default function GlassStory({ children, pauseLabel, playLabel }: {
     if (!playing) return;
     let frame = 0;
     let previous: number | null = null;
-    let lastPaint = 0;
     const animate = (now: number) => {
       elapsedRef.current += previous === null ? 0 : Math.min(now - previous, 100);
       previous = now;
-      // Slow glass needs only 30 position updates per second. At each stop the
-      // signal stays constant, so the library does no additional filter work.
-      if (now - lastPaint >= 1000 / 30) {
-        paintRef.current();
-        lastPaint = now;
-      }
+      // Follow the display refresh rate through the faster travel. Refraction
+      // and rim share this clock; a separate CSS transform would drift in Safari.
+      // At rest the signal stays constant, so no filter work is repeated.
+      paintRef.current();
       frame = requestAnimationFrame(animate);
     };
     frame = requestAnimationFrame(animate);

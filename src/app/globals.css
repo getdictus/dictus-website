@@ -5,6 +5,13 @@
 /* ─── Theme variable swap: light (default) / dark ─── */
 
 :root {
+  /* Motion: responsive UI feedback, deliberate travel between resting states. */
+  --ease-out: cubic-bezier(0.23, 1, 0.32, 1);
+  --ease-in-out: cubic-bezier(0.77, 0, 0.175, 1);
+  --motion-press: 120ms;
+  --motion-fast: 180ms;
+  --motion-ui: 240ms;
+
   --theme-bg-primary: #F2F2F7;
   --theme-bg-body: #F2F2F7;
   --theme-bg-secondary: #EFF1F5;

@@ -14,15 +14,16 @@ const screens = [
 
 export default function ProductScenes() {
   const t = useTranslations("ProductScenes");
-  const [selection, setSelection] = useState({ index: 0, transition: "keyboard" });
+  const [selection, setSelection] = useState({ index: 0, transition: "keyboard", keyboardInput: false });
   const selected = selection.index;
   const tabs = useRef<(HTMLButtonElement | null)[]>([]);
   const testflightUrl = process.env.NEXT_PUBLIC_TESTFLIGHT_URL;
 
-  function selectScreen(index: number) {
+  function selectScreen(index: number, keyboardInput = false) {
     setSelection((current) => current.index === index ? current : {
       index,
       transition: current.index === 2 || index === 2 ? "app" : "keyboard",
+      keyboardInput,
     });
   }
 
@@ -34,12 +35,13 @@ export default function ProductScenes() {
     else if (event.key === "End") next = screens.length - 1;
     else return;
     event.preventDefault();
-    selectScreen(next);
+    selectScreen(next, true);
     tabs.current[next]?.focus();
   }
 
   return (
-    <section id="iphone" className={styles.section} aria-labelledby="iphone-title">
+    <section id="iphone" className={styles.section} aria-labelledby="iphone-title"
+      data-keyboard={selection.keyboardInput || undefined}>
       <div className={styles.layout}>
         <div className={styles.copy}>
           <p className={styles.platform}>{t("platform")}</p>
@@ -57,7 +59,7 @@ export default function ProductScenes() {
                   aria-controls={`iphone-screen-${index}`}
                   aria-selected={selected === index}
                   tabIndex={selected === index ? 0 : -1}
-                  onClick={() => selectScreen(index)}
+                  onClick={(event) => selectScreen(index, event.detail === 0)}
                   onKeyDown={(event) => onTabKey(event, index)}
                 >{t(`screens.${screen.key}.label`)}</button>
               ))}

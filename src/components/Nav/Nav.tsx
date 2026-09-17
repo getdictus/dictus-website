@@ -14,7 +14,8 @@ export default function Nav({ preview = false }: { preview?: boolean }) {
   const navRef = useRef<HTMLElement>(null);
   const [pointedRoute, setPointedRoute] = useState<string | null>(null);
   const [focusedRoute, setFocusedRoute] = useState<string | null>(null);
-  const [lens, setLens] = useState<{ x: number; width: number } | null>(null);
+  const [keyboardInput, setKeyboardInput] = useState(false);
+  const [lens, setLens] = useState<{ x: number; width: number; baseWidth: number } | null>(null);
   const targetRoute = focusedRoute ?? pointedRoute ?? pathname;
   const showLens = targetRoute === "/" || (preview && ["/blog", "/pricing"].includes(targetRoute));
   const links = [
@@ -32,10 +33,12 @@ export default function Nav({ preview = false }: { preview?: boolean }) {
       cancelAnimationFrame(frame);
       frame = requestAnimationFrame(() => {
         if (!alive) return;
-        const target = Array.from(nav.querySelectorAll<HTMLAnchorElement>("a[data-route]"))
-          .find((link) => link.dataset.route === targetRoute);
-        if (!target || targetRoute === "/donate") return;
-        setLens({ x: target.offsetLeft, width: target.offsetWidth });
+        const mainLinks = Array.from(nav.querySelectorAll<HTMLAnchorElement>("a[data-route]"))
+          .filter((link) => link.dataset.route !== "/donate");
+        const target = mainLinks.find((link) => link.dataset.route === targetRoute);
+        if (!target || target.offsetWidth === 0) return;
+        setLens({ x: target.offsetLeft, width: target.offsetWidth,
+          baseWidth: Math.max(...mainLinks.map((link) => link.offsetWidth)) });
       });
     };
     measure();
@@ -56,13 +59,15 @@ export default function Nav({ preview = false }: { preview?: boolean }) {
       <GlassSurface className={styles.pill}>
         <nav ref={navRef} aria-label={t("navigation_label")} className={styles.links}
           data-lens-ready={lens !== null || undefined}
+          data-keyboard={keyboardInput || undefined}
+          onPointerDown={() => setKeyboardInput(false)}
           onPointerLeave={() => setPointedRoute(null)}
           onBlur={(event) => {
             if (!event.currentTarget.contains(event.relatedTarget)) setFocusedRoute(null);
           }}>
           <div className={styles.lens} aria-hidden="true" style={{
-            width: lens?.width ?? 0,
-            transform: `translateX(${lens?.x ?? 0}px)`,
+            width: lens?.baseWidth ?? 0,
+            transform: `translateX(${lens?.x ?? 0}px) scaleX(${lens ? lens.width / lens.baseWidth : 1})`,
             opacity: lens && showLens ? 1 : 0,
           }}>
             <div className={styles.lensGlass}>
@@ -73,9 +78,15 @@ export default function Nav({ preview = false }: { preview?: boolean }) {
             <Link key={href} href={href} prefetch={false} aria-current={pathname === href ? "page" : undefined}
               data-route={href}
               onPointerEnter={(event) => {
-                if (event.pointerType === "mouse") setPointedRoute(href);
+                if (event.pointerType === "mouse" && window.matchMedia("(hover: hover) and (pointer: fine)").matches) {
+                  setKeyboardInput(false);
+                  setPointedRoute(href);
+                }
               }}
-              onFocus={() => setFocusedRoute(href)}
+              onFocus={(event) => {
+                setKeyboardInput(event.currentTarget.matches(":focus-visible"));
+                setFocusedRoute(href);
+              }}
               onClick={() => { setPointedRoute(null); setFocusedRoute(null); }}
               className={href === "/donate" ? styles.support : undefined}>
               {label}
