@@ -50,3 +50,11 @@ Review against brief: equal subscription cards would imply different Pro feature
 ## Concurrent work
 
 A separate #33 blog task is editing this same worktree. Preserve its files and namespaces, stage only #28 changes, and coordinate builds, pushes and PR updates. Shared JSON is read immediately before each targeted update.
+
+## Visual revision — maintainer feedback
+
+The maintainer found the first version too verbose and prefers the immediate visual hierarchy of Superwhisper’s pricing section. Preserve Dictus’s light canvas (#F2F2F7), DM Sans and glass selector. Replace the long introduction/Desktop rail and uneven iOS panels with a centered short heading, selector above the offers, then three aligned cards: Desktop free, iPhone free, iPhone Pro. White free cards and one blue Pro surface (#142544 → #214DA5) make the distinction visual. Large prices, brief feature lines and aligned actions carry the initial reading. Collapse the detailed comparison; keep exact terms, trial eligibility, device requirements and lifetime scope available through concise billing details and disclosures. Pro remains unavailable and preview-only.
+
+The reference’s enterprise tier, discounts and purchase claims are not Dictus offers. A three-card arrangement fits Dictus’s real platform boundaries and keeps the free Desktop promise immediately visible. Localized copy is edited independently from the UI; preserve the concurrent Blog changes and validate through the isolated Portly preview on 4328.
+
+On mobile the shared payment selector stays visible while the offer cards scroll. The same billing context updates the Pro price and the concise terms below the cards. Detailed comparisons remain native disclosures.

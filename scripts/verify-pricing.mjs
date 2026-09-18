@@ -1,9 +1,9 @@
 // Headless pricing contract checks. No screenshots or videos are written.
-// VERIFY_ENGINES=chromium,webkit npm run test:pricing -- http://localhost:4329
+// VERIFY_ENGINES=chromium,webkit npm run test:pricing -- http://localhost:4328
 import assert from "node:assert/strict";
 import { chromium, firefox, webkit, expect } from "@playwright/test";
 
-const origin = new URL(process.argv[2] || "http://localhost:4329").origin;
+const origin = new URL(process.argv[2] || "http://localhost:4328").origin;
 const engines = { chromium, firefox, webkit };
 let passed = 0;
 let failed = 0;
@@ -34,13 +34,25 @@ for (const engine of (process.env.VERIFY_ENGINES || "chromium,firefox,webkit").s
       await expect(page.locator("#desktop-free-title")).toBeVisible();
       await expect(page.locator("#free-title")).toBeVisible();
       await expect(page.locator("#pro-title")).toBeVisible();
-      await expect(page.getByRole("note")).toContainText(locale === "fr" ? "Les achats Pro ne sont pas encore disponibles" : "Pro purchases are not available yet");
+      await expect(page.locator('[data-pricing-cards] button')).toBeDisabled();
+      await expect(page.locator('[data-pricing-cards] button')).toContainText(locale === "fr" ? "Bientôt disponible" : "Coming soon");
+      const cards = await page.locator('[data-pricing-cards] > section').evaluateAll((nodes) => nodes.map((node) => {
+        const box = node.getBoundingClientRect(); return { top: box.top, bottom: box.bottom };
+      }));
+      assert.equal(cards.length, 3);
+      assert.ok(cards.every((box) => Math.abs(box.top - cards[0].top) < 1 && Math.abs(box.bottom - cards[0].bottom) < 1), "Desktop cards align");
+      assert.ok(cards[0].bottom < 1000, "The desktop offer overview fits in the first viewport");
+      const comparison = page.locator('[data-pricing-comparison]');
+      await expect(comparison).not.toHaveAttribute("open", "");
+      await expect(page.locator('[data-pricing-faq] details[open]')).toHaveCount(0);
+      await comparison.locator("summary").click();
       await expect(page.locator("article")).toContainText("iOS 17");
       await expect(page.locator("article")).toContainText("iPhone 15 Pro");
       await expect(page.locator("article")).toContainText("iPhone Air");
       await expect(page.getByRole("table").locator("tbody tr")).toHaveCount(7);
       await expect(page.getByRole("table")).toContainText("200");
-      await expect(page.locator("article details")).toHaveCount(10);
+      await expect(page.locator("[data-pricing-faq] details")).toHaveCount(10);
+      await comparison.locator("summary").click();
       const article = await page.locator("article").innerText();
       assert.doesNotMatch(article, /79[.,]99|fondateur|founder|popular|populaire|\$/i);
       assert.equal(await page.locator('article a[href*="stripe"], article a[href*="btcpay"], article form').count(), 0);
@@ -51,25 +63,29 @@ for (const engine of (process.env.VERIFY_ENGINES || "chromium,firefox,webkit").s
       const yearly = page.locator('input[value="yearly"]');
       await expect(yearly).toBeChecked();
       await expect(details).toContainText(expected.yearly);
-      await expect(details).toContainText(locale === "fr" ? "éligibilité" : "eligible");
+      await expect(details).toContainText(locale === "fr" ? "éligible" : "eligible");
       await yearly.focus();
       await page.keyboard.press("ArrowLeft");
       await expect(page.locator('input[value="monthly"]')).toBeChecked();
       await expect(details).toContainText(expected.monthly);
-      await expect(details).toContainText(locale === "fr" ? "Aucun essai gratuit" : "No free trial");
+      await expect(details).toContainText(locale === "fr" ? "Sans essai" : "No trial");
+      await expect(page.locator('[data-billing-note]')).toContainText(locale === "fr" ? "Sans essai" : "No trial");
       await page.keyboard.press("ArrowRight");
       await page.keyboard.press("ArrowRight");
       await expect(page.locator('input[value="lifetime"]')).toBeChecked();
       await expect(details).toContainText(expected.lifetime);
-      await expect(details).toContainText(locale === "fr" ? "aucun renouvellement" : "no renewal");
+      await expect(details).toContainText(locale === "fr" ? "renouvellement" : "renewal");
+      await expect(page.locator('[data-billing-note] summary')).toBeVisible();
       await page.locator('[data-lens-key="monthly"]').hover();
       await expect(page.locator('input[value="lifetime"]')).toBeChecked();
       await expect(details).toHaveAttribute("data-billing-plan", "lifetime");
       await page.locator('[data-lens-key="yearly"]').click();
       await expect(yearly).toBeChecked();
+      await expect(page.locator('[data-billing-note]')).toContainText(expected.yearly);
       assert.ok(await yearly.evaluate((input) => getComputedStyle(input.closest("label")).minHeight === "44px"));
       // Accessibility names can pass even when the glass compositor hides the labels.
       // Inspect pixels in memory to ensure real text ink reaches the rendered control.
+      // Muted labels are #5c606a; allow their anti-aliased edges, still below the pale glass.
       for (const label of await page.locator("fieldset [data-lens-key]").all()) {
         const png = await label.screenshot();
         const ink = await page.evaluate(async (data) => {
@@ -78,7 +94,7 @@ for (const engine of (process.env.VERIFY_ENGINES || "chromium,firefox,webkit").s
           const context = canvas.getContext("2d"); context.drawImage(image, 0, 0);
           const pixels = context.getImageData(0, 0, image.width, image.height).data;
           let count = 0;
-          for (let index = 0; index < pixels.length; index += 4) if (pixels[index] < 110 && pixels[index + 1] < 110 && pixels[index + 2] < 110 && pixels[index + 3] > 200) count++;
+          for (let index = 0; index < pixels.length; index += 4) if (pixels[index] < 145 && pixels[index + 1] < 145 && pixels[index + 2] < 145 && pixels[index + 3] > 200) count++;
           return count;
         }, png.toString("base64"));
         assert.ok(ink > 20, `Billing label must be visibly painted: ${ink} text pixels`);
@@ -86,7 +102,7 @@ for (const engine of (process.env.VERIFY_ENGINES || "chromium,firefox,webkit").s
     });
 
     await check(`${engine}/${locale}: disclosures, exact lifetime scope and consistent Terms`, async () => {
-      const details = page.locator("article details");
+      const details = page.locator("[data-pricing-faq] details");
       for (const disclosure of await details.all()) {
         await disclosure.locator("summary").focus();
         await page.keyboard.press("Enter");
@@ -117,7 +133,7 @@ for (const engine of (process.env.VERIFY_ENGINES || "chromium,firefox,webkit").s
       await expect(page.locator('link[hreflang="fr"]')).toHaveAttribute("href", "https://getdictus.com/fr/pricing");
       await expect(page.locator('link[hreflang="en"]')).toHaveAttribute("href", "https://getdictus.com/en/pricing");
       assert.equal(await page.locator('script[type="application/ld+json"]').count(), 0);
-      const language = page.locator("header").getByRole("button", { name: locale === "fr" ? "Switch to English" : "Passer en francais", exact: true });
+      const language = page.locator("header").getByRole("button", { name: locale === "fr" ? "Switch to English" : "Passer en français", exact: true });
       await language.click();
       await expect(page).toHaveURL(new RegExp(`/${locale === "fr" ? "en" : "fr"}/pricing$`));
     });
@@ -149,8 +165,8 @@ for (const engine of (process.env.VERIFY_ENGINES || "chromium,firefox,webkit").s
     await expect(staticPage.locator('input[type="radio"]').first()).not.toBeVisible();
     const text = await staticPage.locator("article").innerText();
     assert.match(text, /€4\.99/); assert.match(text, /€39\.99/); assert.match(text, /€149\.99/);
-    await staticPage.locator("summary").first().click();
-    await expect(staticPage.locator("details").first()).toHaveAttribute("open", "");
+    await staticPage.locator("[data-pricing-faq] summary").first().click();
+    await expect(staticPage.locator("[data-pricing-faq] details").first()).toHaveAttribute("open", "");
     await noOverflow(staticPage);
     await context.close();
   });
@@ -159,6 +175,8 @@ for (const engine of (process.env.VERIFY_ENGINES || "chromium,firefox,webkit").s
     const context = await browser.newContext({ hasTouch: true, viewport: { width: 390, height: 844 } });
     const touch = await context.newPage();
     await touch.goto(`${origin}/fr/pricing`);
+    await touch.locator('#pro-title').scrollIntoViewIfNeeded();
+    await expect(touch.locator('fieldset')).toBeInViewport();
     await touch.locator('[data-lens-key="monthly"]').tap();
     await expect(touch.locator('input[value="monthly"]')).toBeChecked();
     await touch.locator('[data-lens-key="lifetime"]').tap();

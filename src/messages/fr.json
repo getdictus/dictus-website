@@ -271,13 +271,13 @@
   },
   "Pricing": {
     "meta_title": "Tarifs — Desktop gratuit et Dictus Pro sur iPhone",
-    "title": "Commencez gratuitement.",
-    "description": "Dictus Desktop est gratuit et le restera. Sur iPhone, la dictée reste gratuite ; Dictus Pro prépare des outils pour aller plus loin.",
+    "title": "La dictée, à votre rythme.",
+    "description": "Gratuit sur ordinateur et iPhone. Pro arrive bientôt.",
     "desktop": {
       "title": "Dictus Desktop",
       "free": "Gratuit, aujourd’hui et demain.",
       "description": "Dictez sur macOS, Windows et Linux. La transcription est locale, le code est public et aucun abonnement n’est nécessaire.",
-      "download": "Télécharger pour mon ordinateur"
+      "download": "Télécharger"
     },
     "ios_title": "Sur iPhone, à votre rythme.",
     "ios_intro": "Un socle gratuit permanent. Un même Dictus Pro, avec trois façons de le payer à sa sortie.",
@@ -285,14 +285,14 @@
       "title": "Gratuit",
       "price": "Sans abonnement",
       "description": "Le clavier et la dictée locale, sans achat Pro. Disponible dès iOS 17 dans les apps compatibles avec les claviers tiers.",
-      "app_store": "Voir l’app gratuite sur l’App Store"
+      "app_store": "Voir sur l’App Store"
     },
     "pro": {
       "platform": "Sur iPhone uniquement",
-      "description": "Pour transformer une dictée, retrouver vos textes et garder vos mots.",
+      "description": "Pour aller plus loin avec vos mots.",
       "status": "Offre Pro en préparation",
-      "availability": "Les achats Pro ne sont pas encore disponibles. À leur ouverture, ils se feront dans l’app iOS via Apple.",
-      "includes": "Tout le socle gratuit, avec ces fonctions Pro prévues :"
+      "availability": "Les achats Pro seront disponibles dans l’app iOS via Apple à leur ouverture.",
+      "includes": "Tout le gratuit, plus :"
     },
     "billing_label": "Mode de paiement de Dictus Pro",
     "plans": {
@@ -300,22 +300,22 @@
         "label": "Mensuel",
         "frequency": "/ mois",
         "kind": "Abonnement mensuel",
-        "detail": "{monthly} facturés chaque mois, avec renouvellement automatique. Aucun essai gratuit."
+        "detail": "Renouvellement automatique. Sans essai."
       },
       "yearly": {
         "label": "Annuel",
         "frequency": "/ an",
         "kind": "Abonnement annuel",
-        "detail": "{trialDays} jours d’essai selon votre éligibilité Apple, puis {yearly} par an avec renouvellement automatique. Sans essai, {yearly} dès l’achat."
+        "detail": "{trialDays} jours d’essai si éligible via Apple, puis {yearly}/an. Renouvellement automatique."
       },
       "lifetime": {
         "label": "Achat unique",
         "frequency": "une seule fois",
         "kind": "Accès à vie · sans renouvellement",
-        "detail": "{lifetime} en un seul paiement. Aucun abonnement, aucun renouvellement et aucun essai gratuit."
+        "detail": "Un seul paiement. Sans renouvellement ni essai."
       }
     },
-    "territory": "Prix de référence France, en euros, pour l’offre en préparation. À la sortie, le prix applicable et l’éligibilité à l’essai seront confirmés dans l’app et l’App Store selon votre pays.",
+    "territory": "Référence France/EUR. Prix et éligibilité confirmés par Apple à la sortie.",
     "smart_compatibility": "Les modes intelligents et la correction IA demandent iOS 26 ou ultérieur, Apple Intelligence activée et un iPhone compatible : iPhone 15 Pro ou 15 Pro Max, modèles iPhone 16 ou ultérieurs, ou iPhone Air. Une langue et une région prises en charge sont nécessaires. Un achat Pro ne change pas la compatibilité de votre appareil.",
     "lifetime_label": "Ce que couvre l’achat à vie.",
     "lifetime_scope": "L’achat à vie couvre toutes les fonctionnalités Pro actuelles et futures qui s’exécutent sur votre appareil ou sur un serveur que vous fournissez. Toute fonctionnalité reposant sur une infrastructure Dictus fait l’objet d’une offre distincte.",
@@ -358,7 +358,7 @@
     },
     "comparison": {
       "title": "Le détail, simplement.",
-      "description": "Le socle gratuit reste le même. Mensuel, annuel ou achat unique : les trois modalités donnent accès au même ensemble de fonctions Pro prévu à la sortie.",
+      "description": "Les mêmes fonctions Pro, quel que soit le paiement.",
       "caption": "Comparaison des fonctions iPhone gratuites et de l’offre Pro en préparation",
       "feature": "Sur iPhone",
       "included": "Inclus",
@@ -368,47 +368,47 @@
     "faq": {
       "free": {
         "question": "Qu’est-ce qui reste gratuit ?",
-        "answer": "Desktop reste gratuit sur macOS, Windows et Linux. Sur iPhone, le clavier, la dictée locale, le mode Normal, la gestion des modèles et le suivi de la dictée restent gratuits, selon la compatibilité de l’appareil. Vous n’avez pas besoin de Pro pour dicter."
+        "answer": "Desktop restera gratuit. Sur iPhone, le clavier, la dictée locale, le mode Normal, les modèles et le suivi de la dictée restent gratuits. Certaines apps refusent les claviers tiers ; les fonctions disponibles dépendent de votre appareil."
       },
       "platforms": {
         "question": "Pro couvre-t-il aussi mon ordinateur ?",
-        "answer": "Dictus Pro concerne uniquement l’app iOS. Desktop reste gratuit et n’a pas d’offre Pro à acheter. Android est en développement ; aucune licence Android ni synchronisation entre appareils n’est incluse dans cette offre."
+        "answer": "Pro concerne uniquement iOS. Desktop reste gratuit. Android est en développement ; cette offre n’inclut ni licence Android ni synchronisation entre appareils."
       },
       "plans": {
         "question": "Quelle différence entre les trois formules ?",
-        "answer": "Les mêmes fonctions Pro sont prévues pour les trois formules. Le mensuel coûte {monthly} par mois, l’annuel {yearly} par an : ces abonnements se renouvellent automatiquement. L’achat unique coûte {lifetime}, sans renouvellement, dans le périmètre de l’achat à vie décrit sur cette page."
+        "answer": "Les achats Pro ne sont pas encore disponibles. À la sortie, les mêmes fonctions seront proposées à {monthly}/mois, {yearly}/an ou {lifetime} en un seul paiement. Les abonnements se renouvellent automatiquement. L’achat se fera dans l’app iOS via Apple, qui confirmera le prix et l’éligibilité à l’essai selon votre pays. Le vocabulaire remplace les variantes que vous définissez, sans entraîner le modèle vocal. L’historique conserve les {historyLimit} dernières dictées pour les consulter, les copier ou les supprimer."
       },
       "trial": {
         "question": "Comment fonctionne l’essai ?",
-        "answer": "L’essai de {trialDays} jours est prévu uniquement avec l’abonnement annuel, selon l’éligibilité confirmée par Apple. Sans annulation au moins 24 heures avant sa fin, l’abonnement commence à {yearly} par an puis se renouvelle automatiquement. Sans éligibilité, le paiement annuel est dû dès l’achat. Aucun essai n’est prévu pour le mensuel ou l’achat unique."
+        "answer": "Seul l’annuel prévoit {trialDays} jours d’essai, selon l’éligibilité Apple. Sans annulation au moins 24 heures avant la fin, il est facturé {yearly}/an puis renouvelé automatiquement. Sans éligibilité, l’annuel est payé dès l’achat. Le mensuel et l’achat unique n’ont pas d’essai."
       },
       "compatibility": {
         "question": "Mon iPhone est-il compatible ?",
-        "answer": "L’app gratuite distribuée demande iOS 17 ou ultérieur. Le vocabulaire personnalisé et l’historique Pro ne nécessitent pas Apple Intelligence. La disponibilité des modèles et de Dynamic Island dépend de l’appareil. Vérifiez les prérequis avant de choisir une offre."
+        "answer": "L’app gratuite demande iOS 17 ou ultérieur. Les modes IA et la correction intelligente nécessitent iOS 26 ou ultérieur et Apple Intelligence activée : iPhone 15 Pro ou 15 Pro Max, modèles iPhone 16 ou ultérieurs, ou iPhone Air, dans une langue et une région prises en charge. Payer Pro ne change pas ces prérequis. L’historique et le vocabulaire ne demandent pas Apple Intelligence. Les modèles dépendent de l’appareil, de la mémoire, de la version de l’app et des langues ; Dynamic Island nécessite un iPhone qui en est équipé."
       },
       "manage": {
         "question": "Comment gérer ou annuler un abonnement ?",
-        "answer": "Après l’ouverture des achats, Apple gérera la facturation. Sur iPhone : Réglages, votre nom, puis Abonnements. Désactivez le renouvellement au moins 24 heures avant la fin de la période ou de l’essai. L’accès reste actif jusqu’à la fin de la période payée. L’achat unique ne se renouvelle pas."
+        "answer": "Dans Réglages, votre nom, puis Abonnements. Désactivez le renouvellement au moins 24 heures avant la fin de la période ou de l’essai. L’accès continue jusqu’à la fin de la période payée. L’achat unique ne se renouvelle pas."
       },
       "restore": {
         "question": "Pourrai-je restaurer mon achat ?",
-        "answer": "Oui. L’achat sera lié au compte Apple utilisé pour le paiement. Utilisez la restauration des achats dans Dictus sur vos appareils iOS compatibles avec ce même compte. En cas de difficulté, contactez le support."
+        "answer": "Oui, avec le même compte Apple que lors du paiement. Utilisez la restauration des achats dans Dictus sur vos appareils iOS compatibles. Le support peut vous aider."
       },
       "lifetime": {
         "question": "Que signifie « à vie » ?"
       },
       "privacy": {
         "question": "La transcription reste-t-elle locale ?",
-        "answer": "Oui, l’audio est transcrit sur votre appareil. Le téléchargement des modèles, les mises à jour et les paiements utilisent le réseau. Sur Desktop, un post-traitement facultatif, désactivé par défaut, peut transmettre le texte au fournisseur que vous choisissez."
+        "answer": "Oui, l’audio est transcrit sur l’appareil. Les modèles à télécharger, les mises à jour et les paiements utilisent le réseau. Sur Desktop, le post-traitement facultatif, désactivé par défaut, peut envoyer le texte au fournisseur que vous choisissez."
       },
       "donation": {
         "question": "Un don débloque-t-il Dictus Pro ?",
-        "answer": "Non. Un don soutient le développement du projet gratuit. Il ne remplace pas un achat dans l’app, ne donne pas de droit Pro et ne modifie pas votre abonnement."
+        "answer": "Non. Un don soutient le projet gratuit ; il ne débloque pas Pro et ne modifie pas votre abonnement."
       }
     },
     "support": {
       "title": "Soutenir le projet gratuit.",
-      "description": "Vous appréciez Dictus ? Un don aide le projet à continuer. C’est un soutien libre, indépendant de l’offre Pro."
+      "description": "Un don soutient le projet gratuit, sans débloquer Pro."
     },
     "links": {
       "label": "Informations et assistance",
@@ -417,6 +417,51 @@
       "support": "Contacter le support",
       "donate": "Soutenir Dictus",
       "apple": "Gérer un abonnement avec Apple"
+    },
+    "details_label": "Comparer les fonctionnalités",
+    "cards": {
+      "desktop": {
+        "title": "Desktop",
+        "platform": "macOS, Windows, Linux",
+        "price": "0 €",
+        "frequency": "pour toujours",
+        "description": "La dictée locale sur votre ordinateur.",
+        "features": {
+          "dictation": "Dictez dans vos apps",
+          "models": "Modèles au choix",
+          "privacy": "Votre voix reste sur l’appareil",
+          "opensource": "Code source public"
+        },
+        "cta": "Télécharger"
+      },
+      "iphone": {
+        "title": "iPhone",
+        "platform": "iOS 17 ou ultérieur",
+        "price": "0 €",
+        "frequency": "sans abonnement",
+        "description": "Votre voix, dans votre clavier.",
+        "features": {
+          "dictation": "Clavier pour les apps compatibles",
+          "normal": "Ponctuation et correction de base",
+          "models": "Modèles Whisper et Parakeet",
+          "activity": "Live Activity et Dynamic Island"
+        },
+        "compatibility": "Fonctions selon modèle et appareil.",
+        "cta": "Voir sur l’App Store"
+      },
+      "pro": {
+        "title": "iPhone Pro",
+        "platform": "Sur iPhone uniquement",
+        "description": "Pour aller plus loin avec vos mots.",
+        "includes": "Tout le gratuit, plus :",
+        "features": {
+          "smart": "Liste, Structuré et traduction",
+          "vocabulary": "Votre vocabulaire personnalisé",
+          "history": "Vos {historyLimit} dernières dictées"
+        },
+        "cta": "Bientôt disponible",
+        "compatibility": "Modes IA : iOS 26+ et Apple Intelligence."
+      }
     }
   },
   "ProductScenes": {

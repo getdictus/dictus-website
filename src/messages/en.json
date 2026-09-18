@@ -271,13 +271,13 @@
   },
   "Pricing": {
     "meta_title": "Pricing — Free Desktop and Dictus Pro for iPhone",
-    "title": "Start for free.",
-    "description": "Dictus Desktop is free and will stay free. On iPhone, dictation stays free; Dictus Pro is preparing tools to take it further.",
+    "title": "Dictation, your way.",
+    "description": "Free on desktop and iPhone. Pro is coming soon.",
     "desktop": {
       "title": "Dictus Desktop",
       "free": "Free, today and tomorrow.",
       "description": "Dictate on macOS, Windows and Linux. Transcription runs locally, the code is public and no subscription is needed.",
-      "download": "Download for my computer"
+      "download": "Download"
     },
     "ios_title": "On iPhone, at your own pace.",
     "ios_intro": "A permanent free foundation. One Dictus Pro, with three ways to pay when it launches.",
@@ -285,14 +285,14 @@
       "title": "Free",
       "price": "No subscription",
       "description": "The keyboard and local dictation, without a Pro purchase. Available on iOS 17 and later in apps that support third-party keyboards.",
-      "app_store": "View the free app on the App Store"
+      "app_store": "View on the App Store"
     },
     "pro": {
       "platform": "iPhone only",
-      "description": "To reshape a dictation, find your texts and keep your own words.",
+      "description": "Take your words further.",
       "status": "Pro is being prepared",
-      "availability": "Pro purchases are not available yet. When they launch, purchases will be made in the iOS app through Apple.",
-      "includes": "Everything in Free, with these planned Pro features:"
+      "availability": "Pro purchases will be made in the iOS app through Apple when they launch.",
+      "includes": "Everything in Free, plus:"
     },
     "billing_label": "Dictus Pro billing option",
     "plans": {
@@ -300,22 +300,22 @@
         "label": "Monthly",
         "frequency": "/ month",
         "kind": "Monthly subscription",
-        "detail": "{monthly} billed every month, with automatic renewal. No free trial."
+        "detail": "Renews automatically. No trial."
       },
       "yearly": {
         "label": "Yearly",
         "frequency": "/ year",
         "kind": "Yearly subscription",
-        "detail": "A {trialDays}-day trial if eligible through Apple, then {yearly} per year with automatic renewal. Without a trial, {yearly} is charged at purchase."
+        "detail": "{trialDays}-day trial if eligible through Apple, then {yearly}/year. Renews automatically."
       },
       "lifetime": {
         "label": "One-time",
         "frequency": "paid once",
         "kind": "Lifetime access · no renewal",
-        "detail": "{lifetime} in one payment. No subscription, no renewal and no free trial."
+        "detail": "One payment. No renewal or trial."
       }
     },
-    "territory": "France reference prices in euros for the planned offering. At launch, the applicable price and trial eligibility will be confirmed in the app and App Store for your country.",
+    "territory": "France/EUR reference. Apple confirms prices and eligibility at launch.",
     "smart_compatibility": "Smart Modes and AI correction require iOS 26 or later, enabled Apple Intelligence and a compatible iPhone: iPhone 15 Pro or 15 Pro Max, iPhone 16 models or later, or iPhone Air. A supported language and region are required. Buying Pro does not change your device’s compatibility.",
     "lifetime_label": "What lifetime covers.",
     "lifetime_scope": "The lifetime purchase covers every current and future Pro feature that runs on your device or on a server you provide. Any feature relying on Dictus infrastructure is a separate offering.",
@@ -358,7 +358,7 @@
     },
     "comparison": {
       "title": "The details, simply.",
-      "description": "The free foundation stays the same. Monthly, yearly or one-time: all three options provide the same planned Pro features at launch.",
+      "description": "The same Pro features, however you pay.",
       "caption": "Comparison of free iPhone features and the planned Pro offering",
       "feature": "On iPhone",
       "included": "Included",
@@ -368,31 +368,31 @@
     "faq": {
       "free": {
         "question": "What stays free?",
-        "answer": "Desktop stays free on macOS, Windows and Linux. On iPhone, the keyboard, local dictation, Normal mode, model management and dictation status stay free, depending on device compatibility. You do not need Pro to dictate."
+        "answer": "Desktop will stay free. On iPhone, the keyboard, local dictation, Normal mode, models and dictation status stay free. Some apps do not support third-party keyboards; available features depend on your device."
       },
       "platforms": {
         "question": "Does Pro also cover my computer?",
-        "answer": "Dictus Pro is for the iOS app only. Desktop stays free and has no Pro plan to buy. Android is in development; this offering includes neither an Android licence nor cross-device sync."
+        "answer": "Pro is for iOS only. Desktop stays free. Android is in development; this offering includes neither an Android licence nor cross-device sync."
       },
       "plans": {
         "question": "How do the three options differ?",
-        "answer": "The same Pro features are planned for all three options. Monthly costs {monthly} per month and yearly costs {yearly} per year; both subscriptions renew automatically. The one-time purchase costs {lifetime}, with no renewal, within the lifetime scope described on this page."
+        "answer": "Pro purchases are not available yet. At launch, the same features will be offered at {monthly}/month, {yearly}/year or {lifetime} paid once. Subscriptions renew automatically. Purchases will be made in the iOS app through Apple, which will confirm prices and trial eligibility for your country. Vocabulary replaces variants you define without training the speech model. History keeps your last {historyLimit} dictations to read, copy or delete."
       },
       "trial": {
         "question": "How does the trial work?",
-        "answer": "The {trialDays}-day trial is planned for the yearly subscription only, subject to eligibility confirmed by Apple. Unless you cancel at least 24 hours before it ends, the subscription starts at {yearly} per year and renews automatically. Without eligibility, the yearly payment is due at purchase. There is no trial for monthly or one-time purchases."
+        "answer": "Only yearly includes a {trialDays}-day trial, subject to Apple eligibility. Unless cancelled at least 24 hours before it ends, it is billed at {yearly}/year and renews automatically. Without eligibility, yearly is paid at purchase. Monthly and one-time purchases have no trial."
       },
       "compatibility": {
         "question": "Is my iPhone compatible?",
-        "answer": "The released free app requires iOS 17 or later. Pro custom vocabulary and history do not require Apple Intelligence. Model availability and Dynamic Island depend on your device. Check the requirements before choosing an offering."
+        "answer": "The free app requires iOS 17 or later. AI modes and intelligent correction require iOS 26 or later and enabled Apple Intelligence: iPhone 15 Pro or 15 Pro Max, iPhone 16 models or later, or iPhone Air, in a supported language and region. Buying Pro does not change these requirements. History and vocabulary do not require Apple Intelligence. Models depend on device, memory, app version and languages; Dynamic Island requires an iPhone equipped with it."
       },
       "manage": {
         "question": "How do I manage or cancel a subscription?",
-        "answer": "Once purchases launch, Apple will handle billing. On iPhone, open Settings, your name, then Subscriptions. Turn off renewal at least 24 hours before the period or trial ends. Access continues until the end of the paid period. The one-time purchase does not renew."
+        "answer": "Open Settings, your name, then Subscriptions. Turn off renewal at least 24 hours before the period or trial ends. Access continues until the paid period ends. The one-time purchase does not renew."
       },
       "restore": {
         "question": "Will I be able to restore my purchase?",
-        "answer": "Yes. Your purchase will be tied to the Apple account used to pay. Use Restore Purchases in Dictus on your compatible iOS devices with that same account. Contact support if you need help."
+        "answer": "Yes, with the same Apple account used to pay. Use Restore Purchases in Dictus on your compatible iOS devices. Support can help if needed."
       },
       "lifetime": {
         "question": "What does “lifetime” mean?"
@@ -403,12 +403,12 @@
       },
       "donation": {
         "question": "Does a donation unlock Dictus Pro?",
-        "answer": "No. A donation supports development of the free project. It does not replace an in-app purchase, grant Pro access or change your subscription."
+        "answer": "No. Donations support the free project; they do not unlock Pro or change your subscription."
       }
     },
     "support": {
       "title": "Support the free project.",
-      "description": "Enjoy using Dictus? A donation helps the project continue. It is voluntary support, separate from Pro."
+      "description": "A donation supports the free project without unlocking Pro."
     },
     "links": {
       "label": "Information and help",
@@ -417,6 +417,51 @@
       "support": "Contact support",
       "donate": "Support Dictus",
       "apple": "Manage a subscription with Apple"
+    },
+    "details_label": "Compare features",
+    "cards": {
+      "desktop": {
+        "title": "Desktop",
+        "platform": "macOS, Windows, Linux",
+        "price": "€0",
+        "frequency": "forever",
+        "description": "Local dictation on your computer.",
+        "features": {
+          "dictation": "Dictate in your apps",
+          "models": "Your choice of models",
+          "privacy": "Your voice stays on your device",
+          "opensource": "Public source code"
+        },
+        "cta": "Download"
+      },
+      "iphone": {
+        "title": "iPhone",
+        "platform": "iOS 17 or later",
+        "price": "€0",
+        "frequency": "no subscription",
+        "description": "Your voice, in your keyboard.",
+        "features": {
+          "dictation": "Keyboard for compatible apps",
+          "normal": "Punctuation and basic correction",
+          "models": "Whisper and Parakeet models",
+          "activity": "Live Activity and Dynamic Island"
+        },
+        "compatibility": "Features depend on model and device.",
+        "cta": "View on the App Store"
+      },
+      "pro": {
+        "title": "iPhone Pro",
+        "platform": "iPhone only",
+        "description": "Take your words further.",
+        "includes": "Everything in Free, plus:",
+        "features": {
+          "smart": "List, Structured and translation",
+          "vocabulary": "Your custom vocabulary",
+          "history": "Your last {historyLimit} dictations"
+        },
+        "cta": "Coming soon",
+        "compatibility": "AI modes: iOS 26+ and Apple Intelligence."
+      }
     }
   },
   "ProductScenes": {
