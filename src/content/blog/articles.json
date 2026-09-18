@@ -411,159 +411,269 @@
     "locales": {
       "fr": {
         "slug": "capture-clavier-iphone",
-        "title": "Le clavier Dictus dans une capture iPhone",
-        "summary": "Ce que l’enregistrement dans Apple Notes montre réellement, et les limites connues de sa provenance.",
-        "intro": "Le visuel provient d’un enregistrement réel du clavier Dictus dans Apple Notes. Cette note de preview situe cette image dans sa séquence d’origine ; elle ne remplace pas le futur guide d’installation.",
+        "title": "Dictée vocale sur iPhone : écrire dans ses applications avec Dictus",
+        "summary": "Installer le clavier Dictus, préparer le modèle et dicter une première note, avec les limites des claviers tiers et les vérifications utiles.",
+        "intro": "Pour écrire à la voix sur iPhone avec Dictus, installez l’application, activez son clavier et préparez le modèle vocal. Ouvrez ensuite un champ de texte compatible, sélectionnez Dictus avec le globe et lancez la dictée. Commencez dans une note sans enjeu : vous pourrez relire le résultat avant de l’utiliser dans un message ou un e-mail.",
         "category": "iPhone",
-        "tags": [],
+        "tags": [
+          "Dictée vocale",
+          "Premiers pas"
+        ],
         "seo": {
-          "title": "Le clavier Dictus dans une capture iPhone — Dictus",
-          "description": "Ce que l’enregistrement dans Apple Notes montre réellement, et les limites connues de sa provenance."
+          "title": "Dictée vocale iPhone : configurer le clavier Dictus",
+          "description": "Comment installer le clavier Dictus sur iPhone, préparer la dictée locale et écrire dans une app compatible. Prérequis, première note et limites."
         },
         "social": {
-          "title": "Le clavier Dictus dans une capture iPhone",
-          "description": "Ce que l’enregistrement dans Apple Notes montre réellement, et les limites connues de sa provenance."
+          "title": "Écrire à la voix sur iPhone avec Dictus",
+          "description": "Du clavier à la première note : les étapes, les permissions et les limites à connaître avant de dicter dans vos applications."
         },
         "image": {
           "src": "/images/products/ios-demo-dictation.jpg",
           "width": 860,
           "height": 1864,
-          "alt": "Le clavier Dictus et une dictée dans Apple Notes sur iPhone, avec l’interface originale en anglais.",
-          "caption": "Image extraite de l’enregistrement iPhone du 18 septembre 2026. L’interface et le texte de la capture restent dans leur langue originale."
+          "alt": "Le clavier Dictus pendant une dictée dans Apple Notes sur iPhone, avec son interface en anglais.",
+          "caption": "Image réelle extraite de l’enregistrement du 18 septembre 2026 dans Apple Notes, sur iPhone 15 Pro Max avec Dictus 1.8.2, confirmés par son auteur. L’interface est en anglais ; le numéro de build et la version du système ne sont pas renseignés."
         },
         "cta": {
           "label": "Découvrir Dictus sur iPhone",
-          "description": "Voir le clavier dans la présentation iPhone et suivre les informations du produit.",
+          "description": "Voir le clavier en action et accéder à la version iPhone depuis la présentation du produit.",
           "href": "/fr#iphone"
         },
         "sections": [
           {
-            "id": "sequence",
-            "heading": "Une image issue d’une séquence réelle",
+            "id": "avant-de-commencer",
+            "heading": "Ce que vous allez préparer",
             "paragraphs": [
-              "L’enregistrement fourni pour la preview montre le clavier dans Apple Notes, de la saisie, une dictée réelle et son résultat inséré, puis un passage vers l’application Dictus. Le visuel de cet article est une image extraite de cette séquence. Aucun texte dicté n’a été inventé pour l’illustration.",
-              "L’interface filmée est en anglais. Elle est conservée telle quelle dans les deux langues du site ; seuls les textes éditoriaux, les légendes et les descriptions accessibles sont traduits. Le lecteur francophone voit donc le même écran réel que le lecteur anglophone."
+              "Un clavier vocal transforme la parole en texte dans le champ où se trouve le curseur. Il ne remplace pas l’application qui reçoit ce texte : une note reste une note, et un brouillon de message doit encore être relu puis envoyé par vous. La dictée intégrée d’Apple est une autre option ; ce guide concerne le clavier Dictus et ses propres réglages.",
+              "La fiche App Store française vérifiée le 18 septembre 2026 distribue Dictus iOS 1.8.2 et indique iOS 17.0 ou ultérieur. Le téléchargement est gratuit. Une offre Pro est en préparation ; vous n’avez pas à acheter cette offre pour suivre ce premier parcours de dictée. La compatibilité affichée dans l’App Store reste à vérifier avant une installation ultérieure.",
+              "Prévoyez une connexion pour installer l’app et télécharger son modèle vocal, ainsi que de la place disponible pour ce modèle. La transcription s’effectue ensuite sur l’appareil. Les fonctions facultatives peuvent avoir d’autres conditions matérielles ; elles ne sont pas nécessaires pour cette première note."
             ],
             "bullets": []
           },
           {
-            "id": "compatibilite",
-            "heading": "Situer le clavier dans son contexte",
+            "id": "installer-le-clavier",
+            "heading": "Installer et activer le clavier",
             "paragraphs": [
-              "Dictus iOS propose un clavier de dictée utilisable dans les applications compatibles avec les claviers tiers. L’exemple filmé se déroule dans Apple Notes. Il ne permet pas de conclure que chaque application autorise les mêmes claviers ou affiche la même interface.",
-              "Cette note ne détaille pas les étapes d’activation ni les autorisations du système. Leur description appartient à un guide pratique vérifié sur le produit. La distinction évite de transformer une démonstration visuelle en une procédure qui n’aurait pas encore été contrôlée."
+              "Téléchargez Dictus depuis sa fiche App Store, puis ouvrez l’application. Suivez l’accueil et autorisez le microphone lorsque Dictus le demande. Cette autorisation permet à l’app d’enregistrer votre voix pour la transcription.",
+              "À l’étape de configuration du clavier, utilisez le bouton qui ouvre les réglages de Dictus. Dans Claviers, activez Dictus puis « Autoriser l’accès complet ». Revenez ensuite dans Dictus pour poursuivre la configuration. Le système peut relancer l’app après ce changement ; la fermeture de l’écran de configuration ne signifie donc pas à elle seule que l’installation a échoué.",
+              "« Accès complet » est une permission large du système : elle permet notamment au clavier de partager des données avec son application et autorise techniquement l’accès au réseau. Dans Dictus, le parcours de transcription utilise un modèle sur l’appareil. Le nom de la permission n’est toutefois pas une garantie de confidentialité en soi ; consultez aussi le guide sur le traitement local et la politique de confidentialité."
             ],
             "bullets": []
           },
           {
-            "id": "provenance",
-            "heading": "Ce que la provenance établit",
+            "id": "preparer-le-modele",
+            "heading": "Préparer le modèle avant la première dictée",
             "paragraphs": [
-              "La documentation des visuels précise la date du fichier source et les transformations apportées à la vidéo du site : adaptation de la taille, du rythme de l’ouverture, du format et retrait de l’audio. Les captures fixes conservent l’image de l’interface native.",
-              "La version de l’application, son numéro de build et le modèle précis de l’appareil n’ont pas été fournis avec l’enregistrement. Ils ne sont pas déduits des dimensions de l’image. Garder ces limites visibles permet de réutiliser le visuel sans lui attribuer une précision inconnue."
+              "L’accueil propose un modèle vocal adapté à l’appareil. Lancez son installation et attendez que le téléchargement puis la préparation soient terminés avant de continuer. Ne vous attendez pas à une durée identique sur tous les téléphones : le fichier choisi et les ressources disponibles comptent.",
+              "Pour ce premier essai, conservez le modèle recommandé. Si l’accueil propose une amélioration facultative du texte, vous pouvez la laisser de côté. L’objectif est d’abord de vérifier le trajet simple : parler, obtenir du texte et le retrouver dans une note.",
+              "Terminez le tutoriel de sélection du clavier. Dans une application de saisie, le bouton globe permet de choisir parmi les claviers activés. Les libellés exacts peuvent varier avec la langue de votre téléphone."
             ],
             "bullets": []
           },
           {
-            "id": "decouverte",
-            "heading": "Continuer la découverte",
+            "id": "premiere-note",
+            "heading": "Dicter une première note dans Apple Notes",
             "paragraphs": [
-              "Le code de Dictus iOS est public. La présentation iPhone et le dépôt du produit donnent deux points d’entrée complémentaires pour poursuivre la découverte : l’un montre l’usage, l’autre permet d’examiner l’implémentation.",
-              "Ce texte reste un brouillon technique du blog. Les offres et prix de la version iPhone ne sont pas arrêtés ; cette note ne présente aucune formule commerciale. Android est en développement et ne doit pas être compris comme une application disponible."
+              "Créez une note vide dans Apple Notes, touchez son corps pour afficher le clavier, puis sélectionnez Dictus avec le globe. Utilisez un texte sans donnée personnelle pour découvrir le fonctionnement. Par exemple, choisissez vous-même une courte phrase de rappel : il s’agit d’un exercice, pas d’une promesse de résultat mot pour mot.",
+              "Touchez le microphone du clavier Dictus. Si l’app doit se préparer, elle peut s’ouvrir : suivez son indication pour revenir à votre application. Si elle demande de toucher à nouveau le microphone après le chargement du modèle, faites-le une fois revenu dans la note. Le retour automatique et une disponibilité instantanée ne sont pas garantis.",
+              "Lorsque l’enregistrement est actif, parlez puis utilisez la coche verte du clavier Dictus pour terminer et lancer le traitement. La croix permet d’annuler. Attendez la fin de la transcription et vérifiez le texte inséré au curseur avant de dicter la suite.",
+              "L’enregistrement réel illustrant cet article montre une dictée et son résultat dans Apple Notes. Il ne prouve pas que toutes les applications acceptent le clavier, ni que chaque appareil présente le même enchaînement. Les étapes ci-dessus ont été vérifiées dans le code de la version distribuée ; une nouvelle installation complète sur un iPhone physique reste à confirmer avant publication de ce guide."
             ],
             "bullets": []
+          },
+          {
+            "id": "relire-et-corriger",
+            "heading": "Relire avant de réutiliser le texte",
+            "paragraphs": [
+              "Relisez la note comme un brouillon. Vérifiez surtout les noms propres, les chiffres, les négations et la ponctuation : un texte fluide peut encore changer le sens de votre phrase. Corrigez avec le clavier avant de copier ou d’envoyer le résultat.",
+              "Une fois le parcours compris dans Notes, essayez un brouillon dans votre application habituelle. Gardez la même méthode : placer le curseur, choisir Dictus, dicter un passage court, relire. Le texte inséré suit ensuite les règles de cette application, notamment ses éventuelles synchronisations."
+            ],
+            "bullets": []
+          },
+          {
+            "id": "limites-et-aide",
+            "heading": "Si le clavier ou la dictée ne se présente pas comme prévu",
+            "paragraphs": [
+              "Apple impose des limites aux claviers tiers : les champs sécurisés et certains champs de téléphone utilisent le clavier du système ; une application peut aussi refuser entièrement les claviers tiers. L’absence de Dictus dans ces cas ne démontre pas une panne du modèle vocal.",
+              "Les points suivants viennent des réglages et des états prévus par l’application. Ce sont des vérifications à effectuer, pas une liste de pannes reproduites sur tous les appareils. Si le problème persiste, utilisez le support lié ci-dessous en indiquant la version de Dictus, celle du système, l’application concernée et l’étape où vous êtes bloqué. Évitez de joindre une note contenant des informations privées."
+            ],
+            "bullets": [
+              "Dictus ne figure pas parmi les claviers : revenez aux réglages du clavier, vérifiez son activation, puis essayez le globe dans une note ordinaire.",
+              "Le microphone ne lance pas l’enregistrement : vérifiez l’autorisation du microphone dans les réglages de Dictus et terminez l’accueil dans l’app.",
+              "Un écran de préparation apparaît : attendez la fin du chargement, revenez dans la note et suivez la demande éventuelle de toucher de nouveau le microphone.",
+              "Le problème se produit dans une seule application : comparez avec Apple Notes et un champ de texte non sécurisé avant de conclure à une panne générale."
+            ]
           }
         ],
         "sources": [
           {
-            "label": "Code public de Dictus iOS",
-            "href": "https://github.com/getdictus/dictus-ios"
+            "label": "Dictus sur l’App Store : version et compatibilité",
+            "href": "https://apps.apple.com/fr/app/dictus-ai-voice-keyboard/id6761262378"
           },
           {
-            "label": "Provenance des captures du site",
-            "href": "https://github.com/getdictus/dictus-website/blob/t3code/develop-issue-29/docs/product-assets.md"
+            "label": "Configuration du clavier dans Dictus iOS 1.8.2",
+            "href": "https://github.com/getdictus/dictus-ios/tree/v1.8.2/DictusApp/Onboarding"
+          },
+          {
+            "label": "Code du parcours de dictée du clavier",
+            "href": "https://github.com/getdictus/dictus-ios/blob/v1.8.2/DictusKeyboard/KeyboardState.swift"
+          },
+          {
+            "label": "Apple : limites des claviers tiers",
+            "href": "https://developer.apple.com/documentation/uikit/configuring-a-custom-keyboard-interface"
+          },
+          {
+            "label": "Apple : portée de l’accès complet d’un clavier",
+            "href": "https://developer.apple.com/library/archive/documentation/General/Conceptual/ExtensibilityPG/CustomKeyboard.html"
+          },
+          {
+            "label": "Provenance de l’enregistrement et de son image",
+            "href": "https://github.com/getdictus/dictus-website/blob/204a8e06e6b1e13972f62e5734da6d373c467f3c/docs/product-assets.md"
+          },
+          {
+            "label": "Aide et contact Dictus",
+            "href": "/fr/support"
+          },
+          {
+            "label": "Politique de confidentialité de Dictus",
+            "href": "/fr/privacy"
           }
         ]
       },
       "en": {
         "slug": "iphone-keyboard-capture",
-        "title": "The Dictus keyboard in an iPhone capture",
-        "summary": "What the recording in Apple Notes actually shows, and the known limits of its provenance.",
-        "intro": "The visual comes from an actual recording of the Dictus keyboard in Apple Notes. This preview note places the image in the context of its original sequence; it does not replace the upcoming installation guide.",
+        "title": "Voice dictation on iPhone: write in your apps with Dictus",
+        "summary": "Install the Dictus keyboard, prepare the model and dictate your first note, with third-party keyboard limitations and useful checks.",
+        "intro": "To write by voice on iPhone with Dictus, install the app, enable its keyboard and prepare the voice model. Then open a compatible text field, select Dictus using the globe and start dictating. Begin with a low-stakes note: you can review the result before using it in a message or email.",
         "category": "iPhone",
-        "tags": [],
+        "tags": [
+          "Voice dictation",
+          "Getting started"
+        ],
         "seo": {
-          "title": "The Dictus keyboard in an iPhone capture — Dictus",
-          "description": "What the recording in Apple Notes actually shows, and the known limits of its provenance."
+          "title": "iPhone voice dictation: set up the Dictus keyboard",
+          "description": "How to install the Dictus keyboard on iPhone, prepare local dictation and write in a compatible app. Requirements, your first note and limitations."
         },
         "social": {
-          "title": "The Dictus keyboard in an iPhone capture",
-          "description": "What the recording in Apple Notes actually shows, and the known limits of its provenance."
+          "title": "Write by voice on iPhone with Dictus",
+          "description": "From the keyboard to your first note: the steps, permissions and limitations to understand before dictating in your apps."
         },
         "image": {
           "src": "/images/products/ios-demo-dictation.jpg",
           "width": 860,
           "height": 1864,
-          "alt": "The Dictus keyboard and a dictation in Apple Notes on iPhone, with the original interface in English.",
-          "caption": "Image taken from the iPhone recording dated 18 September 2026. The interface and text in the capture remain in their original language."
+          "alt": "The Dictus keyboard during dictation in Apple Notes on iPhone, with its interface in English.",
+          "caption": "Actual image taken from the recording made on 18 September 2026 in Apple Notes, on iPhone 15 Pro Max with Dictus 1.8.2, as confirmed by its creator. The interface is in English; the build number and system version are not specified."
         },
         "cta": {
           "label": "Discover Dictus on iPhone",
-          "description": "See the keyboard in the iPhone overview and follow product updates.",
+          "description": "See the keyboard in action and access the iPhone version from the product overview.",
           "href": "/en#iphone"
         },
         "sections": [
           {
-            "id": "sequence",
-            "heading": "An image from an actual sequence",
+            "id": "avant-de-commencer",
+            "heading": "What you will prepare",
             "paragraphs": [
-              "The recording provided for the preview shows the keyboard in Apple Notes, typing, an actual dictation and its inserted result, followed by a switch to the Dictus app. The visual in this article is an image taken from that sequence. No dictated text was invented for the illustration.",
-              "The recorded interface is in English. It is preserved as is in both language versions of the site; only the editorial text, captions and accessible descriptions are translated. French-speaking readers therefore see the same actual screen as English-speaking readers."
+              "A voice keyboard turns speech into text in the field where your cursor is positioned. It does not replace the app receiving that text: a note remains a note, and you still need to review and send a message draft yourself. Apple’s built-in dictation is another option; this guide covers the Dictus keyboard and its own settings.",
+              "The French App Store listing checked on 18 September 2026 offers Dictus iOS 1.8.2 and specifies iOS 17.0 or later. The download is free. A Pro offering is in development; you do not need to buy it to follow this first dictation walkthrough. Check the compatibility shown in the App Store again before installing at a later date.",
+              "You will need a connection to install the app and download its voice model, as well as available storage space for that model. Transcription then takes place on the device. Optional features may have other hardware requirements; they are not needed for this first note."
             ],
             "bullets": []
           },
           {
-            "id": "compatibilite",
-            "heading": "Putting the keyboard in context",
+            "id": "installer-le-clavier",
+            "heading": "Install and enable the keyboard",
             "paragraphs": [
-              "Dictus iOS offers a dictation keyboard that can be used in apps that support third-party keyboards. The recorded example takes place in Apple Notes. It does not establish that every app allows the same keyboards or displays the same interface.",
-              "This note does not detail the activation steps or system permissions. Those belong in a practical guide verified against the product. This distinction avoids turning a visual demonstration into a procedure that has not yet been checked."
+              "Download Dictus from its App Store listing, then open the app. Follow the onboarding steps and allow microphone access when Dictus asks. This permission lets the app record your voice for transcription.",
+              "At the keyboard setup step, use the button that opens the Dictus settings. Under Keyboards, enable Dictus, then turn on “Allow Full Access”. Return to Dictus to continue setup. The system may relaunch the app after this change, so the setup screen closing does not by itself mean the installation has failed.",
+              "“Full Access” is a broad system permission: among other things, it lets the keyboard share data with its app and technically allows network access. In Dictus, the transcription process uses a model on the device. The permission’s name is not, however, a privacy guarantee in itself; also read the guide to local processing and the privacy policy."
             ],
             "bullets": []
           },
           {
-            "id": "provenance",
-            "heading": "What the provenance establishes",
+            "id": "preparer-le-modele",
+            "heading": "Prepare the model before your first dictation",
             "paragraphs": [
-              "The visual asset documentation specifies the source file's date and the changes made to the website video: adjustments to its size, opening pace and format, and removal of the audio. The still captures preserve the image of the native interface.",
-              "The app version, its build number and the exact device model were not provided with the recording. They are not inferred from the image dimensions. Keeping these limits visible allows the visual to be reused without attributing an unknown level of precision to it."
+              "Onboarding suggests a voice model suited to your device. Start installing it and wait for the download and preparation to finish before continuing. Do not expect it to take the same amount of time on every phone: the selected file and available resources matter.",
+              "For this first attempt, keep the recommended model. If onboarding offers optional text enhancement, you can skip it. The initial goal is to check the basic process: speak, get text and find it in a note.",
+              "Complete the keyboard selection tutorial. In an app where you can enter text, the globe button lets you choose from your enabled keyboards. The exact labels may vary depending on your phone’s language."
             ],
             "bullets": []
           },
           {
-            "id": "decouverte",
-            "heading": "Explore further",
+            "id": "premiere-note",
+            "heading": "Dictate your first note in Apple Notes",
             "paragraphs": [
-              "The code for Dictus iOS is public. The iPhone overview and the product repository offer two complementary starting points for further exploration: one shows how it is used, while the other lets you examine the implementation.",
-              "This text remains a technical draft for the blog. Plans and pricing for the iPhone version have not been finalized; this note presents no commercial offering. Android is in development and should not be understood as an available app."
+              "Create a blank note in Apple Notes, tap its body to display the keyboard, then select Dictus using the globe. Use text without personal data to learn how it works. For example, choose a short reminder sentence of your own: this is an exercise, not a promise of a word-for-word result.",
+              "Tap the microphone on the Dictus keyboard. If the app needs to prepare, it may open: follow its guidance to return to your app. If it asks you to tap the microphone again after the model loads, do so once you are back in the note. An automatic return and instant availability are not guaranteed.",
+              "Once recording is active, speak, then use the green checkmark on the Dictus keyboard to finish and start processing. The cross lets you cancel. Wait for transcription to finish and check the text inserted at the cursor before dictating more.",
+              "The actual recording illustrating this article shows dictation and its result in Apple Notes. It does not prove that every app accepts the keyboard or that every device follows the same sequence. The steps above have been checked in the code of the released version; a complete fresh installation on a physical iPhone still needs to be confirmed before this guide is published."
             ],
             "bullets": []
+          },
+          {
+            "id": "relire-et-corriger",
+            "heading": "Review the text before reusing it",
+            "paragraphs": [
+              "Read through the note as a draft. Pay particular attention to proper names, numbers, negations and punctuation: fluent text can still change the meaning of your sentence. Make corrections with the keyboard before copying or sending the result.",
+              "Once you understand the process in Notes, try a draft in your usual app. Keep the same approach: position the cursor, choose Dictus, dictate a short passage and review it. The inserted text then follows that app’s rules, including any syncing it may perform."
+            ],
+            "bullets": []
+          },
+          {
+            "id": "limites-et-aide",
+            "heading": "If the keyboard or dictation does not behave as expected",
+            "paragraphs": [
+              "Apple imposes limitations on third-party keyboards: secure fields and certain phone number fields use the system keyboard; an app can also reject third-party keyboards entirely. Dictus being absent in these cases does not demonstrate a voice model failure.",
+              "The following points come from the settings and states предусмотрed by the app. They are checks to carry out, not a list of failures reproduced on every device. If the problem persists, use the support link below and include your Dictus version, system version, the app concerned and the step where you are stuck. Avoid attaching a note containing private information."
+            ],
+            "bullets": [
+              "Dictus is not listed among the keyboards: return to the keyboard settings, check that it is enabled, then try the globe in a regular note.",
+              "The microphone does not start recording: check microphone permission in the Dictus settings and complete onboarding in the app.",
+              "A preparation screen appears: wait for loading to finish, return to the note and follow any request to tap the microphone again.",
+              "The problem occurs in only one app: compare it with Apple Notes and a non-secure text field before concluding that there is a general failure."
+            ]
           }
         ],
         "sources": [
           {
-            "label": "Public code for Dictus iOS",
-            "href": "https://github.com/getdictus/dictus-ios"
+            "label": "Dictus on the App Store: version and compatibility",
+            "href": "https://apps.apple.com/fr/app/dictus-ai-voice-keyboard/id6761262378"
           },
           {
-            "label": "Provenance of the site's captures",
-            "href": "https://github.com/getdictus/dictus-website/blob/t3code/develop-issue-29/docs/product-assets.md"
+            "label": "Keyboard setup in Dictus iOS 1.8.2",
+            "href": "https://github.com/getdictus/dictus-ios/tree/v1.8.2/DictusApp/Onboarding"
+          },
+          {
+            "label": "Code for the keyboard dictation process",
+            "href": "https://github.com/getdictus/dictus-ios/blob/v1.8.2/DictusKeyboard/KeyboardState.swift"
+          },
+          {
+            "label": "Apple: third-party keyboard limitations",
+            "href": "https://developer.apple.com/documentation/uikit/configuring-a-custom-keyboard-interface"
+          },
+          {
+            "label": "Apple: scope of a keyboard’s full access",
+            "href": "https://developer.apple.com/library/archive/documentation/General/Conceptual/ExtensibilityPG/CustomKeyboard.html"
+          },
+          {
+            "label": "Provenance of the recording and its image",
+            "href": "https://github.com/getdictus/dictus-website/blob/204a8e06e6b1e13972f62e5734da6d373c467f3c/docs/product-assets.md"
+          },
+          {
+            "label": "Dictus help and contact",
+            "href": "/en/support"
+          },
+          {
+            "label": "Dictus privacy policy",
+            "href": "/en/privacy"
           }
         ]
       }
     },
     "translation": {
-      "sourceHash": "f8b9932a93e83092e0f4eba45f38033e18620143040a0ecc3bd28e6ac7c43588",
+      "sourceHash": "0539a1b057034f5d4ab4d0850ac85817ba2bc40716b1eba0421bc4285ab96617",
       "generatedAt": "2026-09-18",
       "method": "codex-cli"
     }
