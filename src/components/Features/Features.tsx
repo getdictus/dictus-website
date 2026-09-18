@@ -13,7 +13,7 @@ export default function Features() {
           </h2>
           <p className="mt-7 max-w-md text-lg leading-relaxed text-white-70">{t("intro")}</p>
         </div>
-        <GlassStory pauseLabel={t("pause_animation")} playLabel={t("play_animation")}>
+        <GlassStory>
           {(["messages", "notes", "emails"] as const).map((use) => (
             <div key={use} data-glass-story-stop>
               <h3 className="text-2xl font-light tracking-tight">{t(`${use}_title`)}</h3>

@@ -31,13 +31,9 @@
     "cta_desktop": "Aussi sur Desktop",
     "cta_discover": "Découvrir Dictus",
     "platform_desktop": "Mac, Windows et Linux",
-    "platform_ios": "iPhone",
-    "pause_waveform": "Arrêter l’animation",
-    "play_waveform": "Animer la waveform"
+    "platform_ios": "iPhone"
   },
   "Features": {
-    "pause_animation": "Mettre l’animation en pause",
-    "play_animation": "Reprendre l’animation",
     "title": "Les mots viennent. Écrivez-les à voix haute.",
     "intro": "Un message à envoyer, une idée à garder, un e-mail à rédiger. Parlez, puis relisez et ajustez vos mots.",
     "messages_title": "Répondre à un message",
@@ -48,8 +44,6 @@
     "emails_desc": "Formulez votre réponse à voix haute, puis prenez le temps de la relire."
   },
   "HowItWorks": {
-    "animation_pause": "Mettre le parcours animé en pause",
-    "animation_play": "Reprendre le parcours animé",
     "step1_title": "Vous parlez",
     "step1_desc": "Sur iPhone, ouvrez le clavier Dictus. Sur ordinateur, utilisez votre raccourci de dictée.",
     "step2_title": "Votre appareil transcrit",
@@ -195,8 +189,6 @@
     "demo_recording": "Écoute",
     "demo_transcribing": "Transcription",
     "demo_idle": "Prêt à dicter",
-    "demo_pause": "Mettre la démonstration en pause",
-    "demo_resume": "Reprendre la démonstration",
     "heading": "Aussi sur Desktop",
     "subheading": "Dictus fonctionne sur macOS, Windows et Linux. La transcription est locale par défaut.",
     "tablist_label": "Plateformes Desktop",
@@ -276,10 +268,8 @@
     "description": "Vos notes, vos messages, vos e-mails. Retrouvez votre clavier, et laissez simplement parler vos idées.",
     "picker": "Explorer les chapitres de la démonstration iPhone",
     "video_label": "Démonstration de Dictus enregistrée sur iPhone. Interface en anglais.",
-    "video_description": "Dans Apple Notes, une phrase est saisie avec le clavier Dictus, ses corrections et suggestions. Une dictée insère « Hello guys, how are you doing? ». L’application affiche ensuite la dernière transcription, les modèles et les réglages. La saisie est accélérée deux fois ; la dictée reste à sa vitesse d’origine.",
+    "video_description": "Dans Apple Notes, une phrase est saisie avec le clavier Dictus, ses corrections et suggestions. Une dictée insère « Hello guys, how are you doing? ». L’application affiche ensuite la dernière transcription, les modèles et les réglages. La saisie est accélérée de 50 % ; la dictée reste à sa vitesse d’origine.",
     "video_play": "Lire la démonstration",
-    "video_pause": "Mettre la démonstration en pause",
-    "video_note": "Capture réelle · saisie ×2, dictée à vitesse réelle.",
     "video_unavailable": "La vidéo est indisponible. Les captures restent accessibles.",
     "beta": "Rejoindre la bêta iOS",
     "discover": "Suivre le développement iOS",

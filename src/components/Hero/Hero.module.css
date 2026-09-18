@@ -9,8 +9,6 @@
 .platforms a { display: inline-flex; align-items: center; min-height: 44px; }
 .platforms a:hover { color: #2563eb; text-decoration: underline; text-underline-offset: 4px; }
 .platforms span { opacity: .4; }
-.motionControl { position: absolute; bottom: 24px; right: 28px; width: 44px; height: 44px; border-radius: 50%; color: var(--theme-text-body); display: grid; place-items: center; cursor: pointer; }
-.motionControl:hover { background: #3d7eff0d; }
 @media (max-width: 700px) {
   .hero { min-height: 90svh; padding: 130px 24px 55px; }
   .content { max-width: 370px; }
@@ -18,4 +16,3 @@
   .content p { font-size: 14px; line-height: 1.6; margin: 22px auto 26px; max-width: 270px; text-wrap: balance; }
   .cta { font-size: 13px; }
 }
-@media (prefers-reduced-motion: reduce) { .motionControl { display: none; } }

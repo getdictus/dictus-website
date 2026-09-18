@@ -1,7 +1,9 @@
 "use client";
 
-import { useEffect, useRef, useState, type ReactNode } from "react";
+import { useEffect, useId, useRef, useState, type ReactNode } from "react";
+import { Glass, glassValue } from "@samasante/liquid-glass";
 import { cubicBezier } from "motion";
+import GlassLight from "./GlassLight";
 import styles from "./GlassStory.module.css";
 
 // Reading time and travel time serve different purposes: rest over the copy,
@@ -11,24 +13,33 @@ const TRAVEL_MS = 800;
 const STEP_MS = HOLD_MS + TRAVEL_MS;
 // Same on-screen movement curve as --ease-in-out in globals.css.
 const easeTravel = cubicBezier(0.77, 0, 0.175, 1);
-/** A moving glass surface beneath crisp, selectable text. */
-export default function GlassStory({ children, pauseLabel, playLabel }: {
-  children: ReactNode;
-  pauseLabel: string;
-  playLabel: string;
-}) {
+const RIM_WIDTH = 16;
+const optics = {
+  mapSize: 256, strength: 0.025, depth: 0.1, curvature: 0.3,
+  bend: 0.65, bendWidth: 0.16, dispersion: 0.025, frost: 0,
+  brightness: 0, specular: 0.7, sheen: 0.2, sheenWidth: 2, glow: 0,
+};
+
+function roundedRect(x: number, y: number, w: number, h: number, r: number) {
+  return `M${x + r},${y}h${w - 2 * r}a${r},${r} 0 0 1 ${r},${r}v${h - 2 * r}a${r},${r} 0 0 1 ${-r},${r}h${2 * r - w}a${r},${r} 0 0 1 ${-r},${-r}v${2 * r - h}a${r},${r} 0 0 1 ${r},${-r}Z`;
+}
+
+/** Refraction lives only in a narrow rim; the reading area is the original text. */
+export default function GlassStory({ children }: { children: ReactNode }) {
+  const clipId = `story-rim-${useId().replace(/[^a-zA-Z0-9_-]/g, "")}`;
   const storyRef = useRef<HTMLDivElement>(null);
   const contentRef = useRef<HTMLDivElement>(null);
   const rimRef = useRef<HTMLDivElement>(null);
+  const clipRef = useRef<SVGPathElement>(null);
   const elapsedRef = useRef(0);
   const paintRef = useRef<() => void>(() => undefined);
+  const [centerY] = useState(() => glassValue(0));
   const [geometry, setGeometry] = useState<{ width: number; height: number; radius: number } | null>(null);
-  const [paused, setPaused] = useState(false);
   const [inView, setInView] = useState(false);
   const [documentVisible, setDocumentVisible] = useState(true);
   const [reduceMotion, setReduceMotion] = useState(true);
   const [textSelected, setTextSelected] = useState(false);
-  const playing = !paused && inView && documentVisible && !reduceMotion && !textSelected;
+  const playing = inView && documentVisible && !reduceMotion && !textSelected;
 
   useEffect(() => {
     const motionQuery = window.matchMedia("(prefers-reduced-motion: reduce)");
@@ -69,13 +80,22 @@ export default function GlassStory({ children, pauseLabel, playLabel }: {
       const route = [...positions, ...positions.slice(1, -1).reverse()];
       const nextGeometry = { width: bounds.width - 8, height, radius: Math.min(72, height / 2) };
       setGeometry(nextGeometry);
+      let previousY = Number.NaN;
+      let paintedRim: HTMLDivElement | null = null;
       paintRef.current = () => {
         const progress = elapsedRef.current / STEP_MS;
         const index = Math.floor(progress) % route.length;
         const travel = Math.max(0, (elapsedRef.current % STEP_MS - HOLD_MS) / TRAVEL_MS);
         const eased = easeTravel(travel);
         const y = route[index] + (route[(index + 1) % route.length] - route[index]) * eased;
+        // Avoid invalidating the SVG clip throughout each reading hold. A newly
+        // mounted rim still needs its first paint even when the clock is static.
+        if (y === previousY && paintedRim === rimRef.current) return;
+        previousY = y;
+        paintedRim = rimRef.current;
+        centerY.set(y / bounds.height);
         if (rimRef.current) rimRef.current.style.transform = `translateY(${y - height / 2}px)`;
+        clipRef.current?.setAttribute("transform", `translate(0 ${y - height / 2})`);
       };
       paintRef.current();
     };
@@ -97,7 +117,7 @@ export default function GlassStory({ children, pauseLabel, playLabel }: {
       document.removeEventListener("visibilitychange", onVisibility);
       document.removeEventListener("selectionchange", onSelection);
     };
-  }, [children]);
+  }, [centerY, children]);
 
   useEffect(() => {
     // React has now mounted the surface; align it with the measured paragraph.
@@ -111,7 +131,7 @@ export default function GlassStory({ children, pauseLabel, playLabel }: {
     const animate = (now: number) => {
       elapsedRef.current += previous === null ? 0 : Math.min(now - previous, 100);
       previous = now;
-      // Only the decorative surface moves; text never transforms or filters.
+      // Optics and contour share a clock so the rim never trails its refraction.
       paintRef.current();
       frame = requestAnimationFrame(animate);
     };
@@ -124,18 +144,34 @@ export default function GlassStory({ children, pauseLabel, playLabel }: {
       <div ref={storyRef} className={styles.story} data-glass-story data-playing={playing} data-glass-variant="reading-lens" data-text-selected={textSelected}>
         <div ref={contentRef} className={styles.content} data-glass-story-content>{children}</div>
         {geometry && (
-          <div ref={rimRef} data-glass-lens aria-hidden="true" className={styles.rim}
-            style={{ width: geometry.width, height: geometry.height, borderRadius: geometry.radius }} />
+          <>
+            <svg width="0" height="0" aria-hidden="true" className={styles.definitions}>
+              <defs>
+                <clipPath id={clipId} clipPathUnits="userSpaceOnUse">
+                  <path ref={clipRef} data-glass-rim-clip clipRule="evenodd" d={
+                    roundedRect(4, 0, geometry.width, geometry.height, geometry.radius)
+                    + roundedRect(4 + RIM_WIDTH, RIM_WIDTH, geometry.width - 2 * RIM_WIDTH,
+                      geometry.height - 2 * RIM_WIDTH, geometry.radius - RIM_WIDTH)
+                  } />
+                </clipPath>
+              </defs>
+            </svg>
+            {/* A real optical copy works in WebKit too. The ring cutout excludes
+                the center entirely, rather than approximating clear text with
+                a weaker filter. The original stays selectable and accessible. */}
+            <Glass aria-hidden="true" inert data-glass-rim-refraction className={styles.refraction}
+              style={{ position: "absolute", inset: 0, pointerEvents: "none", clipPath: `url(#${clipId})` }}
+              refract={<div className={styles.content}>{children}</div>}
+              behind="var(--theme-bg-primary)" pixelUnits={false}
+              width={geometry.width} height={geometry.height} radius={geometry.radius}
+              center={{ x: 0.5, y: centerY }} optics={optics} filterResolution={1} live={false} />
+            <div ref={rimRef} data-glass-lens aria-hidden="true" className={styles.rim}
+              style={{ width: geometry.width, height: geometry.height, borderRadius: geometry.radius }}>
+              <GlassLight targetRef={storyRef} />
+            </div>
+          </>
         )}
       </div>
-      <button type="button" className={styles.pause} onClick={() => setPaused((value) => !value)}
-        aria-label={paused ? playLabel : pauseLabel} aria-pressed={paused}>
-        <svg width="15" height="15" viewBox="0 0 16 16" fill="none" aria-hidden="true">
-          {paused
-            ? <path d="m5 3 7 5-7 5V3Z" fill="currentColor" />
-            : <path d="M5 3v10M11 3v10" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" />}
-        </svg>
-      </button>
     </div>
   );
 }

@@ -4,8 +4,8 @@ import { useCallback, useEffect, useRef, useState } from "react";
 
 export const iphoneChapters = [
   { key: "keyboard", start: 0, poster: "/images/products/ios-demo-keyboard.jpg" },
-  { key: "dictation", start: 9.5, poster: "/images/products/ios-demo-dictation.jpg" },
-  { key: "app", start: 19, poster: "/images/products/ios-demo-app.jpg" },
+  { key: "dictation", start: 19 / 1.5, poster: "/images/products/ios-demo-dictation.jpg" },
+  { key: "app", start: 19 / 1.5 + 9.5, poster: "/images/products/ios-demo-app.jpg" },
 ] as const;
 
 export const iphoneVideo = "/videos/products/ios-demo.mp4";
@@ -25,9 +25,8 @@ export function useIphoneDemo() {
   const [frameReady, setFrameReady] = useState(false);
   const [inView, setInView] = useState(false);
   const [documentVisible, setDocumentVisible] = useState(true);
-  const [reducedMotion, setReducedMotion] = useState(true);
+  const [reducedMotion, setReducedMotion] = useState<boolean | null>(null);
   const [explicitPlayback, setExplicitPlayback] = useState(false);
-  const [manuallyPaused, setManuallyPaused] = useState(false);
   const [blocked, setBlocked] = useState(false);
   const [playing, setPlaying] = useState(false);
   const [failed, setFailed] = useState(false);
@@ -102,8 +101,8 @@ export function useIphoneDemo() {
   }, []);
 
   const canPlay = sourceLoaded && metadataReady && inView && documentVisible
-    && !manuallyPaused && !blocked && !failed
-    && (!reducedMotion || explicitPlayback);
+    && !blocked && !failed
+    && (reducedMotion === false || explicitPlayback);
 
   useEffect(() => {
     const video = videoRef.current;
@@ -141,19 +140,11 @@ export function useIphoneDemo() {
     pendingSeek.current = iphoneChapters[index].start;
     setFrameReady(false);
     // Reduced-motion chapter browsing stays entirely on the real posters.
-    if ((!reducedMotion || explicitPlayback) && applyPendingSeek()) setFrameReady(true);
+    if ((reducedMotion === false || explicitPlayback) && applyPendingSeek()) setFrameReady(true);
   }
 
-  function togglePlayback() {
-    const video = videoRef.current;
-    if (playing) {
-      setManuallyPaused(true);
-      ++playAttempt.current;
-      video?.pause();
-      return;
-    }
+  function startPlayback() {
     setBlocked(false);
-    setManuallyPaused(false);
     setExplicitPlayback(true);
     setSourceLoaded(true);
     applyPendingSeek();
@@ -199,7 +190,8 @@ export function useIphoneDemo() {
 
   return {
     videoRef, phoneRef, selected, sourceLoaded, playing, failed,
-    showPoster: failed || blocked || !frameReady || (reducedMotion && !explicitPlayback),
-    selectChapter, togglePlayback, events,
+    showPoster: failed || blocked || !frameReady || (reducedMotion !== false && !explicitPlayback),
+    showPlayButton: !failed && !playing && (blocked || (reducedMotion === true && !explicitPlayback)),
+    selectChapter, startPlayback, events,
   };
 }

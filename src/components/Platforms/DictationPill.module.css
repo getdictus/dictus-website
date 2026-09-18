@@ -20,15 +20,8 @@
 .cancel { display: flex; align-items: center; justify-content: center; width: 21.4286cqw; height: 21.4286cqw; margin-left: 2.0408cqw; }
 .cancel svg { width: 9.6939cqw; height: 9.6939cqw; }
 .caption { position: relative; display: flex; justify-content: center; align-items: center; min-height: 44px; margin-top: 10px; color: var(--theme-text-body); font-size: 11px; }
-.control { position: absolute; left: calc(50% + 70px); display: grid; place-items: center; width: 44px; height: 44px; padding: 0; border: 0; border-radius: 50%; color: var(--theme-text-body); background: transparent; cursor: pointer; }
-.control svg { width: 15px; height: 15px; }
-@media (hover: hover) and (pointer: fine) {
-  .control:hover { color: var(--theme-text-primary); }
-}
-.control:focus-visible { outline: 2px solid var(--color-accent); outline-offset: 1px; }
 @media (prefers-reduced-motion: reduce) {
   .pill, .cancelSlot { transition: none; }
-  .control { display: none; }
 }
 @media (prefers-reduced-transparency: reduce) {
   .pill, .cancel { background: #222630; }

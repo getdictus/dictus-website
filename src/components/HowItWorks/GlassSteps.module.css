@@ -14,21 +14,9 @@
 .rail { position: absolute; top: -16px; left: -16px; overflow: visible; }
 .tint { flood-color: #eaf0fc; flood-opacity: 0.76; }
 .traveler { transform-origin: 0 0; }
-.pause {
-  position: absolute; right: 0; bottom: -44px;
-  display: inline-flex; align-items: center; justify-content: center;
-  width: 44px; height: 44px; color: var(--theme-text-body);
-  cursor: pointer; border-radius: 50%;
-  transition: transform var(--motion-fast) var(--ease-out), background var(--motion-fast) ease;
-}
-.pause:active:not(:focus-visible) { transform: scale(.97); transition-duration: var(--motion-press); }
-.pause:focus-visible { transition: none; }
-@media (hover: hover) and (pointer: fine) {
-  .pause:hover { background: rgb(255 255 255 / 55%); }
-}
 @media (min-width: 640px) { .wrapper { margin-top: 4rem; } }
 :global(.dark) .tint { flood-color: #283850; flood-opacity: 0.8; }
-@media (prefers-reduced-motion: reduce) { .traveler, .pause { display: none; } }
+@media (prefers-reduced-motion: reduce) { .traveler { display: none; } }
 @media (prefers-reduced-transparency: reduce) {
   .rail { display: none; }
   .wrapper[data-ready="true"] .marker { background: var(--theme-bg-secondary); border-color: var(--theme-border-hi); }

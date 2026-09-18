@@ -26,6 +26,8 @@ const engines = (process.env.VERIFY_ENGINES || "chromium,firefox,webkit").split(
 const selectedChecks = process.env.VERIFY_CHECKS ? new RegExp(process.env.VERIFY_CHECKS) : null;
 const screenshots = process.env.VERIFY_SCREENSHOTS !== "0";
 const results = [];
+const iphoneDictationStart = 19 / 1.5;
+const iphoneAppStart = iphoneDictationStart + 9.5;
 await mkdir(artifacts, { recursive: true });
 
 async function check(name, fn) {
@@ -238,6 +240,69 @@ for (const engine of engines) {
     }
   });
 
+  await check(`${engine}: homepage removes pause controls and visible playback notes`, async () => {
+    const context = await browser.newContext({ viewport: { width: 1440, height: 900 } });
+    const page = await context.newPage();
+    try {
+      for (const locale of ["fr", "en"]) {
+        await page.goto(`${origin}/${locale}`);
+        for (const reducedMotion of ["no-preference", "reduce"]) {
+          await page.emulateMedia({ reducedMotion });
+          for (const scene of ["desktop", "iphone", "uses", "local"]) {
+            await page.locator(`#${scene}`).scrollIntoViewIfNeeded();
+            await settleFrames(page);
+            await expect(page.locator("main").getByRole("button", {
+              name: /pause|arrêter.*animation|stop.*animation|reprendre.*(?:animation|démonstration|parcours)|resume.*(?:animation|demo|steps)/i,
+              includeHidden: true,
+            })).toHaveCount(0);
+          }
+          await expect(page.locator("#iphone").getByText(/Capture réelle|Real capture/)).toHaveCount(0);
+        }
+      }
+    } finally { await context.close(); }
+  });
+
+  await check(`${engine}: glass reflections track a fine pointer and respect reduced motion`, async () => {
+    const context = await browser.newContext({ viewport: { width: 1440, height: 900 } });
+    const page = await context.newPage();
+    try {
+      await page.goto(`${origin}/fr`);
+      const target = page.locator("header .glass-surface").first();
+      const light = target.locator("[data-glass-light]").first();
+      const reflection = light.locator("[data-glass-reflection]");
+      await expect(light).toHaveAttribute("aria-hidden", "true");
+      assert.equal(await light.evaluate((node) => getComputedStyle(node).pointerEvents), "none");
+      const bounds = await target.boundingBox();
+      await page.mouse.move(bounds.x + 20, bounds.y + bounds.height / 2);
+      await expect(light).toHaveAttribute("data-active", "true");
+      await expect.poll(() => reflection.evaluate((node) => node.style.transform)).not.toBe("");
+      const first = await reflection.evaluate((node) => node.style.transform);
+      await page.mouse.move(bounds.x + bounds.width - 20, bounds.y + bounds.height / 2);
+      await expect.poll(() => reflection.evaluate((node) => node.style.transform)).not.toBe(first);
+      await page.mouse.move(10, 400);
+      await expect(light).toHaveAttribute("data-active", "false");
+      await page.emulateMedia({ reducedMotion: "reduce" });
+      await page.mouse.move(bounds.x + 30, bounds.y + bounds.height / 2);
+      await expect(light).toHaveAttribute("data-active", "false");
+      await expect(reflection).toBeHidden();
+      assert.equal(await reflection.evaluate((node) => node.style.transform), "",
+        "Reduced motion must remove pointer tracking, not just hide a running effect");
+    } finally { await context.close(); }
+
+    const touch = await browser.newContext({ viewport: { width: 390, height: 844 }, hasTouch: true });
+    const touchPage = await touch.newPage();
+    try {
+      await touchPage.goto(`${origin}/fr`);
+      const target = touchPage.locator("header .glass-surface").first();
+      const light = target.locator("[data-glass-light]").first();
+      // A touch pointer must never activate the moving desktop reflection.
+      await target.dispatchEvent("pointermove", { pointerType: "touch", clientX: 150, clientY: 40 });
+      await settleFrames(touchPage);
+      await expect(light).toHaveAttribute("data-active", "false");
+      assert.equal(await light.locator("[data-glass-reflection]").evaluate((node) => node.style.transform), "");
+    } finally { await touch.close(); }
+  });
+
   await check(`${engine}: iPhone chapters expose localized posters and keyboard access`, async () => {
     const context = await browser.newContext({ reducedMotion: "reduce", viewport: { width: 390, height: 844 } });
     const page = await context.newPage();
@@ -321,7 +386,7 @@ for (const engine of engines) {
       assert.equal(media.muted, true);
       assert.equal(media.playsInline, true);
       assert.equal(media.loop, true);
-      assert.ok(media.duration >= 28 && media.duration <= 29, JSON.stringify(media));
+      assert.ok(media.duration >= 31.4 && media.duration <= 31.5, JSON.stringify(media));
       assert.deepEqual([media.width, media.height], [860, 1864]);
       await expect.poll(() => video.evaluate((node) => node.paused)).toBe(false);
       const start = await video.evaluate((node) => node.currentTime);
@@ -330,23 +395,30 @@ for (const engine of engines) {
 
       const tabs = iphone.getByRole("tab");
       await tabs.nth(2).click();
-      await expect.poll(() => video.evaluate((node) => node.currentTime)).toBeGreaterThanOrEqual(19);
-      assert.ok(await video.evaluate((node) => node.currentTime < 21));
+      await expect.poll(() => video.evaluate((node) => node.currentTime)).toBeGreaterThanOrEqual(iphoneAppStart - 1 / 60);
+      assert.ok(await video.evaluate((node) => node.currentTime < 24));
       await expect.poll(() => video.evaluate((node) => node.paused)).toBe(false);
-      await iphone.getByRole("button", { name: "Mettre la démonstration en pause", exact: true }).click();
+      await expect(iphone.getByRole("button", { name: /démonstration/ })).toHaveCount(0);
+      await page.evaluate(() => {
+        Object.defineProperty(document, "hidden", { configurable: true, get: () => true });
+        document.dispatchEvent(new Event("visibilitychange"));
+      });
       await expect.poll(() => video.evaluate((node) => node.paused)).toBe(true);
-      for (const [index, time] of [[0, 0], [1, 9.5], [2, 19]]) {
+      for (const [index, time] of [[0, 0], [1, iphoneDictationStart], [2, iphoneAppStart]]) {
         await tabs.nth(index).click();
         await expect.poll(() => video.evaluate((node) => node.currentTime)).toBeCloseTo(time, 1);
         await expect.poll(() => video.evaluate((node) => node.seeking)).toBe(false);
-        assert.equal(await video.evaluate((node) => node.paused), true, "Seeking must preserve a manual pause");
+        assert.equal(await video.evaluate((node) => node.paused), true, "Chapter selection must not resume a hidden document");
       }
       await tabs.first().focus();
       // Approach a boundary through the media timeline, then verify native
       // timeupdate synchronizes chapters without stealing keyboard focus.
-      await video.evaluate((node) => { node.currentTime = 9.35; });
+      await video.evaluate((node, start) => { node.currentTime = start - 0.15; }, iphoneDictationStart);
       await expect(tabs.first()).toHaveAttribute("aria-selected", "true");
-      await iphone.getByRole("button", { name: "Lire la démonstration", exact: true }).click();
+      await page.evaluate(() => {
+        delete document.hidden;
+        document.dispatchEvent(new Event("visibilitychange"));
+      });
       await tabs.first().focus();
       await expect(tabs.nth(1)).toHaveAttribute("aria-selected", "true");
       await expect(tabs.first()).toBeFocused();
@@ -362,26 +434,27 @@ for (const engine of engines) {
         await expect(tabs.first()).toHaveAttribute("aria-selected", "true");
         await expect(tabs.first()).toBeFocused();
         await expect(panel).toHaveAttribute("aria-labelledby", "iphone-tab-0");
-        await expect(iphone.getByRole("button", { name: "Mettre la démonstration en pause", exact: true })).toBeVisible();
+        await expect(iphone.getByRole("button", { name: /démonstration/ })).toHaveCount(0);
         assert.equal(await video.evaluate((node) => node.paused || node.ended), false);
         const wrappedAt = await video.evaluate((node) => node.currentTime);
         await expect.poll(() => video.evaluate((node) => node.currentTime)).toBeGreaterThan(wrappedAt + 0.15);
         await expect(panel.locator("img:visible")).toHaveCount(0);
       }
-      await iphone.getByRole("button", { name: "Mettre la démonstration en pause", exact: true }).click();
+      await page.emulateMedia({ reducedMotion: "reduce" });
+      await expect.poll(() => video.evaluate((node) => node.paused)).toBe(true);
       await video.evaluate((node) => { node.currentTime = node.duration - 0.15; });
       await expect.poll(() => video.evaluate((node) => node.seeking)).toBe(false);
       const stoppedNearEnd = await video.evaluate((node) => node.currentTime);
       await page.waitForTimeout(300);
       assert.equal(await video.evaluate((node) => node.paused), true);
-      assert.equal(await video.evaluate((node) => node.currentTime), stoppedNearEnd, "A manual pause near the end must prevent the next loop");
+      assert.equal(await video.evaluate((node) => node.currentTime), stoppedNearEnd, "Reduced motion near the end must prevent the next loop");
       await expect(tabs.last()).toHaveAttribute("aria-selected", "true");
       await expect(iphone.getByRole("button", { name: "Lire la démonstration", exact: true })).toBeVisible();
       assert.deepEqual(errors, []);
     } finally { await context.close(); }
   });
 
-  await check(`${engine}: iPhone video respects visibility, manual pause and motion preferences`, async () => {
+  await check(`${engine}: iPhone video respects visibility and motion preferences`, async () => {
     const context = await browser.newContext({ viewport: { width: 1440, height: 1000 } });
     const page = await context.newPage();
     try {
@@ -417,17 +490,14 @@ for (const engine of engines) {
         document.dispatchEvent(new Event("visibilitychange"));
       });
       await expect.poll(isPaused).toBe(false);
-      await iphone.getByRole("button", { name: "Pause the demo", exact: true }).click();
-      await freeze("Manual pause must stop the video");
-      await page.evaluate(() => window.scrollTo({ top: 0, behavior: "instant" }));
-      await iphone.getByRole("tabpanel").scrollIntoViewIfNeeded();
-      await freeze("Returning to the section must preserve manual pause");
-      await iphone.getByRole("button", { name: "Play the demo", exact: true }).click();
-      await expect.poll(isPaused).toBe(false);
       await page.emulateMedia({ reducedMotion: "reduce" });
       await freeze("A changed reduced-motion preference must pause playback");
+      await page.evaluate(() => window.scrollTo({ top: 0, behavior: "instant" }));
+      await iphone.getByRole("tabpanel").scrollIntoViewIfNeeded();
+      await freeze("Returning to the section must preserve the reduced-motion preference");
       await iphone.getByRole("button", { name: "Play the demo", exact: true }).click();
       await expect.poll(isPaused).toBe(false);
+      await expect(iphone.getByRole("button", { name: "Play the demo", exact: true })).toHaveCount(0);
       const resumedAt = await time();
       await expect.poll(time).toBeGreaterThan(resumedAt + 0.1);
     } finally { await context.close(); }
@@ -453,9 +523,9 @@ for (const engine of engines) {
       release();
       await expect.poll(() => video.evaluate((node) => node.readyState), { timeout: 15_000 }).toBeGreaterThanOrEqual(1);
       await expect.poll(() => video.evaluate((node) => node.paused)).toBe(false);
-      await expect.poll(() => video.evaluate((node) => node.currentTime)).toBeGreaterThan(19.1);
-      assert.ok(await video.evaluate((node) => node.currentTime < 21), "A pending chapter selection must be applied before playback begins");
-      await iphone.getByRole("button", { name: "Mettre la démonstration en pause", exact: true }).click();
+      await expect.poll(() => video.evaluate((node) => node.currentTime)).toBeGreaterThan(iphoneAppStart + 0.1);
+      assert.ok(await video.evaluate((node) => node.currentTime < 24), "A pending chapter selection must be applied before playback begins");
+      await expect(iphone.getByRole("button", { name: "Lire la démonstration", exact: true })).toHaveCount(0);
       await page.unroute("**/videos/products/ios-demo.mp4");
 
       await page.emulateMedia({ reducedMotion: "no-preference" });
@@ -479,6 +549,7 @@ for (const engine of engines) {
       assert.deepEqual(errors, [], "Rejected play() must not become an unhandled rejection");
       await iphone.getByRole("button", { name: "Lire la démonstration", exact: true }).click();
       await expect.poll(() => video.evaluate((node) => node.paused)).toBe(false);
+      await expect(iphone.getByRole("button", { name: "Lire la démonstration", exact: true })).toHaveCount(0);
 
       await video.evaluate((node) => node.dispatchEvent(new Event("error")));
       await expect.poll(() => video.evaluate((node) => node.paused)).toBe(true);
@@ -555,7 +626,7 @@ for (const engine of engines) {
     }
   });
 
-  await check(`${engine}: waveform pauses offscreen, on visibility change and with its control`, async () => {
+  await check(`${engine}: waveform pauses offscreen, on visibility change and reduced motion`, async () => {
     const context = await browser.newContext({ viewport: { width: 1440, height: 900 } });
     const page = await context.newPage();
     try {
@@ -586,11 +657,11 @@ for (const engine of engines) {
         document.dispatchEvent(new Event("visibilitychange"));
       });
       await expect.poll(async () => (await canvasState(canvas)).hash).not.toBe(paused.hash);
-      await page.getByRole("button", { name: "Arrêter l’animation" }).click();
+      await page.emulateMedia({ reducedMotion: "reduce" });
       await page.waitForTimeout(100);
       paused = await canvasState(canvas);
       await page.waitForTimeout(150);
-      assert.equal((await canvasState(canvas)).hash, paused.hash, "Pause button must stop the waveform");
+      assert.equal((await canvasState(canvas)).hash, paused.hash, "Reduced motion must stop the waveform");
     } finally {
       await context.close();
     }
@@ -631,7 +702,7 @@ for (const engine of engines) {
     } finally { await context.close(); }
   });
 
-  await check(`${engine}: localized Desktop captures and pausable product motion`, async () => {
+  await check(`${engine}: localized Desktop captures and automatic motion lifecycle`, async () => {
     const context = await browser.newContext({ viewport: { width: 1440, height: 900 } });
     const page = await context.newPage();
     const errors = collectBrowserErrors(page);
@@ -652,12 +723,25 @@ for (const engine of engines) {
       const movingBars = await bars();
       assert.equal(movingBars.length, 30);
       await expect.poll(bars).not.toEqual(movingBars);
-      await pill.getByRole("button", { name: "Mettre la démonstration en pause" }).click();
+      await page.evaluate(() => {
+        Object.defineProperty(document, "hidden", { configurable: true, get: () => true });
+        document.dispatchEvent(new Event("visibilitychange"));
+      });
       await expect(pill).toHaveAttribute("data-running", "false");
       const pausedBars = await bars();
       await page.waitForTimeout(180);
       assert.deepEqual(await bars(), pausedBars);
-      await pill.getByRole("button", { name: "Reprendre la démonstration" }).click();
+      await page.evaluate(() => {
+        delete document.hidden;
+        document.dispatchEvent(new Event("visibilitychange"));
+      });
+      await expect(pill).toHaveAttribute("data-running", "true");
+      await page.emulateMedia({ reducedMotion: "reduce" });
+      await expect(pill).toHaveAttribute("data-running", "false");
+      const reducedBars = await bars();
+      await page.waitForTimeout(180);
+      assert.deepEqual(await bars(), reducedBars, "Reduced motion must hold the Desktop pill still");
+      await page.emulateMedia({ reducedMotion: "no-preference" });
       await expect(pill).toHaveAttribute("data-running", "true");
 
       const story = page.locator("[data-glass-story]");
@@ -669,17 +753,9 @@ for (const engine of engines) {
       await expect(lens).toBeVisible();
       await expect.poll(position).not.toBe("");
       const restingPosition = await position();
-      // Wait for real movement after the reading pause, so a permanently static
-      // lens cannot accidentally pass the pause/resume assertions.
+      // Wait for actual travel before testing automatic suspension, so a
+      // permanently static surface cannot pass these lifecycle assertions.
       await expect.poll(position, { timeout: 11_000, intervals: [100] }).not.toBe(restingPosition);
-      await page.getByRole("button", { name: "Mettre l’animation en pause", exact: true }).click();
-      await expect(story).toHaveAttribute("data-playing", "false");
-      const pausedPosition = await position();
-      await page.waitForTimeout(180);
-      assert.equal(await position(), pausedPosition, "Pause must freeze the actual lens position");
-      await page.getByRole("button", { name: "Reprendre l’animation", exact: true }).click();
-      await expect(story).toHaveAttribute("data-playing", "true");
-      await expect.poll(position, { timeout: 2_000, intervals: [100] }).not.toBe(pausedPosition);
       await page.emulateMedia({ reducedMotion: "reduce" });
       await expect(story).toHaveAttribute("data-playing", "false");
       const reducedPosition = await position();
@@ -747,7 +823,7 @@ for (const engine of engines) {
       await page.waitForTimeout(180);
       // Metadata arrival may apply a pending seek, but must never start playback.
       assert.equal(await video.evaluate((node) => node.paused), true);
-      assert.ok(await video.evaluate((node) => node.currentTime === 19 || node.currentTime === 0 || node.currentTime === node.duration),
+      assert.ok(await video.evaluate((node, appStart) => Math.abs(node.currentTime - appStart) < 1 / 60 || node.currentTime === 0 || node.currentTime === node.duration, iphoneAppStart),
         `Reduced-motion demo must show a static chapter (initial time ${videoTime})`);
       const story = page.locator("[data-glass-story]");
       await story.scrollIntoViewIfNeeded();
@@ -767,7 +843,7 @@ for (const engine of engines) {
     } finally { await context.close(); }
   });
 
-  await check(`${engine}: numbered glass orb visits each step and respects motion controls`, async () => {
+  await check(`${engine}: numbered glass orb visits each step and suspends automatically`, async () => {
     const context = await browser.newContext({ viewport: { width: 1440, height: 900 } });
     const page = await context.newPage();
     const errors = collectBrowserErrors(page);
@@ -778,8 +854,6 @@ for (const engine of engines) {
         const steps = page.locator("[data-glass-steps]");
         const orb = steps.locator("[data-glass-step-orb]");
         const markers = steps.locator("[data-glass-step-marker]");
-        const pauseName = locale === "fr" ? "Mettre le parcours animé en pause" : "Pause the animated steps";
-        const playName = locale === "fr" ? "Reprendre le parcours animé" : "Resume the animated steps";
         const time = () => orb.evaluate((node) => Number(node.getAnimations()[0]?.currentTime));
         const pausedTime = async () => {
           // WAAPI pause() schedules a pending pause task. Sample only after
@@ -797,11 +871,14 @@ for (const engine of engines) {
         await expect(steps.getByRole("listitem")).toHaveCount(3);
         await expect(steps.getByRole("heading", { level: 3 })).toHaveCount(3);
         assert.deepEqual(await markers.allTextContents(), ["01", "02", "03"]);
-        await steps.getByRole("button", { name: pauseName, exact: true }).click();
+        await page.evaluate(() => {
+          Object.defineProperty(document, "hidden", { configurable: true, get: () => true });
+          document.dispatchEvent(new Event("visibilitychange"));
+        });
         await expect(steps).toHaveAttribute("data-playing", "false");
         const pausedAt = await pausedTime();
         await page.waitForTimeout(150);
-        assert.equal(await time(), pausedAt, "Pausing the numbered path must freeze the actual animation");
+        assert.equal(await time(), pausedAt, "A hidden document must freeze the actual numbered path");
 
         for (const width of [320, 390, 768, 1440]) {
           await page.setViewportSize({ width, height: 900 });
@@ -822,7 +899,10 @@ for (const engine of engines) {
             "Step numbers must remain outside the optical filters");
           await noOverflow(page);
         }
-        await steps.getByRole("button", { name: playName, exact: true }).click();
+        await page.evaluate(() => {
+          delete document.hidden;
+          document.dispatchEvent(new Event("visibilitychange"));
+        });
         await expect(steps).toHaveAttribute("data-playing", "true");
         const resumedAt = await time();
         await expect.poll(time).toBeGreaterThan(resumedAt + 100);
@@ -932,6 +1012,49 @@ for (const engine of engines) {
     } finally { await context.close(); }
   });
 
+  await check(`${engine}: reading lens visibly refracts text only as its rim crosses`, async () => {
+    const context = await browser.newContext({ viewport: { width: 390, height: 900 } });
+    const page = await context.newPage();
+    try {
+      await page.goto(`${origin}/fr`);
+      await page.evaluate(() => document.fonts.ready);
+      const story = page.locator("[data-glass-story]");
+      const heading = story.locator("[data-glass-story-content] h3").first();
+      await story.scrollIntoViewIfNeeded();
+      await expect(story).toHaveAttribute("data-playing", "true");
+      // Freeze the genuine animation when its top rim crosses the title.
+      // Do not move the filter manually: the test must exercise the shared
+      // animation clock and the actual browser's displacement renderer.
+      await story.evaluate((node) => new Promise((resolve, reject) => {
+        const lens = node.querySelector("[data-glass-lens]");
+        const title = node.querySelector("[data-glass-story-content] h3");
+        const started = performance.now();
+        const sample = () => {
+          const rim = lens.getBoundingClientRect();
+          const text = title.getBoundingClientRect();
+          if (rim.top >= text.top + text.height * 0.35 - 8 && rim.top < text.bottom - 3) {
+            Object.defineProperty(document, "hidden", { configurable: true, get: () => true });
+            document.dispatchEvent(new Event("visibilitychange"));
+            resolve();
+          } else if (performance.now() - started > 8_000) {
+            reject(new Error("The moving glass rim did not cross the first title"));
+          } else requestAnimationFrame(sample);
+        };
+        requestAnimationFrame(sample);
+      }));
+      await expect(story).toHaveAttribute("data-playing", "false");
+      await settleFrames(page);
+      const refracted = await heading.screenshot({ style: "header { display: none !important; }" });
+      const plain = await heading.screenshot({
+        style: "header, [data-glass-rim-refraction] { display: none !important; }",
+      });
+      const glyphChange = changedTextInk(refracted, plain);
+      assert.ok(glyphChange > 0.05,
+        `${engine}: crossing the rim must visibly refract the title (${Math.round(glyphChange * 100)}% changed)`);
+      return { rimGlyphChange: glyphChange };
+    } finally { await context.close(); }
+  });
+
   await check(`${engine}: reading lens keeps original text crisp and unobstructed`, async () => {
     const context = await browser.newContext({ reducedMotion: "reduce", viewport: { width: 1440, height: 900 } });
     const page = await context.newPage();
@@ -946,10 +1069,20 @@ for (const engine of engines) {
         const lens = story.locator("[data-glass-lens]");
         await expect(lens).toBeVisible();
         await expect(original).toHaveCount(1);
-        await expect(story.locator("[data-liquid-glass]")).toHaveCount(0);
+        const refraction = story.locator("[data-glass-rim-refraction]");
+        await expect(refraction).toHaveCount(1);
+        await expect(refraction).toHaveAttribute("aria-hidden", "true");
+        await expect(refraction).toHaveAttribute("inert", "");
+        assert.match(await refraction.evaluate((node) => getComputedStyle(node).clipPath), /url\(/,
+          "The optical copy must be clipped to its rim, leaving a clear reading center");
+        const rimClip = story.locator("[data-glass-rim-clip]");
+        await expect(rimClip).toHaveAttribute("clip-rule", "evenodd");
+        assert.equal((await rimClip.getAttribute("d")).match(/M/g)?.length, 2,
+          "The ring must include an outer contour and an excluded inner contour");
+        assert.ok(await refraction.locator("feDisplacementMap").count() > 0,
+          "The rim must use actual optical displacement, not only a pale border");
         const headings = original.locator("h3");
         await expect(headings).toHaveCount(3);
-        await expect(story.locator("h3")).toHaveCount(3);
         await expect(story.getByRole("heading", { level: 3 })).toHaveCount(3);
         assert.deepEqual(await story.getByRole("heading", { level: 3 }).allTextContents(), await headings.allTextContents());
         for (const width of [320, 390, 768, 1440]) {
@@ -993,7 +1126,7 @@ for (const engine of engines) {
             });
             const plainText = await headings.first().screenshot({
               ...(screenshots ? { path: join(artifacts, `${engine}-plain-text.png`) } : {}),
-              style: "header, [data-glass-lens] { display: none !important; }",
+              style: "header, [data-glass-lens], [data-glass-rim-refraction] { display: none !important; }",
             });
             glyphChange = changedTextInk(glassText, plainText);
             assert.ok(glyphChange <= 0.08,

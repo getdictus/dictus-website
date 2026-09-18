@@ -40,8 +40,8 @@ The native geometry is uniformly scaled only when necessary to fit a narrow page
 The showcase supplies synthetic levels and cycles through listening,
 transcribing and rest; it neither acquires microphone access nor promises a
 transcription result. Its accessible label identifies the demonstration, with a
-pause control, a static reduced-motion rendering and automatic suspension when
-off-screen or in a hidden tab.
+static reduced-motion rendering and automatic suspension when off-screen or in a
+hidden tab.
 
 ## iPhone
 
@@ -61,22 +61,24 @@ and playback controls are localized.
 - App version/build: **not provided**; device model: **not provided**. Neither is
   established by the recording metadata. Interface language: English.
 - Website video: `public/videos/products/ios-demo.mp4`, H.264, yuv420p,
-  860 × 1864, constant 60 fps, 28.283333 seconds, 1,257,493 bytes, **no audio track**.
+  860 × 1864, constant 60 fps, 31.450000 seconds, 1,354,844 bytes, **no audio track**.
   The MP4's `moov` atom precedes its media data for progressive playback.
 - Video SHA-256:
-  `2e81ac86ccdeaee8f17b413c774d8b063a4ececc1b486cd4dc6d963f5582dc7c`.
+  `4d210402ba2ed7c6e70e7141d8e08d0618cee05003896da1e614b439d9d637f8`.
 - Only timing, resolution, codec and audio availability change: source 0–19 s
-  runs at 2× speed, then source 19–37.775 s runs at its original speed. No frames
+  runs at 1.5× speed, then source 19–37.775 s runs at its original speed. No frames
   are composited, interfaces translated, or native transitions replaced. Frame
-  rate conversion rounds the expected 28.275 s duration to 28.283333 s.
-- Chapter cues in the edited video are **0 s (keyboard)**, **9.5 s (dictation)**
-  and **19 s (app)**; keyframes are forced at all three cues. The original native
+  rate conversion rounds the expected 31.441667 s duration to 31.450000 s.
+- Chapter cues in the edited video are **0 s (keyboard)**, **12.666667 s (dictation)**
+  and **22.166667 s (app)**; keyframes are forced at all three cues. The original native
   opening animation remains at the start of the video.
 
 The continuous recording loops while its section is visible, with the three
 chapter tabs following the playback position, including the return to the keyboard.
-Manual pause is preserved across scrolling; hidden and offscreen playback stops.
-Reduced-motion users see the posters until they explicitly start playback.
+Hidden and offscreen playback stops, preserving its position for the return.
+There is no visible Pause control or playback note. Reduced-motion users see the
+posters until they explicitly start playback; a Play-only fallback also appears
+if the browser refuses autoplay. It disappears once playback is allowed.
 
 The three fallback posters are authentic frames extracted from the same source,
 resized to 860 × 1864 JPEG. The keyboard poster uses 2 s because the source's
@@ -100,8 +102,8 @@ confirm replacement of existing derivatives when prompted.
 dictus_recording="/path/to/ScreenRecording_09-18-2026 09-01-14_1.mp4"
 mkdir -p public/videos/products
 ffmpeg -i "$dictus_recording" -map 0:v:0 \
-  -vf "setpts=PTS-STARTPTS,setpts='if(lt(PTS*TB,19),PTS/2,PTS-9.5/TB)',fps=60,scale=860:1864:flags=lanczos:in_range=pc:out_range=tv,format=yuv420p" \
-  -c:v libx264 -preset medium -crf 23 -force_key_frames '0,9.5,19' \
+  -vf "setpts=PTS-STARTPTS,setpts='if(lt(PTS*TB,19),PTS/1.5,PTS-(19-19/1.5)/TB)',fps=60,scale=860:1864:flags=lanczos:in_range=pc:out_range=tv,format=yuv420p" \
+  -c:v libx264 -preset medium -crf 23 -force_key_frames '0,12.6666667,22.1666667' \
   -colorspace bt709 -color_primaries bt709 -color_trc bt709 -color_range tv \
   -an -sn -dn -map_metadata -1 -movflags +faststart \
   public/videos/products/ios-demo.mp4

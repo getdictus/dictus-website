@@ -31,11 +31,10 @@ export default function DictationPill() {
   const lastTargetRef = useRef(-Infinity);
   const stageRef = useRef<Stage>("recording");
   const [stage, setStage] = useState<Stage>("recording");
-  const [paused, setPaused] = useState(false);
   const [visible, setVisible] = useState(false);
   const [documentVisible, setDocumentVisible] = useState(true);
   const [reducedMotion, setReducedMotion] = useState(true);
-  const running = !paused && reducedMotion === false && visible && documentVisible;
+  const running = reducedMotion === false && visible && documentVisible;
 
   useEffect(() => {
     const container = containerRef.current;
@@ -133,12 +132,6 @@ export default function DictationPill() {
       </div>
       <div className={styles.caption}>
         <span aria-hidden="true">{t(`demo_${stage}`)}</span>
-          <button type="button" onClick={() => setPaused(!paused)} aria-pressed={paused} aria-label={t(paused ? "demo_resume" : "demo_pause")}
-            className={styles.control}>
-            <svg viewBox="0 0 20 20" fill="none" stroke="currentColor" strokeWidth="1.3" aria-hidden="true">
-              {paused ? <path d="m6 4 9 6-9 6Z" /> : <path d="M7 4v12M13 4v12" />}
-            </svg>
-          </button>
       </div>
     </div>
   );

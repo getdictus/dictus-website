@@ -10,7 +10,7 @@ import styles from "./ProductScenes.module.css";
 export default function ProductScenes() {
   const t = useTranslations("ProductScenes");
   const { videoRef, phoneRef, selected, sourceLoaded, playing, failed,
-    showPoster, selectChapter, togglePlayback, events } = useIphoneDemo();
+    showPoster, showPlayButton, selectChapter, startPlayback, events } = useIphoneDemo();
   const chapter = iphoneChapters[selected];
   const tabs = useRef<(HTMLButtonElement | null)[]>([]);
   const testflightUrl = process.env.NEXT_PUBLIC_TESTFLIGHT_URL;
@@ -75,20 +75,17 @@ export default function ProductScenes() {
                 className={styles.poster} />
             </div>
           </div>
-          <div className={styles.playback}>
-            {failed ? <p className={styles.playbackNote} role="status">{t("video_unavailable")}</p> : (
-              <button type="button" className={styles.playbackButton} onClick={togglePlayback}
+          {(failed || showPlayButton) && <div className={styles.playback}>
+            {failed ? <p className={styles.playbackStatus} role="status">{t("video_unavailable")}</p> : (
+              <button type="button" className={styles.playbackButton} onClick={startPlayback}
                 aria-controls="iphone-demo-video">
                 <svg width="16" height="16" viewBox="0 0 16 16" fill="none" aria-hidden="true">
-                  {playing
-                    ? <path d="M5 3v10M11 3v10" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" />
-                    : <path d="m5 3 7 5-7 5V3Z" fill="currentColor" />}
+                  <path d="m5 3 7 5-7 5V3Z" fill="currentColor" />
                 </svg>
-                {t(playing ? "video_pause" : "video_play")}
+                {t("video_play")}
               </button>
             )}
-            <p className={styles.playbackNote}>{t("video_note")}</p>
-          </div>
+          </div>}
         </div>
       </div>
       <p className={styles.android}>

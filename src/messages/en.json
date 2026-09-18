@@ -31,13 +31,9 @@
     "cta_desktop": "Also on Desktop",
     "cta_discover": "Discover Dictus",
     "platform_desktop": "Mac, Windows and Linux",
-    "platform_ios": "iPhone",
-    "pause_waveform": "Pause animation",
-    "play_waveform": "Play animation"
+    "platform_ios": "iPhone"
   },
   "Features": {
-    "pause_animation": "Pause animation",
-    "play_animation": "Resume animation",
     "title": "When the words come, say them.",
     "intro": "A message to send, an idea to keep, an email to write. Speak, then read through and make it yours.",
     "messages_title": "Reply to a message",
@@ -48,8 +44,6 @@
     "emails_desc": "Speak your reply, then take a moment to read it before sending."
   },
   "HowItWorks": {
-    "animation_pause": "Pause the animated steps",
-    "animation_play": "Resume the animated steps",
     "step1_title": "You speak",
     "step1_desc": "On iPhone, open the Dictus keyboard. On desktop, use your dictation shortcut.",
     "step2_title": "Your device transcribes",
@@ -195,8 +189,6 @@
     "demo_recording": "Listening",
     "demo_transcribing": "Transcribing",
     "demo_idle": "Ready to dictate",
-    "demo_pause": "Pause the demonstration",
-    "demo_resume": "Resume the demonstration",
     "heading": "Also on Desktop",
     "subheading": "Dictus runs on macOS, Windows and Linux. Transcription is local by default.",
     "tablist_label": "Desktop platforms",
@@ -276,10 +268,8 @@
     "description": "Your notes, messages and emails. Keep your keyboard, and let your ideas do the talking.",
     "picker": "Explore the iPhone demo chapters",
     "video_label": "Dictus demo recorded on an iPhone.",
-    "video_description": "In Apple Notes, a phrase is typed with the Dictus keyboard, its autocorrection and suggestions. Dictation inserts “Hello guys, how are you doing?”. The app then shows the last transcription, models and settings. Typing is shown at twice its original speed; dictation remains at its original speed.",
+    "video_description": "In Apple Notes, a phrase is typed with the Dictus keyboard, its autocorrection and suggestions. Dictation inserts “Hello guys, how are you doing?”. The app then shows the last transcription, models and settings. Typing is shown at 1.5× its original speed; dictation remains at its original speed.",
     "video_play": "Play the demo",
-    "video_pause": "Pause the demo",
-    "video_note": "Real capture · typing at 2×, dictation at real speed.",
     "video_unavailable": "The video is unavailable. You can still explore the screenshots.",
     "beta": "Join the iOS beta",
     "discover": "Follow iOS development",

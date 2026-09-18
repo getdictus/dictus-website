@@ -13,10 +13,8 @@ type Geometry = { height: number; stops: { x: number; y: number }[] };
 
 /** One material joins the stationary markers and the moving drop. Labels stay
  * outside the filtered SVG so the numbers remain sharp, even during a merge. */
-export default function GlassSteps({ children, pauseLabel, playLabel }: {
+export default function GlassSteps({ children }: {
   children: ReactNode;
-  pauseLabel: string;
-  playLabel: string;
 }) {
   const id = useId().replaceAll(":", "");
   const listRef = useRef<HTMLOListElement>(null);
@@ -24,11 +22,10 @@ export default function GlassSteps({ children, pauseLabel, playLabel }: {
   const animationRef = useRef<Animation | null>(null);
   const elapsedRef = useRef(0);
   const [geometry, setGeometry] = useState<Geometry | null>(null);
-  const [paused, setPaused] = useState(false);
   const [inView, setInView] = useState(false);
   const [visible, setVisible] = useState(true);
   const [reduceMotion, setReduceMotion] = useState(true);
-  const playing = !paused && inView && visible && !reduceMotion;
+  const playing = inView && visible && !reduceMotion;
 
   useEffect(() => {
     const list = listRef.current;
@@ -155,14 +152,6 @@ export default function GlassSteps({ children, pauseLabel, playLabel }: {
             </svg>
           </div>
       )}
-      <button type="button" className={styles.pause} onClick={() => setPaused((value) => !value)}
-        aria-label={paused ? playLabel : pauseLabel} aria-pressed={paused}>
-        <svg width="15" height="15" viewBox="0 0 16 16" fill="none" aria-hidden="true">
-          {paused
-            ? <path d="m5 3 7 5-7 5V3Z" fill="currentColor" />
-            : <path d="M5 3v10M11 3v10" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" />}
-        </svg>
-      </button>
     </div>
   );
 }

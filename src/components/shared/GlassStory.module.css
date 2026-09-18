@@ -1,9 +1,13 @@
-.wrapper { position: relative; min-width: 0; margin-inline: -20px; padding-bottom: 2.75rem; }
+.wrapper { position: relative; min-width: 0; margin-inline: -20px; }
 .story { position: relative; isolation: isolate; }
 /* Grow the lens outwards, keeping the original text width and alignment. */
 .content { position: relative; z-index: 1; display: grid; grid-auto-rows: 1fr; gap: 24px; padding: 16px 48px; }
 .content > [data-glass-story-stop] { min-width: 0; padding-block: 28px; }
+.definitions { position: absolute; pointer-events: none; }
+.refraction { z-index: 2; user-select: none; }
+.refraction .content { background: var(--theme-bg-primary); }
 /* Keep the selection highlight unobstructed while the reader selects text. */
+.story[data-text-selected="true"] .refraction,
 .story[data-text-selected="true"] .rim { display: none; }
 .rim {
   position: absolute; top: 0; left: 4px; z-index: 0; pointer-events: none;
@@ -18,18 +22,6 @@
   border-top: 1px solid rgb(255 255 255 / 80%);
   border-bottom: 1px solid rgb(89 118 166 / 8%);
 }
-.pause {
-  position: absolute; bottom: -2px; left: 50%; margin-left: -22px;
-  display: inline-flex; align-items: center; justify-content: center;
-  width: 44px; height: 44px; color: var(--theme-text-body);
-  cursor: pointer; border-radius: 50%;
-  transition: transform var(--motion-fast) var(--ease-out), background var(--motion-fast) ease, color var(--motion-fast) ease;
-}
-.pause:active:not(:focus-visible) { transform: scale(.97); transition-duration: var(--motion-press); }
-.pause:focus-visible { transition: none; }
-@media (hover: hover) and (pointer: fine) {
-  .pause:hover { background: rgb(255 255 255 / 55%); color: var(--theme-text-primary); }
-}
 :global(.dark) .rim {
   border-color: rgb(255 255 255 / 20%);
   background: linear-gradient(155deg, #ffffff10, #ffffff04 38%, #3d7eff08 78%, #ffffff0c);
@@ -39,9 +31,7 @@
   .wrapper { margin-inline: -12px; }
   .content { padding-inline: 36px; }
 }
-@media (prefers-reduced-motion: reduce) {
-  .pause { display: none; }
-}
 @media (prefers-reduced-transparency: reduce) {
+  .refraction { display: none; }
   .rim { background: transparent; backdrop-filter: none; -webkit-backdrop-filter: none; box-shadow: none; border-color: var(--theme-border-hi); }
 }

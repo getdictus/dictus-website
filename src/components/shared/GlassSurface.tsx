@@ -2,6 +2,7 @@
 
 import { Glass } from "@samasante/liquid-glass";
 import type { CSSProperties, ReactNode } from "react";
+import GlassLight from "./GlassLight";
 
 // Material mode: server-rendered children, no WebGL or live animation loop.
 // Chromium refracts the backdrop; Safari/Firefox retain the tint and lit edge.
@@ -22,6 +23,7 @@ export default function GlassSurface({ children, className = "", style }: {
       style={{ position: "relative", borderRadius: 999, ...style }}
       optics={optics}
     >
+      <GlassLight />
       {children}
     </Glass>
   );

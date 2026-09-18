@@ -40,7 +40,7 @@
 .playbackButton { display: inline-flex; align-items: center; justify-content: center; gap: 8px; min-height: 44px; padding: 10px 16px; border-radius: 999px; background: color-mix(in srgb, var(--theme-surface) 55%, transparent); color: var(--theme-text-primary); font: inherit; font-size: 12px; cursor: pointer; transition: transform var(--motion-fast) var(--ease-out), background-color var(--motion-fast) ease; }
 .playbackButton:active:not(:focus-visible) { transform: scale(.97); transition-duration: var(--motion-press); }
 .playbackButton:focus-visible { transition: none; }
-.playbackNote { max-width: 310px; margin: 8px auto 0; font-size: 11px; line-height: 1.5; color: var(--theme-text-body); }
+.playbackStatus { max-width: 310px; margin: 8px auto 0; font-size: 11px; line-height: 1.5; color: var(--theme-text-body); }
 @media (hover: hover) and (pointer: fine) {
   .playbackButton:hover { background: var(--theme-surface); }
 }
