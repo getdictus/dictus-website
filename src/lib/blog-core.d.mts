@@ -1,0 +1,12 @@
+import type { Article, ArticleContent, BlogOptions, LocalizedArticle, Locale } from './blog';
+export const BLOG_LOCALES: Locale[];
+export function contentHash(article: Article, locale?: Locale): string;
+export function contentErrors(content: unknown, prefix?: string): string[];
+export function articleErrors(article: Article, options?: {requirePublished?: boolean}): string[];
+export function validateArticles(articles: Article[]): Article[];
+export function translationErrors(source: ArticleContent, target: ArticleContent): string[];
+export function readingStats(content: ArticleContent): {wordCount: number; readingMinutes: number};
+export function selectArticles(articles: Article[], locale: Locale, options?: BlogOptions): LocalizedArticle[];
+export function articlePath(article: Pick<ArticleContent, 'slug'>, locale: Locale): string;
+export function translationPaths(articles: Article[], id: string, options?: BlogOptions): Partial<Record<Locale, string>>;
+export function sitemapEntries(articles: Article[], baseUrl: string): {url: string; lastModified: string; alternates: {languages: Record<string,string>}}[];

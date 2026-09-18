@@ -8,6 +8,14 @@
     "start": "next start",
     "lint": "eslint",
     "test:e2e": "node scripts/verify-redesign.mjs",
+    "prebuild": "npm run blog:validate",
+    "blog:validate": "node scripts/blog-editorial.mjs validate",
+    "blog:new": "node scripts/blog-editorial.mjs new",
+    "blog:translate": "node scripts/blog-editorial.mjs translate",
+    "blog:review": "node scripts/blog-editorial.mjs review",
+    "blog:publish": "node scripts/blog-editorial.mjs publish",
+    "blog:draft": "node scripts/blog-editorial.mjs draft",
+    "test:blog": "node --test scripts/blog*.test.mjs",
     "test:pricing": "node scripts/verify-pricing.mjs"
   },
   "dependencies": {
