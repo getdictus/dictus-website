@@ -31,7 +31,7 @@
 .interactiveBilling { border: 0; min-width: 0; padding: 0; }
 .selectorSurface { padding: 4px; background: #eff1f57d; border: 1px solid #dfe3ed; }
 .selector { display: grid; grid-template-columns: 1fr 1fr 1.15fr; position: relative; isolation: isolate; gap: 2px; }
-.selector label { display: flex; align-items: center; justify-content: center; min-height: 44px; border-radius: 999px; padding: 6px 8px; font-size: 13px; font-weight: 400; cursor: pointer; color: var(--muted); white-space: nowrap; }
+.selector label { position: relative; z-index: 1; display: flex; align-items: center; justify-content: center; min-height: 44px; border-radius: 999px; padding: 6px 8px; font-size: 13px; font-weight: 400; cursor: pointer; color: var(--muted); white-space: nowrap; }
 .selector label[data-selected] { color: var(--theme-text-primary); background: #fff; box-shadow: 0 1px 3px #25365712; }
 .selector[data-lens-ready] label[data-selected] { background: #ffffff3b; box-shadow: none; }
 .selector label:focus-within { outline: 2px solid #2563eb; outline-offset: 1px; }

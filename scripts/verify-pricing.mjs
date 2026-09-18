@@ -14,6 +14,7 @@ async function check(name, fn) {
 }
 
 async function noOverflow(page) {
+  await page.evaluate(() => new Promise((resolve) => requestAnimationFrame(() => requestAnimationFrame(resolve))));
   const widths = await page.evaluate(() => [document.documentElement.scrollWidth, document.documentElement.clientWidth]);
   assert.ok(widths[0] <= widths[1] + 1, `Page overflows: ${widths}`);
 }
@@ -68,6 +69,21 @@ for (const engine of (process.env.VERIFY_ENGINES || "chromium,firefox,webkit").s
       await page.locator('[data-lens-key="yearly"]').click();
       await expect(yearly).toBeChecked();
       assert.ok(await yearly.evaluate((input) => getComputedStyle(input.closest("label")).minHeight === "44px"));
+      // Accessibility names can pass even when the glass compositor hides the labels.
+      // Inspect pixels in memory to ensure real text ink reaches the rendered control.
+      for (const label of await page.locator("fieldset [data-lens-key]").all()) {
+        const png = await label.screenshot();
+        const ink = await page.evaluate(async (data) => {
+          const image = new Image(); image.src = `data:image/png;base64,${data}`; await image.decode();
+          const canvas = document.createElement("canvas"); canvas.width = image.width; canvas.height = image.height;
+          const context = canvas.getContext("2d"); context.drawImage(image, 0, 0);
+          const pixels = context.getImageData(0, 0, image.width, image.height).data;
+          let count = 0;
+          for (let index = 0; index < pixels.length; index += 4) if (pixels[index] < 110 && pixels[index + 1] < 110 && pixels[index + 2] < 110 && pixels[index + 3] > 200) count++;
+          return count;
+        }, png.toString("base64"));
+        assert.ok(ink > 20, `Billing label must be visibly painted: ${ink} text pixels`);
+      }
     });
 
     await check(`${engine}/${locale}: disclosures, exact lifetime scope and consistent Terms`, async () => {
@@ -102,7 +118,7 @@ for (const engine of (process.env.VERIFY_ENGINES || "chromium,firefox,webkit").s
       await expect(page.locator('link[hreflang="fr"]')).toHaveAttribute("href", "https://getdictus.com/fr/pricing");
       await expect(page.locator('link[hreflang="en"]')).toHaveAttribute("href", "https://getdictus.com/en/pricing");
       assert.equal(await page.locator('script[type="application/ld+json"]').count(), 0);
-      const language = page.locator("header").getByRole("button", { name: locale === "fr" ? "EN" : "FR", exact: true });
+      const language = page.locator("header").getByRole("button", { name: locale === "fr" ? "Switch to English" : "Passer en francais", exact: true });
       await language.click();
       await expect(page).toHaveURL(new RegExp(`/${locale === "fr" ? "en" : "fr"}/pricing$`));
     });
