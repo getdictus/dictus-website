@@ -95,9 +95,13 @@ for (const engine of selected) {
             for (const section of content.sections) {
               assert.ok(text.includes(section.heading));
               for (const paragraph of section.paragraphs) assert.ok(text.includes(paragraph), "Body must be server-rendered");
+              for (const bullet of section.bullets ?? []) assert.ok(text.includes(bullet), "Practical steps must be server-rendered");
             }
             assert.match(text, /\d+ min/);
             await expect(page.locator(`main a[href="${content.cta.href.startsWith("/") && !/^\/(fr|en)(?:\/|#|$)/.test(content.cta.href) ? `/${locale}${content.cta.href}` : content.cta.href}"]`).first()).toBeAttached();
+            for (const source of content.sources) {
+              await expect(page.locator(`main a[href="${source.href}"]`).first()).toHaveText(source.label);
+            }
             for (const relatedId of article.relatedIds) {
               const related = articles.find((item) => item.id === relatedId);
               if (related?.locales[locale]) await expect(page.locator(`main a[href="${route(related, locale)}"]`).first()).toBeAttached();
@@ -161,7 +165,7 @@ for (const engine of selected) {
         for (const width of [320, 390, 768, 1440]) {
           await page.setViewportSize({ width, height: 900 });
           for (const locale of ["fr", "en"]) {
-            for (const pathname of [`/${locale}/blog`, route(article, locale)]) {
+            for (const pathname of [`/${locale}/blog`, ...articles.filter((item) => item.locales[locale]).map((item) => route(item, locale))]) {
               await page.goto(`${origin}${pathname}`);
               await expect(page.locator("h1")).toBeVisible();
               await assertNoOverflow(page);

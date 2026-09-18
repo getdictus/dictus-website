@@ -27,12 +27,16 @@ d’articles liés, le switch de langue, le temps de lecture, les métadonnées
 contrôle les contenus, leurs empreintes, la traduction et les relectures.
 `scripts/verify-blog.mjs` lit le registre, donc suit les titres/contenus finaux.
 
-Les trois identifiants existants restent stables, tout comme leurs slugs de
-preview déjà partagés : `capture-clavier-iphone` / `iphone-keyboard-capture`,
-`capture-dictus-desktop` / `dictus-desktop-screenshot`, `local-par-defaut` /
-`local-by-default`. Le titre, le résumé et le corps portent l’intention réelle ;
-changer un slug n’est pas nécessaire pour la satisfaire et demanderait des
-redirections. `relatedIds` conserve les liens indépendants de la langue.
+Les trois identifiants existants restent stables. Après cadrage de leurs premières
+URL éditoriales, les anciens slugs de démonstration sont remplacés avant toute
+publication : `dictee-vocale-iphone` / `iphone-voice-dictation`,
+`dictee-vocale-gratuite-ordinateur` / `free-desktop-dictation`,
+`dictee-vocale-locale-confidentialite` / `local-dictation-privacy`.
+Cette décision affine la conservation initialement prévue des URL techniques :
+les guides n’ont jamais été publiés et leur premier lancement mérite des URL
+descriptives. Les anciennes URL de preview renvoient 404, sans ajout de routes
+publiques ni redirections. Ces nouveaux slugs seront stables lors des corrections
+ultérieures. `relatedIds` conserve les liens indépendants de la langue.
 Les contenus remplacent les exemples techniques, sans ajouter de composant,
 route manuelle, dépendance ni nouvelle suite de tests.
 
