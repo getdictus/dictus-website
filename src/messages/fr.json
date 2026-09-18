@@ -248,11 +248,26 @@
     "why_support_independent": "Indépendant"
   },
   "Blog": {
-    "meta_title": "Blog — Dictus",
-    "title": "Les mots, et ce qui les rend possibles.",
-    "description": "Des nouvelles de Dictus, des idées pour écrire à la voix et un regard sur la transcription locale. Le blog arrive bientôt.",
-    "status": "Bientôt",
-    "home_link": "Revenir à l’accueil"
+    "meta_title": "Dictée vocale, usages et confidentialité — Blog Dictus",
+    "title": "Écrire à la voix, en pratique.",
+    "description": "Des repères pour dicter sur iPhone et ordinateur, comprendre la transcription locale et trouver sa façon d’écrire.",
+    "preview_title": "Aperçu du blog.",
+    "preview_description": "Ces exemples sont des brouillons de mise en page. Les premiers guides pratiques sont en préparation.",
+    "draft_title": "Exemple en brouillon.",
+    "draft_description": "Cette note sert à prévisualiser le blog. Sa relecture éditoriale est en attente ; les premiers guides pratiques sont en préparation.",
+    "draft_date": "Brouillon du",
+    "published_date": "Publié le",
+    "updated_date": "Mis à jour le",
+    "reading_time": "{minutes, plural, one {# min de lecture} other {# min de lecture}}",
+    "by_author": "Par {author}",
+    "read_draft": "Lire le brouillon",
+    "read_article": "Lire l’article",
+    "more_articles": "À découvrir aussi",
+    "related_articles": "Pour poursuivre la lecture",
+    "back_to_blog": "Tous les articles",
+    "contents": "Dans cet article",
+    "sources": "Sources et références",
+    "empty": "Les premiers articles sont en préparation."
   },
   "Pricing": {
     "meta_title": "Tarifs — Desktop gratuit et Dictus Pro sur iPhone",

@@ -1090,7 +1090,7 @@ for (const engine of engines) {
       await page.getByRole("button", { name: "Switch to English" }).click();
       await page.waitForURL("**/en");
       await expect(desktopImage).toHaveAttribute("src", /desktop-general-en\.jpg/);
-      await page.getByRole("button", { name: "Passer en francais" }).click();
+      await page.getByRole("button", { name: "Passer en français" }).click();
       await page.waitForURL("**/fr");
       await expect(desktopImage).toHaveAttribute("src", /desktop-general-fr\.jpg/);
       const pill = page.locator("[data-dictation-pill]");

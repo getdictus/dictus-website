@@ -6,16 +6,22 @@ import GlassSurface from "@/components/shared/GlassSurface";
 import GlassSelectorLens from "@/components/shared/GlassSelectorLens";
 import { useGlassSelector } from "@/components/shared/useGlassSelector";
 import Logo from "./Logo";
-import LanguageToggle from "./LanguageToggle";
+import LanguageToggle, { type ArticleLocaleRoutes } from "./LanguageToggle";
 import styles from "./Nav.module.css";
 
-export default function Nav({ preview = false }: { preview?: boolean }) {
+export default function Nav({ preview = false, blogAvailable = preview, articleRoutes = {} }: {
+  preview?: boolean;
+  blogAvailable?: boolean;
+  articleRoutes?: ArticleLocaleRoutes;
+}) {
   const t = useTranslations("Nav");
   const pathname = usePathname();
-  const { groupRef, groupProps, geometry, keyboard, clearPreview } = useGlassSelector<HTMLElement>(pathname);
+  const activePath = pathname.startsWith("/blog/") ? "/blog" : pathname;
+  const { groupRef, groupProps, geometry, keyboard, clearPreview } = useGlassSelector<HTMLElement>(activePath);
   const links = [
     { href: "/", label: t("home") },
-    ...(preview ? [{ href: "/blog", label: t("blog") }, { href: "/pricing", label: t("pricing") }] : []),
+    ...(blogAvailable ? [{ href: "/blog", label: t("blog") }] : []),
+    ...(preview ? [{ href: "/pricing", label: t("pricing") }] : []),
     { href: "/donate", label: t("support_label") },
   ];
 
@@ -26,7 +32,7 @@ export default function Nav({ preview = false }: { preview?: boolean }) {
         <nav ref={groupRef} aria-label={t("navigation_label")} className={styles.links} {...groupProps}>
           <GlassSelectorLens geometry={geometry} keyboard={keyboard} />
           {links.map(({ href, label }) => (
-            <Link key={href} href={href} prefetch={false} aria-current={pathname === href ? "page" : undefined}
+            <Link key={href} href={href} prefetch={false} aria-current={activePath === href ? "page" : undefined}
               data-route={href}
               data-lens-key={href} data-lens-excluded={href === "/donate" || undefined}
               onClick={clearPreview}
@@ -36,7 +42,7 @@ export default function Nav({ preview = false }: { preview?: boolean }) {
           ))}
         </nav>
       </GlassSurface>
-      <div className={styles.language}><LanguageToggle /></div>
+      <div className={styles.language}><LanguageToggle articleRoutes={articleRoutes} /></div>
     </header>
   );
 }

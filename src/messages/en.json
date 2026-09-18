@@ -248,11 +248,26 @@
     "why_support_independent": "Independent"
   },
   "Blog": {
-    "meta_title": "Blog — Dictus",
-    "title": "Words, and what makes them possible.",
-    "description": "News from Dictus, ideas for writing with your voice, and a closer look at local transcription. The blog is coming soon.",
-    "status": "Coming soon",
-    "home_link": "Back to home"
+    "meta_title": "Voice typing, everyday use and privacy — Dictus Blog",
+    "title": "Writing with your voice, in practice.",
+    "description": "A closer look at dictation on iPhone and desktop, local transcription, and finding your own way to write.",
+    "preview_title": "Blog preview.",
+    "preview_description": "These examples are layout drafts. The first practical guides are being prepared.",
+    "draft_title": "Draft example.",
+    "draft_description": "This note previews the blog layout. Editorial review is pending; the first practical guides are being prepared.",
+    "draft_date": "Draft from",
+    "published_date": "Published",
+    "updated_date": "Updated",
+    "reading_time": "{minutes, plural, one {# min read} other {# min read}}",
+    "by_author": "By {author}",
+    "read_draft": "Read the draft",
+    "read_article": "Read the article",
+    "more_articles": "More to explore",
+    "related_articles": "Keep reading",
+    "back_to_blog": "All articles",
+    "contents": "In this article",
+    "sources": "Sources and references",
+    "empty": "The first articles are being prepared."
   },
   "Pricing": {
     "meta_title": "Pricing — Free Desktop and Dictus Pro for iPhone",

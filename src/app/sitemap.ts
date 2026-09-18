@@ -1,5 +1,7 @@
 import type { MetadataRoute } from "next";
 import { isSitePreview } from "@/config/preview";
+import { isBlogPublic } from "@/config/blog";
+import { getBlogSitemapEntries } from "@/lib/blog";
 
 const BASE_URL = "https://getdictus.com";
 
@@ -7,6 +9,7 @@ export default function sitemap(): MetadataRoute.Sitemap {
   if (isSitePreview) return [];
 
   return [
+    ...(isBlogPublic ? getBlogSitemapEntries(BASE_URL) : []),
     {
       url: `${BASE_URL}/fr`,
       lastModified: new Date(),

@@ -9,6 +9,9 @@ import {
 import { notFound } from "next/navigation";
 import { routing } from "@/i18n/routing";
 import { isSitePreview } from "@/config/preview";
+import { isBlogAvailable } from "@/config/blog";
+import { getBlogArticles, getTranslationPaths } from "@/lib/blog";
+import type { ArticleLocaleRoutes } from "@/components/Nav/LanguageToggle";
 import Nav from "@/components/Nav/Nav";
 import MotionProvider from "@/components/shared/MotionProvider";
 import "../globals.css";
@@ -101,6 +104,17 @@ export default async function LocaleLayout({ children, params }: Props) {
   setRequestLocale(locale);
   const messages = await getMessages();
   const tNav = await getTranslations({ locale, namespace: "Nav" });
+  const articleRoutes: ArticleLocaleRoutes = {};
+  if (isBlogAvailable) {
+    for (const articleLocale of routing.locales) {
+      for (const article of getBlogArticles(articleLocale, { preview: isSitePreview })) {
+        const paths = getTranslationPaths(article.id, { preview: isSitePreview });
+        articleRoutes[`/${articleLocale}/blog/${article.slug}`] = Object.fromEntries(
+          Object.entries(paths).map(([language, path]) => [language, path.replace(/^\/(fr|en)(?=\/)/, "")]),
+        );
+      }
+    }
+  }
 
   return (
     <html lang={locale} className={`${dmSans.variable} ${dmMono.variable}`}>
@@ -112,7 +126,7 @@ export default async function LocaleLayout({ children, params }: Props) {
           >
             {tNav("skip_to_content")}
           </a>
-          <Nav preview={isSitePreview} />
+          <Nav preview={isSitePreview} blogAvailable={isBlogAvailable} articleRoutes={articleRoutes} />
           <MotionProvider>
             <main id="main-content">{children}</main>
           </MotionProvider>
