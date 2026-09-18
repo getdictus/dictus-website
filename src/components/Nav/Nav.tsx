@@ -1,44 +1,48 @@
 "use client";
 
-import { useState, useEffect } from "react";
 import { useTranslations } from "next-intl";
-import { Link } from "@/i18n/navigation";
+import { Link, usePathname } from "@/i18n/navigation";
+import GlassSurface from "@/components/shared/GlassSurface";
+import GlassSelectorLens from "@/components/shared/GlassSelectorLens";
+import { useGlassSelector } from "@/components/shared/useGlassSelector";
 import Logo from "./Logo";
-import LanguageToggle from "./LanguageToggle";
+import LanguageToggle, { type ArticleLocaleRoutes } from "./LanguageToggle";
+import styles from "./Nav.module.css";
 
-export default function Nav() {
+export default function Nav({ preview = false, blogAvailable = preview, articleRoutes = {} }: {
+  preview?: boolean;
+  blogAvailable?: boolean;
+  articleRoutes?: ArticleLocaleRoutes;
+}) {
   const t = useTranslations("Nav");
-  const [scrolled, setScrolled] = useState(false);
-
-  useEffect(() => {
-    const handleScroll = () => {
-      setScrolled(window.scrollY > 10);
-    };
-
-    window.addEventListener("scroll", handleScroll, { passive: true });
-    return () => window.removeEventListener("scroll", handleScroll);
-  }, []);
+  const pathname = usePathname();
+  const activePath = pathname.startsWith("/blog/") ? "/blog" : pathname;
+  const { groupRef, groupProps, geometry, keyboard, clearPreview } = useGlassSelector<HTMLElement>(activePath);
+  const links = [
+    { href: "/", label: t("home") },
+    ...(blogAvailable ? [{ href: "/blog", label: t("blog") }] : []),
+    ...(preview ? [{ href: "/pricing", label: t("pricing") }] : []),
+    { href: "/donate", label: t("support_label") },
+  ];
 
   return (
-    <nav
-      className={`fixed top-0 left-0 right-0 z-50 transition-all duration-300 ${
-        scrolled
-          ? "border-b border-border bg-[var(--glass-t1-bg)] backdrop-blur-[20px] backdrop-saturate-[1.5] shadow-[inset_1px_1px_0_0_var(--glass-t1-border-highlight)]"
-          : "bg-ink-deep"
-      }`}
-    >
-      <div className="mx-auto flex max-w-6xl items-center justify-between px-6 py-4">
-        <Logo />
-        <div className="flex items-center gap-2">
-          <Link
-            href="/donate"
-            className="min-h-[44px] flex items-center rounded-full bg-accent px-4 py-2 text-sm font-normal text-white transition-colors hover:bg-accent-hi focus-visible:ring-2 focus-visible:ring-accent focus-visible:ring-offset-2 focus-visible:ring-offset-ink-deep"
-          >
-            {t("support_label")}
-          </Link>
-          <LanguageToggle />
-        </div>
-      </div>
-    </nav>
+    <header className={styles.header}>
+      <div className={styles.brand}><Logo /></div>
+      <GlassSurface className={styles.pill}>
+        <nav ref={groupRef} aria-label={t("navigation_label")} className={styles.links} {...groupProps}>
+          <GlassSelectorLens geometry={geometry} keyboard={keyboard} />
+          {links.map(({ href, label }) => (
+            <Link key={href} href={href} prefetch={false} aria-current={activePath === href ? "page" : undefined}
+              data-route={href}
+              data-lens-key={href} data-lens-excluded={href === "/donate" || undefined}
+              onClick={clearPreview}
+              className={href === "/donate" ? styles.support : undefined}>
+              {label}
+            </Link>
+          ))}
+        </nav>
+      </GlassSurface>
+      <div className={styles.language}><LanguageToggle articleRoutes={articleRoutes} /></div>
+    </header>
   );
 }

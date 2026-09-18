@@ -1,0 +1,55 @@
+.stage { position: relative; }
+.viewport { position: relative; }
+.scene { width: 100%; }
+.copy { position: relative; z-index: 1; }
+.phoneAnchor { position: relative; z-index: 2; }
+.phoneMotion { display: flex; flex-direction: column; align-items: center; gap: 12px; width: 100%; transform-origin: center; }
+.bubble { display: none; pointer-events: none; }
+
+/* Enhancement is opt-in after hydration; the server-rendered scene stays in
+   its final, readable layout, including when JavaScript is unavailable. */
+@media (min-width: 1024px) and (min-height: 800px) and (prefers-reduced-motion: no-preference) {
+  .stage[data-iphone-cinema="true"] { min-height: 180svh; padding: 0; }
+  .stage[data-iphone-cinema="true"] .viewport {
+    position: sticky;
+    top: 0;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    height: 100svh;
+    padding: 110px 32px 70px;
+    box-sizing: border-box;
+    overflow: clip;
+  }
+  .stage[data-iphone-cinema="true"] .phone {
+    width: min(304px, calc((min(680px, 100svh - 180px - var(--iphone-controls-space, 0px)) - 17px) * 1290 / 2796 + 17px));
+  }
+  .phoneMotion[data-playback-fallback="true"] { --iphone-controls-space: 56px; }
+  .stage[data-iphone-cinema="true"] .phoneMotion { will-change: transform; }
+  .stage[data-iphone-cinema="true"] .copy { will-change: transform, opacity; }
+  .stage[data-iphone-cinema="true"][data-stage-copy-visible="false"] .copy { pointer-events: none; }
+  .stage[data-iphone-cinema="true"] .android {
+    position: absolute;
+    bottom: 24px;
+    inset-inline: 24px;
+    margin: 0;
+  }
+  .stage[data-iphone-cinema="true"] .bubble {
+    position: absolute;
+    z-index: 0;
+    display: block;
+    border: 1px solid #ffffffc7;
+    border-radius: 50%;
+    background: radial-gradient(circle at 28% 18%, #ffffffaa, #ffffff18 42%, #abc6fc12 72%, #ffffff6b);
+    box-shadow: inset 0 2px 3px #ffffffd9, inset 0 -3px 8px #83a5dc1a, 0 10px 28px -16px #28466b35;
+    backdrop-filter: blur(2px) saturate(1.08);
+    -webkit-backdrop-filter: blur(2px) saturate(1.08);
+    will-change: transform, opacity;
+  }
+  .bubbleOne { width: 116px; height: 116px; left: calc(50% - 250px); top: 32%; }
+  .bubbleTwo { width: 68px; height: 68px; left: calc(50% + 180px); top: 64%; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .phoneMotion, .copy { transform: none !important; opacity: 1 !important; }
+}
