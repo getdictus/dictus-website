@@ -23,12 +23,12 @@
 - Paragraphes : grande lentille avec centre transparent et texte original lisible, réfraction sur un bord de 16 px. Étapes numérotées : bille qui se détache et fusionne avec chaque repère. Déplacements accélérés/freinés de 800 ms et repos de 1,6 s.
 - Reflets au pointeur sur les surfaces en verre. Les boutons Pause et la note visible sur la vitesse vidéo ont été retirés ; la gestion automatique des animations reste active.
 - Sections d'usages, traitement local par défaut, comparaison, code source et communauté ; harmonisation des pages de soutien, support, confidentialité, conditions et 404.
-- Blog et Pricing sont des espaces de preview, protégés par `DICTUS_SITE_PREVIEW`. Ils restent exclus de la production, de son sitemap et de l'indexation.
+- Blog et Pricing restent protégés par `DICTUS_SITE_PREVIEW`. La page Pricing de #28 distingue Desktop gratuit, iPhone gratuit et Pro en préparation ; elle reste exclue de la production, de son sitemap et de l’indexation.
 
 ## Points encore ouverts
 
 - Poursuivre les retours visuels et éditoriaux de l'utilisateur ; cette base n'est pas une version déclarée prête à publier.
-- Finaliser le contenu Blog/Pricing et les offres iOS lorsque les décisions produit seront arrêtées. Ne pas inventer de prix ni annoncer une disponibilité non confirmée.
+- Pricing est désormais renseigné en FR/EN selon le catalogue de travail de #28 ; lire `docs/issue-28-handoff.md` et `docs/issue-28-product-evidence.md`. Les achats Pro restent indisponibles. Confirmer les montants, les territoires et la sortie payante avant publication. Poursuivre le contenu Blog dans son suivi dédié.
 - Préparer la publication du site en coordination avec la sortie mobile payante, uniquement après instruction explicite.
 - Faire une validation de lecture sur un iPhone physique avec Safari. Les tests WebKit automatisés ne remplacent pas ce contrôle.
 - Firefox n'a pas pu être testé dans l'environnement actuel : son processus d'automatisation échoue au démarrage.

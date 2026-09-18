@@ -14,7 +14,6 @@ async function check(name, fn) {
 }
 
 async function noOverflow(page) {
-  await page.evaluate(() => new Promise((resolve) => requestAnimationFrame(() => requestAnimationFrame(resolve))));
   const widths = await page.evaluate(() => [document.documentElement.scrollWidth, document.documentElement.clientWidth]);
   assert.ok(widths[0] <= widths[1] + 1, `Page overflows: ${widths}`);
 }
@@ -127,6 +126,7 @@ for (const engine of (process.env.VERIFY_ENGINES || "chromium,firefox,webkit").s
       await page.goto(`${origin}/${locale}/pricing`);
       for (const width of [320, 390, 768, 1440]) {
         await page.setViewportSize({ width, height: 900 });
+        await page.evaluate(() => new Promise((resolve) => requestAnimationFrame(() => requestAnimationFrame(resolve))));
         await noOverflow(page);
       }
       await page.emulateMedia({ reducedMotion: "reduce" });
