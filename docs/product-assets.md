@@ -75,6 +75,11 @@ and playback controls are localized.
 
 The continuous recording loops while its section is visible, with the three
 chapter tabs following the playback position, including the return to the keyboard.
+On large screens, the iPhone frame enters and docks as the page scrolls; playback
+starts after that arrangement settles. Scrolling never seeks the recording.
+The MP4 stays unloaded on the initial Hero view and becomes eligible for preload
+as the visitor enters the iPhone section. Direct `#iphone` links and keyboard
+focus skip the introduction; smaller screens use the regular document flow.
 Hidden and offscreen playback stops, preserving its position for the return.
 There is no visible Pause control or playback note. Reduced-motion users see the
 posters until they explicitly start playback; a Play-only fallback also appears

@@ -11,6 +11,7 @@ import {
 } from "@/config/downloads";
 import styles from "./Platforms.module.css";
 import DictationPill from "./DictationPill";
+import ProductReveal from "@/components/shared/ProductReveal";
 import GlassSurface from "@/components/shared/GlassSurface";
 import GlassSelectorLens from "@/components/shared/GlassSelectorLens";
 import { useGlassSelector } from "@/components/shared/useGlassSelector";
@@ -71,8 +72,9 @@ export default function Platforms({ downloads }: { downloads: DownloadsConfig })
           <p className={styles.description}>{t("description")}</p>
           <p className={styles.free}>{t("free")}</p>
         </div>
-        <figure className={styles.figure}>
+        <ProductReveal className={styles.figure}>
           <Image
+            data-product-reveal-item
             src={`/images/products/desktop-general-${locale === "fr" ? "fr" : "en"}.jpg`}
             width={680}
             height={570}
@@ -81,8 +83,8 @@ export default function Platforms({ downloads }: { downloads: DownloadsConfig })
             className={styles.screenshot}
           />
           <figcaption>{t("screenshot_caption")}</figcaption>
-          <DictationPill />
-        </figure>
+          <div data-product-reveal-item><DictationPill /></div>
+        </ProductReveal>
         <div className={styles.downloads}>
           <GlassSurface className={styles.tabsSurface} style={{ display: "block" }}>
             <div ref={groupRef}

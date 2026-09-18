@@ -7,12 +7,20 @@ import GlassSurface from "@/components/shared/GlassSurface";
 import GlassSelectorLens from "@/components/shared/GlassSelectorLens";
 import { useGlassSelector } from "@/components/shared/useGlassSelector";
 import { iphoneChapters, iphoneVideo, useIphoneDemo } from "./useIphoneDemo";
+import { useIphoneStage } from "./useIphoneStage";
+import stageStyles from "./IphoneStage.module.css";
 import styles from "./ProductScenes.module.css";
 
 export default function ProductScenes() {
   const t = useTranslations("ProductScenes");
+  const { sectionRef, viewportRef, phoneAnchorRef, phoneMotionRef, copyRef,
+    bubbleOneRef, bubbleTwoRef, onFocusCapture, preloadAllowed, playbackAllowed } = useIphoneStage();
   const { videoRef, phoneRef, selected, sourceLoaded, playing, failed,
-    showPoster, showPlayButton, selectChapter, startPlayback, events } = useIphoneDemo();
+    showPoster, showPlayButton, selectChapter, startPlayback, events } = useIphoneDemo({
+    observationRef: phoneAnchorRef,
+    preloadAllowed,
+    playbackAllowed,
+  });
   const chapter = iphoneChapters[selected];
   const tabs = useRef<(HTMLButtonElement | null)[]>([]);
   const { groupRef, groupProps, geometry, keyboard } = useGlassSelector(chapter.key);
@@ -31,71 +39,79 @@ export default function ProductScenes() {
   }
 
   return (
-    <section id="iphone" className={styles.section} aria-labelledby="iphone-title">
-      <div className={styles.layout}>
-        <div className={styles.copy}>
-          <p className={styles.platform}>{t("platform")}</p>
-          <h2 id="iphone-title" className={styles.title}>{t("title_line_one")}<br />{t("title_line_two")}</h2>
-          <p className={styles.description}>{t("description")}</p>
-          <GlassSurface className={styles.picker} style={{ borderRadius: 999 }}>
-            <div ref={groupRef} role="tablist" aria-label={t("picker")} className={styles.options} {...groupProps}>
-              <GlassSelectorLens geometry={geometry} keyboard={keyboard} />
-              {iphoneChapters.map((screen, index) => (
-                <button
-                  key={screen.key}
-                  ref={(element) => { tabs.current[index] = element; }}
-                  type="button"
-                  role="tab"
-                  id={`iphone-tab-${index}`}
-                  data-lens-key={screen.key}
-                  aria-controls="iphone-screen"
-                  aria-selected={selected === index}
-                  tabIndex={selected === index ? 0 : -1}
-                  onClick={() => selectChapter(index)}
-                  onKeyDown={(event) => onTabKey(event, index)}
-                >{t(`screens.${screen.key}.label`)}</button>
-              ))}
-            </div>
-          </GlassSurface>
-          <p className={styles.caption} aria-live={playing ? "off" : "polite"}>{t(`screens.${chapter.key}.caption`)}</p>
-          <p id="iphone-demo-description" className="sr-only">{t("video_description")}</p>
-          <a data-iphone-cta className={styles.link} href={testflightUrl || "https://github.com/getdictus/dictus-ios"}>
-            {testflightUrl ? t("beta") : t("discover")}
-          </a>
-        </div>
-        <div className={styles.phoneFigure}>
-          <div ref={phoneRef} className={styles.phone}>
-            <div className={styles.phoneButtons} aria-hidden="true" />
-            <div id="iphone-screen" role="tabpanel" aria-labelledby={`iphone-tab-${selected}`}
-              tabIndex={0} className={styles.screen}>
-              <video ref={videoRef} id="iphone-demo-video" data-iphone-video
-                src={sourceLoaded ? iphoneVideo : undefined}
-                width={860} height={1864} muted playsInline loop preload="metadata"
-                aria-label={t("video_label")} aria-describedby="iphone-demo-description"
-                aria-hidden={showPoster} className={styles.video} {...events} />
-              <Image src={chapter.poster} width={860} height={1864}
-                sizes="(max-width: 700px) 266px, 290px"
-                alt={t(`screens.${chapter.key}.alt`)}
-                aria-hidden={!showPoster} data-visible={showPoster}
-                className={styles.poster} />
+    <section id="iphone" ref={sectionRef} onFocusCapture={onFocusCapture}
+      className={`${styles.section} ${stageStyles.stage}`} aria-labelledby="iphone-title">
+      <div ref={viewportRef} data-iphone-stage-viewport className={stageStyles.viewport}>
+        <div ref={bubbleOneRef} aria-hidden="true" className={`${stageStyles.bubble} ${stageStyles.bubbleOne}`} />
+        <div ref={bubbleTwoRef} aria-hidden="true" className={`${stageStyles.bubble} ${stageStyles.bubbleTwo}`} />
+        <div className={`${styles.layout} ${stageStyles.scene}`}>
+          <div ref={copyRef} data-iphone-stage-copy className={`${styles.copy} ${stageStyles.copy}`}>
+            <p className={styles.platform}>{t("platform")}</p>
+            <h2 id="iphone-title" className={styles.title}>{t("title_line_one")}<br />{t("title_line_two")}</h2>
+            <p className={styles.description}>{t("description")}</p>
+            <GlassSurface className={styles.picker} style={{ borderRadius: 999 }}>
+              <div ref={groupRef} role="tablist" aria-label={t("picker")} className={styles.options} {...groupProps}>
+                <GlassSelectorLens geometry={geometry} keyboard={keyboard} />
+                {iphoneChapters.map((screen, index) => (
+                  <button
+                    key={screen.key}
+                    ref={(element) => { tabs.current[index] = element; }}
+                    type="button"
+                    role="tab"
+                    id={`iphone-tab-${index}`}
+                    data-lens-key={screen.key}
+                    aria-controls="iphone-screen"
+                    aria-selected={selected === index}
+                    tabIndex={selected === index ? 0 : -1}
+                    onClick={() => selectChapter(index)}
+                    onKeyDown={(event) => onTabKey(event, index)}
+                  >{t(`screens.${screen.key}.label`)}</button>
+                ))}
+              </div>
+            </GlassSurface>
+            <p className={styles.caption} aria-live={playing ? "off" : "polite"}>{t(`screens.${chapter.key}.caption`)}</p>
+            <p id="iphone-demo-description" className="sr-only">{t("video_description")}</p>
+            <a data-iphone-cta className={styles.link} href={testflightUrl || "https://github.com/getdictus/dictus-ios"}>
+              {testflightUrl ? t("beta") : t("discover")}
+            </a>
+          </div>
+          <div ref={phoneAnchorRef} className={`${styles.phoneFigure} ${stageStyles.phoneAnchor}`}>
+            <div ref={phoneMotionRef} data-iphone-stage-phone
+              data-playback-fallback={failed || showPlayButton || undefined} className={stageStyles.phoneMotion}>
+              <div ref={phoneRef} className={`${styles.phone} ${stageStyles.phone}`}>
+                <div className={styles.phoneButtons} aria-hidden="true" />
+                <div id="iphone-screen" role="tabpanel" aria-labelledby={`iphone-tab-${selected}`}
+                  tabIndex={0} className={styles.screen}>
+                  <video ref={videoRef} id="iphone-demo-video" data-iphone-video
+                    src={sourceLoaded ? iphoneVideo : undefined}
+                    width={860} height={1864} muted playsInline loop preload="metadata"
+                    aria-label={t("video_label")} aria-describedby="iphone-demo-description"
+                    aria-hidden={showPoster} className={styles.video} {...events} />
+                  <Image src={chapter.poster} width={860} height={1864}
+                    sizes="(max-width: 700px) 266px, 290px"
+                    alt={t(`screens.${chapter.key}.alt`)}
+                    aria-hidden={!showPoster} data-visible={showPoster}
+                    className={styles.poster} />
+                </div>
+              </div>
+              {(failed || showPlayButton) && <div className={styles.playback}>
+                {failed ? <p className={styles.playbackStatus} role="status">{t("video_unavailable")}</p> : (
+                  <button type="button" className={styles.playbackButton} onClick={startPlayback}
+                    aria-controls="iphone-demo-video">
+                    <svg width="16" height="16" viewBox="0 0 16 16" fill="none" aria-hidden="true">
+                      <path d="m5 3 7 5-7 5V3Z" fill="currentColor" />
+                    </svg>
+                    {t("video_play")}
+                  </button>
+                )}
+              </div>}
             </div>
           </div>
-          {(failed || showPlayButton) && <div className={styles.playback}>
-            {failed ? <p className={styles.playbackStatus} role="status">{t("video_unavailable")}</p> : (
-              <button type="button" className={styles.playbackButton} onClick={startPlayback}
-                aria-controls="iphone-demo-video">
-                <svg width="16" height="16" viewBox="0 0 16 16" fill="none" aria-hidden="true">
-                  <path d="m5 3 7 5-7 5V3Z" fill="currentColor" />
-                </svg>
-                {t("video_play")}
-              </button>
-            )}
-          </div>}
         </div>
+        <p className={`${styles.android} ${stageStyles.android}`}>
+          {t("android")}
+        </p>
       </div>
-      <p className={styles.android}>
-        {t("android")}
-      </p>
     </section>
   );
 }

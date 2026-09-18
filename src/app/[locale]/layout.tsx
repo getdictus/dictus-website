@@ -104,7 +104,7 @@ export default async function LocaleLayout({ children, params }: Props) {
 
   return (
     <html lang={locale} className={`${dmSans.variable} ${dmMono.variable}`}>
-      <body className="overflow-x-hidden bg-ink font-sans text-[var(--theme-text-primary)] antialiased">
+      <body className="bg-ink font-sans text-[var(--theme-text-primary)] antialiased">
         <NextIntlClientProvider messages={messages}>
           <a
             href="#main-content"

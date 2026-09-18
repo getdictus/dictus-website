@@ -110,6 +110,9 @@ html {
 
 body {
   margin: 0;
+  /* Clip decorative overflow without becoming an ancestor scroll container
+     that prevents the iPhone viewport from sticking to the page. */
+  overflow-x: clip;
 }
 
 button,

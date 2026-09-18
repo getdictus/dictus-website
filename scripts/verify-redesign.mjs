@@ -64,6 +64,17 @@ async function settleFrames(page) {
   await page.evaluate(() => new Promise((resolve) => requestAnimationFrame(() => requestAnimationFrame(resolve))));
 }
 
+async function expectSelectorAligned(group) {
+  await expect.poll(() => group.evaluate((node) => {
+    const target = [...node.querySelectorAll("[data-lens-key]")].find((item) => item.dataset.lensKey === node.dataset.lensTarget);
+    const lens = node.querySelector("[data-glass-selector-lens]");
+    if (!target || !lens) return Infinity;
+    const a = target.getBoundingClientRect();
+    const b = lens.getBoundingClientRect();
+    return Math.max(Math.abs(a.left - b.left), Math.abs(a.top - b.top), Math.abs(a.width - b.width), Math.abs(a.height - b.height));
+  }), { message: "The shared selector must align with its current target after fonts, resize and motion settle" }).toBeLessThanOrEqual(1.5);
+}
+
 function collectBrowserErrors(page) {
   const errors = [];
   page.on("pageerror", (error) => errors.push(error.message));
@@ -155,6 +166,16 @@ for (const engine of engines) {
           }
           if (!route) {
             for (const heading of await page.locator("main h2").all()) await visibleToReader(heading);
+            const order = await page.locator("main section[id]").evaluateAll((nodes) => nodes.map((node) => node.id));
+            assert.ok(order.indexOf("iphone") < order.indexOf("desktop"), "iPhone must lead Desktop in the document, including without JavaScript");
+            const hero = page.locator('section[aria-labelledby="hero-title"]');
+            await expect(hero.locator("a").first()).toHaveAttribute("href", "#iphone");
+            const noScriptStage = await page.locator("#iphone").evaluate((node) => ({
+              height: node.getBoundingClientRect().height,
+              sticky: [...node.querySelectorAll("*")].some((child) => getComputedStyle(child).position === "sticky"),
+            }));
+            assert.equal(noScriptStage.sticky, false, "Without JavaScript the iPhone must remain in the normal reading flow");
+            for (const item of await page.locator("[data-product-reveal-item]").all()) await visibleToReader(item);
             assert.equal(await page.locator('a[href*="getdictus/dictus-desktop/releases/download/"]:visible').count(), 10,
               "All ten Desktop installers must be usable without JavaScript");
             const html = await response.text();
@@ -238,6 +259,121 @@ for (const engine of engines) {
     } finally {
       await context.close();
     }
+  });
+
+  await check(`${engine}: shared selectors preview hover without changing selection or video time`, async () => {
+    const context = await browser.newContext({ viewport: { width: 1440, height: 900 } });
+    const page = await context.newPage();
+    try {
+      await page.goto(`${origin}/fr#iphone`);
+      const iphone = page.locator("#iphone");
+      const video = iphone.locator("[data-iphone-video]");
+      await expect.poll(() => video.evaluate((node) => node.readyState), { timeout: 15_000 }).toBeGreaterThanOrEqual(2);
+      await page.evaluate(() => {
+        Object.defineProperty(document, "hidden", { configurable: true, get: () => true });
+        document.dispatchEvent(new Event("visibilitychange"));
+      });
+      await expect.poll(() => video.evaluate((node) => node.paused)).toBe(true);
+      const group = iphone.locator("[data-glass-selector]");
+      const tabs = iphone.getByRole("tab");
+      await tabs.first().click();
+      await expect.poll(() => video.evaluate((node) => node.seeking)).toBe(false);
+      const stillAt = await video.evaluate((node) => node.currentTime);
+      await tabs.nth(1).hover();
+      await expect(group).toHaveAttribute("data-lens-target", "dictation");
+      await expectSelectorAligned(group);
+      await expect(tabs.first()).toHaveAttribute("aria-selected", "true");
+      assert.equal(await video.evaluate((node) => node.currentTime), stillAt, "Hover must not seek the recording");
+      await video.evaluate((node, start) => { node.currentTime = start + 0.2; }, iphoneAppStart);
+      await expect(tabs.last()).toHaveAttribute("aria-selected", "true");
+      await expect(group).toHaveAttribute("data-lens-target", "dictation");
+      await page.mouse.move(5, 450);
+      await expect(group).toHaveAttribute("data-lens-target", "app");
+      await expectSelectorAligned(group);
+
+      const desktop = page.locator("#desktop");
+      const desktopGroup = desktop.locator("[data-glass-selector]");
+      const mac = desktop.getByRole("tab", { name: /macOS/i });
+      const windows = desktop.getByRole("tab", { name: /Windows/i });
+      await mac.click();
+      await windows.hover();
+      await expect(desktopGroup).toHaveAttribute("data-lens-target", "win");
+      await expectSelectorAligned(desktopGroup);
+      await expect(mac).toHaveAttribute("aria-selected", "true");
+      await windows.click();
+      await desktop.getByRole("tab", { name: /Linux/i }).hover();
+      await page.mouse.move(5, 450);
+      await expect(desktopGroup).toHaveAttribute("data-lens-target", "win");
+      await expect(windows).toHaveAttribute("aria-selected", "true");
+      await expectSelectorAligned(desktopGroup);
+
+      const nav = page.locator("nav[data-glass-selector]");
+      const home = nav.locator('[data-lens-key="/"]');
+      if (preview) {
+        await nav.locator('[data-lens-key="/blog"]').hover();
+        await expect(nav).toHaveAttribute("data-lens-target", "/blog");
+        await expectSelectorAligned(nav);
+        await expect(home).toHaveAttribute("aria-current", "page");
+        assert.equal(new URL(page.url()).pathname, "/fr", "A navigation preview must not navigate");
+      }
+      await nav.locator("[data-lens-excluded]").hover();
+      await expect.poll(() => nav.locator("[data-glass-selector-lens]").evaluate((node) => getComputedStyle(node).opacity)).toBe("0");
+      await expect(home).toHaveAttribute("aria-current", "page");
+      await page.mouse.move(5, 450);
+      await expect(nav).toHaveAttribute("data-lens-target", "/");
+      await expectSelectorAligned(nav);
+    } finally { await context.close(); }
+  });
+
+  await check(`${engine}: shared selectors support keyboard touch reduced motion and resize`, async () => {
+    const context = await browser.newContext({ reducedMotion: "reduce", viewport: { width: 1440, height: 900 } });
+    const page = await context.newPage();
+    try {
+      await page.goto(`${origin}/fr#iphone`);
+      for (const id of ["iphone", "desktop"]) {
+        const section = page.locator(`#${id}`);
+        const group = section.locator("[data-glass-selector]");
+        const tabs = section.getByRole("tab");
+        await tabs.first().focus();
+        await page.keyboard.press("End");
+        await expect(tabs.last()).toBeFocused();
+        await expect(tabs.last()).toHaveAttribute("aria-selected", "true");
+        await expect(group.locator("[data-glass-selector-lens]")).toHaveAttribute("data-instant", "true");
+        await expectSelectorAligned(group);
+        for (const width of [320, 390, 768, 1440]) {
+          await page.setViewportSize({ width, height: 900 });
+          await section.scrollIntoViewIfNeeded();
+          await settleFrames(page);
+          await expectSelectorAligned(group);
+          await noOverflow(page);
+        }
+        assert.ok(await group.locator("[data-glass-selector-lens]").evaluate((node) => getComputedStyle(node).transitionDuration
+          .split(",").every((duration) => parseFloat(duration) <= 0.0001)),
+          "Reduced motion and keyboard navigation must position the selector immediately");
+        await page.keyboard.press("Home");
+        await expect(tabs.first()).toHaveAttribute("aria-selected", "true");
+      }
+    } finally { await context.close(); }
+
+    const touch = await browser.newContext({ hasTouch: true, reducedMotion: "reduce", viewport: { width: 390, height: 844 } });
+    const touchPage = await touch.newPage();
+    try {
+      await touchPage.goto(`${origin}/fr#iphone`);
+      for (const id of ["iphone", "desktop"]) {
+        const section = touchPage.locator(`#${id}`);
+        const group = section.locator("[data-glass-selector]");
+        const items = group.locator("[data-lens-key]");
+        await items.nth(1).tap();
+        const key = await items.nth(1).getAttribute("data-lens-key");
+        await expect(items.nth(1)).toHaveAttribute("aria-selected", "true");
+        await expect(group).toHaveAttribute("data-lens-target", key);
+        await items.last().dispatchEvent("pointerover", { pointerType: "touch" });
+        await expect(group).toHaveAttribute("data-lens-target", key);
+        await expectSelectorAligned(group);
+      }
+      assert.equal(await touchPage.locator("[data-iphone-video]").getAttribute("src"), null,
+        "Touch browsing reduced-motion chapters must keep the recording unloaded");
+    } finally { await touch.close(); }
   });
 
   await check(`${engine}: homepage removes pause controls and visible playback notes`, async () => {
@@ -355,28 +491,266 @@ for (const engine of engines) {
     }
   });
 
-  await check(`${engine}: iPhone video loads near the phone and loops real chapter footage`, async () => {
+  await check(`${engine}: Desktop reveals once and iPhone keeps a prominent direct CTA`, async () => {
+    const context = await browser.newContext({ viewport: { width: 1440, height: 1000 } });
+    const page = await context.newPage();
+    try {
+      await page.goto(`${origin}/fr`);
+      await expect(page.locator("#iphone")).toHaveAttribute("data-iphone-cinema", "true");
+      const reveal = page.locator("#desktop [data-product-reveal]");
+      const items = reveal.locator("[data-product-reveal-item]");
+      await expect(items).toHaveCount(2);
+      await expect.poll(() => items.first().evaluate((node) => getComputedStyle(node).opacity)).toBe("0");
+      await reveal.scrollIntoViewIfNeeded();
+      await expect(reveal).toHaveAttribute("data-revealed", "true");
+      for (const item of await items.all()) await visibleToReader(item);
+      const completed = await items.evaluateAll((nodes) => nodes.map((node) => ({
+        opacity: getComputedStyle(node).opacity,
+        transform: node.style.transform,
+        animations: node.getAnimations().length,
+      })));
+      assert.ok(completed.every((item) => item.opacity === "1" && item.transform === "" && item.animations === 0),
+        "The completed Desktop entrance must release its transforms and animation objects");
+      await page.evaluate(() => window.scrollTo({ top: 0, behavior: "instant" }));
+      await settleFrames(page);
+      await reveal.scrollIntoViewIfNeeded();
+      await settleFrames(page);
+      assert.equal(await items.evaluateAll((nodes) => nodes.some((node) => node.getAnimations().length > 0)), false,
+        "Returning to Desktop must not replay its entrance");
+      const cta = page.locator("[data-iphone-cta]");
+      const appearance = await cta.evaluate((node) => ({
+        href: node.href,
+        color: getComputedStyle(node).backgroundColor,
+        height: node.getBoundingClientRect().height,
+      }));
+      assert.match(appearance.href, /^https:\/\/(?:testflight\.apple\.com\/|github\.com\/getdictus\/dictus-ios)/);
+      const channels = appearance.color.match(/[\d.]+/g)?.map(Number) || [];
+      assert.ok(channels.length >= 3 && channels[2] > channels[0] + 50 && channels[2] > channels[1] + 30,
+        `The direct iPhone CTA must have a blue background (${appearance.color})`);
+      assert.ok(appearance.height >= 44, "The direct iPhone CTA needs an accessible touch target");
+
+      await page.emulateMedia({ reducedMotion: "reduce" });
+      await page.goto(`${origin}/en`);
+      await expect(reveal).toHaveAttribute("data-revealed", "true");
+      for (const item of await items.all()) await visibleToReader(item);
+      assert.equal(await items.evaluateAll((nodes) => nodes.some((node) => node.getAnimations().length > 0)), false,
+        "Reduced motion must show Desktop immediately");
+    } finally { await context.close(); }
+  });
+
+  await check(`${engine}: iPhone-first cinema follows scroll while its video keeps a separate clock`, async () => {
+    const context = await browser.newContext({ viewport: { width: 1440, height: 1000 } });
+    const page = await context.newPage();
+    const requests = [];
+    page.on("request", (request) => { if (/\/videos\/products\/ios-demo\.mp4/.test(request.url())) requests.push(request.url()); });
+    try {
+      await page.goto(`${origin}/en`);
+      await page.evaluate(() => document.fonts.ready);
+      const stage = page.locator("#iphone");
+      const phone = stage.locator("[data-iphone-stage-phone]");
+      const copy = stage.locator("[data-iphone-stage-copy]");
+      const video = stage.locator("[data-iphone-video]");
+      const hero = page.locator('section[aria-labelledby="hero-title"]');
+      await expect(hero.locator("a").first()).toHaveAttribute("href", "#iphone");
+      const order = await page.locator("main section[id]").evaluateAll((nodes) => nodes.map((node) => node.id));
+      assert.ok(order.indexOf("iphone") < order.indexOf("desktop"));
+      await expect(stage).toHaveAttribute("data-iphone-cinema", "true");
+      await page.waitForTimeout(120);
+      assert.equal(await video.getAttribute("src"), null, "The iPhone-first order must not fetch its MP4 from the hero");
+      assert.equal(requests.length, 0);
+      const metrics = await stage.evaluate((node) => ({ top: node.getBoundingClientRect().top + scrollY, height: node.getBoundingClientRect().height, viewport: innerHeight }));
+      assert.ok(Math.abs(metrics.height - metrics.viewport * 1.8) <= 2, JSON.stringify(metrics));
+      assert.equal(await stage.locator("[data-iphone-stage-viewport]").evaluate((node) => getComputedStyle(node).position), "sticky");
+      const go = async (progress) => {
+        await page.evaluate(({ top, height, viewport, progress }) => window.scrollTo({
+          top: top + (height - viewport) * progress, behavior: "instant",
+        }), { ...metrics, progress });
+        await expect.poll(() => stage.getAttribute("data-stage-progress").then(Number)).toBeCloseTo(progress, 1);
+        await settleFrames(page);
+      };
+      const center = () => phone.evaluate((node) => {
+        const bounds = node.getBoundingClientRect();
+        return { x: bounds.left + bounds.width / 2, y: bounds.top + bounds.height / 2, width: bounds.width, height: bounds.height };
+      });
+      await go(0.3);
+      await expect(stage).toHaveAttribute("data-stage-settled", "false");
+      await expect(video).toHaveAttribute("src", "/videos/products/ios-demo.mp4");
+      await expect.poll(() => requests.length).toBeGreaterThan(0);
+      assert.equal(await video.evaluate((node) => node.paused), true, "Video must wait until the cinematic arrangement is readable");
+      const centered = await center();
+      assert.ok(Math.abs(centered.x - 720) <= 60, `Intro phone must be centered: ${JSON.stringify(centered)}`);
+      await go(0.8);
+      await expect(stage).toHaveAttribute("data-stage-settled", "true");
+      await visibleToReader(copy);
+      const right = await center();
+      assert.ok(right.x > centered.x + 100, `Phone must move from center into the right column: ${JSON.stringify({ centered, right })}`);
+      await expect.poll(() => video.evaluate((node) => node.paused), { timeout: 15_000 }).toBe(false);
+      await expect.poll(() => video.evaluate((node) => node.currentTime)).toBeGreaterThan(0.15);
+      const beforeScroll = await video.evaluate((node) => node.currentTime);
+      await go(0.95);
+      const afterScroll = await video.evaluate((node) => node.currentTime);
+      assert.ok(afterScroll >= beforeScroll - 1 / 60 && afterScroll < beforeScroll + 2,
+        "Scrolling the settled stage must not seek the recording to a chapter");
+      await go(0.25);
+      await expect(stage).toHaveAttribute("data-stage-settled", "false");
+      await expect.poll(() => video.evaluate((node) => node.paused)).toBe(true);
+      const reversed = await center();
+      assert.ok(Math.abs(reversed.x - centered.x) <= 3, "Scrolling backwards must bring the phone back to its centered position");
+      const pausedAt = await video.evaluate((node) => node.currentTime);
+      await page.waitForTimeout(160);
+      assert.ok(Math.abs(await video.evaluate((node) => node.currentTime) - pausedAt) < 1 / 60);
+      await page.evaluate(({ top, height, viewport }) => {
+        for (const progress of [0.9, 0.1, 0.8]) window.scrollTo({ top: top + (height - viewport) * progress, behavior: "instant" });
+      }, metrics);
+      await expect(stage).toHaveAttribute("data-stage-settled", "true");
+      await settleFrames(page);
+      const settled = await center();
+      assert.ok(Object.values(settled).every(Number.isFinite));
+      assert.ok(Math.abs(settled.x - right.x) <= 3, "Fast scroll changes must resolve to the current arrangement");
+      await expect.poll(() => video.evaluate((node) => node.paused)).toBe(false);
+      assert.ok(await video.evaluate((node) => node.currentTime) >= pausedAt - 1 / 60, "The video must resume its prior frame after reverse scrolling");
+      await noOverflow(page);
+    } finally { await context.close(); }
+  });
+
+  await check(`${engine}: iPhone cinema falls back for small short and reduced-motion viewports`, async () => {
+    for (const settings of [
+      { viewport: { width: 390, height: 844 } },
+      { viewport: { width: 1023, height: 900 } },
+      { viewport: { width: 1440, height: 799 } },
+      { viewport: { width: 1440, height: 1000 }, reducedMotion: "reduce" },
+    ]) {
+      const context = await browser.newContext(settings);
+      const page = await context.newPage();
+      try {
+        await page.goto(`${origin}/fr`);
+        const stage = page.locator("#iphone");
+        await expect(stage).toHaveAttribute("data-iphone-cinema", "false");
+        assert.notEqual(await stage.locator("[data-iphone-stage-viewport]").evaluate((node) => getComputedStyle(node).position), "sticky");
+        assert.ok(await stage.evaluate((node) => parseFloat(getComputedStyle(node).minHeight) < innerHeight * 1.5),
+          "Fallback must remove the extra cinematic scroll distance");
+        await visibleToReader(stage.locator("[data-iphone-stage-copy]"));
+        await stage.scrollIntoViewIfNeeded();
+        await noOverflow(page);
+        const phone = await stage.locator("[data-iphone-stage-phone]").boundingBox();
+        assert.ok(phone.width > 200 && phone.width <= settings.viewport.width,
+          "Fallback must retain a readable device rather than a tiny desktop composition");
+      } finally { await context.close(); }
+    }
+  });
+
+  await check(`${engine}: iPhone cinema preserves reading on viewport and motion changes`, async () => {
+    for (const change of ["narrow", "short", "reduced"]) {
+      const context = await browser.newContext({ viewport: { width: 1440, height: 1000 } });
+      const page = await context.newPage();
+      try {
+        await page.goto(`${origin}/fr`);
+        const stage = page.locator("#iphone");
+        await expect(stage).toHaveAttribute("data-iphone-cinema", "true");
+        await stage.evaluate((node) => window.scrollTo({
+          top: node.getBoundingClientRect().top + scrollY + (node.offsetHeight - innerHeight) * 0.45,
+          behavior: "instant",
+        }));
+        await expect.poll(() => stage.getAttribute("data-stage-progress").then(Number)).toBeCloseTo(0.45, 1);
+        if (change === "narrow") await page.setViewportSize({ width: 1023, height: 900 });
+        else if (change === "short") await page.setViewportSize({ width: 1440, height: 799 });
+        else await page.emulateMedia({ reducedMotion: "reduce" });
+        await expect(stage).toHaveAttribute("data-iphone-cinema", "false");
+        await expect(stage).toHaveAttribute("data-stage-settled", "true");
+        await visibleToReader(stage.locator("[data-iphone-stage-copy]"));
+        await expect(stage.locator("h2")).toBeInViewport();
+        assert.notEqual(await stage.locator("[data-iphone-stage-viewport]").evaluate((node) => getComputedStyle(node).position), "sticky");
+        assert.ok(await stage.evaluate((node) => parseFloat(getComputedStyle(node).minHeight) < innerHeight * 1.5));
+        await noOverflow(page);
+        if (change === "reduced") assert.equal(await stage.locator("video").evaluate((node) => node.paused), true);
+      } finally { await context.close(); }
+    }
+
+    const context = await browser.newContext({ viewport: { width: 1024, height: 800 } });
+    const page = await context.newPage();
+    try {
+      await page.goto(`${origin}/en`);
+      const stage = page.locator("#iphone");
+      await expect(stage).toHaveAttribute("data-iphone-cinema", "true");
+      await stage.evaluate((node) => window.scrollTo({
+        top: node.getBoundingClientRect().top + scrollY + (node.offsetHeight - innerHeight) * 0.8,
+        behavior: "instant",
+      }));
+      await expect(stage).toHaveAttribute("data-stage-settled", "true");
+      await settleFrames(page);
+      const phone = await stage.locator("[data-iphone-stage-phone]").boundingBox();
+      assert.ok(phone.y >= 100 && phone.y + phone.height <= 800 - 24,
+        `At the smallest cinematic viewport the phone must clear navigation and screen edges (${JSON.stringify(phone)})`);
+      await expect(stage.locator("h2")).toBeInViewport();
+      await expect(stage.locator("[data-iphone-cta]")).toBeInViewport();
+      await noOverflow(page);
+
+      await page.addInitScript(() => {
+        const play = HTMLMediaElement.prototype.play;
+        HTMLMediaElement.prototype.play = function () {
+          return this.id === "iphone-demo-video"
+            ? Promise.reject(new DOMException("Test autoplay policy", "NotAllowedError"))
+            : play.call(this);
+        };
+      });
+      await page.goto("about:blank");
+      await page.goto(`${origin}/en`);
+      await expect(stage).toHaveAttribute("data-iphone-cinema", "true");
+      await stage.evaluate((node) => window.scrollTo({
+        top: node.getBoundingClientRect().top + scrollY + (node.offsetHeight - innerHeight) * 0.8,
+        behavior: "instant",
+      }));
+      const play = stage.getByRole("button", { name: "Play the demo", exact: true });
+      await expect(play).toBeVisible();
+      const playBounds = await play.boundingBox();
+      const phoneWithFallback = await stage.locator("[data-iphone-stage-phone]").boundingBox();
+      const footer = await stage.locator("[data-iphone-stage-viewport] > p").boundingBox();
+      assert.ok(phoneWithFallback.y >= 100 && playBounds.y + playBounds.height <= footer.y - 8,
+        `A denied autoplay must leave room for Play above the Android note (${JSON.stringify({ phoneWithFallback, playBounds, footer })})`);
+      await expect(play).toBeInViewport();
+    } finally { await context.close(); }
+  });
+
+  await check(`${engine}: iPhone anchors and keyboard focus bypass the cinematic entrance`, async () => {
+    const context = await browser.newContext({ viewport: { width: 1440, height: 1000 } });
+    const page = await context.newPage();
+    try {
+      await page.goto(`${origin}/fr#iphone`);
+      const stage = page.locator("#iphone");
+      await expect(stage).toHaveAttribute("data-stage-bypassed", "true");
+      await expect(stage).toHaveAttribute("data-iphone-cinema", "false");
+      await visibleToReader(stage.locator("[data-iphone-stage-copy]"));
+      await expect(stage.getByRole("tab").first()).toBeInViewport();
+      await page.goto(`${origin}/fr`);
+      await expect(stage).toHaveAttribute("data-iphone-cinema", "true");
+      await page.locator('section[aria-labelledby="hero-title"] a').first().click();
+      await expect(stage).toHaveAttribute("data-stage-bypassed", "true");
+      await expect(stage.getByRole("tab").first()).toBeInViewport();
+      await page.goto(`${origin}/fr`);
+      await expect(stage).toHaveAttribute("data-iphone-cinema", "true");
+      await page.keyboard.press("Tab");
+      await stage.getByRole("tab").first().focus();
+      await expect(stage).toHaveAttribute("data-stage-bypassed", "true");
+      await expect(stage).toHaveAttribute("data-iphone-cinema", "false");
+      await expect(stage.getByRole("tab").first()).toBeFocused();
+      await expect(stage.getByRole("tab").first()).toBeInViewport();
+    } finally { await context.close(); }
+  });
+
+  await check(`${engine}: iPhone video loops real chapter footage independently of the stage`, async () => {
     const context = await browser.newContext({ viewport: { width: 1440, height: 1000 } });
     const page = await context.newPage();
     const errors = collectBrowserErrors(page);
     const requests = [];
     page.on("request", (request) => { if (/\/videos\/products\/ios-demo\.mp4/.test(request.url())) requests.push(request.url()); });
     try {
-      await page.goto(`${origin}/fr`);
+      await page.goto(`${origin}/fr#iphone`);
       const iphone = page.locator("#iphone");
       const video = iphone.locator("[data-iphone-video]");
       await settleFrames(page);
-      assert.equal(await video.getAttribute("src"), null, "Hero must not attach the demo source");
-      assert.equal(requests.length, 0, "Hero must not fetch the MP4");
       const panel = iphone.getByRole("tabpanel");
-      await panel.evaluate((node) => window.scrollTo({
-        top: window.scrollY + node.getBoundingClientRect().top - window.innerHeight - 150,
-        behavior: "instant",
-      }));
       await expect(video).toHaveAttribute("src", "/videos/products/ios-demo.mp4");
       await expect.poll(() => requests.length, { timeout: 15_000 }).toBeGreaterThan(0);
-      await page.waitForTimeout(150);
-      assert.equal(await video.evaluate((node) => node.paused), true, "Prefetching below the viewport must not start playback");
       await panel.scrollIntoViewIfNeeded();
       await expect.poll(() => video.evaluate((node) => node.readyState), { timeout: 15_000 }).toBeGreaterThanOrEqual(2);
       const media = await video.evaluate((node) => ({
@@ -458,7 +832,7 @@ for (const engine of engines) {
     const context = await browser.newContext({ viewport: { width: 1440, height: 1000 } });
     const page = await context.newPage();
     try {
-      await page.goto(`${origin}/en`);
+      await page.goto(`${origin}/en#iphone`);
       const iphone = page.locator("#iphone");
       const video = iphone.locator("[data-iphone-video]");
       const isPaused = () => video.evaluate((node) => node.paused);
@@ -512,7 +886,7 @@ for (const engine of engines) {
     const blocked = new Promise((resolve) => { release = resolve; });
     await page.route("**/videos/products/ios-demo.mp4", async (route) => { await blocked; await route.continue(); });
     try {
-      await page.goto(`${origin}/fr`);
+      await page.goto(`${origin}/fr#iphone`);
       const iphone = page.locator("#iphone");
       const video = iphone.locator("[data-iphone-video]");
       await iphone.getByRole("tab").last().click();
@@ -540,7 +914,10 @@ for (const engine of engines) {
           return play.call(this);
         };
       });
-      await page.goto(`${origin}/fr`);
+      // Chromium treats a navigation to this identical fragment URL as a
+      // same-document jump; use a fresh document so the policy stub is installed.
+      await page.goto("about:blank");
+      await page.goto(`${origin}/fr#iphone`);
       await iphone.getByRole("tabpanel").scrollIntoViewIfNeeded();
       await expect.poll(() => video.evaluate((node) => node.readyState), { timeout: 15_000 }).toBeGreaterThanOrEqual(1);
       await expect(iphone.getByRole("button", { name: "Lire la démonstration", exact: true })).toBeVisible();
@@ -583,7 +960,7 @@ for (const engine of engines) {
           Object.defineProperty(navigator, "platform", { get: () => platform });
           Object.defineProperty(navigator, "maxTouchPoints", { get: () => touchPoints });
         }, { platform, touchPoints });
-        await page.goto(`${origin}/fr`);
+        await page.goto(`${origin}/fr#iphone`);
         // Confirm event handlers are hydrated before testing the detection result.
         await page.locator("#iphone-tab-1").click();
         await expect(page.locator("#iphone-tab-1")).toHaveAttribute("aria-selected", "true");
@@ -745,7 +1122,11 @@ for (const engine of engines) {
       await expect(pill).toHaveAttribute("data-running", "true");
 
       const story = page.locator("[data-glass-story]");
-      await story.scrollIntoViewIfNeeded();
+      // Desktop now directly precedes Uses; a minimal scroll can leave its
+      // pill visible. Put the reading scene fully on screen before checking
+      // that the offscreen Desktop animation suspends.
+      await story.evaluate((node) => window.scrollTo({ top: node.getBoundingClientRect().top + scrollY - 120, behavior: "instant" }));
+      await expect(pill).not.toBeInViewport();
       await expect(story).toHaveAttribute("data-playing", "true");
       await expect(pill).toHaveAttribute("data-running", "false");
       const lens = story.locator("[data-glass-lens]");

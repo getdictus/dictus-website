@@ -1,6 +1,6 @@
 "use client";
 
-import { useCallback, useEffect, useRef, useState } from "react";
+import { useCallback, useEffect, useRef, useState, type RefObject } from "react";
 
 export const iphoneChapters = [
   { key: "keyboard", start: 0, poster: "/images/products/ios-demo-keyboard.jpg" },
@@ -10,10 +10,18 @@ export const iphoneChapters = [
 
 export const iphoneVideo = "/videos/products/ios-demo.mp4";
 
+type DemoOptions = {
+  observationRef?: RefObject<HTMLElement | null>;
+  preloadAllowed?: boolean;
+  playbackAllowed?: boolean;
+};
+
 /** One continuous capture; chapter seeks never recreate an iOS transition. */
-export function useIphoneDemo() {
+export function useIphoneDemo({ observationRef, preloadAllowed = true, playbackAllowed = true }: DemoOptions = {}) {
   const videoRef = useRef<HTMLVideoElement>(null);
   const phoneRef = useRef<HTMLDivElement>(null);
+  const nearPhone = useRef(false);
+  const preloadPermission = useRef(preloadAllowed);
   const pendingSeek = useRef<number | null>(0);
   const pausedPosition = useRef<number | null>(null);
   const seekInProgress = useRef(false);
@@ -32,9 +40,18 @@ export function useIphoneDemo() {
   const [failed, setFailed] = useState(false);
 
   useEffect(() => {
-    const phone = phoneRef.current;
+    preloadPermission.current = preloadAllowed;
+    if (preloadAllowed && nearPhone.current && !window.matchMedia("(prefers-reduced-motion: reduce)").matches) {
+      // A scroll scene can become eligible after the proximity observer fired.
+      const frame = requestAnimationFrame(() => setSourceLoaded(true));
+      return () => cancelAnimationFrame(frame);
+    }
+  }, [preloadAllowed]);
+
+  useEffect(() => {
+    // Scroll transforms affect a child, while visibility uses its stable slot.
+    const phone = observationRef?.current ?? phoneRef.current;
     if (!phone) return;
-    let near = false;
     const preference = window.matchMedia("(prefers-reduced-motion: reduce)");
     const onMotionPreference = () => {
       setReducedMotion(preference.matches);
@@ -42,7 +59,7 @@ export function useIphoneDemo() {
         // A newly enabled preference cancels any earlier playback opt-in.
         setExplicitPlayback(false);
         videoRef.current?.pause();
-      } else if (near) setSourceLoaded(true);
+      } else if (nearPhone.current && preloadPermission.current) setSourceLoaded(true);
     };
     onMotionPreference();
     preference.addEventListener("change", onMotionPreference);
@@ -55,8 +72,8 @@ export function useIphoneDemo() {
 
     const preloadObserver = new IntersectionObserver(([entry]) => {
       if (!entry.isIntersecting) return;
-      near = true;
-      if (!preference.matches) setSourceLoaded(true);
+      nearPhone.current = true;
+      if (!preference.matches && preloadPermission.current) setSourceLoaded(true);
       preloadObserver.disconnect();
     }, { rootMargin: "300px" });
     const playbackObserver = new IntersectionObserver(([entry]) => {
@@ -72,7 +89,7 @@ export function useIphoneDemo() {
       preference.removeEventListener("change", onMotionPreference);
       document.removeEventListener("visibilitychange", onVisibility);
     };
-  }, []);
+  }, [observationRef]);
 
   const applyPendingSeek = useCallback(() => {
     const video = videoRef.current;
@@ -100,7 +117,7 @@ export function useIphoneDemo() {
     });
   }, []);
 
-  const canPlay = sourceLoaded && metadataReady && inView && documentVisible
+  const canPlay = sourceLoaded && metadataReady && inView && documentVisible && playbackAllowed
     && !blocked && !failed
     && (reducedMotion === false || explicitPlayback);
 
@@ -149,7 +166,7 @@ export function useIphoneDemo() {
     setSourceLoaded(true);
     applyPendingSeek();
     // Keep an explicit play inside the user gesture for Safari's media policy.
-    if (metadataReady && inView && documentVisible && !failed) requestPlay();
+    if (metadataReady && inView && documentVisible && playbackAllowed && !failed) requestPlay();
   }
 
   const events = {
