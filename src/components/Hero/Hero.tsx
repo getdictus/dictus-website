@@ -12,11 +12,11 @@ export default function Hero() {
       <div className={styles.content}>
         <h1 id="hero-title">{t("headline")}</h1>
         <p>{t("subtitle")}</p>
-        <a className={styles.cta} href="#desktop">{t("cta_discover")}<span aria-hidden="true">⌄</span></a>
+        <a className={styles.cta} href="#iphone">{t("cta_discover")}<span aria-hidden="true">⌄</span></a>
         <div className={styles.platforms}>
-          <a href="#desktop">{t("platform_desktop")}</a>
-          <span aria-hidden="true">/</span>
           <a href="#iphone">{t("platform_ios")}</a>
+          <span aria-hidden="true">/</span>
+          <a href="#desktop">{t("platform_desktop")}</a>
         </div>
       </div>
     </section>

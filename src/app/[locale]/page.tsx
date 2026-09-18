@@ -45,8 +45,8 @@ export default async function HomePage({ params }: Props) {
   return (
     <>
       <Hero />
-      <Platforms downloads={downloads} />
       <ProductScenes />
+      <Platforms downloads={downloads} />
       <Features />
       <HowItWorks />
       <Comparison />

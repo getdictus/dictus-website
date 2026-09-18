@@ -59,7 +59,7 @@ export default function ProductScenes() {
           </GlassSurface>
           <p className={styles.caption} aria-live={playing ? "off" : "polite"}>{t(`screens.${chapter.key}.caption`)}</p>
           <p id="iphone-demo-description" className="sr-only">{t("video_description")}</p>
-          <a className={styles.link} href={testflightUrl || "https://github.com/getdictus/dictus-ios"}>
+          <a data-iphone-cta className={styles.link} href={testflightUrl || "https://github.com/getdictus/dictus-ios"}>
             {testflightUrl ? t("beta") : t("discover")}
           </a>
         </div>

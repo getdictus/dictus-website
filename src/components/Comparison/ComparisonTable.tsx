@@ -1,6 +1,6 @@
 import { useTranslations } from "next-intl";
 
-export const platforms = ["desktop", "ios", "android"] as const;
+export const platforms = ["ios", "desktop", "android"] as const;
 export const comparisonRows = ["availability", "interaction", "pricing"] as const;
 
 export default function ComparisonTable() {
