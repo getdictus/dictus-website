@@ -16,204 +16,326 @@
     "review": {},
     "locales": {
       "fr": {
-        "slug": "local-par-defaut",
-        "title": "Local par défaut : lire la promesse de Dictus",
-        "summary": "Transcription, post-traitement et réseau : les distinctions utiles pour comprendre ce que signifie « local par défaut ».",
-        "intro": "La transcription audio de Dictus Desktop s’effectue sur l’ordinateur. Un post-traitement facultatif peut ensuite transmettre le texte au fournisseur choisi. Cette note de preview précise ces deux étapes et les limites de la promesse.",
+        "slug": "dictee-vocale-locale-confidentialite",
+        "title": "Dictée vocale locale ou cloud : où vont votre voix et votre texte ?",
+        "summary": "Comprendre le trajet de l’audio, de la transcription et du texte corrigé, puis vérifier les téléchargements, la conservation et les options réseau.",
+        "intro": "Une dictée locale transforme l’audio en texte sur votre appareil. Une transcription cloud envoie l’audio à un service distant pour cette étape. Mais cette seule distinction ne dit pas tout : une reformulation peut ensuite transmettre le texte, un historique peut en garder une copie et l’application de destination peut le synchroniser. Pour choisir, suivez séparément la voix et le texte.",
         "category": "Confidentialité",
-        "tags": [],
+        "tags": [
+          "Traitement local",
+          "Données personnelles"
+        ],
         "seo": {
-          "title": "Local par défaut : lire la promesse de Dictus — Dictus",
-          "description": "Transcription, post-traitement et réseau : les distinctions utiles pour comprendre ce que signifie « local par défaut »."
+          "title": "Dictée vocale locale ou cloud : comprendre la confidentialité",
+          "description": "Où vont votre voix et votre texte ? Distinguez transcription locale, reformulation, historique et connexions réseau dans un outil de dictée."
         },
         "social": {
-          "title": "Local par défaut : lire la promesse de Dictus",
-          "description": "Transcription, post-traitement et réseau : les distinctions utiles pour comprendre ce que signifie « local par défaut »."
+          "title": "Votre voix, votre texte : comprendre la dictée locale",
+          "description": "Un guide pour suivre les données étape par étape et poser les bonnes questions avant de choisir un outil de dictée."
         },
         "image": {
           "src": "/images/products/desktop-general-fr.jpg",
           "width": 680,
           "height": 570,
-          "alt": "Les réglages Général de Dictus Desktop en français sur macOS.",
-          "caption": "Capture authentique de Dictus Desktop sur macOS, réalisée le 17 septembre 2026. La langue de cette interface est conservée dans cet article."
+          "alt": "Les réglages Général de Dictus Desktop sur macOS, en français, avec un modèle vocal local sélectionné.",
+          "caption": "Capture réelle de Dictus Desktop 0.3.0 sur macOS, le 17 septembre 2026, en français. Elle illustre le choix du modèle ; une image de réglages ne constitue pas un audit des connexions réseau."
         },
         "cta": {
-          "label": "Découvrir la version ordinateur",
-          "description": "Voir la présentation et les téléchargements de Dictus Desktop.",
-          "href": "/fr#desktop"
+          "label": "Lire la politique de confidentialité",
+          "description": "Consulter les informations de Dictus et poursuivre avec les guides iPhone et ordinateur liés ci-dessous.",
+          "href": "/fr/privacy"
         },
         "sections": [
           {
-            "id": "audio-et-texte",
-            "heading": "Distinguer l’audio et le texte",
+            "id": "suivre-les-etapes",
+            "heading": "Suivre les données en plusieurs étapes",
             "paragraphs": [
-              "Une dictée fait intervenir plusieurs éléments : la voix enregistrée, le texte obtenu et l’application dans laquelle ce texte sera utilisé. Le mot « local » ne décrit pas forcément le même trajet pour chacun de ces éléments. Pour lire une promesse de confidentialité avec précision, il faut donc commencer par identifier l’opération dont il est question. Ici, la promesse documentée concerne la transcription audio de la version ordinateur : elle est réalisée localement.",
-              "Cette distinction évite de donner au lecteur une garantie plus large que le comportement décrit. Une application de dictée peut traiter un enregistrement sur l’appareil tout en ayant besoin du réseau pour d’autres usages. Le fait qu’un écran présente un modèle local ne suffit pas non plus à décrire tous les réglages possibles de l’application. La capture illustre une interface réelle ; le code public et les explications du produit permettent d’en examiner le fonctionnement."
+              "Imaginez une courte note dictée pour vous-même. Votre microphone produit d’abord de l’audio. Un moteur de reconnaissance transforme ensuite cet audio en mots. Une éventuelle fonction de correction ou de reformulation travaille sur ce texte. Enfin, le résultat arrive dans une note, un document ou une messagerie. Ces opérations peuvent avoir des destinations différentes.",
+              "Il faut donc poser plusieurs questions à un outil de dictée : où est traité l’audio, où est traité le texte, qu’est-ce qui est enregistré et que devient le résultat après insertion ? Une réponse sur la première étape ne suffit pas à décrire toute la chaîne."
+            ],
+            "bullets": [
+              "Capture : le microphone recueille votre voix pour l’enregistrement en cours.",
+              "Transcription : le modèle convertit cet audio en texte, sur l’appareil ou chez un fournisseur distant.",
+              "Amélioration facultative : une autre fonction peut corriger ou reformuler le texte, elle aussi localement ou à distance.",
+              "Conservation et destination : l’outil peut garder un historique ; l’application qui reçoit le texte a ensuite son propre fonctionnement."
+            ]
+          },
+          {
+            "id": "local-ou-distant",
+            "heading": "Ce qui change entre une transcription locale et distante",
+            "paragraphs": [
+              "En local, le calcul nécessaire à la reconnaissance se fait sur votre appareil. Le modèle doit être disponible et l’appareil fournit les ressources de calcul et de stockage. Une fois cette préparation terminée, la transcription peut fonctionner sans connexion si le moteur et la configuration choisis le permettent.",
+              "Dans une transcription distante, l’audio est transmis à un service qui effectue le calcul. Il faut alors examiner les conditions de ce service : données envoyées, durée de conservation, usages autorisés et possibilités de suppression. Le mot « cloud » ne suffit pas à répondre à ces questions ; les pratiques doivent se vérifier fournisseur par fournisseur.",
+              "Ces modes ne permettent pas, à eux seuls, de déduire une vitesse ou une précision universelle. Le modèle, le matériel, l’environnement sonore et le contenu dicté comptent. Pour votre usage, essayez un court passage sans information sensible et relisez le résultat."
             ],
             "bullets": []
           },
           {
-            "id": "transcription-locale",
-            "heading": "La transcription sur l’ordinateur",
+            "id": "preparer-hors-ligne",
+            "heading": "Hors ligne après préparation ne signifie pas sans réseau à l’installation",
             "paragraphs": [
-              "La transcription transforme la parole en texte. Dans Dictus Desktop, ce traitement audio s’effectue sur l’ordinateur. Le site présente la version pour macOS, Windows et Linux. La capture de cet article provient de macOS : ses bordures de fenêtre ne décrivent pas l’apparence des autres systèmes. Cette précision compte lorsqu’on compare une illustration à son propre environnement.",
-              "Le caractère local de cette étape est distinct du choix de l’application dans laquelle le texte sera inséré. Les documents, messages ou services qui accueillent ensuite ce texte ont leur propre fonctionnement. Une promesse sur la transcription ne doit pas être interprétée comme une description de tous ces outils. Il reste utile de connaître la destination du texte et les réglages de l’application où l’on travaille."
+              "Une application peut télécharger son modèle sur Internet, puis l’utiliser sur l’appareil. Le téléchargement du logiciel, celui des modèles et les mises à jour sont des échanges réseau distincts de la transcription. Un réglage local ne les fait pas disparaître.",
+              "Avant un usage sans connexion, terminez l’installation et la préparation du modèle. Faites ensuite un essai dans une note avec la configuration que vous utiliserez vraiment. Si vous avez activé une amélioration distante du texte, cette étape reste dépendante de son service, même lorsque la reconnaissance audio est locale.",
+              "Un essai hors ligne réussi est utile pour préparer votre travail. Il ne démontre pas à lui seul l’absence de tout échange à un autre moment : les réglages, les mises à jour et le code de la version utilisée restent des informations complémentaires."
             ],
             "bullets": []
           },
           {
-            "id": "post-traitement",
-            "heading": "Le post-traitement est une autre étape",
+            "id": "dictus-par-plateforme",
+            "heading": "Comment ces distinctions s’appliquent à Dictus",
             "paragraphs": [
-              "Dictus Desktop propose aussi un post-traitement facultatif, désactivé par défaut. Si l’utilisateur choisit de l’activer, du texte peut être transmis au fournisseur qu’il a sélectionné. Cette étape intervient après la transcription et doit être expliquée séparément. Présenter toute la chaîne comme une opération qui ne pourrait jamais envoyer de données serait donc inexact.",
-              "Le choix d’un fournisseur est un choix de service, avec ses propres conditions et son propre traitement des données. Cette note ne compare pas les fournisseurs et ne certifie aucune de leurs politiques. Son objectif est de rendre visible la frontière entre la conversion locale de l’audio et un traitement optionnel du texte. Avant d’utiliser ce dernier pour un contenu sensible, le lecteur doit pouvoir retrouver ce qu’il a activé et vers quel service il l’envoie."
+              "Pour Dictus Desktop 0.3.0, l’audio est transcrit sur l’ordinateur. Le post-traitement du texte est facultatif et désactivé par défaut. Si vous activez un fournisseur distant, le texte et les instructions de traitement peuvent lui être envoyés. Un moteur local et un fournisseur distant ne doivent donc pas être confondus, même si tous deux interviennent après la dictée.",
+              "Le téléchargement des modèles vocaux, celui des modèles facultatifs d’amélioration et la recherche de mises à jour utilisent le réseau. Si une configuration accepte une adresse personnalisée, vérifiez sa destination réelle : son libellé ne garantit pas qu’elle pointe sur votre ordinateur. Le guide de démarrage conserve les options de post-traitement désactivées pour le premier essai.",
+              "Pour Dictus iOS 1.8.2, la transcription utilise un modèle sur l’iPhone, après son téléchargement. L’amélioration facultative proposée sur les appareils compatibles s’appuie sur le modèle local du système lorsqu’il est disponible. Cette amélioration demande iOS 26 ou ultérieur, un appareil compatible avec Apple Intelligence, son activation et un modèle local prêt. La dictée ordinaire ne dépend pas de cette option ; le prérequis de l’app reste iOS 17 pour cette version.",
+              "L’accès complet demandé par le clavier permet notamment le partage avec l’app et autorise techniquement le réseau. Il ne signifie pas que le parcours de transcription envoie votre voix à un serveur, mais ce n’est pas non plus une barrière réseau. Les installations et mises à jour de l’app, les téléchargements de modèles ou le partage volontaire de diagnostics avec le support sont des opérations distinctes. Les paiements de soutien sur le site passent eux aussi par leurs prestataires."
             ],
             "bullets": []
           },
           {
-            "id": "usages-du-reseau",
-            "heading": "Local ne veut pas dire sans réseau",
+            "id": "conservation-et-destination",
+            "heading": "Local ne veut pas dire sans historique",
             "paragraphs": [
-              "Le site documente d’autres usages du réseau : les téléchargements, les mises à jour et les paiements. Ils ne se confondent pas avec la transcription. Il est donc possible de décrire une transcription locale sans affirmer que l’ensemble du produit, du site ou de son installation ne communique jamais. La formule « local par défaut » garde cette distinction explicite.",
-              "Cette manière de formuler la promesse aide aussi à lire les démonstrations. Une image fixe ne montre ni les connexions réseau ni tous les choix de configuration. Elle doit être accompagnée d’une légende qui indique ce qu’elle représente réellement. Dans cette preview, la capture sert à reconnaître les réglages de la version ordinateur, pas à prouver à elle seule une propriété de confidentialité."
+              "Dictus Desktop peut conserver localement des enregistrements audio et leurs transcriptions. Regardez les réglages d’historique et de conservation, et supprimez les éléments dont vous n’avez plus besoin. Le traitement local évite de confier la transcription audio à un serveur distant ; il ne remplace pas la protection de l’ordinateur, de ses accès et de ses sauvegardes.",
+              "Sur iPhone aussi, il faut distinguer traitement et conservation : des données de diagnostic de l’amélioration du texte peuvent contenir le texte original et corrigé dans le stockage local partagé de l’app. Ne déduisez pas de la transcription locale qu’aucun texte n’est jamais enregistré. Avant d’exporter des journaux au support, considérez ce partage comme une action explicite portant sur des données de diagnostic.",
+              "Enfin, une note ou un message peut être synchronisé par l’application qui reçoit le texte. Dicter localement dans un document ne change pas les réglages de ce document ou de son service. Pour une information que vous voulez garder sur l’appareil, examinez aussi la destination finale."
             ],
             "bullets": []
           },
           {
-            "id": "code-et-sources",
-            "heading": "Vérifier à partir des sources",
+            "id": "questions-a-poser",
+            "heading": "Les questions à poser avant de choisir un outil",
             "paragraphs": [
-              "Le code des applications ordinateur et iPhone est public. Les dépôts liés en fin d’article constituent des points de départ pour examiner l’implémentation et suivre ses changements. La disponibilité du code facilite la vérification, mais cette note ne constitue pas un audit indépendant. Une vérification technique doit toujours préciser la version observée et la fonction étudiée.",
-              "Pour une question précise, la bonne lecture consiste à rapprocher la promesse affichée, le réglage concerné et la version du produit. La provenance de l’image est également publiée : elle permet de distinguer une capture de l’application d’une animation de démonstration créée pour le site. Ces éléments ne remplacent pas une vérification complète ; ils donnent au lecteur des repères concrets pour commencer."
+              "Vous n’avez pas besoin de retenir tous les noms de modèles. Cherchez plutôt des réponses précises aux questions suivantes, pour votre version et vos réglages. Si une réponse manque, évitez de transformer une formule commerciale en garantie."
             ],
-            "bullets": []
+            "bullets": [
+              "Où la voix est-elle convertie en texte : sur mon appareil ou chez un fournisseur ?",
+              "Que faut-il télécharger ou préparer avant de pouvoir travailler sans connexion ?",
+              "Une correction ou une reformulation envoie-t-elle le texte ailleurs ? Est-elle activée par défaut ?",
+              "Quels enregistrements, textes, historiques ou diagnostics sont conservés, et comment les gérer ?",
+              "Quelles opérations utilisent le réseau en dehors de la transcription ?",
+              "L’application où je colle ou insère le texte le synchronise-t-elle à son tour ?",
+              "Les explications concernent-elles la version réellement disponible et le matériel que j’utilise ?"
+            ]
           },
           {
-            "id": "portee",
-            "heading": "La portée de cette note",
+            "id": "verifier-les-sources",
+            "heading": "Vérifier le code et préparer son premier usage",
             "paragraphs": [
-              "Ce texte est un brouillon technique destiné à éprouver la lecture et le flux bilingue du blog. Les guides pratiques de lancement font l’objet d’un travail éditorial séparé, avec vérification des manipulations dans les applications. Il ne faut pas déduire de cette note une procédure d’installation, une disponibilité Android ou des conditions tarifaires pour iPhone.",
-              "La présentation du produit reste le point de départ pour choisir la version adaptée à son appareil. Cet article apporte une distinction simple à garder en tête pendant cette découverte : reconnaître l’étape locale, identifier une éventuelle étape optionnelle et conserver les limites de ce qui a effectivement été documenté."
+              "Le code public de Dictus permet d’examiner ces choix. Les références ci-dessous pointent vers les versions étudiées et les parties relatives au traitement ou à la conservation. Pouvoir consulter le code ne signifie pas qu’un audit externe a été réalisé ; cet article repose sur les sources et les visuels documentés, sans mesure indépendante de tous les échanges réseau.",
+              "Pour passer à la pratique, utilisez le guide iPhone ou ordinateur lié à cet article. Commencez avec une note sans enjeu, gardez les options que vous comprenez et vérifiez le résultat. La page de confidentialité et la présentation du traitement local complètent ce parcours."
             ],
             "bullets": []
           }
         ],
         "sources": [
           {
-            "label": "Code public de Dictus Desktop",
-            "href": "https://github.com/getdictus/dictus-desktop"
+            "label": "Confidentialité de Dictus Desktop 0.3.0",
+            "href": "https://github.com/getdictus/dictus-desktop/blob/v0.3.0/docs/PRIVACY.md"
           },
           {
-            "label": "Code public de Dictus iOS",
-            "href": "https://github.com/getdictus/dictus-ios"
+            "label": "Réglages du post-traitement et des fournisseurs Desktop",
+            "href": "https://github.com/getdictus/dictus-desktop/blob/v0.3.0/src-tauri/src/settings.rs"
           },
           {
-            "label": "Provenance des captures du site",
-            "href": "https://github.com/getdictus/dictus-website/blob/t3code/develop-issue-29/docs/product-assets.md"
+            "label": "Téléchargements des modèles facultatifs Desktop",
+            "href": "https://github.com/getdictus/dictus-desktop/blob/v0.3.0/src-tauri/src/managers/llm.rs"
+          },
+          {
+            "label": "Conservation locale de l’historique Desktop",
+            "href": "https://github.com/getdictus/dictus-desktop/blob/v0.3.0/src-tauri/src/managers/history.rs"
+          },
+          {
+            "label": "Code public de Dictus iOS 1.8.2",
+            "href": "https://github.com/getdictus/dictus-ios/tree/v1.8.2"
+          },
+          {
+            "label": "Conditions de disponibilité de l’amélioration locale sur iPhone",
+            "href": "https://github.com/getdictus/dictus-ios/blob/v1.8.2/DictusCore/Sources/DictusCore/Polish/PolishAvailability.swift"
+          },
+          {
+            "label": "Diagnostics locaux de l’amélioration du texte sur iPhone",
+            "href": "https://github.com/getdictus/dictus-ios/blob/v1.8.2/DictusCore/Sources/DictusCore/Polish/PolishEventStore.swift"
+          },
+          {
+            "label": "Apple : permissions des claviers tiers",
+            "href": "https://developer.apple.com/library/archive/documentation/General/Conceptual/ExtensibilityPG/CustomKeyboard.html"
+          },
+          {
+            "label": "Comprendre le traitement local de Dictus",
+            "href": "/fr#local"
+          },
+          {
+            "label": "Accéder aux dépôts publics de Dictus",
+            "href": "/fr#open-source"
+          },
+          {
+            "label": "Politique de confidentialité de Dictus",
+            "href": "/fr/privacy"
           }
         ]
       },
       "en": {
-        "slug": "local-by-default",
-        "title": "Local by default: understanding the Dictus promise",
-        "summary": "Transcription, post-processing and network use: useful distinctions for understanding what “local by default” means.",
-        "intro": "Dictus Desktop transcribes audio on the computer. Optional post-processing can then send the text to the chosen provider. This preview note clarifies these two steps and the limits of the promise.",
+        "slug": "local-dictation-privacy",
+        "title": "Local or cloud voice dictation: where do your voice and text go?",
+        "summary": "Understand the path taken by audio, transcriptions and corrected text, then check downloads, retention and network options.",
+        "intro": "Local dictation turns audio into text on your device. Cloud transcription sends audio to a remote service for this step. But that distinction alone does not tell the whole story: rephrasing may then transmit the text, a history may keep a copy, and the destination app may sync it. To make your choice, follow your voice and text separately.",
         "category": "Privacy",
-        "tags": [],
+        "tags": [
+          "Local processing",
+          "Personal data"
+        ],
         "seo": {
-          "title": "Local by default: understanding the Dictus promise — Dictus",
-          "description": "Transcription, post-processing and network use: useful distinctions for understanding what “local by default” means."
+          "title": "Local or cloud voice dictation: understanding privacy",
+          "description": "Where do your voice and text go? Distinguish between local transcription, rephrasing, history and network connections in a dictation tool."
         },
         "social": {
-          "title": "Local by default: understanding the Dictus promise",
-          "description": "Transcription, post-processing and network use: useful distinctions for understanding what “local by default” means."
+          "title": "Your voice, your text: understanding local dictation",
+          "description": "A guide to following your data step by step and asking the right questions before choosing a dictation tool."
         },
         "image": {
           "src": "/images/products/desktop-general-fr.jpg",
           "width": 680,
           "height": 570,
-          "alt": "The General settings in Dictus Desktop in French on macOS.",
-          "caption": "An authentic screenshot of Dictus Desktop on macOS, taken on 17 September 2026. The interface language is preserved in this article."
+          "alt": "The General settings in Dictus Desktop on macOS, in French, with a local speech model selected.",
+          "caption": "An actual screenshot of Dictus Desktop 0.3.0 on macOS, taken on September 17, 2026, in French. It illustrates model selection; an image of settings does not constitute an audit of network connections."
         },
         "cta": {
-          "label": "Explore the desktop version",
-          "description": "View the Dictus Desktop overview and downloads.",
-          "href": "/en#desktop"
+          "label": "Read the privacy policy",
+          "description": "Read the information from Dictus and continue with the iPhone and computer guides linked below.",
+          "href": "/en/privacy"
         },
         "sections": [
           {
-            "id": "audio-et-texte",
-            "heading": "Distinguishing audio from text",
+            "id": "suivre-les-etapes",
+            "heading": "Follow your data through each step",
             "paragraphs": [
-              "Dictation involves several elements: the recorded voice, the resulting text and the application where that text will be used. The word “local” does not necessarily describe the same path for each of these elements. To interpret a privacy promise precisely, you therefore need to start by identifying the operation in question. Here, the documented promise concerns audio transcription in the desktop version: it takes place locally.",
-              "This distinction avoids giving readers a broader guarantee than the behavior described. A dictation application can process a recording on the device while still needing the network for other uses. A screen showing a local model is also not enough to describe every possible setting in the application. The screenshot illustrates a real interface; the public code and product explanations allow its behavior to be examined."
+              "Imagine dictating a short note to yourself. Your microphone first produces audio. A recognition engine then turns that audio into words. An optional correction or rephrasing feature works on that text. Finally, the result arrives in a note, a document or a messaging app. These operations may have different destinations.",
+              "You therefore need to ask a dictation tool several questions: where is the audio processed, where is the text processed, what is saved, and what happens to the result after insertion? An answer about the first step is not enough to describe the entire chain."
+            ],
+            "bullets": [
+              "Capture: the microphone picks up your voice for the current recording.",
+              "Transcription: the model converts this audio into text, on the device or at a remote provider.",
+              "Optional enhancement: another feature may correct or rephrase the text, also either locally or remotely.",
+              "Retention and destination: the tool may keep a history; the app receiving the text then operates according to its own rules."
+            ]
+          },
+          {
+            "id": "local-ou-distant",
+            "heading": "What changes between local and remote transcription",
+            "paragraphs": [
+              "With local transcription, the computation required for recognition takes place on your device. The model must be available, and the device provides the computing and storage resources. Once this preparation is complete, transcription can work without a connection if the chosen engine and configuration allow it.",
+              "With remote transcription, the audio is sent to a service that performs the computation. You then need to examine that service's terms: the data sent, retention periods, permitted uses and deletion options. The word “cloud” is not enough to answer these questions; practices need to be checked for each provider.",
+              "These modes alone do not establish a universal level of speed or accuracy. The model, hardware, sound environment and dictated content all matter. For your own use, try a short passage without sensitive information and review the result."
             ],
             "bullets": []
           },
           {
-            "id": "transcription-locale",
-            "heading": "Transcription on the computer",
+            "id": "preparer-hors-ligne",
+            "heading": "Offline after setup does not mean no network use during installation",
             "paragraphs": [
-              "Transcription converts speech into text. In Dictus Desktop, this audio processing takes place on the computer. The website presents the version for macOS, Windows and Linux. The screenshot in this article comes from macOS: its window borders do not represent the appearance on other systems. This detail matters when comparing an illustration with your own environment.",
-              "The local nature of this step is separate from the choice of application where the text will be inserted. The documents, messages or services that subsequently receive this text work in their own ways. A promise about transcription should not be interpreted as a description of all these tools. It is still useful to know where the text is going and the settings of the application you are working in."
+              "An app may download its model from the Internet, then use it on the device. Software downloads, model downloads and updates are network exchanges separate from transcription. A local setting does not make them disappear.",
+              "Before working without a connection, finish installing the app and preparing the model. Then try it in a note using the configuration you will actually use. If you have enabled remote text enhancement, that step still depends on its service, even when audio recognition is local.",
+              "A successful offline test is useful for preparing your work. By itself, it does not demonstrate the absence of all exchanges at other times: the settings, updates and code of the version you use remain additional sources of information."
             ],
             "bullets": []
           },
           {
-            "id": "post-traitement",
-            "heading": "Post-processing is a separate step",
+            "id": "dictus-par-plateforme",
+            "heading": "How these distinctions apply to Dictus",
             "paragraphs": [
-              "Dictus Desktop also offers optional post-processing, disabled by default. If the user chooses to enable it, text may be sent to the provider they have selected. This step takes place after transcription and must be explained separately. Presenting the entire sequence as an operation that could never send data would therefore be inaccurate.",
-              "Choosing a provider means choosing a service, with its own terms and its own handling of data. This note does not compare providers or certify any of their policies. Its purpose is to make the boundary between local audio conversion and optional text processing visible. Before using the latter for sensitive content, readers should be able to identify what they have enabled and which service they are sending it to."
+              "In Dictus Desktop 0.3.0, audio is transcribed on the computer. Text post-processing is optional and disabled by default. If you enable a remote provider, the text and processing instructions may be sent to it. A local engine and a remote provider should therefore not be confused, even if both operate after dictation.",
+              "Downloading speech models, downloading optional enhancement models and checking for updates use the network. If a configuration accepts a custom address, check its actual destination: its label does not guarantee that it points to your computer. The getting started guide keeps post-processing options disabled for the first test.",
+              "In Dictus iOS 1.8.2, transcription uses a model on the iPhone after it has been downloaded. The optional enhancement offered on compatible devices relies on the system's local model when available. This enhancement requires iOS 26 or later, a device compatible with Apple Intelligence, that feature to be enabled, and a local model to be ready. Ordinary dictation does not depend on this option; the app's requirement remains iOS 17 for this version.",
+              "The full access requested by the keyboard allows sharing with the app, among other things, and technically permits network access. It does not mean that the transcription process sends your voice to a server, but it is not a network barrier either. App installations and updates, model downloads and voluntarily sharing diagnostics with support are separate operations. Support payments on the website also go through their respective providers."
             ],
             "bullets": []
           },
           {
-            "id": "usages-du-reseau",
-            "heading": "Local does not mean network-free",
+            "id": "conservation-et-destination",
+            "heading": "Local does not mean no history",
             "paragraphs": [
-              "The website documents other uses of the network: downloads, updates and payments. These are distinct from transcription. It is therefore possible to describe local transcription without claiming that the entire product, website or installation process never communicates over the network. The phrase “local by default” keeps this distinction explicit.",
-              "This way of stating the promise also helps readers interpret demonstrations. A still image shows neither network connections nor every configuration choice. It should be accompanied by a caption explaining what it actually represents. In this preview, the screenshot helps readers recognize the desktop version’s settings; it does not, on its own, prove a privacy property."
+              "Dictus Desktop can store audio recordings and their transcriptions locally. Check the history and retention settings, and delete items you no longer need. Local processing avoids entrusting audio transcription to a remote server; it does not replace protecting the computer, access to it and its backups.",
+              "On iPhone too, processing and retention need to be distinguished: text enhancement diagnostic data may contain the original and corrected text in the app's shared local storage. Do not assume that local transcription means no text is ever saved. Before exporting logs to support, treat this sharing as an explicit action involving diagnostic data.",
+              "Finally, a note or message may be synced by the app receiving the text. Dictating locally into a document does not change the settings of that document or its service. For information you want to keep on the device, also examine the final destination."
             ],
             "bullets": []
           },
           {
-            "id": "code-et-sources",
-            "heading": "Verifying against the sources",
+            "id": "questions-a-poser",
+            "heading": "Questions to ask before choosing a tool",
             "paragraphs": [
-              "The code for the desktop and iPhone applications is public. The repositories linked at the end of this article provide starting points for examining the implementation and tracking its changes. Code availability makes verification easier, but this note is not an independent audit. A technical review must always specify the version observed and the feature examined.",
-              "For a specific question, the right approach is to consider the stated promise, the relevant setting and the product version together. The image’s provenance is also published: it allows readers to distinguish an application screenshot from a demonstration animation created for the website. These elements do not replace a complete review; they give readers concrete reference points to get started."
+              "You do not need to remember every model name. Instead, look for precise answers to the following questions for your version and settings. If an answer is missing, avoid turning a marketing phrase into a guarantee."
             ],
-            "bullets": []
+            "bullets": [
+              "Where is my voice converted into text: on my device or at a provider?",
+              "What needs to be downloaded or prepared before I can work without a connection?",
+              "Does correction or rephrasing send the text elsewhere? Is it enabled by default?",
+              "Which recordings, texts, histories or diagnostics are retained, and how can I manage them?",
+              "Which operations use the network outside transcription?",
+              "Does the app where I paste or insert the text sync it in turn?",
+              "Do the explanations apply to the version actually available and the hardware I use?"
+            ]
           },
           {
-            "id": "portee",
-            "heading": "The scope of this note",
+            "id": "verifier-les-sources",
+            "heading": "Check the code and prepare for your first use",
             "paragraphs": [
-              "This text is a technical draft intended to test the reading experience and the blog’s bilingual workflow. Practical launch guides are being developed through separate editorial work, with the steps verified in the applications. This note should not be taken to imply an installation procedure, Android availability or pricing terms for iPhone.",
-              "The product overview remains the starting point for choosing the version suited to your device. This article offers a simple distinction to keep in mind as you explore: recognize the local step, identify any optional step and stay within the limits of what has actually been documented."
+              "The public Dictus code lets you examine these choices. The references below point to the versions studied and the parts relating to processing or retention. Being able to inspect the code does not mean that an external audit has been carried out; this article is based on the documented sources and visuals, without independent measurement of all network exchanges.",
+              "To get started in practice, use the iPhone or computer guide linked to this article. Start with a low-stakes note, keep the options you understand and check the result. The privacy page and the overview of local processing complement these steps."
             ],
             "bullets": []
           }
         ],
         "sources": [
           {
-            "label": "Public code for Dictus Desktop",
-            "href": "https://github.com/getdictus/dictus-desktop"
+            "label": "Dictus Desktop 0.3.0 privacy",
+            "href": "https://github.com/getdictus/dictus-desktop/blob/v0.3.0/docs/PRIVACY.md"
           },
           {
-            "label": "Public code for Dictus iOS",
-            "href": "https://github.com/getdictus/dictus-ios"
+            "label": "Desktop post-processing and provider settings",
+            "href": "https://github.com/getdictus/dictus-desktop/blob/v0.3.0/src-tauri/src/settings.rs"
           },
           {
-            "label": "Provenance of the website screenshots",
-            "href": "https://github.com/getdictus/dictus-website/blob/t3code/develop-issue-29/docs/product-assets.md"
+            "label": "Desktop optional model downloads",
+            "href": "https://github.com/getdictus/dictus-desktop/blob/v0.3.0/src-tauri/src/managers/llm.rs"
+          },
+          {
+            "label": "Desktop local history retention",
+            "href": "https://github.com/getdictus/dictus-desktop/blob/v0.3.0/src-tauri/src/managers/history.rs"
+          },
+          {
+            "label": "Dictus iOS 1.8.2 public code",
+            "href": "https://github.com/getdictus/dictus-ios/tree/v1.8.2"
+          },
+          {
+            "label": "Availability requirements for local enhancement on iPhone",
+            "href": "https://github.com/getdictus/dictus-ios/blob/v1.8.2/DictusCore/Sources/DictusCore/Polish/PolishAvailability.swift"
+          },
+          {
+            "label": "Local text enhancement diagnostics on iPhone",
+            "href": "https://github.com/getdictus/dictus-ios/blob/v1.8.2/DictusCore/Sources/DictusCore/Polish/PolishEventStore.swift"
+          },
+          {
+            "label": "Apple: third-party keyboard permissions",
+            "href": "https://developer.apple.com/library/archive/documentation/General/Conceptual/ExtensibilityPG/CustomKeyboard.html"
+          },
+          {
+            "label": "Understanding local processing in Dictus",
+            "href": "/en#local"
+          },
+          {
+            "label": "Access the public Dictus repositories",
+            "href": "/en#open-source"
+          },
+          {
+            "label": "Dictus privacy policy",
+            "href": "/en/privacy"
           }
         ]
       }
     },
     "translation": {
-      "sourceHash": "fd6eddccb0a35534e21e3d120bb521020bf31e788fa82abfbc0724fe1fa7b0be",
+      "sourceHash": "4362d27068ccc99ec158b20ea790c38bc3a3135c567390cdd363b21f3a9e2138",
       "generatedAt": "2026-09-18",
       "method": "codex-cli"
     }
@@ -235,160 +357,306 @@
     "review": {},
     "locales": {
       "fr": {
-        "slug": "capture-dictus-desktop",
-        "title": "Ce que montre la capture de Dictus Desktop",
-        "summary": "Une lecture de l’écran Général et de sa provenance, pour distinguer une interface réelle d’une démonstration du site.",
-        "intro": "La capture de la version ordinateur montre les réglages Général d’une application réelle. Cette note de preview explique son origine et ce qu’elle permet d’observer, sans en faire un tutoriel de configuration.",
+        "slug": "dictee-vocale-gratuite-ordinateur",
+        "title": "Dictée vocale gratuite : démarrer sur Mac, Windows ou Linux",
+        "summary": "Choisir le téléchargement Dictus Desktop, préparer le micro et le modèle local, puis organiser un premier essai de dictée dans une note.",
+        "intro": "Dictus Desktop est un logiciel de dictée vocale gratuit pour Mac, Windows et Linux. Il transforme votre voix en texte sur l’ordinateur, puis l’insère dans le champ actif. Pour commencer, choisissez le bon installateur, préparez un modèle vocal et vérifiez le microphone ainsi que le raccourci de dictée. Ce guide détaille ces choix et les limites connues avant votre premier essai.",
         "category": "Ordinateur",
-        "tags": [],
+        "tags": [
+          "Dictée gratuite",
+          "Premiers pas"
+        ],
         "seo": {
-          "title": "Ce que montre la capture de Dictus Desktop — Dictus",
-          "description": "Une lecture de l’écran Général et de sa provenance, pour distinguer une interface réelle d’une démonstration du site."
+          "title": "Dictée vocale gratuite sur Mac, Windows et Linux | Dictus",
+          "description": "Préparer Dictus Desktop : téléchargement adapté à votre ordinateur, modèle vocal local, microphone et premier essai. Gratuité et limites par système."
         },
         "social": {
-          "title": "Ce que montre la capture de Dictus Desktop",
-          "description": "Une lecture de l’écran Général et de sa provenance, pour distinguer une interface réelle d’une démonstration du site."
+          "title": "Commencer la dictée gratuite sur ordinateur",
+          "description": "Quel fichier télécharger, quoi préparer et comment essayer une première note avec Dictus Desktop sur votre ordinateur."
         },
         "image": {
           "src": "/images/products/desktop-general-fr.jpg",
           "width": 680,
           "height": 570,
-          "alt": "Les réglages Général de Dictus Desktop en français sur macOS.",
-          "caption": "Capture authentique de Dictus Desktop sur macOS, réalisée le 17 septembre 2026. La langue de cette interface est conservée dans cet article."
+          "alt": "Réglages Général de Dictus Desktop sur macOS, en français, avec raccourci, mode Appuyer pour parler et modèle Whisper Turbo.",
+          "caption": "Capture réelle de Dictus Desktop 0.3.0 sur macOS, le 17 septembre 2026. L’interface est en français. Whisper Turbo est le modèle sélectionné sur cet ordinateur, pas le modèle imposé à chaque installation."
         },
         "cta": {
-          "label": "Voir Dictus sur ordinateur",
-          "description": "Découvrir Dictus Desktop pour macOS, Windows et Linux.",
+          "label": "Choisir mon téléchargement Desktop",
+          "description": "Retrouver les téléchargements selon le système, l’architecture et le format de paquet.",
           "href": "/fr#desktop"
         },
         "sections": [
           {
-            "id": "origine",
-            "heading": "Une capture dont l’origine est connue",
+            "id": "gratuit-pour-quoi",
+            "heading": "Un logiciel gratuit pour écrire à la voix",
             "paragraphs": [
-              "L’image a été réalisée sur macOS à partir de Dictus Desktop 0.3.0. La documentation des visuels conserve la date de capture, les dimensions et une empreinte du fichier. L’interface française a été capturée dans sa langue native : ses textes n’ont pas été remplacés dans une image retouchée.",
-              "Le site possède aussi une capture native de l’interface anglaise. Le visuel de cette note conserve volontairement l’interface française ; sa légende et son texte alternatif sont traduits. Cette distinction permet de décrire une image honnêtement, sans laisser croire que l’application photographiée change de langue lorsque le lecteur ouvre un article traduit."
+              "Dictus Desktop est gratuit aujourd’hui et le restera. La dictée locale ne demande pas de souscrire un abonnement à l’app. Son code est public. Cette gratuité concerne la version ordinateur ; elle ne décrit pas les offres de la version iPhone.",
+              "Le parcours visé ici consiste à dicter dans une zone de texte : une note, un brouillon d’e-mail ou un document ouvert. Il ne s’agit pas d’envoyer un fichier audio à un site de transcription. Vous gardez le choix de l’application dans laquelle vous écrivez, sous réserve que l’insertion y fonctionne.",
+              "Un post-traitement facultatif peut faire intervenir un fournisseur externe et ses propres conditions, éventuellement payantes. Il est désactivé par défaut et n’est pas requis pour commencer. Gardez-le désactivé pendant ce premier essai pour comprendre d’abord la transcription locale."
             ],
             "bullets": []
           },
           {
-            "id": "reglages",
-            "heading": "Des réglages visibles, pas un résultat de dictée",
+            "id": "choisir-le-fichier",
+            "heading": "Choisir le bon téléchargement pour son ordinateur",
             "paragraphs": [
-              "L’écran montre notamment le raccourci de transcription, la commande push-to-talk, le modèle local Whisper Turbo et les contrôles sonores. Ces éléments sont visibles dans l’application capturée. Ils donnent des repères pour reconnaître cet écran, mais cette note ne décrit pas une séquence complète de dictée.",
-              "Une fenêtre de réglages ne montre pas un enregistrement réel ni le texte issu d’un enregistrement. Elle ne démontre pas non plus le rendu exact de toutes les versions de bureau. L’apparence des fenêtres peut varier entre macOS, Windows et Linux."
+              "Partez de la section Desktop du site ou de la page officielle des releases. Au 18 septembre 2026, la dernière version publique vérifiée est 0.3.0. Les téléchargements évoluent : choisissez la version proposée au moment de votre installation plutôt que de chercher un ancien fichier ailleurs.",
+              "Le système et l’architecture sont deux informations différentes. Un installateur prévu pour votre système peut encore être destiné à une autre famille de processeurs. En cas de doute, vérifiez les informations de votre ordinateur avant de télécharger."
+            ],
+            "bullets": [
+              "Mac : choisissez le fichier DMG Apple Silicon pour une puce Apple, ou Intel pour un processeur Intel. Dans les noms de fichiers, aarch64 correspond ici à Apple Silicon et x64 à Intel.",
+              "Windows : la release propose des installateurs EXE et MSI, pour x64 ou ARM64. Choisissez l’architecture de votre appareil ; le type de paquet peut aussi dépendre des règles de votre organisation.",
+              "Linux : la release propose AppImage, DEB et RPM. Choisissez le format adapté à votre distribution et l’architecture de votre processeur. Selon le paquet, les noms utilisent amd64 ou x86_64 pour la famille x64, arm64 ou aarch64 pour la famille ARM64."
+            ]
+          },
+          {
+            "id": "limites-installation",
+            "heading": "Connaître les limites d’installation avant de poursuivre",
+            "paragraphs": [
+              "Le parcours d’installation n’a pas été rejoué sur les trois systèmes pour ce guide. La capture provient d’une installation existante sur Mac ; elle ne prouve pas une installation neuve ni une dictée complète. Les étapes qui suivent sont une préparation fondée sur la version publique et un protocole d’essai à réaliser sur votre ordinateur.",
+              "Sur macOS, un problème de notarisation des fichiers DMG de la version 0.3.0 est suivi dans le dépôt : Gatekeeper peut afficher un avertissement à l’ouverture d’un téléchargement. La documentation signale aussi un installateur Windows non signé. Le guide ne suppose donc pas une ouverture sans avertissement. Si votre système bloque l’installation, relevez le message exact et consultez le support ou le suivi de version avant de poursuivre.",
+              "Sous Linux, l’insertion et les raccourcis dépendent également de la session graphique ; la prise en charge de Wayland reste partielle. Le dépôt documente ces contraintes. Ce guide ne présente pas une procédure universelle d’installation ou de permissions pour toutes les distributions."
             ],
             "bullets": []
           },
           {
-            "id": "demonstration",
-            "heading": "La pilule animée a un autre rôle",
+            "id": "preparer-micro-modele",
+            "heading": "Préparer le microphone, les permissions et le modèle",
             "paragraphs": [
-              "La présentation du site comporte une pilule animée inspirée de l’interface de l’application. Sa documentation l’identifie comme une démonstration web : elle utilise des niveaux sonores synthétiques et ne sollicite pas le microphone du visiteur. Elle ne doit donc pas être confondue avec une vidéo de dictée réelle.",
-              "Associer cette animation à une capture authentique permet de présenter deux aspects de l’interface. La provenance décrit chacun séparément. Le lecteur peut ainsi reconnaître ce qu’il voit sans attribuer à l’animation une preuve qu’elle ne fournit pas."
+              "Au premier lancement, suivez les autorisations proposées avant de télécharger le modèle. Sur Mac, le parcours vérifie le microphone et l’accessibilité ; cette dernière sert notamment à l’insertion du texte. Sur Windows, le parcours vérifie le microphone. Sous Linux, ce parcours n’affiche pas d’écran d’autorisation équivalent ; suivez les indications du dépôt pour votre environnement.",
+              "Pendant la configuration initiale, choisissez un modèle vocal et attendez la fin de son téléchargement, de sa vérification et de sa préparation. Cette étape utilise Internet ; la conversion de l’audio en texte s’effectue ensuite sur l’ordinateur. La place disponible et les ressources du matériel comptent, sans qu’un temps de traitement identique puisse être promis.",
+              "Dans la version 0.3.0, Parakeet V3 est le modèle recommandé et prend en charge le français et l’anglais. Certains autres modèles ne prennent en charge que l’anglais : vérifiez la langue prévue avant de changer de modèle.",
+              "Dans Général, repérez le modèle sélectionné, le raccourci de transcription et le réglage « Appuyer pour parler ». Dans Son, vérifiez le microphone choisi, surtout si vous utilisez un casque ou plusieurs entrées audio. La capture montre un choix existant ; vous pouvez garder le modèle recommandé par votre propre installation.",
+              "Utilisez le raccourci affiché dans vos réglages : il peut avoir été modifié, et un autre logiciel peut utiliser les mêmes touches. Ne prenez pas un raccourci trouvé dans un ancien tutoriel comme la preuve de votre configuration actuelle."
             ],
             "bullets": []
           },
           {
-            "id": "suite",
-            "heading": "Passer de la présentation au produit",
+            "id": "essai-dans-une-note",
+            "heading": "Faire un premier essai dans une note",
             "paragraphs": [
-              "Dictus Desktop est gratuit et sa transcription audio est locale. Le post-traitement facultatif, désactivé par défaut, peut transmettre du texte au fournisseur choisi. Ces caractéristiques sont indépendantes du rôle illustratif de la capture.",
-              "Ce brouillon technique sert à vérifier le gabarit du blog. Pour découvrir l’application et ses téléchargements, suivre la présentation ordinateur ; les futurs guides pratiques détailleront les manipulations après leur vérification éditoriale."
+              "Choisissez une note vide ou un document sans contenu confidentiel et cliquez à l’endroit où le texte doit apparaître. Pour cet essai, activez « Appuyer pour parler » et gardez le post-traitement facultatif désactivé. Vous pourrez ainsi observer le résultat de la transcription seule.",
+              "Maintenez le raccourci de transcription affiché dans Général, prononcez une courte phrase, puis relâchez les touches. Gardez le champ de destination actif pendant le traitement. Vérifiez ensuite où le texte a été inséré avant de continuer.",
+              "Pour l’exercice, vous pouvez dicter : « Pense à arroser les plantes ce soir. » Vérifiez que l’action et le moment ont bien été transcrits. Ce premier essai sert à vérifier ensemble le micro, le déclenchement et l’insertion avant de passer à vos propres textes.",
+              "Relisez les noms propres, les nombres, la ponctuation et les négations. Corrigez le texte avant de l’envoyer ou de l’utiliser dans un document important. Une fois cet essai compris, répétez-le dans l’application où vous souhaitez vraiment écrire."
+            ],
+            "bullets": []
+          },
+          {
+            "id": "verifications-utiles",
+            "heading": "Que vérifier si le premier essai ne fonctionne pas ?",
+            "paragraphs": [
+              "Les contrôles ci-dessous correspondent aux réglages documentés. Ils ne garantissent pas de résoudre tous les problèmes et ne sont pas présentés comme des pannes reproduites ici. Pour un signalement utile, précisez le système, l’architecture, la version de Dictus, l’application de destination et le message affiché."
+            ],
+            "bullets": [
+              "Aucun enregistrement apparent : vérifiez le micro sélectionné dans Général > Son, l’autorisation système et le raccourci réellement configuré.",
+              "Le traitement ne démarre pas : vérifiez qu’un modèle est téléchargé et sélectionné, puis terminez sa préparation avant de réessayer.",
+              "Le texte ne s’insère pas : essayez un champ de texte simple, gardez-le actif et vérifiez les permissions d’accessibilité sur Mac. Suivez la demande de redémarrage si l’écran d’autorisation la présente.",
+              "Un souci limité à une application ou à une session graphique : comparez avec une note simple et consultez les problèmes connus du dépôt, notamment pour Wayland. Évitez de publier un enregistrement privé dans un ticket de support."
+            ]
+          },
+          {
+            "id": "local-et-suite",
+            "heading": "Comprendre ce qui reste local",
+            "paragraphs": [
+              "La transcription audio de Dictus Desktop est locale. Cela n’empêche pas les téléchargements de modèles, les vérifications de mises à jour ni, si vous le choisissez, un traitement distant du texte. L’historique peut aussi conserver des enregistrements et des transcriptions sur l’ordinateur.",
+              "Le guide confidentialité explique ces étapes et leur portée. Après insertion, votre note ou votre e-mail dépend aussi du fonctionnement de l’application qui le reçoit. Pour continuer, choisissez le téléchargement adapté ci-dessous et consultez les sources ou le support si votre environnement diffère."
             ],
             "bullets": []
           }
         ],
         "sources": [
           {
-            "label": "Code public de Dictus Desktop",
-            "href": "https://github.com/getdictus/dictus-desktop"
+            "label": "Téléchargements officiels de Dictus Desktop 0.3.0",
+            "href": "https://github.com/getdictus/dictus-desktop/releases/tag/v0.3.0"
           },
           {
-            "label": "Provenance des captures du site",
-            "href": "https://github.com/getdictus/dictus-website/blob/t3code/develop-issue-29/docs/product-assets.md"
+            "label": "Documentation de la version publique et contraintes par système",
+            "href": "https://github.com/getdictus/dictus-desktop/blob/v0.3.0/README.md"
+          },
+          {
+            "label": "Réglages et valeurs par défaut de la version publique",
+            "href": "https://github.com/getdictus/dictus-desktop/blob/v0.3.0/src-tauri/src/settings.rs"
+          },
+          {
+            "label": "Modèles disponibles et langues prises en charge",
+            "href": "https://github.com/getdictus/dictus-desktop/blob/v0.3.0/src-tauri/src/managers/model.rs"
+          },
+          {
+            "label": "Suivi de l’avertissement Gatekeeper sur les DMG",
+            "href": "https://github.com/getdictus/dictus-desktop/issues/61"
+          },
+          {
+            "label": "Confidentialité de la version ordinateur",
+            "href": "https://github.com/getdictus/dictus-desktop/blob/v0.3.0/docs/PRIVACY.md"
+          },
+          {
+            "label": "Signaler un problème avec la version ordinateur",
+            "href": "https://github.com/getdictus/dictus-desktop/issues"
+          },
+          {
+            "label": "Aide et contact Dictus",
+            "href": "/fr/support"
+          },
+          {
+            "label": "Provenance de la capture macOS",
+            "href": "https://github.com/getdictus/dictus-website/blob/204a8e06e6b1e13972f62e5734da6d373c467f3c/docs/product-assets.md"
           }
         ]
       },
       "en": {
-        "slug": "dictus-desktop-screenshot",
-        "title": "What the Dictus Desktop screenshot shows",
-        "summary": "A look at the General screen and its provenance, distinguishing a real interface from a website demonstration.",
-        "intro": "The desktop screenshot shows the General settings of a real application. This preview note explains where it comes from and what can be observed in it, without turning it into a configuration tutorial.",
-        "category": "Desktop",
-        "tags": [],
+        "slug": "free-desktop-dictation",
+        "title": "Free voice dictation: getting started on Mac, Windows or Linux",
+        "summary": "Choose your Dictus Desktop download, prepare your microphone and local model, then try dictating into a note for the first time.",
+        "intro": "Dictus Desktop is free voice dictation software for Mac, Windows and Linux. It turns your voice into text on your computer, then inserts it into the active field. To get started, choose the right installer, prepare a speech model and check your microphone and dictation shortcut. This guide explains those choices and the known limitations before your first attempt.",
+        "category": "Computer",
+        "tags": [
+          "Free dictation",
+          "Getting started"
+        ],
         "seo": {
-          "title": "What the Dictus Desktop screenshot shows — Dictus",
-          "description": "A look at the General screen and its provenance, distinguishing a real interface from a website demonstration."
+          "title": "Free voice dictation on Mac, Windows and Linux | Dictus",
+          "description": "Set up Dictus Desktop: the right download for your computer, a local speech model, your microphone and a first test. Free access and limitations by system."
         },
         "social": {
-          "title": "What the Dictus Desktop screenshot shows",
-          "description": "A look at the General screen and its provenance, distinguishing a real interface from a website demonstration."
+          "title": "Get started with free dictation on your computer",
+          "description": "Which file to download, what to prepare and how to try your first note with Dictus Desktop on your computer."
         },
         "image": {
           "src": "/images/products/desktop-general-fr.jpg",
           "width": 680,
           "height": 570,
-          "alt": "The General settings of Dictus Desktop in French on macOS.",
-          "caption": "Authentic screenshot of Dictus Desktop on macOS, taken on 17 September 2026. The interface language is preserved in this article."
+          "alt": "Dictus Desktop General settings on macOS, in French, showing the shortcut, Push to Talk mode and Whisper Turbo model.",
+          "caption": "Actual screenshot of Dictus Desktop 0.3.0 on macOS, taken on 17 September 2026. The interface is in French. Whisper Turbo is the model selected on this computer, not a model required for every installation."
         },
         "cta": {
-          "label": "Explore Dictus on desktop",
-          "description": "Discover Dictus Desktop for macOS, Windows and Linux.",
+          "label": "Choose my Desktop download",
+          "description": "Find downloads by operating system, architecture and package format.",
           "href": "/en#desktop"
         },
         "sections": [
           {
-            "id": "origine",
-            "heading": "A screenshot with a known origin",
+            "id": "gratuit-pour-quoi",
+            "heading": "Free software for writing with your voice",
             "paragraphs": [
-              "The image was captured on macOS using Dictus Desktop 0.3.0. The visual asset documentation records the capture date, dimensions and a file fingerprint. The French interface was captured in its native language: its text has not been replaced in an edited image.",
-              "The website also has a native screenshot of the English interface. The image in this note deliberately retains the French interface; its caption and alternative text are translated. This distinction allows the image to be described honestly, without suggesting that the application shown changes language when a reader opens a translated article."
+              "Dictus Desktop is free today and will remain free. Local dictation does not require an app subscription. Its code is public. This free access applies to the computer version; it does not describe the plans available for the iPhone version.",
+              "The workflow covered here involves dictating into a text area: a note, an email draft or an open document. It does not involve sending an audio file to a transcription website. You can choose which application you write in, provided text insertion works there.",
+              "Optional post-processing may involve an external provider with its own terms and potentially its own charges. It is disabled by default and is not required to get started. Keep it disabled for this first test so you can understand local transcription first."
             ],
             "bullets": []
           },
           {
-            "id": "reglages",
-            "heading": "Visible settings, not a dictation result",
+            "id": "choisir-le-fichier",
+            "heading": "Choose the right download for your computer",
             "paragraphs": [
-              "The screen shows, among other things, the transcription shortcut, the push-to-talk control, the local Whisper Turbo model and the sound controls. These elements are visible in the captured application. They provide reference points for recognizing this screen, but this note does not describe a complete dictation sequence.",
-              "A settings window does not show an actual recording or the text produced from a recording. Nor does it demonstrate the exact appearance of every desktop version. Window appearance may vary between macOS, Windows and Linux."
+              "Start with the Desktop section of the website or the official releases page. As of 18 September 2026, the latest verified public version is 0.3.0. Downloads change: choose the version available when you install rather than looking elsewhere for an old file.",
+              "The operating system and architecture are two different pieces of information. An installer intended for your operating system may still target a different processor family. If you are unsure, check your computer’s information before downloading."
+            ],
+            "bullets": [
+              "Mac: choose the Apple Silicon DMG file for an Apple chip, or Intel for an Intel processor. In the filenames, aarch64 refers to Apple Silicon here, and x64 to Intel.",
+              "Windows: the release offers EXE and MSI installers for x64 or ARM64. Choose your device’s architecture; the package type may also depend on your organization’s policies.",
+              "Linux: the release offers AppImage, DEB and RPM. Choose the format that suits your distribution and your processor’s architecture. Depending on the package, filenames use amd64 or x86_64 for the x64 family, and arm64 or aarch64 for the ARM64 family."
+            ]
+          },
+          {
+            "id": "limites-installation",
+            "heading": "Understand the installation limitations before continuing",
+            "paragraphs": [
+              "The installation process was not repeated on all three operating systems for this guide. The screenshot comes from an existing Mac installation; it does not demonstrate a fresh installation or a complete dictation session. The steps below are preparation based on the public version and a test procedure to carry out on your computer.",
+              "On macOS, an issue with notarization of the DMG files for version 0.3.0 is being tracked in the repository: Gatekeeper may display a warning when you open a download. The documentation also notes an unsigned Windows installer. This guide therefore does not assume that opening the installer will be warning-free. If your system blocks installation, note the exact message and consult support or the release tracking information before continuing.",
+              "On Linux, text insertion and shortcuts also depend on the graphical session; Wayland support remains partial. The repository documents these constraints. This guide does not provide a universal installation or permissions procedure for every distribution."
             ],
             "bullets": []
           },
           {
-            "id": "demonstration",
-            "heading": "The animated pill serves a different purpose",
+            "id": "preparer-micro-modele",
+            "heading": "Prepare your microphone, permissions and model",
             "paragraphs": [
-              "The website presentation includes an animated pill inspired by the application's interface. Its documentation identifies it as a web demonstration: it uses synthetic sound levels and does not access the visitor's microphone. It should therefore not be confused with a video of actual dictation.",
-              "Pairing this animation with an authentic screenshot presents two aspects of the interface. The provenance documentation describes each separately. Readers can thus recognize what they are seeing without treating the animation as evidence of something it does not demonstrate."
+              "On first launch, follow the permission prompts before downloading the model. On Mac, setup checks microphone and accessibility permissions; the latter is used for text insertion, among other things. On Windows, setup checks microphone permissions. On Linux, this setup process does not display an equivalent permissions screen; follow the repository’s guidance for your environment.",
+              "During initial setup, choose a speech model and wait for it to finish downloading, verifying and preparing. This step uses the Internet; audio is then converted to text on your computer. Available storage and hardware resources matter, and identical processing times cannot be promised.",
+              "In version 0.3.0, Parakeet V3 is the recommended model and supports French and English. Some other models support only English: check the intended language before switching models.",
+              "In General, find the selected model, the transcription shortcut and the “Push to Talk” setting. In Sound, check the selected microphone, especially if you use a headset or several audio inputs. The screenshot shows an existing selection; you can keep the model recommended by your own installation.",
+              "Use the shortcut shown in your settings: it may have been changed, and another application may use the same keys. Do not treat a shortcut found in an old tutorial as proof of your current configuration."
             ],
             "bullets": []
           },
           {
-            "id": "suite",
-            "heading": "Moving from the presentation to the product",
+            "id": "essai-dans-une-note",
+            "heading": "Try dictating into a note for the first time",
             "paragraphs": [
-              "Dictus Desktop is free and its audio transcription runs locally. Optional post-processing, disabled by default, may send text to the chosen provider. These characteristics are independent of the screenshot's illustrative role.",
-              "This technical draft serves to check the blog template. To discover the application and its downloads, visit the desktop presentation; future practical guides will detail the steps once they have undergone editorial review."
+              "Choose an empty note or a document without confidential content and click where you want the text to appear. For this test, enable “Push to Talk” and keep optional post-processing disabled. This lets you observe the result of transcription alone.",
+              "Hold down the transcription shortcut shown in General, say a short sentence, then release the keys. Keep the destination field active during processing. Then check where the text was inserted before continuing.",
+              "For this exercise, you can dictate: “Remember to water the plants this evening.” Check that the action and timing were transcribed correctly. This first test checks the microphone, activation and text insertion together before you move on to your own texts.",
+              "Check proper names, numbers, punctuation and negations. Correct the text before sending it or using it in an important document. Once you understand this test, repeat it in the application where you actually want to write."
+            ],
+            "bullets": []
+          },
+          {
+            "id": "verifications-utiles",
+            "heading": "What should you check if the first test does not work?",
+            "paragraphs": [
+              "The checks below correspond to documented settings. They are not guaranteed to resolve every problem and are not presented as failures reproduced here. To make a useful report, include your operating system, architecture, Dictus version, destination application and the message displayed."
+            ],
+            "bullets": [
+              "No apparent recording: check the microphone selected in General > Sound, the system permission and the shortcut actually configured.",
+              "Processing does not start: check that a model is downloaded and selected, then finish preparing it before trying again.",
+              "Text is not inserted: try a simple text field, keep it active and check accessibility permissions on Mac. Follow the restart prompt if the permissions screen displays one.",
+              "An issue limited to one application or graphical session: compare with a simple note and consult the repository’s known issues, particularly for Wayland. Avoid posting a private recording in a support ticket."
+            ]
+          },
+          {
+            "id": "local-et-suite",
+            "heading": "Understand what stays local",
+            "paragraphs": [
+              "Dictus Desktop audio transcription is local. This does not prevent model downloads, update checks or, if you choose it, remote text processing. History may also store recordings and transcriptions on your computer.",
+              "The privacy guide explains these steps and their scope. After insertion, your note or email also depends on how the receiving application works. To continue, choose the appropriate download below and consult the sources or support if your environment differs."
             ],
             "bullets": []
           }
         ],
         "sources": [
           {
-            "label": "Public source code for Dictus Desktop",
-            "href": "https://github.com/getdictus/dictus-desktop"
+            "label": "Official Dictus Desktop 0.3.0 downloads",
+            "href": "https://github.com/getdictus/dictus-desktop/releases/tag/v0.3.0"
           },
           {
-            "label": "Provenance of the website screenshots",
-            "href": "https://github.com/getdictus/dictus-website/blob/t3code/develop-issue-29/docs/product-assets.md"
+            "label": "Public version documentation and constraints by operating system",
+            "href": "https://github.com/getdictus/dictus-desktop/blob/v0.3.0/README.md"
+          },
+          {
+            "label": "Public version settings and defaults",
+            "href": "https://github.com/getdictus/dictus-desktop/blob/v0.3.0/src-tauri/src/settings.rs"
+          },
+          {
+            "label": "Available models and supported languages",
+            "href": "https://github.com/getdictus/dictus-desktop/blob/v0.3.0/src-tauri/src/managers/model.rs"
+          },
+          {
+            "label": "Tracking the Gatekeeper warning for DMGs",
+            "href": "https://github.com/getdictus/dictus-desktop/issues/61"
+          },
+          {
+            "label": "Privacy in the computer version",
+            "href": "https://github.com/getdictus/dictus-desktop/blob/v0.3.0/docs/PRIVACY.md"
+          },
+          {
+            "label": "Report a problem with the computer version",
+            "href": "https://github.com/getdictus/dictus-desktop/issues"
+          },
+          {
+            "label": "Dictus help and contact",
+            "href": "/en/support"
+          },
+          {
+            "label": "Source of the macOS screenshot",
+            "href": "https://github.com/getdictus/dictus-website/blob/204a8e06e6b1e13972f62e5734da6d373c467f3c/docs/product-assets.md"
           }
         ]
       }
     },
     "translation": {
-      "sourceHash": "dacaf8759c4cdc1a21c0c3cd1255346faa0502d11f095b69924683deed8a1f99",
+      "sourceHash": "94c4aea11d9b9b4d48442e027f3da8886e5f6ea3244c3198050ef6cb5f97b6b4",
       "generatedAt": "2026-09-18",
       "method": "codex-cli"
     }
@@ -410,7 +678,7 @@
     "review": {},
     "locales": {
       "fr": {
-        "slug": "capture-clavier-iphone",
+        "slug": "dictee-vocale-iphone",
         "title": "Dictée vocale sur iPhone : écrire dans ses applications avec Dictus",
         "summary": "Installer le clavier Dictus, préparer le modèle et dicter une première note, avec les limites des claviers tiers et les vérifications utiles.",
         "intro": "Pour écrire à la voix sur iPhone avec Dictus, installez l’application, activez son clavier et préparez le modèle vocal. Ouvrez ensuite un champ de texte compatible, sélectionnez Dictus avec le globe et lancez la dictée. Commencez dans une note sans enjeu : vous pourrez relire le résultat avant de l’utiliser dans un message ou un e-mail.",
@@ -474,7 +742,7 @@
             "id": "premiere-note",
             "heading": "Dicter une première note dans Apple Notes",
             "paragraphs": [
-              "Créez une note vide dans Apple Notes, touchez son corps pour afficher le clavier, puis sélectionnez Dictus avec le globe. Utilisez un texte sans donnée personnelle pour découvrir le fonctionnement. Par exemple, choisissez vous-même une courte phrase de rappel : il s’agit d’un exercice, pas d’une promesse de résultat mot pour mot.",
+              "Créez une note vide dans Apple Notes, touchez son corps pour afficher le clavier, puis sélectionnez Dictus avec le globe. Utilisez un texte sans donnée personnelle pour découvrir le fonctionnement. Pour l’exercice, vous pouvez dicter : « Pense à arroser les plantes ce soir. » Vérifiez ensuite que l’action et le moment ont bien été transcrits.",
               "Touchez le microphone du clavier Dictus. Si l’app doit se préparer, elle peut s’ouvrir : suivez son indication pour revenir à votre application. Si elle demande de toucher à nouveau le microphone après le chargement du modèle, faites-le une fois revenu dans la note. Le retour automatique et une disponibilité instantanée ne sont pas garantis.",
               "Lorsque l’enregistrement est actif, parlez puis utilisez la coche verte du clavier Dictus pour terminer et lancer le traitement. La croix permet d’annuler. Attendez la fin de la transcription et vérifiez le texte inséré au curseur avant de dicter la suite.",
               "L’enregistrement réel illustrant cet article montre une dictée et son résultat dans Apple Notes. Il ne prouve pas que toutes les applications acceptent le clavier, ni que chaque appareil présente le même enchaînement. Les étapes ci-dessus ont été vérifiées dans le code de la version distribuée ; une nouvelle installation complète sur un iPhone physique reste à confirmer avant publication de ce guide."
@@ -541,10 +809,10 @@
         ]
       },
       "en": {
-        "slug": "iphone-keyboard-capture",
+        "slug": "iphone-voice-dictation",
         "title": "Voice dictation on iPhone: write in your apps with Dictus",
-        "summary": "Install the Dictus keyboard, prepare the model and dictate your first note, with third-party keyboard limitations and useful checks.",
-        "intro": "To write by voice on iPhone with Dictus, install the app, enable its keyboard and prepare the voice model. Then open a compatible text field, select Dictus using the globe and start dictating. Begin with a low-stakes note: you can review the result before using it in a message or email.",
+        "summary": "Install the Dictus keyboard, prepare the model and dictate your first note, with an overview of third-party keyboard limitations and useful checks.",
+        "intro": "To write by voice on iPhone with Dictus, install the app, enable its keyboard and prepare the speech model. Then open a compatible text field, select Dictus using the globe and start dictating. Begin with a low-stakes note: you can review the result before using it in a message or email.",
         "category": "iPhone",
         "tags": [
           "Voice dictation",
@@ -556,14 +824,14 @@
         },
         "social": {
           "title": "Write by voice on iPhone with Dictus",
-          "description": "From the keyboard to your first note: the steps, permissions and limitations to understand before dictating in your apps."
+          "description": "From the keyboard to your first note: the steps, permissions and limitations to know before dictating in your apps."
         },
         "image": {
           "src": "/images/products/ios-demo-dictation.jpg",
           "width": 860,
           "height": 1864,
           "alt": "The Dictus keyboard during dictation in Apple Notes on iPhone, with its interface in English.",
-          "caption": "Actual image taken from the recording made on 18 September 2026 in Apple Notes, on iPhone 15 Pro Max with Dictus 1.8.2, as confirmed by its creator. The interface is in English; the build number and system version are not specified."
+          "caption": "Actual image taken from the recording made on 18 September 2026 in Apple Notes, on iPhone 15 Pro Max with Dictus 1.8.2, as confirmed by its creator. The interface is in English; the build number and system version are not provided."
         },
         "cta": {
           "label": "Discover Dictus on iPhone",
@@ -575,9 +843,9 @@
             "id": "avant-de-commencer",
             "heading": "What you will prepare",
             "paragraphs": [
-              "A voice keyboard turns speech into text in the field where your cursor is positioned. It does not replace the app receiving that text: a note remains a note, and you still need to review and send a message draft yourself. Apple’s built-in dictation is another option; this guide covers the Dictus keyboard and its own settings.",
-              "The French App Store listing checked on 18 September 2026 offers Dictus iOS 1.8.2 and specifies iOS 17.0 or later. The download is free. A Pro offering is in development; you do not need to buy it to follow this first dictation walkthrough. Check the compatibility shown in the App Store again before installing at a later date.",
-              "You will need a connection to install the app and download its voice model, as well as available storage space for that model. Transcription then takes place on the device. Optional features may have other hardware requirements; they are not needed for this first note."
+              "A voice keyboard turns speech into text in the field where the cursor is placed. It does not replace the app receiving that text: a note remains a note, and a message draft still needs to be reviewed and sent by you. Apple’s built-in dictation is another option; this guide covers the Dictus keyboard and its own settings.",
+              "The French App Store listing checked on 18 September 2026 distributes Dictus iOS 1.8.2 and lists iOS 17.0 or later as a requirement. The download is free. A Pro offering is in preparation; you do not need to purchase it to follow this first dictation walkthrough. You should still check the compatibility shown in the App Store before installing at a later date.",
+              "You will need a connection to install the app and download its speech model, along with available storage for that model. Transcription then takes place on the device. Optional features may have other hardware requirements; they are not needed for this first note."
             ],
             "bullets": []
           },
@@ -586,8 +854,8 @@
             "heading": "Install and enable the keyboard",
             "paragraphs": [
               "Download Dictus from its App Store listing, then open the app. Follow the onboarding steps and allow microphone access when Dictus asks. This permission lets the app record your voice for transcription.",
-              "At the keyboard setup step, use the button that opens the Dictus settings. Under Keyboards, enable Dictus, then turn on “Allow Full Access”. Return to Dictus to continue setup. The system may relaunch the app after this change, so the setup screen closing does not by itself mean the installation has failed.",
-              "“Full Access” is a broad system permission: among other things, it lets the keyboard share data with its app and technically allows network access. In Dictus, the transcription process uses a model on the device. The permission’s name is not, however, a privacy guarantee in itself; also read the guide to local processing and the privacy policy."
+              "At the keyboard setup step, use the button that opens the Dictus settings. Under Keyboards, enable Dictus, then “Allow Full Access”. Return to Dictus to continue setup. The system may relaunch the app after this change, so the setup screen closing does not, on its own, mean that installation has failed.",
+              "“Full Access” is a broad system permission: among other things, it allows the keyboard to share data with its app and technically permits network access. In Dictus, the transcription process uses an on-device model. However, the permission’s name is not a privacy guarantee in itself; also consult the guide to local processing and the privacy policy."
             ],
             "bullets": []
           },
@@ -595,9 +863,9 @@
             "id": "preparer-le-modele",
             "heading": "Prepare the model before your first dictation",
             "paragraphs": [
-              "Onboarding suggests a voice model suited to your device. Start installing it and wait for the download and preparation to finish before continuing. Do not expect it to take the same amount of time on every phone: the selected file and available resources matter.",
-              "For this first attempt, keep the recommended model. If onboarding offers optional text enhancement, you can skip it. The initial goal is to check the basic process: speak, get text and find it in a note.",
-              "Complete the keyboard selection tutorial. In an app where you can enter text, the globe button lets you choose from your enabled keyboards. The exact labels may vary depending on your phone’s language."
+              "Onboarding suggests a speech model suited to the device. Start its installation and wait for both the download and preparation to finish before continuing. Do not expect this to take the same amount of time on every phone: the chosen file and available resources matter.",
+              "For this first attempt, keep the recommended model. If onboarding offers optional text enhancement, you can skip it. The initial goal is to check the basic flow: speak, get text and find it in a note.",
+              "Complete the keyboard selection tutorial. In an app where you can enter text, the globe button lets you choose from the enabled keyboards. The exact labels may vary depending on your phone’s language."
             ],
             "bullets": []
           },
@@ -605,10 +873,10 @@
             "id": "premiere-note",
             "heading": "Dictate your first note in Apple Notes",
             "paragraphs": [
-              "Create a blank note in Apple Notes, tap its body to display the keyboard, then select Dictus using the globe. Use text without personal data to learn how it works. For example, choose a short reminder sentence of your own: this is an exercise, not a promise of a word-for-word result.",
-              "Tap the microphone on the Dictus keyboard. If the app needs to prepare, it may open: follow its guidance to return to your app. If it asks you to tap the microphone again after the model loads, do so once you are back in the note. An automatic return and instant availability are not guaranteed.",
+              "Create an empty note in Apple Notes, tap its body to display the keyboard, then select Dictus using the globe. Use text without personal data to learn how it works. For practice, you can dictate: “Remember to water the plants this evening.” Then check that the action and timing were transcribed correctly.",
+              "Tap the microphone on the Dictus keyboard. If the app needs to prepare, it may open: follow its prompt to return to your app. If it asks you to tap the microphone again after the model loads, do so once you are back in the note. Automatic return and instant availability are not guaranteed.",
               "Once recording is active, speak, then use the green checkmark on the Dictus keyboard to finish and start processing. The cross lets you cancel. Wait for transcription to finish and check the text inserted at the cursor before dictating more.",
-              "The actual recording illustrating this article shows dictation and its result in Apple Notes. It does not prove that every app accepts the keyboard or that every device follows the same sequence. The steps above have been checked in the code of the released version; a complete fresh installation on a physical iPhone still needs to be confirmed before this guide is published."
+              "The actual recording illustrating this article shows a dictation and its result in Apple Notes. It does not prove that every app accepts the keyboard or that every device follows the same sequence. The steps above have been checked against the code of the distributed version; a complete fresh installation on a physical iPhone still needs to be confirmed before this guide is published."
             ],
             "bullets": []
           },
@@ -616,8 +884,8 @@
             "id": "relire-et-corriger",
             "heading": "Review the text before reusing it",
             "paragraphs": [
-              "Read through the note as a draft. Pay particular attention to proper names, numbers, negations and punctuation: fluent text can still change the meaning of your sentence. Make corrections with the keyboard before copying or sending the result.",
-              "Once you understand the process in Notes, try a draft in your usual app. Keep the same approach: position the cursor, choose Dictus, dictate a short passage and review it. The inserted text then follows that app’s rules, including any syncing it may perform."
+              "Review the note as a draft. Pay particular attention to proper names, numbers, negations and punctuation: even fluent text can change the meaning of your sentence. Make corrections with the keyboard before copying or sending the result.",
+              "Once you understand the process in Notes, try a draft in your usual app. Keep the same method: place the cursor, choose Dictus, dictate a short passage and review it. The inserted text then follows that app’s rules, including any syncing it may perform."
             ],
             "bullets": []
           },
@@ -625,14 +893,14 @@
             "id": "limites-et-aide",
             "heading": "If the keyboard or dictation does not behave as expected",
             "paragraphs": [
-              "Apple imposes limitations on third-party keyboards: secure fields and certain phone number fields use the system keyboard; an app can also reject third-party keyboards entirely. Dictus being absent in these cases does not demonstrate a voice model failure.",
-              "The following points come from the settings and states предусмотрed by the app. They are checks to carry out, not a list of failures reproduced on every device. If the problem persists, use the support link below and include your Dictus version, system version, the app concerned and the step where you are stuck. Avoid attaching a note containing private information."
+              "Apple imposes limitations on third-party keyboards: secure fields and certain phone number fields use the system keyboard; an app can also reject third-party keyboards entirely. The absence of Dictus in these cases does not demonstrate a speech model failure.",
+              "The following points come from the settings and states accounted for by the app. They are checks to perform, not a list of failures reproduced on every device. If the problem persists, use the support link below and include the Dictus version, the system version, the app involved and the step where you are stuck. Avoid attaching a note containing private information."
             ],
             "bullets": [
-              "Dictus is not listed among the keyboards: return to the keyboard settings, check that it is enabled, then try the globe in a regular note.",
-              "The microphone does not start recording: check microphone permission in the Dictus settings and complete onboarding in the app.",
-              "A preparation screen appears: wait for loading to finish, return to the note and follow any request to tap the microphone again.",
-              "The problem occurs in only one app: compare it with Apple Notes and a non-secure text field before concluding that there is a general failure."
+              "Dictus does not appear among the keyboards: return to the keyboard settings, check that it is enabled, then try the globe in a regular note.",
+              "The microphone does not start recording: check the microphone permission in the Dictus settings and complete onboarding in the app.",
+              "A preparation screen appears: wait for loading to finish, return to the note and follow any prompt to tap the microphone again.",
+              "The problem occurs in only one app: compare with Apple Notes and a non-secure text field before concluding that there is a general failure."
             ]
           }
         ],
@@ -646,7 +914,7 @@
             "href": "https://github.com/getdictus/dictus-ios/tree/v1.8.2/DictusApp/Onboarding"
           },
           {
-            "label": "Code for the keyboard dictation process",
+            "label": "Code for the keyboard dictation flow",
             "href": "https://github.com/getdictus/dictus-ios/blob/v1.8.2/DictusKeyboard/KeyboardState.swift"
           },
           {
@@ -654,7 +922,7 @@
             "href": "https://developer.apple.com/documentation/uikit/configuring-a-custom-keyboard-interface"
           },
           {
-            "label": "Apple: scope of a keyboard’s full access",
+            "label": "Apple: scope of full access for a keyboard",
             "href": "https://developer.apple.com/library/archive/documentation/General/Conceptual/ExtensibilityPG/CustomKeyboard.html"
           },
           {
@@ -673,7 +941,7 @@
       }
     },
     "translation": {
-      "sourceHash": "0539a1b057034f5d4ab4d0850ac85817ba2bc40716b1eba0421bc4285ab96617",
+      "sourceHash": "0ead1f3c330529a1fdf61e5235eb5068e79e436a8b333e8b09389fc74d691365",
       "generatedAt": "2026-09-18",
       "method": "codex-cli"
     }
