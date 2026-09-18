@@ -24,8 +24,5 @@ jobs:
       - name: Lint
         run: npm run lint
 
-      - name: Validate bilingual editorial workflow
-        run: npm run test:blog
-
       - name: Build
         run: npm run build

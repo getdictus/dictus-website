@@ -2,7 +2,7 @@ import { Link } from "@/i18n/navigation";
 
 export default function Logo() {
   return (
-    <Link href="/" prefetch={false} className="flex items-center gap-2.5">
+    <Link href="/" className="flex items-center gap-2.5">
       {/* Squircle waveform icon */}
       <svg
         width="32"

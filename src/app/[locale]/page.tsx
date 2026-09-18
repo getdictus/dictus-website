@@ -2,7 +2,6 @@ import { setRequestLocale, getTranslations } from "next-intl/server";
 import { getDesktopDownloads } from "@/lib/downloads";
 import Hero from "@/components/Hero/Hero";
 import Platforms from "@/components/Platforms/Platforms";
-import ProductScenes from "@/components/ProductScenes/ProductScenes";
 import Features from "@/components/Features/Features";
 import Comparison from "@/components/Comparison/Comparison";
 import HowItWorks from "@/components/HowItWorks/HowItWorks";
@@ -10,6 +9,7 @@ import HowItWorks from "@/components/HowItWorks/HowItWorks";
 import OpenSource from "@/components/OpenSource/OpenSource";
 import Community from "@/components/Community/Community";
 import Footer from "@/components/Footer/Footer";
+import ScrollReveal from "@/components/shared/ScrollReveal";
 
 type Props = {
   params: Promise<{ locale: string }>;
@@ -24,13 +24,11 @@ export default async function HomePage({ params }: Props) {
 
   const jsonLd = {
     "@context": "https://schema.org",
-    "@type": "SoftwareApplication",
-    name: "Dictus Desktop",
-    description: t("desktop_jsonld_description"),
-    operatingSystem: "macOS, Windows, Linux",
+    "@type": "MobileApplication",
+    name: "dictus",
+    description: t("jsonld_description"),
+    operatingSystem: "iOS 18+, Android, macOS, Windows, Linux",
     applicationCategory: "UtilitiesApplication",
-    softwareVersion: downloads.version,
-    codeRepository: "https://github.com/getdictus/dictus-desktop",
     offers: {
       "@type": "Offer",
       price: "0",
@@ -45,13 +43,12 @@ export default async function HomePage({ params }: Props) {
   return (
     <>
       <Hero />
-      <ProductScenes />
-      <Platforms downloads={downloads} />
-      <Features />
-      <HowItWorks />
-      <Comparison />
-      <OpenSource />
-      <Community />
+      <ScrollReveal><Platforms downloads={downloads} /></ScrollReveal>
+      <ScrollReveal><Features /></ScrollReveal>
+      <ScrollReveal><Comparison /></ScrollReveal>
+      <ScrollReveal><HowItWorks /></ScrollReveal>
+      <ScrollReveal><OpenSource /></ScrollReveal>
+      <ScrollReveal><Community /></ScrollReveal>
       <Footer />
       <script
         type="application/ld+json"
