@@ -24,9 +24,9 @@ Lire `docs/issue-29-handoff.md` pour reprendre après changement de conversation
 Dictus est disponible sous deux formes :
 
 - **Dictus Desktop**, gratuit aujourd'hui et demain, sur macOS, Windows et Linux. La transcription audio s'effectue localement. Un post-traitement facultatif, désactivé par défaut, peut transmettre le texte au fournisseur choisi par l'utilisateur.
-- **Dictus iOS**, pour iOS 18 ou ultérieur, avec un clavier de dictée utilisable dans les apps compatibles avec les claviers tiers.
+- **Dictus iOS**, pour iOS 17 ou ultérieur, avec un clavier de dictée utilisable dans les apps compatibles avec les claviers tiers.
 
-Le code des applications iOS et Desktop est public et vérifiable. Android reste en développement et ne doit pas être présenté comme disponible. Les offres et prix iOS ne sont pas encore arrêtés.
+Le code des applications iOS et Desktop est public et vérifiable. Android reste en développement et ne doit pas être présenté comme disponible. La page Pricing de preview documente le catalogue de travail iOS de l’issue #28 : 4,99 €/mois, 39,99 €/an (essai de 7 jours selon éligibilité Apple), achat unique de 149,99 €. Ces valeurs sont centralisées dans `src/config/pricing.ts`. Les achats Pro ne sont pas encore disponibles ; la validation finale du catalogue et des territoires reste requise avant publication. Lire `docs/issue-28-plan.md` et le dernier brief de #28.
 
 Toute fonctionnalité à venir doit être vérifiée dans les dépôts produit et les issues en cours avant d'être annoncée sur le site.
 

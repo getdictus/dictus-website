@@ -2,6 +2,7 @@ import { setRequestLocale, getTranslations } from "next-intl/server";
 import { routing } from "@/i18n/routing";
 import { Link } from "@/i18n/navigation";
 import Footer from "@/components/Footer/Footer";
+import { pricingValues } from "@/config/pricing";
 import type { Metadata } from "next";
 
 type Props = { params: Promise<{ locale: string }> };
@@ -45,6 +46,8 @@ export default async function TermsPage({ params }: Props) {
   const { locale } = await params;
   setRequestLocale(locale);
   const t = await getTranslations("Terms");
+  const pricing = await getTranslations("Pricing");
+  const values = { ...pricingValues(locale), lifetimeScope: pricing("lifetime_scope") };
 
   return (
     <>
@@ -79,7 +82,7 @@ export default async function TermsPage({ params }: Props) {
                 .
               </p>
             ) : (
-              <p className="mt-3 leading-relaxed text-white-70">{t(`${section}_text`)}</p>
+              <p className="mt-3 leading-relaxed text-white-70">{t(`${section}_text`, values)}</p>
             )}
           </section>
         ))}
