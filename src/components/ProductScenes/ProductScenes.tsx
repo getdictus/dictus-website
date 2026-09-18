@@ -9,7 +9,7 @@ import styles from "./ProductScenes.module.css";
 
 export default function ProductScenes() {
   const t = useTranslations("ProductScenes");
-  const { videoRef, phoneRef, selected, sourceLoaded, playing, ended, failed,
+  const { videoRef, phoneRef, selected, sourceLoaded, playing, failed,
     showPoster, selectChapter, togglePlayback, events } = useIphoneDemo();
   const chapter = iphoneChapters[selected];
   const tabs = useRef<(HTMLButtonElement | null)[]>([]);
@@ -65,7 +65,7 @@ export default function ProductScenes() {
               tabIndex={0} className={styles.screen}>
               <video ref={videoRef} id="iphone-demo-video" data-iphone-video
                 src={sourceLoaded ? iphoneVideo : undefined}
-                width={860} height={1864} muted playsInline preload="metadata"
+                width={860} height={1864} muted playsInline loop preload="metadata"
                 aria-label={t("video_label")} aria-describedby="iphone-demo-description"
                 aria-hidden={showPoster} className={styles.video} {...events} />
               <Image src={chapter.poster} width={860} height={1864}
@@ -80,13 +80,11 @@ export default function ProductScenes() {
               <button type="button" className={styles.playbackButton} onClick={togglePlayback}
                 aria-controls="iphone-demo-video">
                 <svg width="16" height="16" viewBox="0 0 16 16" fill="none" aria-hidden="true">
-                  {ended
-                    ? <path d="M3 5a5 5 0 1 1-.2 5M3 2v3h3" stroke="currentColor" strokeWidth="1.4" strokeLinecap="round" strokeLinejoin="round" />
-                    : playing
-                      ? <path d="M5 3v10M11 3v10" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" />
-                      : <path d="m5 3 7 5-7 5V3Z" fill="currentColor" />}
+                  {playing
+                    ? <path d="M5 3v10M11 3v10" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" />
+                    : <path d="m5 3 7 5-7 5V3Z" fill="currentColor" />}
                 </svg>
-                {t(ended ? "video_replay" : playing ? "video_pause" : "video_play")}
+                {t(playing ? "video_pause" : "video_play")}
               </button>
             )}
             <p className={styles.playbackNote}>{t("video_note")}</p>

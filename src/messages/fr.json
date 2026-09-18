@@ -48,6 +48,8 @@
     "emails_desc": "Formulez votre réponse à voix haute, puis prenez le temps de la relire."
   },
   "HowItWorks": {
+    "animation_pause": "Mettre le parcours animé en pause",
+    "animation_play": "Reprendre le parcours animé",
     "step1_title": "Vous parlez",
     "step1_desc": "Sur iPhone, ouvrez le clavier Dictus. Sur ordinateur, utilisez votre raccourci de dictée.",
     "step2_title": "Votre appareil transcrit",
@@ -277,7 +279,6 @@
     "video_description": "Dans Apple Notes, une phrase est saisie avec le clavier Dictus, ses corrections et suggestions. Une dictée insère « Hello guys, how are you doing? ». L’application affiche ensuite la dernière transcription, les modèles et les réglages. La saisie est accélérée deux fois ; la dictée reste à sa vitesse d’origine.",
     "video_play": "Lire la démonstration",
     "video_pause": "Mettre la démonstration en pause",
-    "video_replay": "Rejouer la démonstration",
     "video_note": "Capture réelle · saisie ×2, dictée à vitesse réelle.",
     "video_unavailable": "La vidéo est indisponible. Les captures restent accessibles.",
     "beta": "Rejoindre la bêta iOS",

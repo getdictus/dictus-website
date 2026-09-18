@@ -73,6 +73,11 @@ and playback controls are localized.
   and **19 s (app)**; keyframes are forced at all three cues. The original native
   opening animation remains at the start of the video.
 
+The continuous recording loops while its section is visible, with the three
+chapter tabs following the playback position, including the return to the keyboard.
+Manual pause is preserved across scrolling; hidden and offscreen playback stops.
+Reduced-motion users see the posters until they explicitly start playback.
+
 The three fallback posters are authentic frames extracted from the same source,
 resized to 860 × 1864 JPEG. The keyboard poster uses 2 s because the source's
 first frame is an empty Notes page before the keyboard appears. Poster timestamps

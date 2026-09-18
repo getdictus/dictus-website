@@ -30,7 +30,6 @@ export function useIphoneDemo() {
   const [manuallyPaused, setManuallyPaused] = useState(false);
   const [blocked, setBlocked] = useState(false);
   const [playing, setPlaying] = useState(false);
-  const [ended, setEnded] = useState(false);
   const [failed, setFailed] = useState(false);
 
   useEffect(() => {
@@ -103,7 +102,7 @@ export function useIphoneDemo() {
   }, []);
 
   const canPlay = sourceLoaded && metadataReady && inView && documentVisible
-    && !manuallyPaused && !blocked && !ended && !failed
+    && !manuallyPaused && !blocked && !failed
     && (!reducedMotion || explicitPlayback);
 
   useEffect(() => {
@@ -138,8 +137,6 @@ export function useIphoneDemo() {
   }
 
   function selectChapter(index: number) {
-    if (ended) setManuallyPaused(true);
-    setEnded(false);
     setSelected(index);
     pendingSeek.current = iphoneChapters[index].start;
     setFrameReady(false);
@@ -155,12 +152,6 @@ export function useIphoneDemo() {
       video?.pause();
       return;
     }
-    if (ended) {
-      pendingSeek.current = 0;
-      setSelected(0);
-      setFrameReady(false);
-    }
-    setEnded(false);
     setBlocked(false);
     setManuallyPaused(false);
     setExplicitPlayback(true);
@@ -181,7 +172,9 @@ export function useIphoneDemo() {
     },
     onSeeking() {
       seekInProgress.current = true;
-      if (!restoringPause.current) setFrameReady(false);
+      // Native looping keeps the video frame visible. Only an explicit chapter
+      // jump needs its poster while the requested frame is being decoded.
+      if (pendingSeek.current !== null && !restoringPause.current) setFrameReady(false);
     },
     onSeeked() {
       seekInProgress.current = false;
@@ -201,12 +194,11 @@ export function useIphoneDemo() {
       pausedPosition.current = video && !video.ended ? video.currentTime : null;
       setPlaying(false);
     },
-    onEnded() { setPlaying(false); setEnded(true); setSelected(iphoneChapters.length - 1); },
     onError() { setFailed(true); setPlaying(false); setFrameReady(false); },
   };
 
   return {
-    videoRef, phoneRef, selected, sourceLoaded, playing, ended, failed,
+    videoRef, phoneRef, selected, sourceLoaded, playing, failed,
     showPoster: failed || blocked || !frameReady || (reducedMotion && !explicitPlayback),
     selectChapter, togglePlayback, events,
   };

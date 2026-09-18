@@ -48,6 +48,8 @@
     "emails_desc": "Speak your reply, then take a moment to read it before sending."
   },
   "HowItWorks": {
+    "animation_pause": "Pause the animated steps",
+    "animation_play": "Resume the animated steps",
     "step1_title": "You speak",
     "step1_desc": "On iPhone, open the Dictus keyboard. On desktop, use your dictation shortcut.",
     "step2_title": "Your device transcribes",
@@ -277,7 +279,6 @@
     "video_description": "In Apple Notes, a phrase is typed with the Dictus keyboard, its autocorrection and suggestions. Dictation inserts “Hello guys, how are you doing?”. The app then shows the last transcription, models and settings. Typing is shown at twice its original speed; dictation remains at its original speed.",
     "video_play": "Play the demo",
     "video_pause": "Pause the demo",
-    "video_replay": "Replay the demo",
     "video_note": "Real capture · typing at 2×, dictation at real speed.",
     "video_unavailable": "The video is unavailable. You can still explore the screenshots.",
     "beta": "Join the iOS beta",

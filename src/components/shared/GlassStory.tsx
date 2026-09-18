@@ -1,24 +1,17 @@
 "use client";
 
 import { useEffect, useRef, useState, type ReactNode } from "react";
-import { Glass, glassValue } from "@samasante/liquid-glass";
 import { cubicBezier } from "motion";
 import styles from "./GlassStory.module.css";
 
 // Reading time and travel time serve different purposes: rest over the copy,
 // then accelerate into the next paragraph and brake gently at its center.
-const HOLD_MS = 3_600;
+const HOLD_MS = 1_600;
 const TRAVEL_MS = 800;
 const STEP_MS = HOLD_MS + TRAVEL_MS;
 // Same on-screen movement curve as --ease-in-out in globals.css.
 const easeTravel = cubicBezier(0.77, 0, 0.175, 1);
-const optics = {
-  mapSize: 256, strength: 0.025, depth: 0.8, curvature: 0.16,
-  bend: 0.32, bendWidth: 0.12, dispersion: 0.025, frost: 0,
-  brightness: 0.018, specular: 0.7, sheen: 0.2, sheenWidth: 2, glow: 0.025,
-};
-
-/** A moving reading lens. The original text stays in the document flow. */
+/** A moving glass surface beneath crisp, selectable text. */
 export default function GlassStory({ children, pauseLabel, playLabel }: {
   children: ReactNode;
   pauseLabel: string;
@@ -29,7 +22,6 @@ export default function GlassStory({ children, pauseLabel, playLabel }: {
   const rimRef = useRef<HTMLDivElement>(null);
   const elapsedRef = useRef(0);
   const paintRef = useRef<() => void>(() => undefined);
-  const [centerY] = useState(() => glassValue(0));
   const [geometry, setGeometry] = useState<{ width: number; height: number; radius: number } | null>(null);
   const [paused, setPaused] = useState(false);
   const [inView, setInView] = useState(false);
@@ -83,7 +75,6 @@ export default function GlassStory({ children, pauseLabel, playLabel }: {
         const travel = Math.max(0, (elapsedRef.current % STEP_MS - HOLD_MS) / TRAVEL_MS);
         const eased = easeTravel(travel);
         const y = route[index] + (route[(index + 1) % route.length] - route[index]) * eased;
-        centerY.set(y / bounds.height);
         if (rimRef.current) rimRef.current.style.transform = `translateY(${y - height / 2}px)`;
       };
       paintRef.current();
@@ -106,10 +97,10 @@ export default function GlassStory({ children, pauseLabel, playLabel }: {
       document.removeEventListener("visibilitychange", onVisibility);
       document.removeEventListener("selectionchange", onSelection);
     };
-  }, [centerY, children]);
+  }, [children]);
 
   useEffect(() => {
-    // React has now mounted the rim; align it with the measured optical lens.
+    // React has now mounted the surface; align it with the measured paragraph.
     paintRef.current();
   }, [geometry]);
 
@@ -120,9 +111,7 @@ export default function GlassStory({ children, pauseLabel, playLabel }: {
     const animate = (now: number) => {
       elapsedRef.current += previous === null ? 0 : Math.min(now - previous, 100);
       previous = now;
-      // Follow the display refresh rate through the faster travel. Refraction
-      // and rim share this clock; a separate CSS transform would drift in Safari.
-      // At rest the signal stays constant, so no filter work is repeated.
+      // Only the decorative surface moves; text never transforms or filters.
       paintRef.current();
       frame = requestAnimationFrame(animate);
     };
@@ -135,23 +124,8 @@ export default function GlassStory({ children, pauseLabel, playLabel }: {
       <div ref={storyRef} className={styles.story} data-glass-story data-playing={playing} data-glass-variant="reading-lens" data-text-selected={textSelected}>
         <div ref={contentRef} className={styles.content} data-glass-story-content>{children}</div>
         {geometry && (
-          <>
-            {/* A clipped optical copy makes actual refraction work in Safari
-                and Firefox too. The original remains selectable and accessible.
-                Move centerY, never transform the filtered DOM. Normalized SVG
-                coordinates preserve WebKit displacement (pixelUnits does not). */}
-            <Glass
-              aria-hidden="true" inert className={styles.refraction}
-              style={{ position: "absolute", inset: 0, pointerEvents: "none" }}
-              refract={<div className={styles.content}>{children}</div>}
-              behind="var(--theme-bg-primary)" pixelUnits={false}
-              width={geometry.width} height={geometry.height} radius={geometry.radius}
-              center={{ x: 0.5, y: centerY }} optics={optics}
-              filterResolution={1} live={false}
-            />
-            <div ref={rimRef} data-glass-lens aria-hidden="true" className={styles.rim}
-              style={{ width: geometry.width, height: geometry.height, borderRadius: geometry.radius }} />
-          </>
+          <div ref={rimRef} data-glass-lens aria-hidden="true" className={styles.rim}
+            style={{ width: geometry.width, height: geometry.height, borderRadius: geometry.radius }} />
         )}
       </div>
       <button type="button" className={styles.pause} onClick={() => setPaused((value) => !value)}
