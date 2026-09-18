@@ -8,10 +8,6 @@ import {
 } from "next-intl/server";
 import { notFound } from "next/navigation";
 import { routing } from "@/i18n/routing";
-import { isSitePreview } from "@/config/preview";
-import { isBlogAvailable } from "@/config/blog";
-import { getBlogArticles, getTranslationPaths } from "@/lib/blog";
-import type { ArticleLocaleRoutes } from "@/components/Nav/LanguageToggle";
 import Nav from "@/components/Nav/Nav";
 import MotionProvider from "@/components/shared/MotionProvider";
 import "../globals.css";
@@ -84,8 +80,8 @@ export async function generateMetadata({
       },
     },
     robots: {
-      index: !isSitePreview,
-      follow: !isSitePreview,
+      index: true,
+      follow: true,
     },
   };
 }
@@ -104,31 +100,20 @@ export default async function LocaleLayout({ children, params }: Props) {
   setRequestLocale(locale);
   const messages = await getMessages();
   const tNav = await getTranslations({ locale, namespace: "Nav" });
-  const articleRoutes: ArticleLocaleRoutes = {};
-  if (isBlogAvailable) {
-    for (const articleLocale of routing.locales) {
-      for (const article of getBlogArticles(articleLocale, { preview: isSitePreview })) {
-        const paths = getTranslationPaths(article.id, { preview: isSitePreview });
-        articleRoutes[`/${articleLocale}/blog/${article.slug}`] = Object.fromEntries(
-          Object.entries(paths).map(([language, path]) => [language, path.replace(/^\/(fr|en)(?=\/)/, "")]),
-        );
-      }
-    }
-  }
 
   return (
     <html lang={locale} className={`${dmSans.variable} ${dmMono.variable}`}>
-      <body className="bg-ink font-sans text-[var(--theme-text-primary)] antialiased">
+      <body className="overflow-x-hidden bg-ink font-sans text-[var(--theme-text-primary)] antialiased">
         <NextIntlClientProvider messages={messages}>
           <a
             href="#main-content"
-            className="sr-only focus:not-sr-only focus:fixed focus:left-4 focus:top-4 focus:z-[60] focus:rounded-lg focus:bg-[#2563eb] focus:px-4 focus:py-2 focus:text-white focus:outline-none"
+            className="sr-only focus:not-sr-only focus:fixed focus:left-4 focus:top-4 focus:z-50 focus:rounded-lg focus:bg-accent focus:px-4 focus:py-2 focus:text-white focus:outline-none"
           >
             {tNav("skip_to_content")}
           </a>
-          <Nav preview={isSitePreview} blogAvailable={isBlogAvailable} articleRoutes={articleRoutes} />
+          <Nav />
           <MotionProvider>
-            <main id="main-content">{children}</main>
+            <main id="main-content" className="pt-16">{children}</main>
           </MotionProvider>
         </NextIntlClientProvider>
       </body>

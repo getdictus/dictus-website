@@ -29,18 +29,18 @@ export default async function SupportPage({ params }: Props) {
 
   return (
     <>
-      <article className="mx-auto max-w-3xl px-6 pt-44 pb-24 sm:pt-40 sm:pb-32">
-        <h1 className="text-4xl font-extralight tracking-[-0.035em] sm:text-5xl">
+      <article className="mx-auto max-w-3xl px-6 py-16">
+        <h1 className="text-3xl font-extralight tracking-tight">
           {t("title")}
         </h1>
-        <p className="mt-6 text-lg leading-relaxed text-white-70">{t("intro")}</p>
+        <p className="mt-6 text-lg text-white-70">{t("intro")}</p>
 
         <section>
           <h2 className="mt-10 text-xl font-light">{t("email_title")}</h2>
-          <p className="mt-3 leading-relaxed text-white-70">
+          <p className="mt-3 text-white-70">
             <a
-              href="mailto:contact@pivi.solutions"
-              className="inline-flex min-h-11 items-center text-[#2563eb] dark:text-accent-hi underline decoration-accent/30 underline-offset-4 hover:decoration-accent"
+              href="mailto:pierre@pivi.solutions"
+              className="text-accent-blue hover:text-accent-hi"
             >
               {t("email_text")}
             </a>
@@ -49,13 +49,13 @@ export default async function SupportPage({ params }: Props) {
 
         <section>
           <h2 className="mt-10 text-xl font-light">{t("github_title")}</h2>
-          <p className="mt-3 leading-relaxed text-white-70">{t("github_text")}</p>
+          <p className="mt-3 text-white-70">{t("github_text")}</p>
           <p className="mt-2">
             <a
               href="https://github.com/getdictus/dictus-ios/issues"
               target="_blank"
               rel="noopener noreferrer"
-              className="inline-flex min-h-11 items-center text-[#2563eb] dark:text-accent-hi underline decoration-accent/30 underline-offset-4 hover:decoration-accent"
+              className="text-accent-blue hover:text-accent-hi"
             >
               {t("github_link_text")}
             </a>
@@ -64,13 +64,13 @@ export default async function SupportPage({ params }: Props) {
 
         <section>
           <h2 className="mt-10 text-xl font-light">{t("telegram_title")}</h2>
-          <p className="mt-3 leading-relaxed text-white-70">{t("telegram_text")}</p>
+          <p className="mt-3 text-white-70">{t("telegram_text")}</p>
           <p className="mt-2">
             <a
               href="https://t.me/getdictus"
               target="_blank"
               rel="noopener noreferrer"
-              className="inline-flex min-h-11 items-center text-[#2563eb] dark:text-accent-hi underline decoration-accent/30 underline-offset-4 hover:decoration-accent"
+              className="text-accent-blue hover:text-accent-hi"
             >
               {t("telegram_link_text")}
             </a>
@@ -81,7 +81,7 @@ export default async function SupportPage({ params }: Props) {
           <h2 className="mt-10 text-xl font-light">
             {t("compatibility_title")}
           </h2>
-          <p className="mt-3 leading-relaxed text-white-70">{t("compatibility_text")}</p>
+          <p className="mt-3 text-white-70">{t("compatibility_text")}</p>
         </section>
       </article>
       <Footer />

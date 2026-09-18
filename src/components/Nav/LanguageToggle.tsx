@@ -3,18 +3,14 @@
 import { useLocale } from "next-intl";
 import { useRouter, usePathname } from "@/i18n/navigation";
 
-export type ArticleLocaleRoutes = Record<string, Partial<Record<"fr" | "en", string>>>;
-
-export default function LanguageToggle({ articleRoutes = {} }: { articleRoutes?: ArticleLocaleRoutes }) {
+export default function LanguageToggle() {
   const locale = useLocale();
   const router = useRouter();
   const pathname = usePathname();
-  const article = articleRoutes[`/${locale}${pathname}`];
 
   function switchTo(target: "fr" | "en") {
     if (target === locale) return;
-    if (article && !article[target]) return;
-    router.replace(article?.[target] ?? pathname, { locale: target, scroll: false });
+    router.replace(pathname, { locale: target, scroll: false });
   }
 
   return (
@@ -22,28 +18,20 @@ export default function LanguageToggle({ articleRoutes = {} }: { articleRoutes?:
       <button
         onClick={() => switchTo("fr")}
         className={`min-h-11 min-w-11 px-2 py-2 transition-colors ${
-          locale === "fr"
-            ? "text-[#2563eb] dark:text-accent-hi"
-            : "text-white-70 hover:text-text-primary"
+          locale === "fr" ? "text-accent" : "text-white-40 hover:text-white-70"
         }`}
-        aria-label="Passer en français"
-        disabled={Boolean(article && !article.fr)}
-        title={article && !article.fr ? "Traduction en préparation" : undefined}
+        aria-label="Passer en francais"
         aria-current={locale === "fr" ? "true" : undefined}
       >
         FR
       </button>
-      <span className="text-white-70" aria-hidden="true">/</span>
+      <span className="text-white-40">/</span>
       <button
         onClick={() => switchTo("en")}
         className={`min-h-11 min-w-11 px-2 py-2 transition-colors ${
-          locale === "en"
-            ? "text-[#2563eb] dark:text-accent-hi"
-            : "text-white-70 hover:text-text-primary"
+          locale === "en" ? "text-accent" : "text-white-40 hover:text-white-70"
         }`}
         aria-label="Switch to English"
-        disabled={Boolean(article && !article.en)}
-        title={article && !article.en ? "Translation in preparation" : undefined}
         aria-current={locale === "en" ? "true" : undefined}
       >
         EN
