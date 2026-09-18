@@ -272,7 +272,14 @@
     "title_line_one": "In the apps",
     "title_line_two": "you already love.",
     "description": "Your notes, messages and emails. Keep your keyboard, and let your ideas do the talking.",
-    "picker": "Explore Dictus on iPhone",
+    "picker": "Explore the iPhone demo chapters",
+    "video_label": "Dictus demo recorded on an iPhone.",
+    "video_description": "In Apple Notes, a phrase is typed with the Dictus keyboard, its autocorrection and suggestions. Dictation inserts “Hello guys, how are you doing?”. The app then shows the last transcription, models and settings. Typing is shown at twice its original speed; dictation remains at its original speed.",
+    "video_play": "Play the demo",
+    "video_pause": "Pause the demo",
+    "video_replay": "Replay the demo",
+    "video_note": "Real capture · typing at 2×, dictation at real speed.",
+    "video_unavailable": "The video is unavailable. You can still explore the screenshots.",
     "beta": "Join the iOS beta",
     "discover": "Follow iOS development",
     "android": "Android is in development.",
@@ -285,12 +292,12 @@
       "dictation": {
         "label": "Dictation",
         "alt": "Dictus recording in Apple Notes, with its waveform and confirmation button.",
-        "caption": "Dictus dictation in Apple Notes."
+        "caption": "Speak, then find your words in Apple Notes."
       },
       "app": {
         "label": "The app",
         "alt": "The Dictus app home screen on iPhone.",
-        "caption": "The Dictus app on iPhone."
+        "caption": "Your transcription, models and settings."
       }
     }
   }

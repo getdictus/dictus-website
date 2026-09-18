@@ -7,6 +7,7 @@
 // Set VERIFY_ENGINES=chromium for a shorter pass, CHROME_CHANNEL=chrome to use
 // installed Chrome, and VERIFY_ARTIFACTS to choose the report/screenshot folder.
 // VERIFY_CHECKS is an optional regular expression matching check names.
+// VERIFY_SCREENSHOTS=0 skips screenshot files; optical assertions stay in memory.
 // VERIFY_MODE=production checks a separately built production configuration.
 import assert from "node:assert/strict";
 import { mkdir, writeFile } from "node:fs/promises";
@@ -23,6 +24,7 @@ const preview = process.env.VERIFY_MODE !== "production";
 const artifacts = process.env.VERIFY_ARTIFACTS || join(tmpdir(), "dictus-redesign-verification");
 const engines = (process.env.VERIFY_ENGINES || "chromium,firefox,webkit").split(",");
 const selectedChecks = process.env.VERIFY_CHECKS ? new RegExp(process.env.VERIFY_CHECKS) : null;
+const screenshots = process.env.VERIFY_SCREENSHOTS !== "0";
 const results = [];
 await mkdir(artifacts, { recursive: true });
 
@@ -89,7 +91,7 @@ async function captureScene(page, scene, path) {
     await image.evaluate((element) => element.decode());
   }
   // Isolate the section for visual review; viewport screenshots retain the nav.
-  await section.screenshot({ path, style: "header { display: none !important; }" });
+  if (screenshots) await section.screenshot({ path, style: "header { display: none !important; }" });
 }
 
 function changedTextInk(refractedPng, plainPng) {
@@ -218,7 +220,7 @@ for (const engine of engines) {
         const usageColumns = await page.locator("#uses > div").evaluate((node) => getComputedStyle(node).gridTemplateColumns.split(" ").length);
         assert.equal(usageColumns, width >= 1024 ? 2 : 1, "Usage layout must retain its desktop columns and mobile stacking in the compiled CSS");
         for (const link of await nav.getByRole("link").all()) await visibleToReader(link);
-        await page.screenshot({ path: join(artifacts, `${engine}-${width}-hero.png`) });
+        if (screenshots) await page.screenshot({ path: join(artifacts, `${engine}-${width}-hero.png`) });
         for (const scene of ["desktop", "iphone", "uses", "local"]) {
           await captureScene(page, scene, join(artifacts, `${engine}-${width}-${scene}.png`));
         }
@@ -236,33 +238,245 @@ for (const engine of engines) {
     }
   });
 
-  await check(`${engine}: iPhone selector exposes real screenshots with keyboard access`, async () => {
-    const context = await browser.newContext({ viewport: { width: 390, height: 844 } });
+  await check(`${engine}: iPhone chapters expose localized posters and keyboard access`, async () => {
+    const context = await browser.newContext({ reducedMotion: "reduce", viewport: { width: 390, height: 844 } });
     const page = await context.newPage();
     const errors = collectBrowserErrors(page);
     try {
-      await page.goto(`${origin}/fr`);
-      const iphone = page.locator("#iphone");
-      const tabs = iphone.getByRole("tab");
-      assert.equal(await tabs.count(), 3);
-      for (let index = 0; index < 3; index++) {
-        await tabs.nth(index).click();
-        await expect(tabs.nth(index)).toHaveAttribute("aria-selected", "true");
-        const image = iphone.getByRole("tabpanel").locator("img");
-        await expect(image).toBeVisible();
-        await expect.poll(() => image.evaluate((element) => element.complete && element.naturalWidth > 0)).toBe(true);
-        assert.ok((await image.getAttribute("alt")).length > 10);
-        await captureScene(page, "iphone", join(artifacts, `${engine}-iphone-state-${index}.png`));
-      }
-      await tabs.last().focus();
-      for (const [key, index] of [["Home", 0], ["End", 2], ["ArrowRight", 0], ["ArrowLeft", 2]]) {
-        await page.keyboard.press(key);
-        await expect(tabs.nth(index)).toHaveAttribute("aria-selected", "true");
-        await expect(tabs.nth(index)).toBeFocused();
+      for (const locale of ["fr", "en"]) {
+        await page.goto(`${origin}/${locale}`);
+        await page.evaluate(() => document.fonts.ready);
+        const iphone = page.locator("#iphone");
+        const tabs = iphone.getByRole("tab");
+        const panel = iphone.getByRole("tabpanel");
+        const video = iphone.locator("[data-iphone-video]");
+        await expect(tabs).toHaveCount(3);
+        await expect(panel).toHaveCount(1);
+        await expect(panel).toHaveAttribute("id", "iphone-screen");
+        await expect(video).toHaveCount(1);
+        for (const width of [320, 390, 768, 1440]) {
+          await page.setViewportSize({ width, height: 900 });
+          await settleFrames(page);
+          for (let index = 0; index < 3; index++) {
+            await tabs.nth(index).click();
+            await expect(tabs.nth(index)).toHaveAttribute("aria-selected", "true");
+            await expect(tabs.nth(index)).toHaveAttribute("aria-controls", "iphone-screen");
+            await expect(panel).toHaveAttribute("aria-labelledby", `iphone-tab-${index}`);
+            const image = panel.locator("img:visible");
+            await expect(image).toHaveCount(1);
+            await expect.poll(() => image.evaluate((element) => element.complete && element.naturalWidth > 0)).toBe(true);
+            assert.ok((await image.getAttribute("alt")).length > 10);
+            assert.equal(await video.evaluate((node) => node.paused), true, "Reduced-motion chapter browsing must remain static");
+            await noOverflow(page);
+            if (locale === "fr" && width === 390) {
+              await captureScene(page, "iphone", join(artifacts, `${engine}-iphone-state-${index}.png`));
+            }
+          }
+        }
+        assert.equal(await video.getAttribute("src"), null, "Reduced-motion posters must not load the MP4 before explicit playback");
+        assert.equal(await page.evaluate(() => performance.getEntriesByType("resource").filter((entry) => /\/videos\/products\/ios-demo\.mp4/.test(entry.name)).length), 0);
+        await tabs.last().focus();
+        for (const [key, index] of [["Home", 0], ["End", 2], ["ArrowRight", 0], ["ArrowLeft", 2]]) {
+          await page.keyboard.press(key);
+          await expect(tabs.nth(index)).toHaveAttribute("aria-selected", "true");
+          await expect(tabs.nth(index)).toBeFocused();
+        }
+        await expect(iphone.getByRole("button", { name: locale === "fr" ? "Lire la démonstration" : "Play the demo", exact: true })).toBeVisible();
       }
       assert.equal(await page.locator('a[href*="dictus-android/releases/download/"]').count(), 0);
       assert.deepEqual(errors, []);
     } finally {
+      await context.close();
+    }
+  });
+
+  await check(`${engine}: iPhone video loads near the phone and plays real chapter footage`, async () => {
+    const context = await browser.newContext({ viewport: { width: 1440, height: 1000 } });
+    const page = await context.newPage();
+    const errors = collectBrowserErrors(page);
+    const requests = [];
+    page.on("request", (request) => { if (/\/videos\/products\/ios-demo\.mp4/.test(request.url())) requests.push(request.url()); });
+    try {
+      await page.goto(`${origin}/fr`);
+      const iphone = page.locator("#iphone");
+      const video = iphone.locator("[data-iphone-video]");
+      await settleFrames(page);
+      assert.equal(await video.getAttribute("src"), null, "Hero must not attach the demo source");
+      assert.equal(requests.length, 0, "Hero must not fetch the MP4");
+      const panel = iphone.getByRole("tabpanel");
+      await panel.evaluate((node) => window.scrollTo({
+        top: window.scrollY + node.getBoundingClientRect().top - window.innerHeight - 150,
+        behavior: "instant",
+      }));
+      await expect(video).toHaveAttribute("src", "/videos/products/ios-demo.mp4");
+      await expect.poll(() => requests.length, { timeout: 15_000 }).toBeGreaterThan(0);
+      await page.waitForTimeout(150);
+      assert.equal(await video.evaluate((node) => node.paused), true, "Prefetching below the viewport must not start playback");
+      await panel.scrollIntoViewIfNeeded();
+      await expect.poll(() => video.evaluate((node) => node.readyState), { timeout: 15_000 }).toBeGreaterThanOrEqual(2);
+      const media = await video.evaluate((node) => ({
+        muted: node.muted, playsInline: node.playsInline, loop: node.loop,
+        duration: node.duration, width: node.videoWidth, height: node.videoHeight,
+      }));
+      assert.equal(media.muted, true);
+      assert.equal(media.playsInline, true);
+      assert.equal(media.loop, false);
+      assert.ok(media.duration >= 28 && media.duration <= 29, JSON.stringify(media));
+      assert.deepEqual([media.width, media.height], [860, 1864]);
+      await expect.poll(() => video.evaluate((node) => node.paused)).toBe(false);
+      const start = await video.evaluate((node) => node.currentTime);
+      await expect.poll(() => video.evaluate((node) => node.currentTime)).toBeGreaterThan(start + 0.15);
+      assert.ok(requests.length > 0);
+
+      const tabs = iphone.getByRole("tab");
+      await tabs.nth(2).click();
+      await expect.poll(() => video.evaluate((node) => node.currentTime)).toBeGreaterThanOrEqual(19);
+      assert.ok(await video.evaluate((node) => node.currentTime < 21));
+      await expect.poll(() => video.evaluate((node) => node.paused)).toBe(false);
+      await iphone.getByRole("button", { name: "Mettre la démonstration en pause", exact: true }).click();
+      await expect.poll(() => video.evaluate((node) => node.paused)).toBe(true);
+      for (const [index, time] of [[0, 0], [1, 9.5], [2, 19]]) {
+        await tabs.nth(index).click();
+        await expect.poll(() => video.evaluate((node) => node.currentTime)).toBeCloseTo(time, 1);
+        await expect.poll(() => video.evaluate((node) => node.seeking)).toBe(false);
+        assert.equal(await video.evaluate((node) => node.paused), true, "Seeking must preserve a manual pause");
+      }
+      await tabs.first().focus();
+      // Approach a boundary through the media timeline, then verify native
+      // timeupdate synchronizes chapters without stealing keyboard focus.
+      await video.evaluate((node) => { node.currentTime = 9.35; });
+      await expect(tabs.first()).toHaveAttribute("aria-selected", "true");
+      await iphone.getByRole("button", { name: "Lire la démonstration", exact: true }).click();
+      await tabs.first().focus();
+      await expect(tabs.nth(1)).toHaveAttribute("aria-selected", "true");
+      await expect(tabs.first()).toBeFocused();
+      await expect(iphone.getByRole("tabpanel")).toHaveAttribute("aria-labelledby", "iphone-tab-1");
+
+      await video.evaluate((node) => { node.currentTime = node.duration - 0.25; });
+      await expect.poll(() => video.evaluate((node) => node.ended)).toBe(true);
+      await expect(tabs.last()).toHaveAttribute("aria-selected", "true");
+      await expect(iphone.getByRole("button", { name: "Rejouer la démonstration", exact: true })).toBeVisible();
+      const endedAt = await video.evaluate((node) => node.currentTime);
+      await page.waitForTimeout(200);
+      assert.equal(await video.evaluate((node) => node.currentTime), endedAt, "Finished demo must hold the final frame");
+      await iphone.getByRole("button", { name: "Rejouer la démonstration", exact: true }).click();
+      await expect.poll(() => video.evaluate((node) => node.paused)).toBe(false);
+      await expect(tabs.first()).toHaveAttribute("aria-selected", "true");
+      assert.ok(await video.evaluate((node) => node.currentTime < 2));
+      assert.deepEqual(errors, []);
+    } finally { await context.close(); }
+  });
+
+  await check(`${engine}: iPhone video respects visibility, manual pause and motion preferences`, async () => {
+    const context = await browser.newContext({ viewport: { width: 1440, height: 1000 } });
+    const page = await context.newPage();
+    try {
+      await page.goto(`${origin}/en`);
+      const iphone = page.locator("#iphone");
+      const video = iphone.locator("[data-iphone-video]");
+      const isPaused = () => video.evaluate((node) => node.paused);
+      const time = () => video.evaluate((node) => node.currentTime);
+      const freeze = async (reason) => {
+        await expect.poll(isPaused).toBe(true);
+        const pausedAt = await time();
+        await page.waitForTimeout(180);
+        assert.equal(await time(), pausedAt, reason);
+      };
+      await iphone.getByRole("tabpanel").scrollIntoViewIfNeeded();
+      await expect.poll(isPaused, { timeout: 15_000 }).toBe(false);
+      await expect.poll(time).toBeGreaterThan(0.5);
+      await page.evaluate(() => window.scrollTo({ top: 0, behavior: "instant" }));
+      await freeze("Offscreen video must stop playback");
+      const offscreenTime = await time();
+      await iphone.getByRole("tabpanel").scrollIntoViewIfNeeded();
+      await expect.poll(isPaused).toBe(false);
+      assert.ok(await time() >= offscreenTime - 1 / 60, "Returning to the video must resume its paused position, not restart the demo");
+      // Headless pages cannot reliably be backgrounded; model the visibility
+      // event to verify the handler, not the platform's native suspension.
+      await page.evaluate(() => {
+        Object.defineProperty(document, "hidden", { configurable: true, get: () => true });
+        document.dispatchEvent(new Event("visibilitychange"));
+      });
+      await freeze("Hidden document must stop playback");
+      await page.evaluate(() => {
+        delete document.hidden;
+        document.dispatchEvent(new Event("visibilitychange"));
+      });
+      await expect.poll(isPaused).toBe(false);
+      await iphone.getByRole("button", { name: "Pause the demo", exact: true }).click();
+      await freeze("Manual pause must stop the video");
+      await page.evaluate(() => window.scrollTo({ top: 0, behavior: "instant" }));
+      await iphone.getByRole("tabpanel").scrollIntoViewIfNeeded();
+      await freeze("Returning to the section must preserve manual pause");
+      await iphone.getByRole("button", { name: "Play the demo", exact: true }).click();
+      await expect.poll(isPaused).toBe(false);
+      await page.emulateMedia({ reducedMotion: "reduce" });
+      await freeze("A changed reduced-motion preference must pause playback");
+      await iphone.getByRole("button", { name: "Play the demo", exact: true }).click();
+      await expect.poll(isPaused).toBe(false);
+      const resumedAt = await time();
+      await expect.poll(time).toBeGreaterThan(resumedAt + 0.1);
+    } finally { await context.close(); }
+  });
+
+  await check(`${engine}: iPhone video handles pending metadata, autoplay refusal and media failure`, async () => {
+    const context = await browser.newContext({ viewport: { width: 1440, height: 1000 }, reducedMotion: "reduce" });
+    const page = await context.newPage();
+    const errors = [];
+    page.on("pageerror", (error) => errors.push(error.message));
+    let release;
+    const blocked = new Promise((resolve) => { release = resolve; });
+    await page.route("**/videos/products/ios-demo.mp4", async (route) => { await blocked; await route.continue(); });
+    try {
+      await page.goto(`${origin}/fr`);
+      const iphone = page.locator("#iphone");
+      const video = iphone.locator("[data-iphone-video]");
+      await iphone.getByRole("tab").last().click();
+      await expect(iphone.getByRole("tab").last()).toHaveAttribute("aria-selected", "true");
+      await iphone.getByRole("button", { name: "Lire la démonstration", exact: true }).click();
+      await expect(video).toHaveAttribute("src", "/videos/products/ios-demo.mp4");
+      assert.equal(await video.evaluate((node) => node.readyState), 0);
+      release();
+      await expect.poll(() => video.evaluate((node) => node.readyState), { timeout: 15_000 }).toBeGreaterThanOrEqual(1);
+      await expect.poll(() => video.evaluate((node) => node.paused)).toBe(false);
+      await expect.poll(() => video.evaluate((node) => node.currentTime)).toBeGreaterThan(19.1);
+      assert.ok(await video.evaluate((node) => node.currentTime < 21), "A pending chapter selection must be applied before playback begins");
+      await iphone.getByRole("button", { name: "Mettre la démonstration en pause", exact: true }).click();
+      await page.unroute("**/videos/products/ios-demo.mp4");
+
+      await page.emulateMedia({ reducedMotion: "no-preference" });
+      await page.addInitScript(() => {
+        const play = HTMLMediaElement.prototype.play;
+        let refused = false;
+        HTMLMediaElement.prototype.play = function () {
+          if (this.id === "iphone-demo-video" && !refused) {
+            refused = true;
+            return Promise.reject(new DOMException("Test autoplay policy", "NotAllowedError"));
+          }
+          return play.call(this);
+        };
+      });
+      await page.goto(`${origin}/fr`);
+      await iphone.getByRole("tabpanel").scrollIntoViewIfNeeded();
+      await expect.poll(() => video.evaluate((node) => node.readyState), { timeout: 15_000 }).toBeGreaterThanOrEqual(1);
+      await expect(iphone.getByRole("button", { name: "Lire la démonstration", exact: true })).toBeVisible();
+      await expect(iphone.getByRole("tabpanel").locator("img:visible")).toHaveCount(1);
+      assert.equal(await video.evaluate((node) => node.paused), true);
+      assert.deepEqual(errors, [], "Rejected play() must not become an unhandled rejection");
+      await iphone.getByRole("button", { name: "Lire la démonstration", exact: true }).click();
+      await expect.poll(() => video.evaluate((node) => node.paused)).toBe(false);
+
+      await video.evaluate((node) => node.dispatchEvent(new Event("error")));
+      await expect.poll(() => video.evaluate((node) => node.paused)).toBe(true);
+      const poster = iphone.getByRole("tabpanel").locator("img:visible");
+      await expect(poster).toHaveCount(1);
+      await expect.poll(() => poster.evaluate((node) => node.complete && node.naturalWidth > 0)).toBe(true);
+      await iphone.getByRole("tab").last().click();
+      await expect(iphone.getByRole("tab").last()).toHaveAttribute("aria-selected", "true");
+      await expect(poster).toBeVisible();
+      assert.deepEqual(errors, [], "Media failure must preserve usable chapter posters");
+    } finally {
+      release();
       await context.close();
     }
   });
@@ -511,10 +725,17 @@ for (const engine of engines) {
       await page.locator("#iphone-tab-2").click();
       const screen = page.locator("#iphone").getByRole("tabpanel");
       await expect(screen).toHaveCount(1);
-      assert.equal(await screen.getAttribute("id"), "iphone-screen-2");
-      const motion = await screen.evaluate((node) => ({ transform: getComputedStyle(node).transform, duration: getComputedStyle(node).transitionDuration }));
-      assert.equal(motion.transform, "none");
-      assert.ok(motion.duration.split(",").every((time) => parseFloat(time) <= 0.01));
+      await expect(screen).toHaveAttribute("id", "iphone-screen");
+      await expect(screen).toHaveAttribute("aria-labelledby", "iphone-tab-2");
+      await expect(screen.locator("img:visible")).toHaveCount(1);
+      const video = screen.locator("[data-iphone-video]");
+      assert.equal(await video.evaluate((node) => node.paused), true);
+      const videoTime = await video.evaluate((node) => node.currentTime);
+      await page.waitForTimeout(180);
+      // Metadata arrival may apply a pending seek, but must never start playback.
+      assert.equal(await video.evaluate((node) => node.paused), true);
+      assert.ok(await video.evaluate((node) => node.currentTime === 19 || node.currentTime === 0 || node.currentTime === node.duration),
+        `Reduced-motion demo must show a static chapter (initial time ${videoTime})`);
       const story = page.locator("[data-glass-story]");
       await story.scrollIntoViewIfNeeded();
       await expect(story).toHaveAttribute("data-playing", "false");
@@ -656,9 +877,9 @@ for (const engine of engines) {
             // Reduced motion fixes the lens over the first paragraph so every
             // engine gets the same inspectable refraction state.
             await captureScene(page, "uses", join(artifacts, `${engine}-390-reading-lens-rest.png`));
-            const refractedText = await headings.first().screenshot({ path: join(artifacts, `${engine}-lens-text.png`) });
+            const refractedText = await headings.first().screenshot(screenshots ? { path: join(artifacts, `${engine}-lens-text.png`) } : {});
             const plainText = await headings.first().screenshot({
-              path: join(artifacts, `${engine}-plain-text.png`),
+              ...(screenshots ? { path: join(artifacts, `${engine}-plain-text.png`) } : {}),
               style: "[data-glass-story] [data-liquid-glass], [data-glass-lens] { display: none !important; }",
             });
             assert.ok(changedTextInk(refractedText, plainText) > 0.12,

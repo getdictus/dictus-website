@@ -28,32 +28,22 @@
   .link:hover { text-decoration-color: currentColor; }
 }
 :global(.dark) .link { color: #93c5fd; }
-.phoneFigure { display: flex; justify-content: center; }
+.phoneFigure { display: flex; flex-direction: column; align-items: center; gap: 12px; min-width: 0; }
 .phone { position: relative; width: 304px; max-width: 100%; padding: 7px; border: 1.5px solid #999c9f; border-radius: 50px; background: #1b1c1e; box-shadow: inset 0 0 0 2px #46474b, 0 0 0 1px #d2d3d6, 0 28px 40px -22px #121c3529, 0 7px 14px -6px #111a3020; }
 .screen { position: relative; width: 100%; aspect-ratio: 1290 / 2796; overflow: hidden; border-radius: 42px; background: white; }
-.screenPanel {
-  position: absolute;
-  inset: 0;
-  z-index: 1;
-  opacity: 0;
-  visibility: hidden;
-  pointer-events: none;
-  transform: translateY(4px);
-  transform-origin: 50% 58%;
-  transition: opacity var(--motion-fast) var(--ease-out), transform var(--motion-ui) var(--ease-out), visibility 0s var(--motion-ui);
+.video, .poster { position: absolute; inset: 0; display: block; width: 100%; height: 100%; object-fit: contain; }
+.poster { pointer-events: none; }
+.poster[data-visible="false"] { visibility: hidden; }
+.screen:focus-visible { outline: 3px solid var(--color-accent); outline-offset: -5px; }
+.options button:focus-visible { transition: none; }
+.playback { max-width: 100%; text-align: center; }
+.playbackButton { display: inline-flex; align-items: center; justify-content: center; gap: 8px; min-height: 44px; padding: 10px 16px; border-radius: 999px; background: color-mix(in srgb, var(--theme-surface) 55%, transparent); color: var(--theme-text-primary); font: inherit; font-size: 12px; cursor: pointer; transition: transform var(--motion-fast) var(--ease-out), background-color var(--motion-fast) ease; }
+.playbackButton:active:not(:focus-visible) { transform: scale(.97); transition-duration: var(--motion-press); }
+.playbackButton:focus-visible { transition: none; }
+.playbackNote { max-width: 310px; margin: 8px auto 0; font-size: 11px; line-height: 1.5; color: var(--theme-text-body); }
+@media (hover: hover) and (pointer: fine) {
+  .playbackButton:hover { background: var(--theme-surface); }
 }
-.screen[data-transition="app"] .screenPanel { transform: translateY(6px) scale(.975); }
-.screenPanel[data-active="true"], .screen[data-transition="app"] .screenPanel[data-active="true"] {
-  z-index: 2;
-  opacity: 1;
-  visibility: visible;
-  pointer-events: auto;
-  transform: none;
-  transition-delay: 0s;
-}
-.screenPanel img { display: block; width: 100%; height: 100%; }
-.section[data-keyboard] .screenPanel, .section[data-keyboard] .options button { transition: none; }
-.screenPanel:focus-visible { outline: 3px solid var(--color-accent); outline-offset: -5px; border-radius: inherit; }
 .phoneButtons { position: absolute; left: -3px; top: 145px; width: 2px; height: 48px; border-radius: 2px; background: #85868b; box-shadow: 0 57px 0 #85868b; }
 .phone::after { content: ""; position: absolute; right: -3px; top: 182px; width: 2px; height: 67px; border-radius: 2px; background: #85868b; }
 .android { margin: 78px 0 0; color: var(--theme-text-body); text-align: center; font-size: 12px; line-height: 1.8; }
@@ -81,6 +71,6 @@
 @media (prefers-reduced-motion: reduce) {
   .options button { transition: none; }
   .options button:active { transform: none; }
-  .screenPanel { transition: none; }
-  .screenPanel, .screen[data-transition="app"] .screenPanel { transform: none; }
+  .playbackButton { transition: none; }
+  .playbackButton:active { transform: none; }
 }

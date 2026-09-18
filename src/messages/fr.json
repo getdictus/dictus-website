@@ -272,7 +272,14 @@
     "title_line_one": "Dans les apps",
     "title_line_two": "que vous aimez déjà.",
     "description": "Vos notes, vos messages, vos e-mails. Retrouvez votre clavier, et laissez simplement parler vos idées.",
-    "picker": "Voir les écrans de Dictus sur iPhone",
+    "picker": "Explorer les chapitres de la démonstration iPhone",
+    "video_label": "Démonstration de Dictus enregistrée sur iPhone. Interface en anglais.",
+    "video_description": "Dans Apple Notes, une phrase est saisie avec le clavier Dictus, ses corrections et suggestions. Une dictée insère « Hello guys, how are you doing? ». L’application affiche ensuite la dernière transcription, les modèles et les réglages. La saisie est accélérée deux fois ; la dictée reste à sa vitesse d’origine.",
+    "video_play": "Lire la démonstration",
+    "video_pause": "Mettre la démonstration en pause",
+    "video_replay": "Rejouer la démonstration",
+    "video_note": "Capture réelle · saisie ×2, dictée à vitesse réelle.",
+    "video_unavailable": "La vidéo est indisponible. Les captures restent accessibles.",
     "beta": "Rejoindre la bêta iOS",
     "discover": "Suivre le développement iOS",
     "android": "Android est en développement.",
@@ -285,12 +292,12 @@
       "dictation": {
         "label": "La dictée",
         "alt": "Capture d’une dictée Dictus en cours dans Apple Notes, avec sa waveform et le bouton de validation. Interface en anglais.",
-        "caption": "La dictée Dictus, dans Apple Notes."
+        "caption": "Parlez, puis retrouvez vos mots dans Apple Notes."
       },
       "app": {
         "label": "L’app",
         "alt": "Capture de l’accueil de l’application Dictus sur iPhone. Interface en anglais.",
-        "caption": "L’application Dictus sur iPhone."
+        "caption": "Votre transcription, vos modèles et vos réglages."
       }
     }
   }

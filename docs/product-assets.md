@@ -1,9 +1,10 @@
 # Product captures for the issue #29 preview
 
-These are authentic application screenshots. Their content has not been recreated,
+These are authentic application captures. Their content has not been recreated,
 retouched, translated, or composited with invented dictation text. Next.js Image
-serves responsive, optimized derivatives; the checked-in sources remain unchanged.
-The iPhone enclosure is CSS framing outside the screenshot.
+serves responsive, optimized screenshot derivatives. The iPhone recording is
+resized and its opening is accelerated as documented below; the enclosure is CSS
+framing outside the native recording.
 
 ## Desktop
 
@@ -44,9 +45,73 @@ off-screen or in a hidden tab.
 
 ## iPhone
 
-The approved prototype's three native captures are retained for this preview.
-The current repository tree was checked on 17 September 2026 and contained no
-newer corresponding source captures. These files were copied byte for byte from
+The preview now uses the user's **18 September 2026** iPhone screen recording,
+supplied as `ScreenRecording_09-18-2026 09-01-14_1.mp4`. Its metadata records
+`2026-09-18T07:01:14Z` (09:01:14 in Europe/Paris). The recording contains the native
+keyboard in Apple Notes, typing, a real dictation and its inserted result, then
+the transition to Dictus and a visit to its screens. The English interface and
+all recorded text are preserved in both website locales; surrounding descriptions
+and playback controls are localized.
+
+- Original: HEVC, 1290 × 2796, 37.775 seconds, variable frame rate near 60 fps,
+  with an AAC audio track; 11,365,756 bytes. The original remains in the supplied
+  attachment, outside the website's public assets.
+- Original SHA-256:
+  `fb718689cb745c3ea4b604c0b3478dbf1190dc403928505e8f8db4e3f6a8c593`.
+- App version/build: **not provided**; device model: **not provided**. Neither is
+  established by the recording metadata. Interface language: English.
+- Website video: `public/videos/products/ios-demo.mp4`, H.264, yuv420p,
+  860 × 1864, constant 60 fps, 28.283333 seconds, 1,257,493 bytes, **no audio track**.
+  The MP4's `moov` atom precedes its media data for progressive playback.
+- Video SHA-256:
+  `2e81ac86ccdeaee8f17b413c774d8b063a4ececc1b486cd4dc6d963f5582dc7c`.
+- Only timing, resolution, codec and audio availability change: source 0–19 s
+  runs at 2× speed, then source 19–37.775 s runs at its original speed. No frames
+  are composited, interfaces translated, or native transitions replaced. Frame
+  rate conversion rounds the expected 28.275 s duration to 28.283333 s.
+- Chapter cues in the edited video are **0 s (keyboard)**, **9.5 s (dictation)**
+  and **19 s (app)**; keyframes are forced at all three cues. The original native
+  opening animation remains at the start of the video.
+
+The three fallback posters are authentic frames extracted from the same source,
+resized to 860 × 1864 JPEG. The keyboard poster uses 2 s because the source's
+first frame is an empty Notes page before the keyboard appears. Poster timestamps
+identify representative stills, not chapter seek targets.
+
+| Website asset | Original timestamp | Bytes | SHA-256 |
+| --- | --- | --- | --- |
+| `ios-demo-keyboard.jpg` | 2 s | 88,492 | `e3233f9eb4ca0bd6b8391791d0b5bb1b1813d8ba87916d3650a8a9ff26ebbdd9` |
+| `ios-demo-dictation.jpg` | 22.5 s | 85,475 | `5d05229c297d67d5c6cdfbecf247c94fa2528142db6024400e2e22e39b34697d` |
+| `ios-demo-app.jpg` | 36.5 s | 76,419 | `3a92b53986ef79c6849cf437ff5283958567c16077b60932d641009c391bbcc9` |
+
+### Reproducing the derivatives
+
+With FFmpeg installed, run these commands from the repository root, placing the
+original recording at the path assigned to `dictus_recording`. FFmpeg is an asset
+preparation tool, not a runtime or npm dependency. Use a fresh destination or
+confirm replacement of existing derivatives when prompted.
+
+```sh
+dictus_recording="/path/to/ScreenRecording_09-18-2026 09-01-14_1.mp4"
+mkdir -p public/videos/products
+ffmpeg -i "$dictus_recording" -map 0:v:0 \
+  -vf "setpts=PTS-STARTPTS,setpts='if(lt(PTS*TB,19),PTS/2,PTS-9.5/TB)',fps=60,scale=860:1864:flags=lanczos:in_range=pc:out_range=tv,format=yuv420p" \
+  -c:v libx264 -preset medium -crf 23 -force_key_frames '0,9.5,19' \
+  -colorspace bt709 -color_primaries bt709 -color_trc bt709 -color_range tv \
+  -an -sn -dn -map_metadata -1 -movflags +faststart \
+  public/videos/products/ios-demo.mp4
+
+for dictus_poster in keyboard:2 dictation:22.5 app:36.5; do
+  ffmpeg -ss "${dictus_poster#*:}" -i "$dictus_recording" -map 0:v:0 \
+    -frames:v 1 -vf 'scale=860:1864:flags=lanczos' -q:v 2 -update 1 \
+    "public/images/products/ios-demo-${dictus_poster%%:*}.jpg"
+done
+```
+
+### Retained prototype captures
+
+The previous three native PNGs are retained as unused source assets. They were
+copied byte for byte from
 `getdictus/dictus-ios`, commit
 [`91a74a6e763b070f51063c6374eacc69cbaed150`](https://github.com/getdictus/dictus-ios/commit/91a74a6e763b070f51063c6374eacc69cbaed150),
 committed on **12 June 2026**. Each source is 1290 × 2796 PNG. The commit date is
@@ -58,21 +123,18 @@ known; the precise date when the screenshots were taken is not recorded.
 | `ios-notes-dictation.png` | `assets/appstore/source/screen1-keyboard-dictating.png` | `afc8201874330491c060ad3223b2b23dc847e26db5308895b9dc42fdd82fdc7d` |
 | `ios-home.png` | `assets/appstore/source/screen3-home.png` | `923ef4def57e16a3152f2f1e4b5d4442dbd059413d5ee3b94ddcc202ecdc26ee` |
 
-These show the keyboard and recording state in Apple Notes and the Dictus home
-screen. The note in the source captures is empty. They do **not** demonstrate a
-completed dictation or establish that this is the latest iOS interface. Both locales
-preserve the real English iOS interface; the French alt text identifies that
-language. Desktop uses separate genuine French and English captures.
+These older captures show the keyboard and recording state in Apple Notes and
+the Dictus home screen. Their empty note does not demonstrate completed dictation.
+They are superseded in the preview by the September recording and its posters.
 
 ## Final capture gate
 
-**The current iPhone assets are preview assets, not final production approval.**
-Before issue #29 is approved for production, capture a fresh sequence on a current
-Dictus iOS build: the native keyboard in a real app, a real recording, and the
-resulting text actually inserted by Dictus. Use a non-sensitive example spoken for
-this purpose; do not simulate the result by typing text onto a screenshot. Include
-a recent Dictus home screen and record the app build, device, locale, capture date,
-source filenames, and hashes here. Replace these June assets after visual review.
+The fresh iPhone sequence requested for issue #29 has been supplied and replaces
+the June preview captures. Its recording, genuine dictation result, native
+transitions and extracted posters are ready for visual review in the website
+preview. The app build and exact device model remain explicitly unrecorded above;
+do not infer them from screen dimensions. This integration does not itself approve
+production deployment.
 
 The current Desktop scene combines genuine localized settings screenshots with
 the explicitly illustrative native pill animation documented above. It is not

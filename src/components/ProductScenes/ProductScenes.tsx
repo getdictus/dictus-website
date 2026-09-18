@@ -1,47 +1,34 @@
 "use client";
 
-import { useRef, useState, type KeyboardEvent } from "react";
+import { useRef, type KeyboardEvent } from "react";
 import Image from "next/image";
 import { useTranslations } from "next-intl";
 import GlassSurface from "@/components/shared/GlassSurface";
+import { iphoneChapters, iphoneVideo, useIphoneDemo } from "./useIphoneDemo";
 import styles from "./ProductScenes.module.css";
-
-const screens = [
-  { key: "keyboard", src: "/images/products/ios-notes-keyboard.png" },
-  { key: "dictation", src: "/images/products/ios-notes-dictation.png" },
-  { key: "app", src: "/images/products/ios-home.png" },
-] as const;
 
 export default function ProductScenes() {
   const t = useTranslations("ProductScenes");
-  const [selection, setSelection] = useState({ index: 0, transition: "keyboard", keyboardInput: false });
-  const selected = selection.index;
+  const { videoRef, phoneRef, selected, sourceLoaded, playing, ended, failed,
+    showPoster, selectChapter, togglePlayback, events } = useIphoneDemo();
+  const chapter = iphoneChapters[selected];
   const tabs = useRef<(HTMLButtonElement | null)[]>([]);
   const testflightUrl = process.env.NEXT_PUBLIC_TESTFLIGHT_URL;
 
-  function selectScreen(index: number, keyboardInput = false) {
-    setSelection((current) => current.index === index ? current : {
-      index,
-      transition: current.index === 2 || index === 2 ? "app" : "keyboard",
-      keyboardInput,
-    });
-  }
-
   function onTabKey(event: KeyboardEvent<HTMLButtonElement>, current: number) {
     let next = current;
-    if (event.key === "ArrowRight") next = (current + 1) % screens.length;
-    else if (event.key === "ArrowLeft") next = (current - 1 + screens.length) % screens.length;
+    if (event.key === "ArrowRight") next = (current + 1) % iphoneChapters.length;
+    else if (event.key === "ArrowLeft") next = (current - 1 + iphoneChapters.length) % iphoneChapters.length;
     else if (event.key === "Home") next = 0;
-    else if (event.key === "End") next = screens.length - 1;
+    else if (event.key === "End") next = iphoneChapters.length - 1;
     else return;
     event.preventDefault();
-    selectScreen(next, true);
+    selectChapter(next);
     tabs.current[next]?.focus();
   }
 
   return (
-    <section id="iphone" className={styles.section} aria-labelledby="iphone-title"
-      data-keyboard={selection.keyboardInput || undefined}>
+    <section id="iphone" className={styles.section} aria-labelledby="iphone-title">
       <div className={styles.layout}>
         <div className={styles.copy}>
           <p className={styles.platform}>{t("platform")}</p>
@@ -49,53 +36,60 @@ export default function ProductScenes() {
           <p className={styles.description}>{t("description")}</p>
           <GlassSurface className={styles.picker} style={{ borderRadius: 999 }}>
             <div role="tablist" aria-label={t("picker")} className={styles.options}>
-              {screens.map((screen, index) => (
+              {iphoneChapters.map((screen, index) => (
                 <button
                   key={screen.key}
                   ref={(element) => { tabs.current[index] = element; }}
                   type="button"
                   role="tab"
                   id={`iphone-tab-${index}`}
-                  aria-controls={`iphone-screen-${index}`}
+                  aria-controls="iphone-screen"
                   aria-selected={selected === index}
                   tabIndex={selected === index ? 0 : -1}
-                  onClick={(event) => selectScreen(index, event.detail === 0)}
+                  onClick={() => selectChapter(index)}
                   onKeyDown={(event) => onTabKey(event, index)}
                 >{t(`screens.${screen.key}.label`)}</button>
               ))}
             </div>
           </GlassSurface>
-          <p className={styles.caption} aria-live="polite">{t(`screens.${screens[selected].key}.caption`)}</p>
+          <p className={styles.caption} aria-live={playing ? "off" : "polite"}>{t(`screens.${chapter.key}.caption`)}</p>
+          <p id="iphone-demo-description" className="sr-only">{t("video_description")}</p>
           <a className={styles.link} href={testflightUrl || "https://github.com/getdictus/dictus-ios"}>
             {testflightUrl ? t("beta") : t("discover")}
           </a>
         </div>
         <div className={styles.phoneFigure}>
-          <div className={styles.phone}>
+          <div ref={phoneRef} className={styles.phone}>
             <div className={styles.phoneButtons} aria-hidden="true" />
-            <div className={styles.screen} data-transition={selection.transition}>
-              {screens.map((screen, index) => (
-                <div
-                  key={screen.key}
-                  id={`iphone-screen-${index}`}
-                  role="tabpanel"
-                  aria-labelledby={`iphone-tab-${index}`}
-                  aria-hidden={selected !== index}
-                  inert={selected !== index}
-                  tabIndex={selected === index ? 0 : -1}
-                  data-active={selected === index}
-                  className={styles.screenPanel}
-                >
-                  <Image
-                    src={screen.src}
-                    width={1290}
-                    height={2796}
-                    sizes="(max-width: 700px) 266px, 290px"
-                    alt={t(`screens.${screen.key}.alt`)}
-                  />
-                </div>
-              ))}
+            <div id="iphone-screen" role="tabpanel" aria-labelledby={`iphone-tab-${selected}`}
+              tabIndex={0} className={styles.screen}>
+              <video ref={videoRef} id="iphone-demo-video" data-iphone-video
+                src={sourceLoaded ? iphoneVideo : undefined}
+                width={860} height={1864} muted playsInline preload="metadata"
+                aria-label={t("video_label")} aria-describedby="iphone-demo-description"
+                aria-hidden={showPoster} className={styles.video} {...events} />
+              <Image src={chapter.poster} width={860} height={1864}
+                sizes="(max-width: 700px) 266px, 290px"
+                alt={t(`screens.${chapter.key}.alt`)}
+                aria-hidden={!showPoster} data-visible={showPoster}
+                className={styles.poster} />
             </div>
+          </div>
+          <div className={styles.playback}>
+            {failed ? <p className={styles.playbackNote} role="status">{t("video_unavailable")}</p> : (
+              <button type="button" className={styles.playbackButton} onClick={togglePlayback}
+                aria-controls="iphone-demo-video">
+                <svg width="16" height="16" viewBox="0 0 16 16" fill="none" aria-hidden="true">
+                  {ended
+                    ? <path d="M3 5a5 5 0 1 1-.2 5M3 2v3h3" stroke="currentColor" strokeWidth="1.4" strokeLinecap="round" strokeLinejoin="round" />
+                    : playing
+                      ? <path d="M5 3v10M11 3v10" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" />
+                      : <path d="m5 3 7 5-7 5V3Z" fill="currentColor" />}
+                </svg>
+                {t(ended ? "video_replay" : playing ? "video_pause" : "video_play")}
+              </button>
+            )}
+            <p className={styles.playbackNote}>{t("video_note")}</p>
           </div>
         </div>
       </div>
