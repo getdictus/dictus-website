@@ -5,6 +5,14 @@
 Site marketing de **Dictus**, une suite de dictée vocale locale par défaut pour iPhone et ordinateur.
 Développé par PIVI Solutions. Domaine : getdictus.com.
 
+### Travail en cours — issue #29
+
+Continuer la refonte sur `t3code/develop-issue-29`, avec la PR #32 en brouillon.
+La base est validée pour poursuivre le développement, pas pour une publication.
+Ne pas fusionner dans `main` ni déclencher la production avant une instruction
+distincte de l'utilisateur, une fois le site et la sortie mobile payante prêts.
+Lire `docs/issue-29-handoff.md` pour reprendre après changement de conversation.
+
 ## Stack
 
 - **Framework** : Next.js (App Router)
