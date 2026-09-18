@@ -6,10 +6,13 @@ les liens de langue, le temps de lecture et le futur sitemap se calculent à
 partir de ces données. Ajouter une entrée ne demande aucun changement de
 composant ni de liste de routes.
 
-Les trois entrées initiales sont **des brouillons techniques de preview**. Elles
-exercent le gabarit et décrivent uniquement les caractéristiques et visuels déjà
-documentés. Elles ne constituent pas les trois guides définitifs suivis dans
-l’issue #34. Aucune relecture humaine n’est enregistrée pour ces exemples.
+Les trois entrées initiales sont désormais **les guides en brouillon de l’issue
+#34** : iPhone, dictée gratuite sur ordinateur et confidentialité. Leurs sources
+françaises et leurs traductions anglaises complètes remplacent les anciens
+exemples de mise en page. Les identifiants restent stables ; leurs premiers slugs
+éditoriaux sont choisis avant publication. Aucune relecture humaine n’est
+enregistrée. Lire `docs/issue-34-editorial-evidence.md` pour les sources et
+`docs/issue-34-verification.md` pour les vérifications et les étapes restantes.
 
 ## Préparer l’intention et rédiger la source
 
