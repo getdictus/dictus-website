@@ -58,8 +58,11 @@ and playback controls are localized.
   attachment, outside the website's public assets.
 - Original SHA-256:
   `fb718689cb745c3ea4b604c0b3478dbf1190dc403928505e8f8db4e3f6a8c593`.
-- App version/build: **not provided**; device model: **not provided**. Neither is
-  established by the recording metadata. Interface language: English.
+- App version: **Dictus 1.8.2**; device: **iPhone 15 Pro Max**. The maintainer
+  confirmed both on 18 September 2026 during issue #34 ("1.8.2 iphone 15 pro
+  max"). This is first-party provenance, not information inferred from the
+  recording metadata. The build number and the installed iOS version remain
+  **unspecified**. Interface language: English.
 - Website video: `public/videos/products/ios-demo.mp4`, H.264, yuv420p,
   860 × 1864, constant 60 fps, 31.450000 seconds, 1,354,844 bytes, **no audio track**.
   The MP4's `moov` atom precedes its media data for progressive playback.
@@ -144,8 +147,9 @@ They are superseded in the preview by the September recording and its posters.
 The fresh iPhone sequence requested for issue #29 has been supplied and replaces
 the June preview captures. Its recording, genuine dictation result, native
 transitions and extracted posters are ready for visual review in the website
-preview. The app build and exact device model remain explicitly unrecorded above;
-do not infer them from screen dimensions. This integration does not itself approve
+preview. The app version and device are now confirmed above; the build number
+and installed iOS version remain unspecified. Do not infer them from screen
+dimensions or the app's minimum system requirement. This integration does not itself approve
 production deployment.
 
 The current Desktop scene combines genuine localized settings screenshots with
