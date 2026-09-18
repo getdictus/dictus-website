@@ -4,6 +4,8 @@ import { useRef, type KeyboardEvent } from "react";
 import Image from "next/image";
 import { useTranslations } from "next-intl";
 import GlassSurface from "@/components/shared/GlassSurface";
+import GlassSelectorLens from "@/components/shared/GlassSelectorLens";
+import { useGlassSelector } from "@/components/shared/useGlassSelector";
 import { iphoneChapters, iphoneVideo, useIphoneDemo } from "./useIphoneDemo";
 import styles from "./ProductScenes.module.css";
 
@@ -13,6 +15,7 @@ export default function ProductScenes() {
     showPoster, showPlayButton, selectChapter, startPlayback, events } = useIphoneDemo();
   const chapter = iphoneChapters[selected];
   const tabs = useRef<(HTMLButtonElement | null)[]>([]);
+  const { groupRef, groupProps, geometry, keyboard } = useGlassSelector(chapter.key);
   const testflightUrl = process.env.NEXT_PUBLIC_TESTFLIGHT_URL;
 
   function onTabKey(event: KeyboardEvent<HTMLButtonElement>, current: number) {
@@ -35,7 +38,8 @@ export default function ProductScenes() {
           <h2 id="iphone-title" className={styles.title}>{t("title_line_one")}<br />{t("title_line_two")}</h2>
           <p className={styles.description}>{t("description")}</p>
           <GlassSurface className={styles.picker} style={{ borderRadius: 999 }}>
-            <div role="tablist" aria-label={t("picker")} className={styles.options}>
+            <div ref={groupRef} role="tablist" aria-label={t("picker")} className={styles.options} {...groupProps}>
+              <GlassSelectorLens geometry={geometry} keyboard={keyboard} />
               {iphoneChapters.map((screen, index) => (
                 <button
                   key={screen.key}
@@ -43,6 +47,7 @@ export default function ProductScenes() {
                   type="button"
                   role="tab"
                   id={`iphone-tab-${index}`}
+                  data-lens-key={screen.key}
                   aria-controls="iphone-screen"
                   aria-selected={selected === index}
                   tabIndex={selected === index ? 0 : -1}

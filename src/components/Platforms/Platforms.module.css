@@ -9,10 +9,13 @@
 .screenshot { display: block; width: 100%; height: auto; border-radius: 12px; box-shadow: 0 28px 54px -26px #121c3533, 0 8px 20px -10px #111a3020, 0 0 0 1px #121c3509; }
 .figure figcaption { margin-top: 19px; font-size: 11px; color: var(--theme-text-body); text-align: center; }
 .downloads { grid-column: 1; grid-row: 2; min-width: 0; }
-.tabs { display: flex; width: fit-content; max-width: 100%; gap: 3px; padding: 4px; border-radius: 99px; border: 1px solid var(--theme-border); }
-.tabs button { display: inline-flex; align-items: center; justify-content: center; min-height: 44px; gap: 8px; padding: 10px 16px; border: 0; border-radius: 99px; background: transparent; color: var(--theme-text-body); font: inherit; font-size: 12px; font-weight: 400; cursor: pointer; transition: color .18s, background .18s; }
+.tabsSurface { width: fit-content; max-width: 100%; padding: 4px; border-radius: 99px; border: 1px solid var(--theme-border); background: color-mix(in srgb, var(--theme-bg-secondary) 40%, transparent); }
+.tabs { position: relative; isolation: isolate; display: flex; gap: 3px; }
+.tabs button { display: inline-flex; align-items: center; justify-content: center; min-height: 44px; gap: 8px; padding: 10px 16px; border: 0; border-radius: 99px; background: transparent; color: var(--theme-text-body); font: inherit; font-size: 12px; font-weight: 400; cursor: pointer; transition: color var(--motion-fast) ease, background-color var(--motion-fast) ease; }
 .tabs button[aria-selected="true"] { color: var(--theme-text-primary); background: var(--theme-surface); box-shadow: 0 1px 4px #1011160b; }
-.tabs button:hover { color: var(--theme-text-primary); }
+.tabs[data-lens-ready] button[aria-selected="true"] { background: transparent; box-shadow: none; }
+.tabs[data-keyboard] button { transition: none; }
+@media (hover: hover) and (pointer: fine) { .tabs button:hover { color: var(--theme-text-primary); } }
 .panelSpace { min-height: 244px; padding-top: 17px; }
 .panel[hidden] { display: none; }
 .prompt { margin: 0; font-size: 12px; color: var(--theme-text-body); line-height: 1.7; }
@@ -45,7 +48,7 @@
   .figure { grid-column: 1; grid-row: 2; }
   .screenshot { border-radius: 8px; }
   .downloads { grid-column: 1; grid-row: 3; }
-  .tabs { margin-inline: auto; }
+  .tabsSurface { margin-inline: auto; }
   .panelSpace { min-height: 255px; max-width: 450px; margin-inline: auto; }
   .prompt { text-align: center; }
   .meta { justify-content: center; }

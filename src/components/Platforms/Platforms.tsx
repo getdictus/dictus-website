@@ -11,6 +11,9 @@ import {
 } from "@/config/downloads";
 import styles from "./Platforms.module.css";
 import DictationPill from "./DictationPill";
+import GlassSurface from "@/components/shared/GlassSurface";
+import GlassSelectorLens from "@/components/shared/GlassSelectorLens";
+import { useGlassSelector } from "@/components/shared/useGlassSelector";
 
 type Os = "mac" | "win" | "linux";
 const ORDERED: readonly Os[] = ["mac", "win", "linux"];
@@ -38,6 +41,7 @@ export default function Platforms({ downloads }: { downloads: DownloadsConfig })
   const locale = useLocale();
   const [selected, setSelected] = useState<Os | null>(null);
   const tabsRef = useRef<(HTMLButtonElement | null)[]>([]);
+  const { groupRef, groupProps, geometry, keyboard } = useGlassSelector(selected);
 
   useEffect(() => {
     const frame = requestAnimationFrame(() => setSelected(detectOs()));
@@ -80,32 +84,37 @@ export default function Platforms({ downloads }: { downloads: DownloadsConfig })
           <DictationPill />
         </figure>
         <div className={styles.downloads}>
-          <div
-            role={selected === null ? "group" : "tablist"}
-            aria-label={t("tablist_label")}
-            className={styles.tabs}
-          >
-            {ORDERED.map((os, index) => {
-              const active = selected === os;
-              return (
-                <button
-                  key={os}
-                  ref={(element) => { tabsRef.current[index] = element; }}
-                  type="button"
-                  role={selected === null ? undefined : "tab"}
-                  id={`platforms-tab-${os}`}
-                  aria-pressed={selected === null ? false : undefined}
-                  aria-selected={selected === null ? undefined : active}
-                  aria-controls={selected === null ? undefined : `platforms-panel-${os}`}
-                  tabIndex={active || (selected === null && index === 0) ? 0 : -1}
-                  onClick={() => setSelected(os)}
-                  onKeyDown={(event) => onTabKey(event, index)}
-                >
-                  {t(`tab_${os}`)}
-                </button>
-              );
-            })}
-          </div>
+          <GlassSurface className={styles.tabsSurface} style={{ display: "block" }}>
+            <div ref={groupRef}
+              role={selected === null ? "group" : "tablist"}
+              aria-label={t("tablist_label")}
+              className={styles.tabs}
+              {...groupProps}
+            >
+              <GlassSelectorLens geometry={geometry} keyboard={keyboard} />
+              {ORDERED.map((os, index) => {
+                const active = selected === os;
+                return (
+                  <button
+                    key={os}
+                    ref={(element) => { tabsRef.current[index] = element; }}
+                    type="button"
+                    role={selected === null ? undefined : "tab"}
+                    id={`platforms-tab-${os}`}
+                    data-lens-key={os}
+                    aria-pressed={selected === null ? false : undefined}
+                    aria-selected={selected === null ? undefined : active}
+                    aria-controls={selected === null ? undefined : `platforms-panel-${os}`}
+                    tabIndex={active || (selected === null && index === 0) ? 0 : -1}
+                    onClick={() => setSelected(os)}
+                    onKeyDown={(event) => onTabKey(event, index)}
+                  >
+                    {t(`tab_${os}`)}
+                  </button>
+                );
+              })}
+            </div>
+          </GlassSurface>
           <div className={styles.panelSpace}>
             {selected === null && <p className={styles.prompt}>{t("select_prompt")}</p>}
             {/* Keep every release URL in the server-rendered HTML for the health monitor. */}
