@@ -34,18 +34,18 @@ export default async function DonatePage({ params }: Props) {
 
   return (
     <>
-      <article className="mx-auto max-w-4xl px-6 pt-28 pb-16">
-        <h1 className="text-center text-3xl font-extralight text-text-primary md:text-4xl">
+      <article className="mx-auto max-w-4xl px-6 pt-44 pb-24 sm:pt-40 sm:pb-32">
+        <h1 className="text-center text-4xl font-extralight tracking-[-0.035em] text-text-primary sm:text-5xl">
           {t("heading")}
         </h1>
-        <p className="mx-auto mt-4 max-w-2xl text-center text-white-70">
+        <p className="mx-auto mt-6 max-w-xl text-center text-lg leading-relaxed text-white-70">
           {t("motivation")}
         </p>
         <DonateCards />
         <section aria-labelledby="why-support-title" className="mt-10">
           <h2
             id="why-support-title"
-            className="text-center text-sm font-normal text-white-40"
+            className="text-center text-sm font-normal text-white-70"
           >
             {t("why_support_title")}
           </h2>
