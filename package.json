@@ -6,10 +6,21 @@
     "dev": "next dev",
     "build": "next build --webpack",
     "start": "next start",
-    "lint": "eslint"
+    "lint": "eslint",
+    "test:e2e": "node scripts/verify-redesign.mjs",
+    "prebuild": "npm run blog:validate",
+    "blog:validate": "node scripts/blog-editorial.mjs validate",
+    "blog:new": "node scripts/blog-editorial.mjs new",
+    "blog:translate": "node scripts/blog-editorial.mjs translate",
+    "blog:review": "node scripts/blog-editorial.mjs review",
+    "blog:publish": "node scripts/blog-editorial.mjs publish",
+    "blog:draft": "node scripts/blog-editorial.mjs draft",
+    "test:blog": "node --test scripts/blog*.test.mjs",
+    "test:pricing": "node scripts/verify-pricing.mjs"
   },
   "dependencies": {
     "@iconify/react": "^6.0.2",
+    "@samasante/liquid-glass": "0.1.1",
     "motion": "^12.35.2",
     "next": "16.1.6",
     "next-intl": "^4.8.3",
@@ -19,6 +30,7 @@
     "stripe": "^22.0.1"
   },
   "devDependencies": {
+    "@playwright/test": "^1.63.0",
     "@resvg/resvg-js": "^2.6.2",
     "@tailwindcss/postcss": "^4",
     "@types/node": "^20",

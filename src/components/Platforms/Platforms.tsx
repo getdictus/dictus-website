@@ -1,40 +1,37 @@
 "use client";
 
-import { useState, useEffect, useRef, useCallback } from "react";
-import { useTranslations } from "next-intl";
-import { Icon } from "@iconify/react";
+import { useState, useEffect, useRef, type KeyboardEvent } from "react";
+import Image from "next/image";
+import { useLocale, useTranslations } from "next-intl";
 import {
   anyEnabled,
   type DownloadsConfig,
   type DownloadVariant,
   type LinuxFormat,
 } from "@/config/downloads";
+import styles from "./Platforms.module.css";
+import DictationPill from "./DictationPill";
+import ProductReveal from "@/components/shared/ProductReveal";
+import GlassSurface from "@/components/shared/GlassSurface";
+import GlassSelectorLens from "@/components/shared/GlassSelectorLens";
+import { useGlassSelector } from "@/components/shared/useGlassSelector";
 
 type Os = "mac" | "win" | "linux";
-type Selection = Os | null;
+const ORDERED: readonly Os[] = ["mac", "win", "linux"];
 
-const ORDERED: readonly Os[] = ["mac", "win", "linux"] as const;
-
-const ICONS: Record<Os, string> = {
-  mac: "simple-icons:apple",
-  win: "simple-icons:windows",
-  linux: "simple-icons:linux",
-};
 
 function detectOs(): Os | null {
   const ua = navigator.userAgent;
-  // Order matters — iPadOS 13+ spoofs Mac UA; mobile tests MUST come first.
-  if (/iPhone|iPad|iPod|Android/i.test(ua)) return null;
+  // iPadOS can send a desktop Mac user agent. Keep mobile visitors neutral.
+  if (/iPhone|iPad|iPod|Android/i.test(ua) ||
+    (navigator.platform === "MacIntel" && navigator.maxTouchPoints > 1)) return null;
   if (/Mac OS X|Macintosh/.test(ua)) return "mac";
   if (/Windows/.test(ua)) return "win";
   if (/Linux|X11/.test(ua)) return "linux";
   return null;
 }
 
-function variantsFor(
-  downloads: DownloadsConfig,
-  os: Os
-): readonly DownloadVariant[] {
+function variantsFor(downloads: DownloadsConfig, os: Os): readonly DownloadVariant[] {
   if (os === "mac") return [downloads.macos.arm64, downloads.macos.x64];
   if (os === "win") return [downloads.windows.x64, downloads.windows.arm64];
   return downloads.linux.formats;
@@ -42,228 +39,154 @@ function variantsFor(
 
 export default function Platforms({ downloads }: { downloads: DownloadsConfig }) {
   const t = useTranslations("Platforms");
-  const [selected, setSelected] = useState<Selection>(null);
+  const locale = useLocale();
+  const [selected, setSelected] = useState<Os | null>(null);
   const tabsRef = useRef<(HTMLButtonElement | null)[]>([]);
+  const { groupRef, groupProps, geometry, keyboard } = useGlassSelector(selected);
 
   useEffect(() => {
-    const detected = detectOs();
-    requestAnimationFrame(() => {
-      if (detected) setSelected(detected);
-    });
+    const frame = requestAnimationFrame(() => setSelected(detectOs()));
+    return () => cancelAnimationFrame(frame);
   }, []);
 
-  const onTabKey = useCallback(
-    (e: React.KeyboardEvent<HTMLButtonElement>, i: number) => {
-      let next = i;
-      if (e.key === "ArrowRight") next = (i + 1) % ORDERED.length;
-      else if (e.key === "ArrowLeft") next = (i - 1 + ORDERED.length) % ORDERED.length;
-      else if (e.key === "Home") next = 0;
-      else if (e.key === "End") next = ORDERED.length - 1;
-      else return;
-      e.preventDefault();
-      setSelected(ORDERED[next]);
-      tabsRef.current[next]?.focus();
-    },
-    []
-  );
+  function onTabKey(event: KeyboardEvent<HTMLButtonElement>, index: number) {
+    let next = index;
+    if (event.key === "ArrowRight") next = (index + 1) % ORDERED.length;
+    else if (event.key === "ArrowLeft") next = (index - 1 + ORDERED.length) % ORDERED.length;
+    else if (event.key === "Home") next = 0;
+    else if (event.key === "End") next = ORDERED.length - 1;
+    else return;
+    event.preventDefault();
+    setSelected(ORDERED[next]);
+    tabsRef.current[next]?.focus();
+  }
 
   return (
-    <section id="desktop" className="scroll-mt-16 bg-ink-2 py-28" aria-labelledby="platforms-heading">
-      <div className="mx-auto max-w-6xl px-6">
-        <h2
-          id="platforms-heading"
-          className="text-3xl font-normal text-text-primary md:text-4xl"
-          style={{ letterSpacing: "-0.03em" }}
-        >
-          {t("heading")}
-        </h2>
-        <p className="mt-4 text-white-70">{t("subheading")}</p>
-
-        <div
-          role="tablist"
-          aria-label={t("tablist_label")}
-          className="mt-8 flex flex-wrap gap-2"
-        >
-          {ORDERED.map((o, i) => {
-            const active = selected === o;
-            return (
-              <button
-                key={o}
-                ref={(el) => {
-                  tabsRef.current[i] = el;
-                }}
-                role="tab"
-                id={`platforms-tab-${o}`}
-                aria-selected={active}
-                aria-controls={`platforms-panel-${o}`}
-                tabIndex={active ? 0 : -1}
-                onClick={() => setSelected(o)}
-                onKeyDown={(e) => onTabKey(e, i)}
-                className={[
-                  "inline-flex min-h-11 items-center gap-2 rounded-full px-5 py-2 text-sm font-light transition-colors",
-                  active
-                    ? "border border-accent/40 bg-accent/10 text-accent"
-                    : "border border-border bg-[var(--glass-t2-bg)] text-white-70 hover:border-border-hi",
-                ].join(" ")}
-              >
-                <Icon icon={ICONS[o]} width={18} height={18} aria-hidden="true" />
-                {t(`tab_${o}`)}
-              </button>
-            );
-          })}
+    <section id="desktop" className={styles.section} aria-labelledby="platforms-heading">
+      <div className={styles.layout}>
+        <div className={styles.copy}>
+          <p className={styles.platform}>{t("platform")}</p>
+          <h2 id="platforms-heading" className={styles.heading}>
+            {t("title_line_one")}<br />{t("title_line_two")}
+          </h2>
+          <p className={styles.description}>{t("description")}</p>
+          <p className={styles.free}>{t("free")}</p>
         </div>
-
-        {selected ? (
-          anyEnabled(variantsFor(downloads, selected)) ? (
-            <DownloadCard os={selected} downloads={downloads} />
-          ) : (
-            <ComingSoonCard os={selected} />
-          )
-        ) : (
-          <p className="mt-8 text-sm text-white-40">{t("select_prompt")}</p>
-        )}
+        <ProductReveal className={styles.figure}>
+          <Image
+            data-product-reveal-item
+            src={`/images/products/desktop-general-${locale === "fr" ? "fr" : "en"}.jpg`}
+            width={680}
+            height={570}
+            sizes="(max-width: 740px) calc(100vw - 48px), (max-width: 1080px) 52vw, 580px"
+            alt={t("screenshot_alt")}
+            className={styles.screenshot}
+          />
+          <figcaption>{t("screenshot_caption")}</figcaption>
+          <div data-product-reveal-item><DictationPill /></div>
+        </ProductReveal>
+        <div className={styles.downloads}>
+          <GlassSurface className={styles.tabsSurface} style={{ display: "block" }}>
+            <div ref={groupRef}
+              role={selected === null ? "group" : "tablist"}
+              aria-label={t("tablist_label")}
+              className={styles.tabs}
+              {...groupProps}
+            >
+              <GlassSelectorLens geometry={geometry} keyboard={keyboard} />
+              {ORDERED.map((os, index) => {
+                const active = selected === os;
+                return (
+                  <button
+                    key={os}
+                    ref={(element) => { tabsRef.current[index] = element; }}
+                    type="button"
+                    role={selected === null ? undefined : "tab"}
+                    id={`platforms-tab-${os}`}
+                    data-lens-key={os}
+                    aria-pressed={selected === null ? false : undefined}
+                    aria-selected={selected === null ? undefined : active}
+                    aria-controls={selected === null ? undefined : `platforms-panel-${os}`}
+                    tabIndex={active || (selected === null && index === 0) ? 0 : -1}
+                    onClick={() => setSelected(os)}
+                    onKeyDown={(event) => onTabKey(event, index)}
+                  >
+                    {t(`tab_${os}`)}
+                  </button>
+                );
+              })}
+            </div>
+          </GlassSurface>
+          <div className={styles.panelSpace}>
+            {selected === null && <p className={styles.prompt}>{t("select_prompt")}</p>}
+            {/* Keep every release URL in the server-rendered HTML for the health monitor. */}
+            {ORDERED.map((os) => (
+              <div
+                key={os}
+                role={selected === null ? undefined : "tabpanel"}
+                id={`platforms-panel-${os}`}
+                aria-labelledby={selected === null ? undefined : `platforms-tab-${os}`}
+                tabIndex={selected === os ? 0 : undefined}
+                hidden={selected !== os}
+                className={styles.panel}
+              >
+                <p className={styles.platformDescription}>{t(`panel_${os}_desc`)}</p>
+                {anyEnabled(variantsFor(downloads, os)) ? (
+                  <>
+                    <DownloadLinks os={os} downloads={downloads} />
+                    {os === "win" && <p className={styles.note}>{t("windows_smartscreen_note")}</p>}
+                  </>
+                ) : <p className={styles.note}>{t("coming_soon_label")}</p>}
+              </div>
+            ))}
+          </div>
+          <div className={styles.meta}>
+            <span>{downloads.version}</span>
+            <a href="https://github.com/getdictus/dictus-desktop/releases" target="_blank" rel="noopener noreferrer">{t("view_all_releases")}</a>
+            <a href="https://github.com/getdictus/dictus-desktop" target="_blank" rel="noopener noreferrer">{t("star_on_github")}</a>
+          </div>
+        </div>
       </div>
+      <noscript>
+        <div className={styles.noScript}>
+          <h3>{t("noscript_label")}</h3>
+          {ORDERED.map((os) => (
+            <div key={os}>
+              <h4>{t(`panel_${os}_title`)}</h4>
+              <p>{t(`panel_${os}_desc`)}</p>
+              {anyEnabled(variantsFor(downloads, os))
+                ? <DownloadLinks os={os} downloads={downloads} />
+                : <p>{t("coming_soon_label")}</p>}
+              {os === "win" && <p>{t("windows_smartscreen_note")}</p>}
+            </div>
+          ))}
+        </div>
+      </noscript>
     </section>
   );
 }
 
-function DownloadCard({ os, downloads }: { os: Os; downloads: DownloadsConfig }) {
-  const t = useTranslations("Platforms");
-  const variants = variantsFor(downloads, os).filter((v) => v.enabled);
-
+function DownloadLinks({ os, downloads }: { os: Os; downloads: DownloadsConfig }) {
   return (
-    <div
-      role="tabpanel"
-      id={`platforms-panel-${os}`}
-      aria-labelledby={`platforms-tab-${os}`}
-      tabIndex={0}
-      className="mt-8 rounded-2xl border border-border bg-[var(--glass-t2-bg)] p-8 backdrop-blur-[12px] backdrop-saturate-[1.2]"
-    >
-      <div className="flex items-start gap-6">
-        <div className="flex h-16 w-16 shrink-0 items-center justify-center rounded-xl bg-navy">
-          <Icon
-            icon={ICONS[os]}
-            width={32}
-            height={32}
-            className="text-sky"
-            aria-hidden="true"
-          />
-        </div>
-        <div className="flex-1">
-          <div className="flex flex-wrap items-center gap-3">
-            <h3 className="text-lg font-normal text-text-primary">
-              {t(`panel_${os}_title`)}
-            </h3>
-            <span className="inline-flex items-center gap-2 rounded-full border border-[#22C55E]/30 bg-[#22C55E]/10 px-3 py-1 text-xs font-light tracking-wide text-[#22C55E]">
-              {t("available_label", { version: downloads.version })}
-            </span>
-          </div>
-          <p className="mt-2 text-sm leading-relaxed text-white-70">
-            {t(`panel_${os}_desc`)}
-          </p>
-
-          <div className="mt-5 flex flex-wrap gap-2">
-            {variants.map((v) => {
-              const format = isLinuxFormat(v) ? v.type : undefined;
-              return (
-                <a
-                  key={v.url}
-                  href={v.url}
-                  rel="noopener noreferrer"
-                  data-download-os={os}
-                  data-download-format={format}
-                  className="inline-flex min-h-11 items-center gap-2 rounded-full border border-accent/30 bg-accent/10 px-5 py-2 text-sm font-light text-accent transition-colors hover:border-accent/50 hover:bg-accent/20"
-                >
-                  <Icon icon="simple-icons:github" width={16} height={16} aria-hidden="true" />
-                  {v.label}
-                </a>
-              );
-            })}
-          </div>
-
-          {os === "win" && (
-            <p className="mt-4 text-xs text-white-40">{t("windows_smartscreen_note")}</p>
-          )}
-
-          <div className="mt-6 flex flex-wrap items-center gap-x-6 gap-y-2">
-            <a
-              href="https://github.com/getdictus/dictus-desktop/releases"
-              target="_blank"
-              rel="noopener noreferrer"
-              className="inline-flex min-h-11 items-center gap-2 text-sm text-white-70 underline underline-offset-4 hover:text-text-primary"
-            >
-              {t("view_all_releases")}
-            </a>
-            <a
-              href="https://github.com/getdictus/dictus-desktop"
-              target="_blank"
-              rel="noopener noreferrer"
-              className="inline-flex min-h-11 items-center gap-2 text-sm text-accent underline underline-offset-4 hover:text-accent-hi"
-            >
-              <Icon icon="simple-icons:github" width={16} height={16} aria-hidden="true" />
-              {t("star_on_github")}
-            </a>
-          </div>
-        </div>
-      </div>
+    <div className={styles.links}>
+      {variantsFor(downloads, os).filter((variant) => variant.enabled).map((variant) => (
+        <a
+          key={variant.url}
+          href={variant.url}
+          rel="noopener noreferrer"
+          data-download-os={os}
+          data-download-format={isLinuxFormat(variant) ? variant.type : undefined}
+        >
+          <svg width="14" height="14" viewBox="0 0 20 20" fill="none" stroke="currentColor" strokeWidth="1.5" aria-hidden="true">
+            <path d="M10 2v11m-4-4 4 4 4-4M3 14v3h14v-3" />
+          </svg>
+          {variant.label}
+        </a>
+      ))}
     </div>
   );
 }
 
-function isLinuxFormat(v: DownloadVariant): v is LinuxFormat {
-  return "type" in v;
-}
-
-function ComingSoonCard({ os }: { os: Os }) {
-  const t = useTranslations("Platforms");
-
-  return (
-    <div
-      role="tabpanel"
-      id={`platforms-panel-${os}`}
-      aria-labelledby={`platforms-tab-${os}`}
-      tabIndex={0}
-      className="mt-8 rounded-2xl border border-dashed border-border bg-[var(--glass-t2-bg)] p-8 opacity-90 backdrop-blur-[12px] backdrop-saturate-[1.2] transition-opacity hover:opacity-100"
-    >
-      <div className="flex items-start gap-6">
-        <div className="flex h-16 w-16 shrink-0 items-center justify-center rounded-xl bg-navy">
-          <Icon
-            icon={ICONS[os]}
-            width={32}
-            height={32}
-            className="text-sky"
-            aria-hidden="true"
-          />
-        </div>
-        <div className="flex-1">
-          <h3 className="text-lg font-normal text-text-primary">
-            {t(`panel_${os}_title`)}
-          </h3>
-          <p className="mt-2 text-sm leading-relaxed text-white-70">
-            {t(`panel_${os}_desc`)}
-          </p>
-
-          <div className="mt-4">
-            <span className="inline-flex items-center gap-2 rounded-full border border-accent/20 bg-accent/5 px-4 py-1.5 text-xs font-light tracking-wide text-accent">
-              <span
-                className="inline-block h-1.5 w-1.5 animate-pulse rounded-full bg-accent"
-                aria-hidden="true"
-              />
-              {t("coming_soon_label")}
-            </span>
-          </div>
-
-          <a
-            href="https://github.com/getdictus/dictus-desktop"
-            target="_blank"
-            rel="noopener noreferrer"
-            className="mt-6 inline-flex min-h-11 items-center gap-2 text-sm text-accent underline underline-offset-4 hover:text-accent-hi"
-          >
-            <Icon icon="simple-icons:github" width={16} height={16} aria-hidden="true" />
-            {t("star_on_github")}
-          </a>
-        </div>
-      </div>
-    </div>
-  );
+function isLinuxFormat(variant: DownloadVariant): variant is LinuxFormat {
+  return "type" in variant;
 }
