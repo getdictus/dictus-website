@@ -474,8 +474,9 @@
     "video_description": "Dans Apple Notes, une phrase est saisie avec le clavier Dictus, ses corrections et suggestions. Une dictée insère « Hello guys, how are you doing? ». L’application affiche ensuite la dernière transcription, les modèles et les réglages. La saisie est accélérée de 50 % ; la dictée reste à sa vitesse d’origine.",
     "video_play": "Lire la démonstration",
     "video_unavailable": "La vidéo est indisponible. Les captures restent accessibles.",
-    "beta": "Rejoindre la bêta iOS",
-    "discover": "Suivre le développement iOS",
+    "beta": "Tester la bêta sur TestFlight",
+    "source": "Voir le code sur GitHub",
+    "app_store": "Télécharger sur l’App Store",
     "android": "Android est en développement.",
     "screens": {
       "keyboard": {

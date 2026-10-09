@@ -523,7 +523,7 @@ for (const engine of engines) {
         color: getComputedStyle(node).backgroundColor,
         height: node.getBoundingClientRect().height,
       }));
-      assert.match(appearance.href, /^https:\/\/(?:testflight\.apple\.com\/|github\.com\/getdictus\/dictus-ios)/);
+      assert.match(appearance.href, /^https:\/\/apps\.apple\.com\/app\/id6761262378$/);
       const channels = appearance.color.match(/[\d.]+/g)?.map(Number) || [];
       assert.ok(channels.length >= 3 && channels[2] > channels[0] + 50 && channels[2] > channels[1] + 30,
         `The direct iPhone CTA must have a blue background (${appearance.color})`);

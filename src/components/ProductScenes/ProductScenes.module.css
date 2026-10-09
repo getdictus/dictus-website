@@ -81,3 +81,7 @@
   .playbackButton { transition: none; }
   .playbackButton:active { transform: none; }
 }
+.secondaryLinks { display: flex; flex-wrap: wrap; gap: 6px 18px; margin: 14px 0 0; font-size: 12px; }
+.secondaryLinks a { display: inline-flex; align-items: center; min-height: 44px; color: var(--theme-text-body); text-decoration: underline; text-underline-offset: 4px; transition: color var(--motion-fast) ease; }
+.secondaryLinks a:focus-visible { outline: 2px solid var(--color-accent); outline-offset: 3px; }
+@media (hover: hover) and (pointer: fine) { .secondaryLinks a:hover { color: var(--theme-text-primary); } }

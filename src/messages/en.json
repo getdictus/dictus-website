@@ -474,8 +474,9 @@
     "video_description": "In Apple Notes, a phrase is typed with the Dictus keyboard, its autocorrection and suggestions. Dictation inserts “Hello guys, how are you doing?”. The app then shows the last transcription, models and settings. Typing is shown at 1.5× its original speed; dictation remains at its original speed.",
     "video_play": "Play the demo",
     "video_unavailable": "The video is unavailable. You can still explore the screenshots.",
-    "beta": "Join the iOS beta",
-    "discover": "Follow iOS development",
+    "beta": "Try the beta on TestFlight",
+    "source": "View the code on GitHub",
+    "app_store": "Download on the App Store",
     "android": "Android is in development.",
     "screens": {
       "keyboard": {

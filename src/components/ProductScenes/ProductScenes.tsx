@@ -11,6 +11,8 @@ import { useIphoneStage } from "./useIphoneStage";
 import stageStyles from "./IphoneStage.module.css";
 import styles from "./ProductScenes.module.css";
 
+const appStoreUrl = "https://apps.apple.com/app/id6761262378";
+
 export default function ProductScenes() {
   const t = useTranslations("ProductScenes");
   const { sectionRef, viewportRef, phoneAnchorRef, phoneMotionRef, copyRef,
@@ -71,9 +73,15 @@ export default function ProductScenes() {
             </GlassSurface>
             <p className={styles.caption} aria-live={playing ? "off" : "polite"}>{t(`screens.${chapter.key}.caption`)}</p>
             <p id="iphone-demo-description" className="sr-only">{t("video_description")}</p>
-            <a data-iphone-cta className={styles.link} href={testflightUrl || "https://github.com/getdictus/dictus-ios"}>
-              {testflightUrl ? t("beta") : t("discover")}
+            <a data-iphone-cta className={styles.link} href={appStoreUrl} target="_blank" rel="noopener noreferrer">
+              {t("app_store")}
             </a>
+            <p className={styles.secondaryLinks}>
+              {testflightUrl && (
+                <a href={testflightUrl} target="_blank" rel="noopener noreferrer">{t("beta")}</a>
+              )}
+              <a href="https://github.com/getdictus/dictus-ios" target="_blank" rel="noopener noreferrer">{t("source")}</a>
+            </p>
           </div>
           <div ref={phoneAnchorRef} className={`${styles.phoneFigure} ${stageStyles.phoneAnchor}`}>
             <div ref={phoneMotionRef} data-iphone-stage-phone
