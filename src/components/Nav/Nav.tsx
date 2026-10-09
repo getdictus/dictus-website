@@ -1,5 +1,6 @@
 "use client";
 
+import { useEffect, useState } from "react";
 import { useTranslations } from "next-intl";
 import { Link, usePathname } from "@/i18n/navigation";
 import GlassSurface from "@/components/shared/GlassSurface";
@@ -18,6 +19,13 @@ export default function Nav({ preview = false, blogAvailable = preview, articleR
   const pathname = usePathname();
   const activePath = pathname.startsWith("/blog/") ? "/blog" : pathname;
   const { groupRef, groupProps, geometry, keyboard, clearPreview } = useGlassSelector<HTMLElement>(activePath);
+  const [scrolled, setScrolled] = useState(false);
+  useEffect(() => {
+    const update = () => setScrolled(window.scrollY > 24);
+    update();
+    window.addEventListener("scroll", update, { passive: true });
+    return () => window.removeEventListener("scroll", update);
+  }, []);
   const links = [
     { href: "/", label: t("home") },
     ...(blogAvailable ? [{ href: "/blog", label: t("blog") }] : []),
@@ -26,7 +34,7 @@ export default function Nav({ preview = false, blogAvailable = preview, articleR
   ];
 
   return (
-    <header className={styles.header}>
+    <header className={styles.header} data-scrolled={scrolled || undefined}>
       <div className={styles.brand}><Logo /></div>
       <GlassSurface className={styles.pill}>
         <nav ref={groupRef} aria-label={t("navigation_label")} className={styles.links} {...groupProps}>
