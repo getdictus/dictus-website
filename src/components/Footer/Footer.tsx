@@ -5,10 +5,10 @@ export default function Footer() {
   const t = useTranslations("Footer");
 
   return (
-    <footer className="border-t border-border bg-ink-deep py-8">
-      <div className="mx-auto max-w-6xl px-6">
+    <footer className="border-t border-border bg-ink-deep py-10">
+      <div className="mx-auto max-w-5xl px-6">
         <div className="flex flex-wrap items-center justify-between gap-4">
-          <span className="text-sm text-white-40">
+          <span className="text-sm text-white-70">
             &copy; {t("copyright")}
           </span>
           <div className="flex gap-4">
@@ -17,7 +17,7 @@ export default function Footer() {
               target="_blank"
               rel="noopener noreferrer"
               aria-label={t("github_label")}
-              className="flex h-11 w-11 items-center justify-center text-white-40 transition-colors hover:text-white-70"
+              className="flex h-11 w-11 items-center justify-center text-white-70 transition-colors hover:text-white-70"
             >
               <svg
                 width="20"
@@ -34,7 +34,7 @@ export default function Footer() {
               target="_blank"
               rel="noopener noreferrer"
               aria-label={t("twitter_label")}
-              className="flex h-11 w-11 items-center justify-center text-white-40 transition-colors hover:text-white-70"
+              className="flex h-11 w-11 items-center justify-center text-white-70 transition-colors hover:text-white-70"
             >
               <svg
                 width="20"
@@ -51,7 +51,7 @@ export default function Footer() {
               target="_blank"
               rel="noopener noreferrer"
               aria-label={t("telegram_label")}
-              className="flex h-11 w-11 items-center justify-center text-white-40 transition-colors hover:text-white-70"
+              className="flex h-11 w-11 items-center justify-center text-white-70 transition-colors hover:text-white-70"
             >
               <svg
                 width="20"
@@ -60,41 +60,38 @@ export default function Footer() {
                 fill="currentColor"
                 aria-hidden="true"
               >
-                <path d="M11.944 0A12 12 0 0 0 0 12a11.96 11.96 0 0 0 1.744 6.236L.058 24l5.824-1.528A11.936 11.936 0 0 0 12 24a12 12 0 0 0 0-24zm5.09 8.29l-1.89 8.928c-.14.636-.508.79-.99.492l-2.81-2.071-1.354 1.304c-.15.15-.276.276-.566.276l.2-2.862 5.18-4.678c.226-.2-.048-.31-.348-.11L8.312 14.14l-2.8-.878c-.606-.19-.618-.606.128-.898l10.934-4.215c.506-.19.95.122.78.898l-.32.243z" />
+                <path d="M9.78 18.65l.28-4.23 7.68-6.93c.34-.31-.07-.46-.53-.18l-9.48 6-4.1-1.28c-.88-.25-.89-.86.2-1.3l16-6.17c.73-.33 1.43.18 1.15 1.3l-2.73 12.87c-.19.91-.74 1.13-1.5.71l-4.17-3.08-2 1.93c-.23.23-.42.42-.85.42z" />
               </svg>
             </a>
           </div>
         </div>
-        <div className="mt-4 flex gap-4 text-sm">
+        <div className="mt-5 flex flex-wrap items-center gap-x-5 gap-y-1 text-sm">
           <Link
             href="/privacy"
-            className="text-white-40 transition-colors hover:text-white-70"
+            className="inline-flex min-h-11 items-center text-white-70 transition-colors hover:text-text-primary"
           >
             {t("privacy_link")}
           </Link>
-          <span className="text-white-40" aria-hidden="true">·</span>
           <Link
             href="/terms"
-            className="text-white-40 transition-colors hover:text-white-70"
+            className="inline-flex min-h-11 items-center text-white-70 transition-colors hover:text-text-primary"
           >
             {t("terms_link")}
           </Link>
-          <span className="text-white-40" aria-hidden="true">·</span>
           <Link
             href="/support"
-            className="text-white-40 transition-colors hover:text-white-70"
+            className="inline-flex min-h-11 items-center text-white-70 transition-colors hover:text-text-primary"
           >
             {t("help_link")}
           </Link>
-          <span className="text-white-40" aria-hidden="true">&middot;</span>
           <Link
             href="/donate"
-            className="text-white-40 transition-colors hover:text-white-70"
+            className="inline-flex min-h-11 items-center text-white-70 transition-colors hover:text-text-primary"
           >
             {t("support_link")}
           </Link>
         </div>
-        <p className="mt-4 text-xs text-white-40">{t("privacy")}</p>
+        <p className="mt-5 max-w-2xl text-xs leading-relaxed text-white-70">{t("privacy")}</p>
       </div>
     </footer>
   );
