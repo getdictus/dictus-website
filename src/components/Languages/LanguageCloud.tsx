@@ -1,6 +1,6 @@
 "use client";
 
-import { useEffect, useRef } from "react";
+import { useCallback, useEffect, useRef } from "react";
 import {
   m,
   useMotionValue,
@@ -54,10 +54,9 @@ function DriftRow({
   amplitude: MotionValue<number>;
 }) {
   // Full transform string: Motion's x shorthand runs off the compositor path.
-  const transform = useTransform(() => {
-    const amp = amplitude.get();
+  const transform = useTransform([progress, amplitude], ([p, amp]: number[]) => {
     if (amp === 0) return "none";
-    const offset = (progress.get() - 0.5) * direction * amp;
+    const offset = (p - 0.5) * direction * amp;
     return `translate3d(${offset.toFixed(1)}px, 0, 0)`;
   });
 
@@ -82,10 +81,16 @@ function DriftRow({
  */
 export default function LanguageCloud() {
   const ref = useRef<HTMLDivElement>(null);
+  // Progress runs over the whole section's pass, as in v4b, not just the rows.
+  const sectionRef = useRef<HTMLElement>(null);
+  const setRef = useCallback((node: HTMLDivElement | null) => {
+    ref.current = node;
+    sectionRef.current = node?.closest("section") ?? null;
+  }, []);
   const reduce = useReducedMotion();
   const amplitude = useMotionValue(0);
   const { scrollYProgress } = useScroll({
-    target: ref,
+    target: sectionRef,
     offset: ["start end", "end start"],
   });
 
@@ -123,7 +128,7 @@ export default function LanguageCloud() {
 
   return (
     <div
-      ref={ref}
+      ref={setRef}
       aria-hidden="true"
       className="flex flex-col gap-[clamp(4px,1vw,14px)]"
     >
