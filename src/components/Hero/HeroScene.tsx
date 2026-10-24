@@ -1,6 +1,6 @@
 "use client";
 
-import { useCallback, useEffect, useId, useRef, useState } from "react";
+import { useCallback, useEffect, useId, useLayoutEffect, useRef, useState } from "react";
 import Image from "next/image";
 import { useReducedMotion } from "motion/react";
 import ScenePlayer from "@/components/shared/ScenePlayer";
@@ -8,6 +8,7 @@ import { BAR_COUNT, LevelSmoother, barLayout, barTransform, recordingLevels } fr
 import { kalam } from "./fonts";
 import {
   COMPACT_MAX_WIDTH,
+  SCENE_LOOP_SECONDS,
   SIDE_MEDIA,
   WALKER,
   cubicPath,
@@ -17,11 +18,12 @@ import {
   strokePolylines,
   type HeroLayout,
   type HeroMode,
+  type Point,
 } from "./strokes";
 import styles from "./Hero.module.css";
 
 /** Three phrases of 5.5 s each, one walker loop per phrase. */
-const LOOP_SECONDS = 16.5;
+const LOOP_SECONDS = SCENE_LOOP_SECONDS;
 const PHRASE_SECONDS = 5.5;
 /** Reduced motion: the first phrase fully written, the waveform mid-take. */
 const STILL_AT = 4.2;
@@ -85,11 +87,14 @@ export default function HeroScene({ phrases, writtenLabel }: Props) {
   const phraseRefs = useRef<PhraseRefs[]>([]);
   const opacities = useRef(new WeakMap<Element, number>());
   const smoother = useRef(new LevelSmoother());
+  const lines = useRef<Point[][] | undefined>(undefined);
+  const barTransforms = useRef<string[]>([]);
   const lastFrame = useRef<number | null>(null);
   const lastSeconds = useRef(STILL_AT);
   const stillRef = useRef(false);
 
-  useEffect(() => {
+  // Before ScenePlayer's own effect draws the still moment.
+  useLayoutEffect(() => {
     stillRef.current = Boolean(reduceMotion);
   }, [reduceMotion]);
 
@@ -102,7 +107,8 @@ export default function HeroScene({ phrases, writtenLabel }: Props) {
 
       const video = videoRef.current;
       const bob = video && video.readyState >= 2 ? mouthBob(video.currentTime, scene.walker.w) : 0;
-      strokePolylines(scene, seconds, bob).forEach((line, index) => {
+      lines.current = strokePolylines(scene, seconds, bob, lines.current);
+      lines.current.forEach((line, index) => {
         strokeRefs.current[index]?.setAttribute("d", polylinePath(line));
       });
 
@@ -110,19 +116,24 @@ export default function HeroScene({ phrases, writtenLabel }: Props) {
       const maxHeight = pill.h - (scene.scale === "compact" ? 20 : 28);
       const { barWidth } = barLayout(pill.cx - pill.w / 2 + pill.pad, pill.w - pill.pad * 2);
       const now = performance.now();
-      const targets = recordingLevels(still ? STILL_LEVELS_AT : seconds + 1);
+      const targets = recordingLevels(still ? STILL_LEVELS_AT : seconds, LOOP_SECONDS);
       const levels = still || lastFrame.current === null
         ? smoother.current.set(targets)
         : smoother.current.step(targets, (now - lastFrame.current) / 1000);
       lastFrame.current = now;
       for (let i = 0; i < BAR_COUNT; i++) {
-        barRefs.current[i]?.setAttribute("transform", barTransform(levels[i], pill.cy, maxHeight, barWidth));
+        const transform = barTransform(levels[i], pill.cy, maxHeight, barWidth);
+        if (barTransforms.current[i] === transform) continue;
+        barTransforms.current[i] = transform;
+        barRefs.current[i]?.setAttribute("transform", transform);
       }
 
       const current = Math.floor(seconds / PHRASE_SECONDS) % phrases.length;
       const local = seconds % PHRASE_SECONDS;
       const written = Math.max(0, (local - FIRST_LETTER) / LETTER_SECONDS);
-      const fade = local > FADE_OUT_AT ? Math.max(0, 1 - (local - FADE_OUT_AT) / FADE_OUT_SECONDS) : 1;
+      // Fades out on an ease-out (cubic): quick at first, no lingering smear.
+      const out = Math.min(1, Math.max(0, (local - FADE_OUT_AT) / FADE_OUT_SECONDS));
+      const fade = local > FADE_OUT_AT ? Math.pow(1 - out, 3) : 1;
       phraseRefs.current.forEach((refs, index) => {
         if (!refs) return;
         setOpacity(opacities.current, refs.line, index === current ? fade : 0);
@@ -155,7 +166,9 @@ export default function HeroScene({ phrases, writtenLabel }: Props) {
 
   // Draw the new layout at once, even while paused or still.
   useEffect(() => {
-    if (layout) draw(lastSeconds.current);
+    if (!layout) return;
+    barTransforms.current = [];
+    draw(lastSeconds.current);
   }, [layout, draw]);
 
   // The video only exists when motion is allowed, and only after the page
@@ -234,6 +247,9 @@ export default function HeroScene({ phrases, writtenLabel }: Props) {
             width={WALKER.maxWidth}
             height={WALKER.maxHeight}
             alt=""
+            // In the stacked layouts it can outsize the headline, so Chrome may report
+            // it as the LCP element: never defer it.
+            loading="eager"
             unoptimized
           />
           {videoAllowed && (

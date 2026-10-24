@@ -5,8 +5,9 @@
  * 0.3 smoothing factor and fall with a 0.85 decay, per 60 Hz frame.
  *
  * Extracted from the hero's former full-screen `Waveform` canvas, without
- * its gradient (the v4b hero has none) and drawn as SVG lines so the bars
- * move by `transform` only.
+ * its gradient (the v4b hero has none). Drawn as SVG lines stretched by
+ * their `transform` attribute: no box layout of the page, but SVG geometry
+ * and repaint work every frame.
  */
 
 export const BAR_COUNT = 30;
@@ -35,24 +36,26 @@ export function barLayout(x: number, width: number) {
   return { barWidth, bars };
 }
 
-/** A speaking voice: syllables, a slow swell and short pauses. */
-function voice(m: number) {
-  const syllable = Math.abs(Math.sin(m * 11));
-  const swell = 0.55 + 0.45 * Math.sin(m * 2.7 + 0.8);
-  const pause = Math.sin(m * 1.3 + 2) > 0.85 ? 0.15 : 1;
+/**
+ * A speaking voice: syllables, a slow swell and short pauses. Each rate is a
+ * whole number of turns per `loopSeconds`, so the voice repeats exactly.
+ */
+function voice(m: number, loopSeconds: number) {
+  const turn = (n: number) => (2 * Math.PI * n) / loopSeconds;
+  const syllable = Math.abs(Math.sin(m * turn(29)));
+  const swell = 0.55 + 0.45 * Math.sin(m * turn(7) + 0.8);
+  const pause = Math.sin(m * turn(3) + 2) > 0.85 ? 0.15 : 1;
   return 0.12 + 0.78 * syllable * swell * pause;
 }
 
 /**
- * Target level (0 to 1) of every bar while recording, `seconds` into the
- * take: the newest sound enters on the right and scrolls left.
+ * Target level (0 to 1) of every bar during an endless take, `seconds` into
+ * a loop of `loopSeconds`: the newest sound enters on the right and scrolls
+ * left, and the levels at the end of the loop lead into those at its start.
  */
-export function recordingLevels(seconds: number) {
-  const on = Math.min(1, Math.max(0, seconds / 0.4));
+export function recordingLevels(seconds: number, loopSeconds: number) {
   return Array.from({ length: BAR_COUNT }, (_, i) => {
-    const m = seconds - (BAR_COUNT - 1 - i) * 0.05;
-    if (m <= 0) return 0;
-    const value = voice(m) * on;
+    const value = voice(seconds - (BAR_COUNT - 1 - i) * 0.05, loopSeconds);
     return value < 0.05 ? 0 : Math.min(1, value);
   });
 }

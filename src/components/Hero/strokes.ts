@@ -66,14 +66,25 @@ export function mouthBob(videoSeconds: number, width: number) {
 
 export type StrokeStyle = { color: string; width: number; lambda: number; speed: number; phase: number };
 
+/**
+ * One pass of the hero scene (three 5.5 s phrases). Everything that moves
+ * with time turns a whole number of times per pass, so the loop has no seam.
+ */
+export const SCENE_LOOP_SECONDS = 16.5;
+/** Angular speed of `n` whole turns per scene loop, in radians per second. */
+export const turnsPerLoop = (n: number) => (2 * Math.PI * n) / SCENE_LOOP_SECONDS;
+
 /** Light, mid and deep blue felt pens, as in the v4b mockup. */
 export const STROKE_COLORS = ["#6BA3FF", "#3D7EFF", "#2563EB"] as const;
 const STROKE_WIDTHS = { wide: [3.4, 4.6, 2.2], compact: [2.6, 3.4, 1.6] } as const;
 const STROKE_WAVES = [
-  { lambda: 44, speed: 3.4, phase: 0 },
-  { lambda: 58, speed: 4.4, phase: 1.3 },
-  { lambda: 36, speed: 2.6, phase: 2.6 },
+  { lambda: 44, speed: turnsPerLoop(8), phase: 0 },
+  { lambda: 58, speed: turnsPerLoop(12), phase: 1.3 },
+  { lambda: 36, speed: turnsPerLoop(7), phase: 2.6 },
 ];
+/** Swell of the voice along the strokes, and their shared wobble. */
+const LOUDNESS_SPEED = turnsPerLoop(6);
+const WOBBLE_SPEED = turnsPerLoop(9);
 
 /**
  * Spacing of the three strokes, in px between neighbouring axes. The common
@@ -99,8 +110,10 @@ export type HeroLayout = {
   walker: { x: number; y: number; w: number; h: number };
   mouth: Point;
   pill: Pill;
-  /** From the mouth over the phone into the left end of the pill: two cubics, joined smoothly. */
+  /** From the mouth over the phone into the left end of the pill: cubics, joined smoothly. */
   arc: Cubic[];
+  /** `arc` resampled by arc length, computed once per layout. */
+  samples: ArcSample[];
   /** Handwriting baseline after the pill (side and stack modes). */
   writing: Cubic | null;
   writingSize: number;
@@ -195,6 +208,11 @@ function placeWalker(walker: HeroLayout["walker"]) {
  * the text, so nothing in it can reach the text.
  */
 export function heroLayout(mode: HeroMode, width: number, height: number): HeroLayout {
+  const layout = placeScene(mode, width, height);
+  return { ...layout, samples: sampleArc(layout.arc).samples };
+}
+
+function placeScene(mode: HeroMode, width: number, height: number): Omit<HeroLayout, "samples"> {
   const scale = mode === "compact" ? "compact" : "wide";
   const strokes = STROKE_WAVES.map((wave, index) => ({ ...wave, color: STROKE_COLORS[index], width: STROKE_WIDTHS[scale][index] }));
   const base = { mode, width, height, strokes, spacing: SPACING[scale], scale } as const;
@@ -263,16 +281,10 @@ export function cubicPath([p0, p1, p2, p3]: Cubic) {
   return `M ${f(p0)} C ${f(p1)} ${f(p2)} ${f(p3)}`;
 }
 
-type ArcSample = { x: number; y: number; nx: number; ny: number; u: number; s: number };
-
-const arcCache = new Map<string, { length: number; samples: ArcSample[] }>();
+export type ArcSample = { x: number; y: number; nx: number; ny: number; u: number; s: number };
 
 /** The path resampled every `step` px of arc length, with unit normals. */
 export function sampleArc(arc: Cubic[], step = 4) {
-  const key = JSON.stringify(arc) + step;
-  const cached = arcCache.get(key);
-  if (cached) return cached;
-
   const perSegment = 240;
   const points = [arc[0][0]];
   for (const segment of arc) {
@@ -295,10 +307,7 @@ export function sampleArc(arc: Cubic[], step = 4) {
     const tx = b.x - a.x, ty = b.y - a.y, tl = Math.hypot(tx, ty) || 1;
     samples.push({ x: a.x + tx * f, y: a.y + ty * f, nx: -ty / tl, ny: tx / tl, u: s / length, s });
   }
-  const result = { length, samples };
-  if (arcCache.size > 32) arcCache.clear();
-  arcCache.set(key, result);
-  return result;
+  return { length, samples };
 }
 
 const smooth = (a: number, b: number, x: number) => {
@@ -316,25 +325,31 @@ function grain(n: number) {
  * The three strokes at `seconds` into the scene, as polylines from the mouth
  * (u = 0) to the pill (u = 1). `bob` is the mouth's vertical offset from
  * frame 0 (see `mouthBob`); the start follows it and the arc takes it up
- * over its first 40 %.
+ * over its first 40 %. Pass the previous result as `out` to reuse its points
+ * instead of allocating new ones every frame.
  */
-export function strokePolylines(layout: HeroLayout, seconds: number, bob = 0): Point[][] {
-  const { samples } = sampleArc(layout.arc);
+export function strokePolylines(layout: HeroLayout, seconds: number, bob = 0, out?: Point[][]): Point[][] {
+  const { samples } = layout;
   const { start, middle, end, common, differential, jitter } = layout.spacing;
-  return layout.strokes.map((stroke, index) => {
-    const side = index - 1;
-    return samples.map((q, k) => {
+  const lines = out && out.length === layout.strokes.length && out[0].length === samples.length
+    ? out
+    : layout.strokes.map(() => samples.map(() => ({ x: 0, y: 0 })));
+  layout.strokes.forEach((stroke, index) => {
+    const side = index - 1, line = lines[index];
+    samples.forEach((q, k) => {
       const u = q.u;
       const spacing = start + (middle - start) * smooth(0, 0.25, u) - (middle - end) * smooth(0.75, 1, u);
       const spread = smooth(0, 0.2, u) * (1 - smooth(0.84, 1, u));
-      const loud = 0.5 + 0.5 * Math.sin(q.s / 85 - seconds * 2.3);
-      const together = common * spread * loud * Math.sin(q.s / 50 - seconds * 3.6);
+      const loud = 0.5 + 0.5 * Math.sin(q.s / 85 - seconds * LOUDNESS_SPEED);
+      const together = common * spread * loud * Math.sin(q.s / 50 - seconds * WOBBLE_SPEED);
       const apart = differential * Math.sin(q.s / stroke.lambda - seconds * stroke.speed + stroke.phase);
       const offset = side * spacing + together + apart + grain(k + index * 997) * 2 * jitter;
       const lift = bob * (1 - smooth(0, 0.4, u));
-      return { x: q.x + q.nx * offset, y: q.y + q.ny * offset + lift };
+      line[k].x = q.x + q.nx * offset;
+      line[k].y = q.y + q.ny * offset + lift;
     });
   });
+  return lines;
 }
 
 /** SVG path data of a polyline. */

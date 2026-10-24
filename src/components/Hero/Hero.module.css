@@ -31,10 +31,11 @@
 .walkerStill, .walkerVideo { position: absolute; inset: 0; display: block; width: 100%; height: 100%; }
 .walker[data-video="ready"] .walkerStill { visibility: hidden; }
 
-/* The strokes, pill and phrase need the measured box, so they arrive after
-   hydration; a short fade keeps them from popping in. */
-.overlay { position: absolute; left: 0; top: 0; overflow: visible; transition: opacity var(--motion-ui) var(--ease-out); }
-@starting-style { .overlay { opacity: 0; } }
+/* The strokes, pill, phrase and card need the measured box, so they arrive
+   after hydration; one short fade keeps them from popping in. */
+.overlay { position: absolute; left: 0; top: 0; overflow: visible; }
+.overlay, .card { transition: opacity var(--motion-ui) var(--ease-out); }
+@starting-style { .overlay, .card { opacity: 0; } }
 
 .card { position: absolute; box-sizing: border-box; min-height: 86px; padding: 10px 14px 12px; border-radius: 18px; background: #F2F2F7; transform: rotate(2deg); }
 .cardLabel { margin: 0; font-family: var(--font-dm-mono), monospace; font-size: 10px; font-weight: 500; letter-spacing: .08em; color: #1F4FC4; }
@@ -58,5 +59,5 @@
 }
 
 @media (prefers-reduced-motion: reduce) {
-  .overlay { transition: none; }
+  .overlay, .card { transition: none; }
 }

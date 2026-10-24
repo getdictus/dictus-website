@@ -6,8 +6,10 @@
 // Run with `npm run test:hero` (Node 22.18+ strips the TypeScript types).
 import assert from "node:assert/strict";
 import { test } from "node:test";
+import { recordingLevels } from "../src/components/Hero/BrandWaveform.ts";
 import {
   MIN_VISIBLE_GAP,
+  SCENE_LOOP_SECONDS,
   WALKER,
   heroLayout,
   mouthBob,
@@ -128,4 +130,27 @@ test("mouthBob follows the rig: 0 at contact, -10.6 px at passing for a 212 px w
   assert.ok(Math.abs(mouthBob(1.1 / 4, 212) + 2 * WALKER.bobPx) < 1e-9);
   assert.ok(Math.abs(2 * WALKER.bobPx - 10.6) < 0.1);
   assert.ok(Math.abs(mouthBob(5.5, 212)) < 1e-9, "the loop closes");
+});
+
+test("the scene loop has no seam: strokes and waveform at 16.5 s - 1 frame lead into 0 s", () => {
+  const frame = 1 / 60;
+  for (const fixture of layouts) {
+    const layout = heroLayout(fixture.mode, fixture.width, fixture.height);
+    const end = strokePolylines(layout, SCENE_LOOP_SECONDS - frame);
+    const start = strokePolylines(layout, 0);
+    let jump = 0;
+    end.forEach((line, i) => line.forEach((p, k) => { jump = Math.max(jump, Math.hypot(p.x - start[i][k].x, p.y - start[i][k].y)); }));
+    assert.ok(jump < 1, `${fixture.name}: strokes move ${jump.toFixed(2)} px across the loop seam`);
+    // One frame of normal motion, for comparison.
+    const next = strokePolylines(layout, frame);
+    let step = 0;
+    next.forEach((line, i) => line.forEach((p, k) => { step = Math.max(step, Math.hypot(p.x - start[i][k].x, p.y - start[i][k].y)); }));
+    assert.ok(jump <= step * 1.5 + 0.05, `${fixture.name}: seam ${jump.toFixed(2)} px vs one frame ${step.toFixed(2)} px`);
+  }
+  const before = recordingLevels(SCENE_LOOP_SECONDS - frame, SCENE_LOOP_SECONDS);
+  const after = recordingLevels(0, SCENE_LOOP_SECONDS);
+  const frameStep = recordingLevels(frame, SCENE_LOOP_SECONDS);
+  const seam = Math.max(...before.map((v, i) => Math.abs(v - after[i])));
+  const normal = Math.max(...frameStep.map((v, i) => Math.abs(v - after[i])));
+  assert.ok(seam <= normal * 1.5, `waveform jumps ${seam.toFixed(3)} across the seam, ${normal.toFixed(3)} in a normal frame`);
 });
