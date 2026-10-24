@@ -1,0 +1,38 @@
+/* Clips the tilted band so it never widens the page. */
+.viewport {
+  overflow: hidden;
+  padding-block: 1.75rem;
+}
+
+.band {
+  width: 106%;
+  margin-inline: -3%;
+  transform: rotate(-2deg);
+}
+
+.track {
+  display: flex;
+  width: max-content;
+  animation: seam-marquee var(--seam-duration, 40s) linear infinite;
+}
+
+/* Off-screen (set by the component) the band holds its frame. */
+.band[data-playing="false"] .track {
+  animation-play-state: paused;
+}
+
+/* Static: the band stays, nothing travels. */
+@media (prefers-reduced-motion: reduce) {
+  .track {
+    animation: none;
+  }
+}
+
+@keyframes seam-marquee {
+  from {
+    transform: translate3d(0, 0, 0);
+  }
+  to {
+    transform: translate3d(-50%, 0, 0);
+  }
+}
