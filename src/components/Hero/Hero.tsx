@@ -1,6 +1,8 @@
 "use client";
 
 import { useTranslations } from "next-intl";
+import BetaBadge from "@/components/shared/BetaBadge";
+import { ANDROID_RELEASE_URL } from "@/config/downloads";
 import Waveform from "./Waveform";
 import styles from "./Hero.module.css";
 
@@ -16,8 +18,11 @@ export default function Hero() {
         <div className={styles.platforms}>
           <a href="#iphone">{t("platform_ios")}</a>
           <span aria-hidden="true">/</span>
-          <a href="#desktop">{t("platform_desktop")}</a>
+          <a href={ANDROID_RELEASE_URL} target="_blank" rel="noopener noreferrer">
+            {t("platform_android")}<BetaBadge label={t("android_badge")} />
+          </a>
         </div>
+        <a className={styles.desktop} href="#desktop">{t("platform_desktop")}</a>
       </div>
     </section>
   );
