@@ -1,0 +1,18 @@
+/* App Store first, Android second. The 16 px gap and the 12 px block padding
+   keep Apple's minimum clear space (1/4 of the 48 px badge height). */
+.buttons { display: flex; flex-wrap: wrap; align-items: center; justify-content: center; gap: 16px; padding-block: 12px; }
+
+.appStore { display: block; flex: none; border-radius: 8px; }
+.badge { display: block; width: auto; height: 48px; }
+
+/* Same height, fill, border and radius as the black badge so both read as one pair. */
+.android { display: inline-flex; align-items: center; justify-content: center; gap: 10px; flex: none; box-sizing: border-box; height: 48px; padding: 0 22px; border: 1px solid #a6a6a6; border-radius: 9px; background: #0a1628; color: #fff; font-size: 17px; font-weight: 600; line-height: 1; letter-spacing: -.01em; white-space: nowrap; transition: background-color var(--motion-fast) ease; }
+.arrow { color: #6ba3ff; font-family: system-ui, sans-serif; font-weight: 600; }
+
+@media (hover: hover) and (pointer: fine) {
+  .android:hover { background: #142744; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .android { transition: none; }
+}

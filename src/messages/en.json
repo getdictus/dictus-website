@@ -20,10 +20,12 @@
     "headline": "Your voice stays yours.",
     "subtitle": "Voice typing. Local by default, open source.",
     "cta_discover": "Discover Dictus",
-    "platform_desktop": "Mac, Windows and Linux",
-    "platform_ios": "iPhone",
-    "platform_android": "Android",
-    "android_badge": "Beta"
+    "platform_desktop": "Mac, Windows and Linux"
+  },
+  "DownloadButtons": {
+    "app_store_alt": "Download on the App Store",
+    "android": "Android · Beta",
+    "android_label": "Android · Beta: download the APK on GitHub"
   },
   "Features": {
     "title": "When the words come, say them.",
@@ -89,7 +91,8 @@
     "privacy_link": "Privacy Policy",
     "terms_link": "Terms of Use",
     "help_link": "Support",
-    "support_link": "Donate"
+    "support_link": "Donate",
+    "apple_credit": "Apple and the Apple logo are trademarks of Apple Inc., registered in the U.S. and other countries. App Store is a service mark of Apple Inc."
   },
   "NotFound": {
     "message": "Page not found"

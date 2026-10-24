@@ -1,5 +1,6 @@
 import { useLocale, useTranslations } from "next-intl";
 import { Link } from "@/i18n/navigation";
+import { APP_STORE_URL } from "@/config/downloads";
 import { freeFeatures, proFeatures, pricingValues } from "@/config/pricing";
 import BillingSelector, { BillingProvider, BillingPrice, BillingNote } from "./BillingSelector";
 import styles from "./Pricing.module.css";
@@ -39,7 +40,7 @@ export default function Pricing() {
               <p className={styles.description}>{t("cards.iphone.description")}</p>
               <ul className={styles.features}>{freeFeatures.map((key) => <li key={key}>{t(`cards.iphone.features.${key}`)}</li>)}</ul>
               <div className={styles.cardFooter}>
-                <a className={styles.cta} href="https://apps.apple.com/app/id6761262378" target="_blank" rel="noopener noreferrer">{t("cards.iphone.cta")}<span aria-hidden="true">↗</span></a>
+                <a className={styles.cta} href={APP_STORE_URL} target="_blank" rel="noopener noreferrer">{t("cards.iphone.cta")}<span aria-hidden="true">↗</span></a>
                 <p>{t("cards.iphone.compatibility")}</p>
               </div>
             </section>

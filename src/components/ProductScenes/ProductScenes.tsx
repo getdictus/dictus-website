@@ -9,11 +9,9 @@ import GlassSelectorLens from "@/components/shared/GlassSelectorLens";
 import { useGlassSelector } from "@/components/shared/useGlassSelector";
 import { iphoneChapters, iphoneVideo, useIphoneDemo } from "./useIphoneDemo";
 import { useIphoneStage } from "./useIphoneStage";
-import { ANDROID_RELEASE_URL } from "@/config/downloads";
+import { ANDROID_RELEASE_URL, APP_STORE_URL } from "@/config/downloads";
 import stageStyles from "./IphoneStage.module.css";
 import styles from "./ProductScenes.module.css";
-
-const appStoreUrl = "https://apps.apple.com/app/id6761262378";
 
 export default function ProductScenes() {
   const t = useTranslations("ProductScenes");
@@ -75,7 +73,7 @@ export default function ProductScenes() {
             </GlassSurface>
             <p className={styles.caption} aria-live={playing ? "off" : "polite"}>{t(`screens.${chapter.key}.caption`)}</p>
             <p id="iphone-demo-description" className="sr-only">{t("video_description")}</p>
-            <a data-iphone-cta className={styles.link} href={appStoreUrl} target="_blank" rel="noopener noreferrer">
+            <a data-iphone-cta className={styles.link} href={APP_STORE_URL} target="_blank" rel="noopener noreferrer">
               {t("app_store")}
             </a>
             <p className={styles.secondaryLinks}>
