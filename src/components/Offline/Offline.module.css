@@ -177,4 +177,7 @@
 @media (prefers-reduced-motion: reduce) {
   .playback { display: none; }
   .reveal { transition: none; }
+  /* Switched on mid-loop: the paused video gives way to the still. */
+  .media > video,
+  .media > video[data-ready="true"] { opacity: 0; }
 }

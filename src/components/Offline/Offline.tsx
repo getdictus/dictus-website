@@ -23,11 +23,21 @@ const STEPS = ["model", "speak", "voice"] as const;
 // The video is its own clock: there is nothing to draw per frame.
 const drawNothing = () => {};
 
+// Set once the entrance has played in this tab. Storage can be blocked, in
+// which case the entrance may simply play again.
+const REVEALED_KEY = "dictus:offline-revealed";
+const revealedBefore = () => {
+  try { return sessionStorage.getItem(REVEALED_KEY) === "1"; } catch { return false; }
+};
+const markRevealed = () => {
+  try { sessionStorage.setItem(REVEALED_KEY, "1"); } catch { /* blocked storage */ }
+};
+
 /**
  * Steps and cards rise into place once, each the first time it scrolls into
  * view; items arriving together are 60ms apart. Nothing is hidden when the
- * section is already on screen (direct arrival, `#hors-ligne` landing, back
- * navigation) or under reduced motion, and the server markup is always visible.
+ * section is already on screen (direct arrival, `#hors-ligne` landing,
+ * reload, back navigation) or under reduced motion, and the server markup is always visible.
  */
 function useRevealOnce() {
   const ref = useRef<HTMLDivElement>(null);
@@ -38,7 +48,12 @@ function useRevealOnce() {
     // A hash landing scrolls here after this runs, so it counts as on screen.
     const hashTarget = window.location.hash ? document.getElementById(decodeURIComponent(window.location.hash.slice(1))) : null;
     const landing = hashTarget?.contains(root) || root.closest("section")?.contains(hashTarget);
-    if (reduce.matches || landing || root.getBoundingClientRect().top < window.innerHeight) return;
+    // A reload or a back/forward (browser or client-side) restores the scroll
+    // after this runs: content already seen does not play its entrance again.
+    const navigation = performance.getEntriesByType("navigation")[0] as PerformanceNavigationTiming | undefined;
+    const restored = navigation?.type === "reload" || navigation?.type === "back_forward"
+      || revealedBefore();
+    if (reduce.matches || landing || restored || root.getBoundingClientRect().top < window.innerHeight) return;
     const items = [...root.querySelectorAll<HTMLElement>("[data-reveal-item]")];
     root.dataset.reveal = "pending";
     const showAll = () => {
@@ -53,6 +68,7 @@ function useRevealOnce() {
           observer.unobserve(item);
           item.style.transitionDelay = `${order * 60}ms`;
           item.dataset.revealItem = "shown";
+          markRevealed();
         });
     }, { threshold: 0.2 });
     items.forEach((item) => observer.observe(item));
@@ -98,8 +114,11 @@ export default function Offline() {
     const root = mediaRef.current?.closest<HTMLElement>("[data-scene-playing]");
     if (!video || !root) return;
 
+    // ScenePlayer reads reduced motion when it mounts; switched on later,
+    // the video stops here and the still shows (Offline.module.css).
+    const reduce = window.matchMedia("(prefers-reduced-motion: reduce)");
     const sync = () => {
-      if (root.dataset.scenePlaying !== "true" || pausedRef.current) {
+      if (root.dataset.scenePlaying !== "true" || pausedRef.current || reduce.matches) {
         video.pause();
         return;
       }
@@ -120,9 +139,11 @@ export default function Offline() {
     syncRef.current = sync;
     const observer = new MutationObserver(sync);
     observer.observe(root, { attributes: true, attributeFilter: ["data-scene-playing"] });
+    reduce.addEventListener("change", sync);
     sync();
     return () => {
       observer.disconnect();
+      reduce.removeEventListener("change", sync);
       video.pause();
     };
   }, [armed]);
