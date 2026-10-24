@@ -13,7 +13,8 @@
     "title": "Dictus — La dictée vocale, locale par défaut",
     "description": "Dictez vos messages, notes et e-mails sur iPhone, Mac, Windows et Linux. Transcription locale par défaut et code ouvert. Desktop gratuit.",
     "jsonld_description": "Dictée vocale avec transcription locale par défaut et code source ouvert, sur iPhone et ordinateur.",
-    "desktop_jsonld_description": "Application de dictée vocale gratuite avec transcription locale par défaut sur macOS, Windows et Linux."
+    "desktop_jsonld_description": "Application de dictée vocale gratuite avec transcription locale par défaut sur macOS, Windows et Linux.",
+    "android_jsonld_description": "Bêta publique. Clavier de dictée vocale gratuit et open source pour Android 10 ou ultérieur, avec transcription sur l’appareil."
   },
   "Hero": {
     "headline": "Votre voix reste la vôtre.",

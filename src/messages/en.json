@@ -13,7 +13,8 @@
     "title": "Dictus — Voice typing, local by default",
     "description": "Dictate messages, notes and emails on iPhone, Mac, Windows and Linux. Local transcription by default and open source. Desktop is free.",
     "jsonld_description": "Voice typing with local transcription by default and open source code, for iPhone and desktop.",
-    "desktop_jsonld_description": "Free voice dictation app with local-by-default transcription for macOS, Windows and Linux."
+    "desktop_jsonld_description": "Free voice dictation app with local-by-default transcription for macOS, Windows and Linux.",
+    "android_jsonld_description": "Public beta. Free and open source voice dictation keyboard for Android 10 or later, with on-device transcription."
   },
   "Hero": {
     "headline": "Your voice stays yours.",

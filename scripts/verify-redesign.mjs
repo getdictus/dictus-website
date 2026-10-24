@@ -182,16 +182,21 @@ for (const engine of engines) {
             const versions = new Set([...html.matchAll(/releases\/download\/(v\d+\.\d+\.\d+(?:-[a-z0-9.-]+)?)\//gi)].map((match) => match[1]));
             assert.equal(versions.size, 1, "Download health requires exactly one served release version");
             const jsonLd = await page.locator('script[type="application/ld+json"]').allTextContents();
+            const android = [];
             for (const text of jsonLd) {
               const payload = JSON.parse(text);
               const applications = payload["@graph"] || [payload];
               for (const app of applications) {
-                assert.ok(!/Android/.test(String(app.operatingSystem || "")), "Android must not be advertised as released");
+                if (/Android/.test(String(app.operatingSystem || ""))) android.push(app);
                 if (/iOS/.test(String(app.operatingSystem || ""))) {
                   assert.ok(!app.offers, "Undecided iOS prices must not appear in structured data");
                 }
               }
             }
+            assert.equal(android.length, 1, "Structured data must describe the Android app once");
+            assert.match(String(android[0].description), locale === "fr" ? /bêta publique/i : /public beta/i,
+              "Android structured data must state the public beta");
+            assert.equal(android[0].downloadUrl, "https://github.com/getdictus/dictus-android/releases/latest");
           }
         }
       }
