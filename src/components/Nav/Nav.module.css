@@ -109,6 +109,10 @@
   .header[data-theme="dark"] .pill { background: var(--color-brand-navy); border-color: rgb(255 255 255 / .14); }
 }
 @media (prefers-reduced-motion: reduce) {
-  .sheet, .sheet[data-open] { transition: none; }
+  /* Opacity-only fade, no scale. `!important` and the class selector win over
+     the global reduced-motion rule that cuts every transition to .01ms. */
+  .sheet, .sheet[data-open] { transform: none; transition-property: opacity, visibility; transition-timing-function: var(--ease-out); transition-duration: 150ms, 0s !important; }
+  .sheet { transition-delay: 0s, 150ms; }
+  .sheet[data-open] { transition-delay: 0s, 0s; }
   .cta:active, .toggle:active, .menuLanguages button:active { transform: none; }
 }
