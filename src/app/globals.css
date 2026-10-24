@@ -76,17 +76,48 @@
   --color-accent: #3D7EFF;
   --color-accent-hi: #6BA3FF;
   --color-sky: var(--theme-sky);
-  --color-mist: #DBEAFE;
 
   /* Semantic — static */
   --color-recording: #EF4444;
-  --color-smart: #8B5CF6;
   --color-success: #22C55E;
   --color-warning: #F59E0B;
 
   /* Glow — static */
   --color-glow: rgba(61, 126, 255, 0.35);
   --color-glow-soft: rgba(61, 126, 255, 0.12);
+}
+
+/* ─── v4b palette (redesign, epic #51) ───
+   Single-theme values from the v4b mockup, cross-checked with dictus-ios
+   DictusColors.swift. `static` keeps every variable in the output so CSS
+   modules can read them with var(). Section grounds: white, grey, navy, blue
+   (see src/components/shared/Section.tsx).
+
+   Contrast rules (WCAG 2.x, AA):
+   - Small text on white or grey never uses accent #3D7EFF (3.73:1 on white).
+     Use accent-text #1F5FE0 (5.57:1 on white, 4.99:1 on grey).
+   - White text on accent #3D7EFF (3.73:1) only at large sizes:
+     >= 24px regular or >= 18.66px bold. Smaller text on blue uses ink.
+   - On navy, body text uses brand-on-navy #B8C4D9 (10.3:1).
+   Ratios: node scripts/contrast-v4b.mjs */
+@theme static {
+  --color-accent-strong: #2563EB;
+  --color-accent-text: #1F5FE0;
+  --color-accent-text-deep: #1F4FC4;
+  --color-mist: #DCE8FF;
+
+  --color-brand-ink: #0A1628;
+  --color-brand-body: #33415C;
+  --color-brand-muted: #5B6880;
+  --color-brand-on-navy: #B8C4D9;
+
+  --color-brand-white: #FFFFFF;
+  --color-brand-grey: #F2F2F7;
+  --color-brand-navy: #0A1628;
+  --color-brand-blue: #3D7EFF;
+
+  --color-brand-rule: #E6E8EE;
+  --color-brand-rule-strong: #DCDFE7;
 }
 
 @theme inline {
