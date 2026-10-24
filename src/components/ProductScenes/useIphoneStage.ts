@@ -2,6 +2,7 @@
 
 import { cubicBezier } from "motion";
 import { useCallback, useEffect, useRef, useState, type FocusEvent } from "react";
+import { hashTargetsAfter } from "@/hooks/usePinMode";
 
 const clamp = (value: number) => Math.max(0, Math.min(1, value));
 
@@ -44,7 +45,7 @@ export function useIphoneStage() {
     let viewportHeight = 0;
     let centeredX = 0;
     let cinematic = false;
-    let bypassed = window.location.hash === "#iphone";
+    let bypassed = window.location.hash === "#iphone" || hashTargetsAfter(section);
     let initialized = false;
     let entered = false;
     let settled: boolean | null = null;

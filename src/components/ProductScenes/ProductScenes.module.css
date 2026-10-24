@@ -1,6 +1,5 @@
 .section {
   padding: 110px 32px 46px;
-  scroll-margin-top: 100px;
   background: color-mix(in srgb, var(--theme-surface) 68%, var(--theme-bg-primary));
 }
 

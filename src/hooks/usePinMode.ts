@@ -7,13 +7,25 @@ import { PIN_MEDIA_QUERY } from "@/config/motion";
 const NAV_CLEARANCE_PX = 100;
 
 /**
+ * True when the URL hash targets content after `element`. Pinning then would
+ * insert scroll distance above a target the page is already scrolling to.
+ */
+export function hashTargetsAfter(element: Element) {
+  let id = window.location.hash.slice(1);
+  try { id = decodeURIComponent(id); } catch { /* malformed escape: keep it raw */ }
+  const target = id ? document.getElementById(id) : null;
+  return !!target && !!(element.compareDocumentPosition(target) & Node.DOCUMENT_POSITION_FOLLOWING);
+}
+
+/**
  * Decides whether a scroll-pinned section pins, and gets out of the way when
  * it should not. The rules come from `ProductScenes/useIphoneStage.ts`,
  * which is verified on Chromium and WebKit:
  *
  * - It pins only with room (`PIN_MEDIA_QUERY`) and without reduced motion.
- * - A hash link to the section, or arriving with the section already
- *   scrolled past (restored scroll, deep link), keeps it in normal flow.
+ * - A hash link to the section or to content after it, or arriving with
+ *   the section already scrolled past (restored scroll, deep link), keeps it
+ *   in normal flow.
  * - Keyboard focus inside the section drops the pin, so Tab never walks
  *   through content held off-screen by the extra scroll distance.
  * - When the pin collapses while the reader is inside it, the page is
@@ -35,7 +47,7 @@ export function usePinMode(trackRef: RefObject<HTMLElement | null>, anchorId: st
     const anchor = `#${anchorId}`;
     let active = false;
     let initialized = false;
-    let bypassed = window.location.hash === anchor;
+    let bypassed = window.location.hash === anchor || hashTargetsAfter(track);
 
     const isHolding = () => {
       const bounds = track.getBoundingClientRect();
