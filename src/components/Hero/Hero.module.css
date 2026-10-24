@@ -8,7 +8,9 @@
 .platforms { display: flex; align-items: center; justify-content: center; gap: 14px; margin-top: 13px; font-size: 12px; color: var(--theme-text-body); }
 .platforms a { display: inline-flex; align-items: center; min-height: 44px; }
 .platforms a:hover { color: #2563eb; text-decoration: underline; text-underline-offset: 4px; }
-.platforms span { opacity: .4; }
+.platforms > span { opacity: .4; }
+.desktop { display: inline-flex; align-items: center; min-height: 44px; font-size: 11px; color: var(--theme-text-secondary); }
+.desktop:hover { color: #2563eb; text-decoration: underline; text-underline-offset: 4px; }
 @media (max-width: 700px) {
   .hero { min-height: 90svh; padding: 130px 24px 55px; }
   .content { max-width: 370px; }

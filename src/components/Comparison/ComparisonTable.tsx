@@ -1,4 +1,5 @@
 import { useTranslations } from "next-intl";
+import BetaBadge from "@/components/shared/BetaBadge";
 
 export const platforms = ["ios", "desktop", "android"] as const;
 export const comparisonRows = ["availability", "interaction", "pricing"] as const;
@@ -13,7 +14,7 @@ export default function ComparisonTable() {
         <tr className="border-b border-border">
           <th scope="col" className="w-1/5 py-5 pr-5 font-normal text-white-70">{t("platform")}</th>
           {platforms.map((platform) => (
-            <th key={platform} scope="col" className="px-5 py-5 text-xl font-normal tracking-tight">{t(`${platform}_name`)}{platform === "android" && <span className="ml-2 align-middle text-xs font-normal tracking-normal text-white-70">{t("android_badge")}</span>}</th>
+            <th key={platform} scope="col" className="px-5 py-5 text-xl font-normal tracking-tight">{t(`${platform}_name`)}{platform === "android" && <BetaBadge label={t("android_badge")} />}</th>
           ))}
         </tr>
       </thead>

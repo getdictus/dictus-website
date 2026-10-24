@@ -20,7 +20,9 @@
     "subtitle": "Voice typing. Local by default, open source.",
     "cta_discover": "Discover Dictus",
     "platform_desktop": "Mac, Windows and Linux",
-    "platform_ios": "iPhone"
+    "platform_ios": "iPhone",
+    "platform_android": "Android",
+    "android_badge": "Beta"
   },
   "Features": {
     "title": "When the words come, say them.",
@@ -71,7 +73,7 @@
     "ios_interaction": "The Dictus keyboard in apps that support third-party keyboards.",
     "ios_pricing": "Free dictation. Dictus Pro is being prepared for iOS.",
     "android_name": "Android",
-    "android_badge": "Public beta",
+    "android_badge": "Beta",
     "android_availability": "Public beta, APK on GitHub. Android 10 or later.",
     "android_interaction": "The Dictus keyboard, in any app.",
     "android_pricing": "Free and open source, no subscription.",
@@ -467,7 +469,8 @@
     "beta": "Try the beta on TestFlight",
     "source": "View the code on GitHub",
     "app_store": "Download on the App Store",
-    "android_label": "Android · Public beta",
+    "android_label": "Android",
+    "android_badge": "Beta",
     "android": "Free and open source, on Android 10 or later.",
     "android_link": "Download the APK on GitHub",
     "screens": {

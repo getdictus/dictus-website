@@ -20,7 +20,9 @@
     "subtitle": "La dictée vocale. Locale par défaut, code ouvert.",
     "cta_discover": "Découvrir Dictus",
     "platform_desktop": "Mac, Windows et Linux",
-    "platform_ios": "iPhone"
+    "platform_ios": "iPhone",
+    "platform_android": "Android",
+    "android_badge": "Bêta"
   },
   "Features": {
     "title": "Les mots viennent. Écrivez-les à voix haute.",
@@ -71,7 +73,7 @@
     "ios_interaction": "Le clavier Dictus dans les apps compatibles avec les claviers tiers.",
     "ios_pricing": "Dictée gratuite. Dictus Pro en préparation sur iOS.",
     "android_name": "Android",
-    "android_badge": "Bêta publique",
+    "android_badge": "Bêta",
     "android_availability": "Bêta publique, APK sur GitHub. Android 10 ou ultérieur.",
     "android_interaction": "Le clavier Dictus, dans toutes vos apps.",
     "android_pricing": "Gratuit et open source, sans abonnement.",
@@ -467,7 +469,8 @@
     "beta": "Tester la bêta sur TestFlight",
     "source": "Voir le code sur GitHub",
     "app_store": "Télécharger sur l’App Store",
-    "android_label": "Android · Bêta publique",
+    "android_label": "Android",
+    "android_badge": "Bêta",
     "android": "Gratuit et open source, sur Android 10 ou ultérieur.",
     "android_link": "Télécharger l’APK sur GitHub",
     "screens": {

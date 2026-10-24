@@ -3,6 +3,7 @@
 import { useRef, type KeyboardEvent } from "react";
 import Image from "next/image";
 import { useTranslations } from "next-intl";
+import BetaBadge from "@/components/shared/BetaBadge";
 import GlassSurface from "@/components/shared/GlassSurface";
 import GlassSelectorLens from "@/components/shared/GlassSelectorLens";
 import { useGlassSelector } from "@/components/shared/useGlassSelector";
@@ -118,7 +119,7 @@ export default function ProductScenes() {
           </div>
         </div>
         <p className={`${styles.android} ${stageStyles.android}`}>
-          <strong className={styles.androidLabel}>{t("android_label")}</strong> {t("android")}{" "}
+          <strong className={styles.androidLabel}>{t("android_label")}</strong><BetaBadge label={t("android_badge")} /> {t("android")}{" "}
           <a href={ANDROID_RELEASE_URL} target="_blank" rel="noopener noreferrer">{t("android_link")}</a>
         </p>
       </div>
