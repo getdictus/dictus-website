@@ -51,7 +51,7 @@ export default async function MotionDemoPage({ params }: Props) {
       </Section>
       <PinnedSteps
         id="demo-steps"
-        pin="demo"
+        pin="smartModes"
         tone="grey"
         eyebrow={copy.eyebrow}
         heading={copy.heading}
