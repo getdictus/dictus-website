@@ -247,9 +247,11 @@ export default function HeroScene({ phrases, writtenLabel }: Props) {
             width={WALKER.maxWidth}
             height={WALKER.maxHeight}
             alt=""
-            // In the stacked layouts it can outsize the headline, so Chrome may report
-            // it as the LCP element: never defer it.
-            loading="eager"
+            // In the stacked layouts it outsizes the headline and is the LCP
+            // element: preload it at high priority (`preload` replaces the
+            // deprecated `priority` in Next 16 and turns lazy loading off).
+            preload
+            fetchPriority="high"
             unoptimized
           />
           {videoAllowed && (
