@@ -92,6 +92,7 @@ export default function Footer() {
           </Link>
         </div>
         <p className="mt-5 max-w-2xl text-xs leading-relaxed text-white-70">{t("privacy")}</p>
+        <p className="mt-2 max-w-2xl text-xs leading-relaxed text-white-70">{t("apple_credit")}</p>
       </div>
     </footer>
   );
