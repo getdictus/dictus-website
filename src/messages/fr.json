@@ -449,17 +449,16 @@
       },
       "pro": {
         "title": "iPhone Pro",
-        "platform": "Sur iPhone uniquement",
-        "description": "Pour aller plus loin avec vos mots. Gratuit pendant {trialDays} jours sur iPhone compatible.",
+        "platform": "Sur iPhone uniquement · {trialDays} jours offerts",
         "includes": "Tout le gratuit, plus :",
         "features": {
-          "smart": "Modes intelligents : Traduire, Message, Liste, Structuré, Résumé",
+          "smart": "Cinq modes intelligents",
           "vocabulary": "Votre vocabulaire personnalisé",
-          "history": "Historique de vos {historyLimit} dernières dictées, avec recherche",
-          "voiceNotes": "Transcription des messages vocaux"
+          "history": "Historique avec recherche",
+          "voiceNotes": "Transcription des vocaux"
         },
         "cta": "{proLaunch, select, available {Disponible dans l’app} other {Avec Dictus 2.0}}",
-        "compatibility": "Modes IA : iOS 26+ et Apple Intelligence."
+        "compatibility": "Essai et modes IA : iOS 26+ et Apple Intelligence."
       }
     }
   },

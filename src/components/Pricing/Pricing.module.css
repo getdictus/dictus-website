@@ -20,7 +20,6 @@
 .description { margin-top: 24px; color: var(--muted); font-size: 14px; line-height: 1.6; }
 .features { list-style: none; padding: 24px 0 0; margin-top: 24px; border-top: 1px solid #172b4d1a; display: grid; gap: 16px; font-size: 14px; line-height: 1.5; }
 .features li { min-height: 21px; }
-.includes { font-weight: 500; }
 .cardFooter { margin-top: auto; padding-top: 32px; }
 .cta { display: flex; align-items: center; justify-content: space-between; gap: 12px; width: 100%; min-height: 52px; padding: 12px 22px; border: 0; border-radius: 999px; background: #e9edf4; color: #1d2738; font: inherit; font-size: 15px; font-weight: 500; text-decoration: none; transition: background .16s ease; }
 .cta:hover { background: #dde4ef; }
