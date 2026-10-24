@@ -20,10 +20,12 @@
     "headline": "Votre voix reste la vôtre.",
     "subtitle": "La dictée vocale. Locale par défaut, code ouvert.",
     "cta_discover": "Découvrir Dictus",
-    "platform_desktop": "Mac, Windows et Linux",
-    "platform_ios": "iPhone",
-    "platform_android": "Android",
-    "android_badge": "Bêta"
+    "platform_desktop": "Mac, Windows et Linux"
+  },
+  "DownloadButtons": {
+    "app_store_alt": "Télécharger dans l’App Store",
+    "android": "Android · Bêta",
+    "android_label": "Android · Bêta : télécharger l’APK sur GitHub"
   },
   "Features": {
     "title": "Les mots viennent. Écrivez-les à voix haute.",
@@ -89,7 +91,8 @@
     "privacy_link": "Politique de confidentialité",
     "terms_link": "Conditions d’utilisation",
     "help_link": "Support",
-    "support_link": "Soutenir"
+    "support_link": "Soutenir",
+    "apple_credit": "Apple et le logo Apple sont des marques d’Apple Inc., déposées aux États-Unis et dans d’autres pays. App Store est une marque de service d’Apple Inc."
   },
   "NotFound": {
     "message": "Page introuvable"
