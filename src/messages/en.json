@@ -82,6 +82,40 @@
     "android_pricing": "Free and open source, no subscription.",
     "pricing_link": "Explore the planned iPhone offering"
   },
+  "Offline": {
+    "eyebrow": "EVEN OFFLINE",
+    "title": "The metro cuts the signal.",
+    "lead": "Between two stations, no more 4G. Once its model is downloaded, Dictus doesn’t need it to write.",
+    "scene_description": "The animation comes from the Dictus iPhone app: in a metro carriage with no network, a woman dictates into her phone and a mail draft writes itself: “Notes from today. Great meeting this morning. Next steps for the launch below.”",
+    "no_network": "NO NETWORK",
+    "pause": "Pause the animation",
+    "play": "Play the animation",
+    "model": {
+      "badge": "Recommended",
+      "meta": "Fast and accurate (NVIDIA) · ~{megabytes} MB · on the iPhone"
+    },
+    "note": {
+      "label": "OFFLINE · EN",
+      "subject": "Notes from today",
+      "body": "Great meeting this morning. Next steps for the launch below."
+    },
+    "steps_label": "Offline, step by step",
+    "steps": {
+      "model": {
+        "title": "The model lives on your iPhone.",
+        "body": "Downloaded once, it runs on the chip: no server transcribes. Dictus recommends it for your language and your iPhone."
+      },
+      "speak": {
+        "title": "You speak, the text arrives.",
+        "body": "Transcription runs on the iPhone, offline, and the text lands where you are writing."
+      },
+      "voice": {
+        "body": "The code is open source: anyone can check what Dictus does."
+      }
+    },
+    "voice": "Your voice never leaves your phone.",
+    "facts": "TRANSCRIPTION 100% ON DEVICE · OPEN SOURCE"
+  },
   "Languages": {
     "eyebrow": "LANGUAGES",
     "title": "Dictate in nearly 100 languages.",
