@@ -12,6 +12,10 @@
 // derived from it. The live site auto-syncs with the latest release without
 // needing changes here.
 
+// Dictus Android ships as a public beta APK on GitHub Releases. `latest`
+// always resolves to the newest release, so the link never goes stale.
+export const ANDROID_RELEASE_URL = "https://github.com/getdictus/dictus-android/releases/latest";
+
 const DESKTOP_VERSION = "v0.2.1";
 
 // Asset filenames carry the bare number (no `v`), so derive it rather than

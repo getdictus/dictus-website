@@ -8,6 +8,7 @@ import GlassSelectorLens from "@/components/shared/GlassSelectorLens";
 import { useGlassSelector } from "@/components/shared/useGlassSelector";
 import { iphoneChapters, iphoneVideo, useIphoneDemo } from "./useIphoneDemo";
 import { useIphoneStage } from "./useIphoneStage";
+import { ANDROID_RELEASE_URL } from "@/config/downloads";
 import stageStyles from "./IphoneStage.module.css";
 import styles from "./ProductScenes.module.css";
 
@@ -117,7 +118,8 @@ export default function ProductScenes() {
           </div>
         </div>
         <p className={`${styles.android} ${stageStyles.android}`}>
-          {t("android")}
+          <strong className={styles.androidLabel}>{t("android_label")}</strong> {t("android")}{" "}
+          <a href={ANDROID_RELEASE_URL} target="_blank" rel="noopener noreferrer">{t("android_link")}</a>
         </p>
       </div>
     </section>

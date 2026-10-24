@@ -18,17 +18,6 @@
   "Hero": {
     "headline": "Votre voix reste la vôtre.",
     "subtitle": "La dictée vocale. Locale par défaut, code ouvert.",
-    "badge_ios": "iOS — Bientôt disponible",
-    "badge_ios_beta": "iOS — Beta",
-    "badge_android": "Android — Bientôt disponible",
-    "badge_android_beta": "Android — En développement",
-    "cta_testflight": "Rejoindre la beta iOS",
-    "cta_android_download": "Android en développement",
-    "cta_scan_to_join": "Scannez pour rejoindre la beta",
-    "cta_available_iphone": "Disponible sur iPhone",
-    "cta_testflight_link": "Ouvrir dans TestFlight",
-    "cta_android_soon": "Bientôt sur Android",
-    "cta_desktop": "Aussi sur Desktop",
     "cta_discover": "Découvrir Dictus",
     "platform_desktop": "Mac, Windows et Linux",
     "platform_ios": "iPhone"
@@ -82,9 +71,10 @@
     "ios_interaction": "Le clavier Dictus dans les apps compatibles avec les claviers tiers.",
     "ios_pricing": "Dictée gratuite. Dictus Pro en préparation sur iOS.",
     "android_name": "Android",
-    "android_availability": "En développement.",
-    "android_interaction": "Les fonctionnalités seront précisées à sa sortie.",
-    "android_pricing": "Aucune offre annoncée.",
+    "android_badge": "Bêta publique",
+    "android_availability": "Bêta publique, APK sur GitHub. Android 10 ou ultérieur.",
+    "android_interaction": "Le clavier Dictus, dans toutes vos apps.",
+    "android_pricing": "Gratuit et open source, sans abonnement.",
     "pricing_link": "Découvrir l’offre iPhone en préparation"
   },
   "Footer": {
@@ -183,7 +173,7 @@
     "telegram_text": "Rejoignez notre communauté pour discuter de Dictus.",
     "telegram_link_text": "Rejoindre le groupe Telegram",
     "compatibility_title": "Compatibilité",
-    "compatibility_text": "Dictus pour iPhone nécessite iOS 17 ou ultérieur. Dictus Desktop fonctionne sur macOS, Windows et Linux. La version Android est en développement."
+    "compatibility_text": "Dictus pour iPhone nécessite iOS 17 ou ultérieur. Dictus Desktop fonctionne sur macOS, Windows et Linux. Dictus pour Android est en bêta publique : il nécessite Android 10 ou ultérieur et s’installe depuis l’APK publié sur GitHub."
   },
   "Platforms": {
     "demo_label": "Démonstration animée de la pilule de dictée Dictus",
@@ -372,7 +362,7 @@
       },
       "platforms": {
         "question": "Pro couvre-t-il aussi mon ordinateur ?",
-        "answer": "Pro concerne uniquement iOS. Desktop reste gratuit. Android est en développement ; cette offre n’inclut ni licence Android ni synchronisation entre appareils."
+        "answer": "Pro concerne uniquement iOS. Desktop reste gratuit. Android est en bêta publique gratuite ; cette offre n’inclut ni licence Android ni synchronisation entre appareils."
       },
       "plans": {
         "question": "Quelle différence entre les trois formules ?",
@@ -477,7 +467,9 @@
     "beta": "Tester la bêta sur TestFlight",
     "source": "Voir le code sur GitHub",
     "app_store": "Télécharger sur l’App Store",
-    "android": "Android est en développement.",
+    "android_label": "Android · Bêta publique",
+    "android": "Gratuit et open source, sur Android 10 ou ultérieur.",
+    "android_link": "Télécharger l’APK sur GitHub",
     "screens": {
       "keyboard": {
         "label": "Le clavier",

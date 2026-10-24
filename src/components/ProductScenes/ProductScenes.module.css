@@ -52,6 +52,9 @@
 .phoneButtons { position: absolute; left: -3px; top: 145px; width: 2px; height: 48px; border-radius: 2px; background: #85868b; box-shadow: 0 57px 0 #85868b; }
 .phone::after { content: ""; position: absolute; right: -3px; top: 182px; width: 2px; height: 67px; border-radius: 2px; background: #85868b; }
 .android { margin: 78px 0 0; color: var(--theme-text-body); text-align: center; font-size: 12px; line-height: 1.8; }
+.androidLabel { color: var(--theme-text-primary); font-weight: 500; }
+.android a { color: inherit; text-decoration: underline; text-underline-offset: 4px; }
+.android a:focus-visible { outline: 2px solid var(--color-accent); outline-offset: 3px; }
 
 @media (max-width: 1050px) {
   .section { padding-top: 85px; }

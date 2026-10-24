@@ -13,7 +13,7 @@ export default function ComparisonTable() {
         <tr className="border-b border-border">
           <th scope="col" className="w-1/5 py-5 pr-5 font-normal text-white-70">{t("platform")}</th>
           {platforms.map((platform) => (
-            <th key={platform} scope="col" className="px-5 py-5 text-xl font-normal tracking-tight">{t(`${platform}_name`)}</th>
+            <th key={platform} scope="col" className="px-5 py-5 text-xl font-normal tracking-tight">{t(`${platform}_name`)}{platform === "android" && <span className="ml-2 align-middle text-xs font-normal tracking-normal text-white-70">{t("android_badge")}</span>}</th>
           ))}
         </tr>
       </thead>

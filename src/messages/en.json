@@ -18,17 +18,6 @@
   "Hero": {
     "headline": "Your voice stays yours.",
     "subtitle": "Voice typing. Local by default, open source.",
-    "badge_ios": "iOS — Coming soon",
-    "badge_ios_beta": "iOS — Beta",
-    "badge_android": "Android — Coming soon",
-    "badge_android_beta": "Android — In development",
-    "cta_testflight": "Join iOS Beta",
-    "cta_android_download": "Android in development",
-    "cta_scan_to_join": "Scan to join the beta",
-    "cta_available_iphone": "Available on iPhone",
-    "cta_testflight_link": "Open in TestFlight",
-    "cta_android_soon": "Also coming to Android",
-    "cta_desktop": "Also on Desktop",
     "cta_discover": "Discover Dictus",
     "platform_desktop": "Mac, Windows and Linux",
     "platform_ios": "iPhone"
@@ -82,9 +71,10 @@
     "ios_interaction": "The Dictus keyboard in apps that support third-party keyboards.",
     "ios_pricing": "Free dictation. Dictus Pro is being prepared for iOS.",
     "android_name": "Android",
-    "android_availability": "In development.",
-    "android_interaction": "Features will be detailed at release.",
-    "android_pricing": "No plans announced.",
+    "android_badge": "Public beta",
+    "android_availability": "Public beta, APK on GitHub. Android 10 or later.",
+    "android_interaction": "The Dictus keyboard, in any app.",
+    "android_pricing": "Free and open source, no subscription.",
     "pricing_link": "Explore the planned iPhone offering"
   },
   "Footer": {
@@ -183,7 +173,7 @@
     "telegram_text": "Join our community to discuss Dictus.",
     "telegram_link_text": "Join the Telegram group",
     "compatibility_title": "Compatibility",
-    "compatibility_text": "Dictus for iPhone requires iOS 17 or later. Dictus Desktop runs on macOS, Windows and Linux. The Android version is in development."
+    "compatibility_text": "Dictus for iPhone requires iOS 17 or later. Dictus Desktop runs on macOS, Windows and Linux. Dictus for Android is in public beta: it requires Android 10 or later and installs from the APK published on GitHub."
   },
   "Platforms": {
     "demo_label": "Animated demonstration of the Dictus dictation pill",
@@ -372,7 +362,7 @@
       },
       "platforms": {
         "question": "Does Pro also cover my computer?",
-        "answer": "Pro is for iOS only. Desktop stays free. Android is in development; this offering includes neither an Android licence nor cross-device sync."
+        "answer": "Pro is for iOS only. Desktop stays free. Android is a free public beta; this offering includes neither an Android licence nor cross-device sync."
       },
       "plans": {
         "question": "How do the three options differ?",
@@ -477,7 +467,9 @@
     "beta": "Try the beta on TestFlight",
     "source": "View the code on GitHub",
     "app_store": "Download on the App Store",
-    "android": "Android is in development.",
+    "android_label": "Android · Public beta",
+    "android": "Free and open source, on Android 10 or later.",
+    "android_link": "Download the APK on GitHub",
     "screens": {
       "keyboard": {
         "label": "The keyboard",
