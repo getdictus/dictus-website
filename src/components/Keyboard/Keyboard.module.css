@@ -1,0 +1,143 @@
+/* Mobile: heading, phone, steps. From 1024px: text left, phone right. */
+.layout {
+  display: grid;
+  grid-template-areas:
+    "head"
+    "figure"
+    "steps";
+  row-gap: clamp(28px, 5vw, 48px);
+}
+
+.head { grid-area: head; }
+.figure {
+  grid-area: figure;
+  justify-self: center;
+  width: min(100%, 380px);
+  display: flex;
+  flex-direction: column;
+}
+.steps { grid-area: steps; }
+
+@media (min-width: 1024px) {
+  .layout {
+    grid-template-columns: minmax(0, 1fr) minmax(0, 440px);
+    grid-template-areas:
+      "head figure"
+      "steps figure";
+    grid-template-rows: auto 1fr;
+    column-gap: clamp(48px, 6vw, 96px);
+    row-gap: 32px;
+    align-items: start;
+  }
+  .figure { align-self: center; width: 100%; }
+}
+
+/*
+ * The app's render is 1000 x 1440 px with the phone between y 246 and 1288
+ * (every frame, both languages). The frame keeps y 190 to 1350 and fades its
+ * four edges: browsers decode the video's #F2F2F7 ground one or two code
+ * values off (measured in Chrome, Chromium and WebKit), so a hard edge could
+ * show as a faint box. The fade stays clear of the drawing (x 36 to 954).
+ */
+.frame {
+  position: relative;
+  aspect-ratio: 1000 / 1160;
+  overflow: hidden;
+  -webkit-mask-image:
+    linear-gradient(to right, transparent, #000 3%, #000 97%, transparent),
+    linear-gradient(to bottom, transparent, #000 4%, #000 96%, transparent);
+  -webkit-mask-composite: source-in;
+  mask-image:
+    linear-gradient(to right, transparent, #000 3%, #000 97%, transparent),
+    linear-gradient(to bottom, transparent, #000 4%, #000 96%, transparent);
+  mask-composite: intersect;
+}
+
+.media {
+  position: absolute;
+  left: 0;
+  top: -19%; /* 190 / 1000 of the width */
+  width: 100%;
+  aspect-ratio: 1000 / 1440;
+}
+
+.media > img,
+.media > video {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+}
+
+/* The still stays under the video until the video shows the still's own frame. */
+.media > video { opacity: 0; }
+.media > video[data-ready="true"] { opacity: 1; }
+
+/*
+ * Steps: every step stays on screen, so no text is ever covered and nothing
+ * has to leave before the next arrives. The step the scene plays has its
+ * title in ink; the titles change together, on the video's clock.
+ */
+.stepTitle {
+  color: var(--color-brand-muted);
+  transition: color var(--motion-fast) ease;
+}
+
+.step[data-active="true"] .stepTitle {
+  color: var(--color-brand-ink);
+}
+
+.track {
+  display: block;
+  height: 3px;
+  border-radius: 2px;
+  background: var(--color-brand-rule-strong);
+  overflow: hidden;
+}
+
+/* Filled by the scene's time, through transform only. */
+.fill {
+  display: block;
+  height: 100%;
+  border-radius: inherit;
+  background: var(--color-brand-blue);
+  transform-origin: left center;
+}
+
+/* Under reduced motion the scene holds its still: a bar stopped part-way
+   would read as loading, so only the ink title marks the step. */
+@media (prefers-reduced-motion: reduce) {
+  .fill { visibility: hidden; }
+}
+
+/* Pause / play for the loop (WCAG 2.2.2). Nothing moves under reduced
+   motion, so there is nothing to pause. */
+.playback {
+  align-self: flex-end;
+  display: grid;
+  place-items: center;
+  width: 44px;
+  height: 44px;
+  margin-top: 4px;
+  border-radius: 999px;
+  border: 1px solid var(--color-brand-rule-strong);
+  background: var(--color-brand-white);
+  color: var(--color-brand-ink);
+  cursor: pointer;
+  transition: border-color var(--motion-fast) ease, transform var(--motion-press) var(--ease-out);
+}
+
+.playback:active { transform: scale(0.96); }
+
+.playback:focus-visible {
+  outline: 2px solid var(--color-accent-text);
+  outline-offset: 2px;
+}
+
+@media (hover: hover) and (pointer: fine) {
+  .playback:hover { border-color: var(--color-brand-muted); }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .playback { display: none; }
+}

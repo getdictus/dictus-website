@@ -471,39 +471,30 @@
       }
     }
   },
-  "ProductScenes": {
-    "platform": "Dictus on iPhone",
-    "title_line_one": "In the apps",
-    "title_line_two": "you already love.",
-    "description": "Your notes, messages and emails. Keep your keyboard, and let your ideas do the talking.",
-    "picker": "Explore the iPhone demo chapters",
-    "video_label": "Dictus demo recorded on an iPhone.",
-    "video_description": "In Apple Notes, a phrase is typed with the Dictus keyboard, its autocorrection and suggestions. Dictation inserts “Hello guys, how are you doing?”. The app then shows the last transcription, models and settings. Typing is shown at 1.5× its original speed; dictation remains at its original speed.",
-    "video_play": "Play the demo",
-    "video_unavailable": "The video is unavailable. You can still explore the screenshots.",
-    "beta": "Try the beta on TestFlight",
-    "source": "View the code on GitHub",
-    "app_store": "Download on the App Store",
-    "android_label": "Android",
-    "android_badge": "Beta",
-    "android": "Free and open source, on Android 10 or later.",
-    "android_link": "Download the APK on GitHub",
-    "screens": {
-      "keyboard": {
-        "label": "The keyboard",
-        "alt": "Apple Notes on iPhone with the Dictus keyboard and its dictation button.",
-        "caption": "The Dictus keyboard in Apple Notes."
+  "Keyboard": {
+    "eyebrow": "IN YOUR KEYBOARD",
+    "title": "The mic is already there.",
+    "scene_description": "The animation comes from the Dictus iPhone app: in a note, “Hi” is typed on the Dictus keyboard, then the mic is tapped, the dictation confirmed, and the paragraph lands in the note.",
+    "steps_label": "One dictation, step by step",
+    "pause": "Pause the animation",
+    "play": "Play the animation",
+    "steps": {
+      "mic": {
+        "title": "Tap the mic.",
+        "body": "Dictus replaces your keyboard, not your apps. Open a chat, an email, a note: the mic is at the top right."
       },
-      "dictation": {
-        "label": "Dictation",
-        "alt": "Dictus recording in Apple Notes, with its waveform and confirmation button.",
-        "caption": "Speak, then find your words in Apple Notes."
+      "speak": {
+        "title": "Talk the way you talk.",
+        "body": "The timer runs while you speak. Tap ✓ when you are done: transcription runs on the phone."
       },
-      "app": {
-        "label": "The app",
-        "alt": "The Dictus app home screen on iPhone.",
-        "caption": "Your transcription, models and settings."
+      "write": {
+        "title": "Dictus writes.",
+        "body": "Capitals and punctuation included, the text lands where your cursor was."
       }
+    },
+    "where": {
+      "title": "Where you write.",
+      "body": "Messages, email, notes, AI assistants: Dictus writes in apps that accept third-party keyboards. For passwords, iOS keeps its own keyboard."
     }
   }
 }

@@ -471,39 +471,30 @@
       }
     }
   },
-  "ProductScenes": {
-    "platform": "Dictus sur iPhone",
-    "title_line_one": "Dans les apps",
-    "title_line_two": "que vous aimez déjà.",
-    "description": "Vos notes, vos messages, vos e-mails. Retrouvez votre clavier, et laissez simplement parler vos idées.",
-    "picker": "Explorer les chapitres de la démonstration iPhone",
-    "video_label": "Démonstration de Dictus enregistrée sur iPhone. Interface en anglais.",
-    "video_description": "Dans Apple Notes, une phrase est saisie avec le clavier Dictus, ses corrections et suggestions. Une dictée insère « Hello guys, how are you doing? ». L’application affiche ensuite la dernière transcription, les modèles et les réglages. La saisie est accélérée de 50 % ; la dictée reste à sa vitesse d’origine.",
-    "video_play": "Lire la démonstration",
-    "video_unavailable": "La vidéo est indisponible. Les captures restent accessibles.",
-    "beta": "Tester la bêta sur TestFlight",
-    "source": "Voir le code sur GitHub",
-    "app_store": "Télécharger sur l’App Store",
-    "android_label": "Android",
-    "android_badge": "Bêta",
-    "android": "Gratuit et open source, sur Android 10 ou ultérieur.",
-    "android_link": "Télécharger l’APK sur GitHub",
-    "screens": {
-      "keyboard": {
-        "label": "Le clavier",
-        "alt": "Capture d’Apple Notes sur iPhone avec le clavier Dictus et son bouton de dictée. Interface en anglais.",
-        "caption": "Le clavier Dictus, dans Apple Notes."
+  "Keyboard": {
+    "eyebrow": "DANS VOTRE CLAVIER",
+    "title": "Le micro est déjà là.",
+    "scene_description": "L’animation vient de l’app Dictus pour iPhone : dans une note, « Salut » est tapé sur le clavier Dictus, puis le micro est touché, la dictée validée, et le paragraphe arrive dans la note.",
+    "steps_label": "Une dictée, étape par étape",
+    "pause": "Mettre l’animation en pause",
+    "play": "Lire l’animation",
+    "steps": {
+      "mic": {
+        "title": "Touchez le micro.",
+        "body": "Dictus remplace votre clavier, pas vos apps. Ouvrez une conversation, un mail, une note : le micro est en haut à droite."
       },
-      "dictation": {
-        "label": "La dictée",
-        "alt": "Capture d’une dictée Dictus en cours dans Apple Notes, avec sa waveform et le bouton de validation. Interface en anglais.",
-        "caption": "Parlez, puis retrouvez vos mots dans Apple Notes."
+      "speak": {
+        "title": "Parlez comme vous parlez.",
+        "body": "Le minuteur tourne pendant que vous parlez. Touchez ✓ quand vous avez fini : la transcription se fait sur le téléphone."
       },
-      "app": {
-        "label": "L’app",
-        "alt": "Capture de l’accueil de l’application Dictus sur iPhone. Interface en anglais.",
-        "caption": "Votre transcription, vos modèles et vos réglages."
+      "write": {
+        "title": "Dictus écrit.",
+        "body": "Majuscules et ponctuation comprises, le texte arrive là où se trouvait votre curseur."
       }
+    },
+    "where": {
+      "title": "Là où vous écrivez.",
+      "body": "Messages, mails, notes, assistants IA : Dictus écrit dans les apps qui acceptent les claviers tiers. Pour les mots de passe, iOS garde son propre clavier."
     }
   }
 }

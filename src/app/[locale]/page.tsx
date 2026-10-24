@@ -3,7 +3,7 @@ import { getDesktopDownloads } from "@/lib/downloads";
 import { ANDROID_RELEASE_URL } from "@/config/downloads";
 import Hero from "@/components/Hero/Hero";
 import Platforms from "@/components/Platforms/Platforms";
-import ProductScenes from "@/components/ProductScenes/ProductScenes";
+import Keyboard from "@/components/Keyboard/Keyboard";
 import Features from "@/components/Features/Features";
 import Comparison from "@/components/Comparison/Comparison";
 import HowItWorks from "@/components/HowItWorks/HowItWorks";
@@ -70,7 +70,7 @@ export default async function HomePage({ params }: Props) {
   return (
     <>
       <Hero />
-      <ProductScenes />
+      <Keyboard />
       <Platforms downloads={downloads} />
       <Features />
       <HowItWorks />

@@ -14,7 +14,7 @@
 
   /* Room kept above anchor targets and focused elements for the fixed nav:
      its pill ends 78px from the top (Nav.module.css), plus 22px of air.
-     usePinMode and useIphoneStage re-align on the same 100px. */
+     usePinMode re-aligns on the same 100px. */
   --nav-clearance: 100px;
 
   --theme-bg-primary: #F2F2F7;
