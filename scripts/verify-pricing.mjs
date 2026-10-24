@@ -122,7 +122,7 @@ for (const engine of (process.env.VERIFY_ENGINES || "chromium,firefox,webkit").s
       await page.goto(`${origin}/${locale}/terms`);
       await expect(page.locator("article")).toContainText(expected.yearly);
       await expect(page.locator("article")).toContainText(lifetime);
-      await expect(page.locator("article")).toContainText(locale === "fr" ? "Seul l’abonnement annuel" : "Only the yearly");
+      await expect(page.locator("article")).toContainText(locale === "fr" ? "rien n’est débité à son terme" : "nothing is charged when it ends");
     });
 
     await check(`${engine}/${locale}: pricing metadata and locale route`, async () => {
