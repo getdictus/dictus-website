@@ -104,9 +104,8 @@
 }
 
 @media (prefers-reduced-transparency: reduce) {
-  .pill { background: var(--color-brand-white); -webkit-backdrop-filter: none; backdrop-filter: none; }
+  .pill { background: var(--color-brand-white); border-color: var(--color-brand-rule); -webkit-backdrop-filter: none; backdrop-filter: none; }
   .sheet { background: var(--color-brand-white); }
-  .pill { border-color: var(--color-brand-rule); }
   .header[data-theme="dark"] .pill { background: var(--color-brand-navy); border-color: rgb(255 255 255 / .14); }
 }
 @media (prefers-reduced-motion: reduce) {
