@@ -15,8 +15,8 @@
   color: var(--color-brand-ink);
   background: rgb(255 255 255 / .7);
   box-shadow: 0 8px 24px rgb(10 22 40 / .08);
-  backdrop-filter: blur(16px) saturate(1.5);
   -webkit-backdrop-filter: blur(16px) saturate(1.5);
+  backdrop-filter: blur(16px) saturate(1.5);
   transition: background-color var(--motion-ui) ease, border-color var(--motion-ui) ease, color var(--motion-ui) ease;
 }
 .brand { display: flex; flex: none; }
@@ -56,14 +56,14 @@
 .header[data-theme="dark"] .cta { color: var(--color-brand-ink); background: var(--color-brand-white); }
 
 /* Menu sheet: scales out of the hamburger (29px from the right edge, 36px
-   above the sheet) and back into it along the same path. */
+   above the sheet) and back into it along the same path. 95% opaque without
+   a backdrop blur, so the scale stays cheap and no glass stacks on the pill. */
 .sheet {
   position: fixed; z-index: 49; top: 78px; left: 12px; right: 12px;
   display: flex; flex-direction: column; max-height: calc(100dvh - 90px); overflow-y: auto; overscroll-behavior: contain;
   padding: 12px; border-radius: 28px; pointer-events: auto;
   color: var(--color-brand-ink); background: rgb(255 255 255 / .95);
   box-shadow: 0 20px 50px rgb(10 22 40 / .18);
-  backdrop-filter: blur(18px); -webkit-backdrop-filter: blur(18px);
   transform-origin: calc(100% - 29px) -36px;
   opacity: 0; transform: scale(.96); visibility: hidden;
   transition: opacity 200ms var(--ease-out), transform 200ms var(--ease-out), visibility 0s linear 200ms;
@@ -102,7 +102,8 @@
 }
 
 @media (prefers-reduced-transparency: reduce) {
-  .pill, .sheet { background: var(--color-brand-white); backdrop-filter: none; -webkit-backdrop-filter: none; }
+  .pill { background: var(--color-brand-white); -webkit-backdrop-filter: none; backdrop-filter: none; }
+  .sheet { background: var(--color-brand-white); }
   .pill { border-color: var(--color-brand-rule); }
   .header[data-theme="dark"] .pill { background: var(--color-brand-navy); border-color: rgb(255 255 255 / .14); }
 }
