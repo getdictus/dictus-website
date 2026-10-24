@@ -75,7 +75,7 @@ export default async function MotionDemoPage({ params }: Props) {
         </div>
       </Section>
       <Section tone="white">
-        <p className="mx-auto max-w-3xl px-6 py-40 text-lg font-light text-brand-body">{copy.end}</p>
+        <p className="mx-auto flex min-h-[100svh] max-w-3xl items-end px-6 py-24 text-lg font-light text-brand-body">{copy.end}</p>
       </Section>
     </>
   );

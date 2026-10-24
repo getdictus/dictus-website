@@ -109,68 +109,69 @@ export default function PinnedSteps({ id, pin, tone, eyebrow, heading, steps, vi
           data-pinned={pinned}
           style={pinned ? { height: `${pinLengths[pin] * 100}svh` } : undefined}
         >
-          {pinned ? (
-            <div className="sticky top-0 flex h-[100svh] items-center overflow-hidden">
-              <div className="mx-auto grid w-full max-w-6xl grid-cols-2 items-center gap-16 px-8 pt-20">
-                <div>
-                  {intro}
-                  <ol className="sr-only">
-                    {steps.map((step) => (
-                      <li key={step.id}>{step.title}. {step.body}</li>
-                    ))}
-                  </ol>
-                  <div aria-hidden="true" className="mt-10 grid">
-                    {/* Invisible copies reserve the tallest step, so nothing below moves. */}
-                    {steps.map((step) => (
-                      <div key={step.id} className="invisible col-start-1 row-start-1">
-                        <StepText step={step} muted={muted} />
-                      </div>
-                    ))}
-                    <div className="col-start-1 row-start-1">
-                      <AnimatePresence mode="wait" initial={false}>
-                        <m.div
-                          key={steps[stepIndex].id}
-                          initial={{ opacity: 0, transform: `translateY(${STEP_TEXT_SHIFT_PX}px)` }}
-                          animate={{
-                            opacity: 1,
-                            transform: "translateY(0px)",
-                            transition: { duration: STEP_TEXT_IN_SECONDS, ease: EASE_OUT },
-                          }}
-                          exit={{
-                            opacity: 0,
-                            transform: `translateY(-${STEP_TEXT_SHIFT_PX}px)`,
-                            transition: { duration: STEP_TEXT_OUT_SECONDS, ease: EASE_OUT },
-                          }}
-                        >
-                          <StepText step={steps[stepIndex]} muted={muted} />
-                        </m.div>
-                      </AnimatePresence>
-                    </div>
-                  </div>
-                  <div aria-hidden="true" className="mt-10 flex gap-2">
-                    {steps.map((step, index) => (
-                      <ProgressSegment key={step.id} progress={scrollYProgress} index={index} count={count} tone={tone} />
-                    ))}
-                  </div>
-                </div>
-                {visual && <div className="flex justify-center">{visual}</div>}
-              </div>
-            </div>
-          ) : (
-            <div className="mx-auto grid max-w-6xl gap-12 px-6 py-24 min-[1024px]:grid-cols-2 min-[1024px]:items-center min-[1024px]:px-8">
+          {/* One tree for both modes: dropping the pin on focus must not remount what holds focus. */}
+          <div className={pinned ? "sticky top-0 flex h-[100svh] items-center overflow-hidden" : undefined}>
+            <div
+              className={pinned
+                ? "mx-auto grid w-full max-w-6xl grid-cols-2 items-center gap-16 px-8 pt-20"
+                : "mx-auto grid max-w-6xl gap-12 px-6 py-24 min-[1024px]:grid-cols-2 min-[1024px]:items-center min-[1024px]:px-8"}
+            >
               <div>
                 {intro}
-                <ol className="mt-10 grid gap-8">
-                  {steps.map((step) => (
-                    <li key={step.id}>
-                      <StepText step={step} muted={muted} />
-                    </li>
-                  ))}
-                </ol>
+                {pinned ? (
+                  <>
+                    <ol className="sr-only">
+                      {steps.map((step) => (
+                        <li key={step.id}>{step.title}. {step.body}</li>
+                      ))}
+                    </ol>
+                    <div aria-hidden="true" className="mt-10 grid">
+                      {/* Invisible copies reserve the tallest step, so nothing below moves. */}
+                      {steps.map((step) => (
+                        <div key={step.id} className="invisible col-start-1 row-start-1">
+                          <StepText step={step} muted={muted} />
+                        </div>
+                      ))}
+                      <div className="col-start-1 row-start-1">
+                        <AnimatePresence mode="wait" initial={false}>
+                          <m.div
+                            key={steps[stepIndex].id}
+                            initial={{ opacity: 0, transform: `translateY(${STEP_TEXT_SHIFT_PX}px)` }}
+                            animate={{
+                              opacity: 1,
+                              transform: "translateY(0px)",
+                              transition: { duration: STEP_TEXT_IN_SECONDS, ease: EASE_OUT },
+                            }}
+                            exit={{
+                              opacity: 0,
+                              transform: `translateY(-${STEP_TEXT_SHIFT_PX}px)`,
+                              transition: { duration: STEP_TEXT_OUT_SECONDS, ease: EASE_OUT },
+                            }}
+                          >
+                            <StepText step={steps[stepIndex]} muted={muted} />
+                          </m.div>
+                        </AnimatePresence>
+                      </div>
+                    </div>
+                    <div aria-hidden="true" className="mt-10 flex gap-2">
+                      {steps.map((step, index) => (
+                        <ProgressSegment key={step.id} progress={scrollYProgress} index={index} count={count} tone={tone} />
+                      ))}
+                    </div>
+                  </>
+                ) : (
+                  <ol className="mt-10 grid gap-8">
+                    {steps.map((step) => (
+                      <li key={step.id}>
+                        <StepText step={step} muted={muted} />
+                      </li>
+                    ))}
+                  </ol>
+                )}
               </div>
               {visual && <div className="flex justify-center">{visual}</div>}
             </div>
-          )}
+          </div>
         </div>
       </PinnedStepContext.Provider>
     </Section>
