@@ -54,6 +54,8 @@
 .header[data-theme="dark"] .segmented { background: rgb(255 255 255 / .1); }
 .header[data-theme="dark"] .segmented button[aria-current="true"],
 .header[data-theme="dark"] .cta { color: var(--color-brand-ink); background: var(--color-brand-white); }
+/* The global #3D7EFF ring drops to 2.5:1 on this material over the blue section. */
+.header[data-theme="dark"] .pill :focus-visible { outline-color: var(--color-brand-white); }
 
 /* Menu sheet: scales out of the hamburger (29px from the right edge, 36px
    above the sheet) and back into it along the same path. 95% opaque without
