@@ -82,6 +82,17 @@
     "android_pricing": "Gratuit et open source, sans abonnement.",
     "pricing_link": "Découvrir l’offre iPhone en préparation"
   },
+  "Languages": {
+    "eyebrow": "LANGUES",
+    "title": "Dictez dans près de 100 langues.",
+    "sub": "Avec les modèles Whisper. Parakeet couvre 25 langues européennes. La qualité varie selon la langue.",
+    "cloud_label": "« Bonjour » dans 24 des langues que Dictus transcrit, du français au japonais et à l’arabe.",
+    "keyboard_title": "Un vrai clavier dans votre langue",
+    "layout_french": "FRANÇAIS · AZERTY",
+    "layout_english": "ANGLAIS · QWERTY",
+    "layout_spanish": "ESPAGNOL · QWERTY",
+    "layout_german": "ALLEMAND · QWERTZ"
+  },
   "Footer": {
     "copyright": "PIVI Solutions",
     "privacy": "Transcription locale par défaut. Code ouvert. Ce site n’utilise ni cookies publicitaires ni outils d’analytics.",
