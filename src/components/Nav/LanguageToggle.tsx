@@ -1,53 +1,61 @@
 "use client";
 
-import { useLocale } from "next-intl";
+import { useLocale, useTranslations } from "next-intl";
 import { useRouter, usePathname } from "@/i18n/navigation";
 
 export type ArticleLocaleRoutes = Record<string, Partial<Record<"fr" | "en", string>>>;
 
-export default function LanguageToggle({ articleRoutes = {} }: { articleRoutes?: ArticleLocaleRoutes }) {
+type Locale = "fr" | "en";
+
+// Each language is named in its own language, whatever the page locale.
+const languages: Record<Locale, { short: string; name: string; action: string; pending: string }> = {
+  fr: { short: "FR", name: "Français", action: "Passer en français", pending: "Traduction en préparation" },
+  en: { short: "EN", name: "English", action: "Switch to English", pending: "Translation in preparation" },
+};
+
+/**
+ * FR/EN switcher. `pill` is the compact segmented control of the desktop
+ * nav, `menu` the full-name buttons of the menu sheet. Both keep the current
+ * route and hash; blog articles switch to their translation when one exists.
+ */
+export default function LanguageToggle({ articleRoutes = {}, variant, className, onSwitch }: {
+  articleRoutes?: ArticleLocaleRoutes;
+  variant: "pill" | "menu";
+  className?: string;
+  onSwitch?: () => void;
+}) {
+  const t = useTranslations("Nav");
   const locale = useLocale();
   const router = useRouter();
   const pathname = usePathname();
   const article = articleRoutes[`/${locale}${pathname}`];
 
-  function switchTo(target: "fr" | "en") {
+  function switchTo(target: Locale) {
     if (target === locale) return;
     if (article && !article[target]) return;
-    router.replace(article?.[target] ?? pathname, { locale: target, scroll: false });
+    onSwitch?.();
+    router.replace(`${article?.[target] ?? pathname}${window.location.hash}`, { locale: target, scroll: false });
   }
 
   return (
-    <div className="flex items-center gap-1 text-sm font-light">
-      <button
-        onClick={() => switchTo("fr")}
-        className={`min-h-11 min-w-11 px-2 py-2 transition-colors ${
-          locale === "fr"
-            ? "text-[#2563eb] dark:text-accent-hi"
-            : "text-white-70 hover:text-text-primary"
-        }`}
-        aria-label="Passer en français"
-        disabled={Boolean(article && !article.fr)}
-        title={article && !article.fr ? "Traduction en préparation" : undefined}
-        aria-current={locale === "fr" ? "true" : undefined}
-      >
-        FR
-      </button>
-      <span className="text-white-70" aria-hidden="true">/</span>
-      <button
-        onClick={() => switchTo("en")}
-        className={`min-h-11 min-w-11 px-2 py-2 transition-colors ${
-          locale === "en"
-            ? "text-[#2563eb] dark:text-accent-hi"
-            : "text-white-70 hover:text-text-primary"
-        }`}
-        aria-label="Switch to English"
-        disabled={Boolean(article && !article.en)}
-        title={article && !article.en ? "Translation in preparation" : undefined}
-        aria-current={locale === "en" ? "true" : undefined}
-      >
-        EN
-      </button>
+    <div role="group" aria-label={t("language_label")} className={className}>
+      {(Object.keys(languages) as Locale[]).map((target) => {
+        const missing = Boolean(article && !article[target]);
+        return (
+          <button
+            key={target}
+            type="button"
+            lang={target}
+            onClick={() => switchTo(target)}
+            aria-label={variant === "pill" ? languages[target].action : undefined}
+            aria-current={locale === target ? "true" : undefined}
+            disabled={missing}
+            title={missing ? languages[target].pending : undefined}
+          >
+            {variant === "pill" ? languages[target].short : languages[target].name}
+          </button>
+        );
+      })}
     </div>
   );
 }
