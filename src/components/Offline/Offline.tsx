@@ -35,7 +35,10 @@ function useRevealOnce() {
     const root = ref.current;
     if (!root) return;
     const reduce = window.matchMedia("(prefers-reduced-motion: reduce)");
-    if (reduce.matches || root.getBoundingClientRect().top < window.innerHeight) return;
+    // A hash landing scrolls here after this runs, so it counts as on screen.
+    const hashTarget = window.location.hash ? document.getElementById(decodeURIComponent(window.location.hash.slice(1))) : null;
+    const landing = hashTarget?.contains(root) || root.closest("section")?.contains(hashTarget);
+    if (reduce.matches || landing || root.getBoundingClientRect().top < window.innerHeight) return;
     const items = [...root.querySelectorAll<HTMLElement>("[data-reveal-item]")];
     root.dataset.reveal = "pending";
     const showAll = () => {
@@ -268,7 +271,7 @@ export default function Offline() {
 
         <div className={styles.steps}>
           <ol aria-label={t("steps_label")} className="grid gap-x-8 gap-y-7 min-[640px]:max-[1023px]:grid-cols-3 min-[1024px]:max-w-[520px]">
-            {STEPS.map((key, index) => (
+            {STEPS.map((key) => (
               <li key={key} className={styles.reveal} data-reveal-item="">
                 <span aria-hidden="true" className={styles.rule} />
                 <h3 className="mt-3.5 text-[clamp(20px,1.7vw,24px)] font-medium tracking-[-0.02em]">
