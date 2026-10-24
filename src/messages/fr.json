@@ -17,10 +17,14 @@
     "android_jsonld_description": "Bêta publique. Clavier de dictée vocale gratuit et open source pour Android 10 ou ultérieur, avec transcription sur l’appareil."
   },
   "Hero": {
-    "headline": "Votre voix reste la vôtre.",
-    "subtitle": "La dictée vocale. Locale par défaut, code ouvert.",
-    "cta_discover": "Découvrir Dictus",
-    "platform_desktop": "Mac, Windows et Linux"
+    "title_a": "Parlez.",
+    "title_b": "Dictus écrit.",
+    "subtitle": "Le clavier de dictée qui écrit dans vos apps. Sur votre téléphone, sans compte, open source.",
+    "desktop_prefix": "Sur ordinateur :",
+    "desktop_link": "Dictus Desktop",
+    "desktop_platforms": "Mac, Windows, Linux",
+    "written_label": "Dictus écrit",
+    "phrases": ["Merci pour tes notes !", "Je regarde ça ce soir.", "On en reparle demain ?"]
   },
   "DownloadButtons": {
     "app_store_alt": "Télécharger dans l’App Store",

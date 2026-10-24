@@ -19,6 +19,12 @@ type Props = {
   /** Where the loop starts the first time it plays. */
   startAt?: number;
   draw: SceneDraw;
+  /**
+   * Told when the scene starts or stops playing, for media that must follow
+   * it (a looping video pauses off-screen with the scene). Never called
+   * under reduced motion, where the scene never plays.
+   */
+  onPlayingChange?: (playing: boolean) => void;
   className?: string;
   /**
    * The scene's elements. Their server markup should already show the
@@ -82,11 +88,13 @@ export default function ScenePlayer({
   stillAt,
   startAt = 0,
   draw,
+  onPlayingChange,
   className,
   children,
 }: Props) {
   const rootRef = useRef<HTMLDivElement>(null);
   const drawRef = useRef(draw);
+  const onPlayingChangeRef = useRef(onPlayingChange);
   const elapsed = useRef(0);
   const resumedAt = useRef<number | null>(null);
   const [playing, setPlaying] = useState(false);
@@ -94,7 +102,8 @@ export default function ScenePlayer({
 
   useEffect(() => {
     drawRef.current = draw;
-  }, [draw]);
+    onPlayingChangeRef.current = onPlayingChange;
+  }, [draw, onPlayingChange]);
 
   const loopTime = () => {
     const running = resumedAt.current === null ? 0 : now() - resumedAt.current;
@@ -133,6 +142,7 @@ export default function ScenePlayer({
 
   // Start or stop the pausable clock with playback.
   useEffect(() => {
+    onPlayingChangeRef.current?.(playing);
     if (!playing) return;
     resumedAt.current = now();
     return () => {
