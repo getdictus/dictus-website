@@ -1,6 +1,7 @@
 import type { MetadataRoute } from "next";
 import { isSitePreview } from "@/config/preview";
 import { isBlogPublic } from "@/config/blog";
+import { isPricingPublic } from "@/config/pricing-release";
 import { getBlogSitemapEntries } from "@/lib/blog";
 
 const BASE_URL = "https://getdictus.com";
@@ -117,5 +118,18 @@ export default function sitemap(): MetadataRoute.Sitemap {
         },
       },
     })),
+    ...(isPricingPublic
+      ? (["fr", "en"] as const).map((locale) => ({
+          url: `${BASE_URL}/${locale}/pricing`,
+          changeFrequency: "monthly" as const,
+          priority: 0.5,
+          alternates: {
+            languages: {
+              fr: `${BASE_URL}/fr/pricing`,
+              en: `${BASE_URL}/en/pricing`,
+            },
+          },
+        }))
+      : []),
   ];
 }

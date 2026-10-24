@@ -9,6 +9,8 @@
 // VERIFY_CHECKS is an optional regular expression matching check names.
 // VERIFY_SCREENSHOTS=0 skips screenshot files; optical assertions stay in memory.
 // VERIFY_MODE=production checks a separately built production configuration.
+// VERIFY_PRICING_PUBLIC=1 expects a production build with isPricingPublic set
+// to true locally (src/config/pricing-release.ts); never commit that build flag.
 import assert from "node:assert/strict";
 import { mkdir, writeFile } from "node:fs/promises";
 import { createRequire } from "node:module";
@@ -21,6 +23,7 @@ const { expect } = playwright;
 const { Resvg } = require("@resvg/resvg-js");
 const origin = new URL(process.argv[2] || "http://localhost:3000").origin;
 const preview = process.env.VERIFY_MODE !== "production";
+const pricingPublic = process.env.VERIFY_PRICING_PUBLIC === "1";
 const artifacts = process.env.VERIFY_ARTIFACTS || join(tmpdir(), "dictus-redesign-verification");
 const engines = (process.env.VERIFY_ENGINES || "chromium,firefox,webkit").split(",");
 const selectedChecks = process.env.VERIFY_CHECKS ? new RegExp(process.env.VERIFY_CHECKS) : null;
@@ -148,7 +151,7 @@ for (const engine of engines) {
       for (const locale of ["fr", "en"]) {
         for (const route of ["", "/donate", "/support", "/privacy", "/terms", "/blog", "/pricing"]) {
           const response = await page.goto(`${origin}/${locale}${route}`);
-          if (!preview && ["/blog", "/pricing"].includes(route)) {
+          if (!preview && (route === "/blog" || (route === "/pricing" && !pricingPublic))) {
             assert.equal(response.status(), 404, "Unfinished pages must not be available in production");
             continue;
           }
@@ -215,7 +218,7 @@ for (const engine of engines) {
       const destinations = await nav.locator("a").evaluateAll((links) => links.map((link) => new URL(link.href).pathname));
       assert.deepEqual(destinations, preview
         ? ["/fr", "/fr/blog", "/fr/pricing", "/fr/donate"]
-        : ["/fr", "/fr/donate"]);
+        : ["/fr", ...(pricingPublic ? ["/fr/pricing"] : []), "/fr/donate"]);
 
       const desktop = page.locator("#desktop");
       const tabLabels = [/macOS/i, /Windows/i, /Linux/i];
@@ -1532,12 +1535,23 @@ await check("sitemap and robots respect the preview boundary", async () => {
   const response = await fetch(`${origin}/sitemap.xml`);
   assert.equal(response.status, 200);
   const sitemap = await response.text();
-  assert.doesNotMatch(sitemap, /\/(?:blog|pricing)</);
+  assert.doesNotMatch(sitemap, /\/blog</);
   if (preview) assert.doesNotMatch(sitemap, /<url>/);
   else assert.match(sitemap, /\/fr\/donate</);
+  for (const locale of ["fr", "en"]) {
+    if (!preview && pricingPublic) assert.match(sitemap, new RegExp(`<loc>https://getdictus.com/${locale}/pricing</loc>`));
+    else assert.doesNotMatch(sitemap, /\/pricing</);
+  }
   const robots = await (await fetch(`${origin}/robots.txt`)).text();
   if (preview) assert.match(robots, /Disallow: \/\s*$/m);
-  else assert.match(robots, /Allow: \/\s*$/m);
+  else {
+    assert.match(robots, /Allow: \/\s*$/m);
+    for (const locale of ["fr", "en"]) {
+      const rule = new RegExp(`^Disallow: /${locale}/pricing$`, "m");
+      if (pricingPublic) assert.doesNotMatch(robots, rule);
+      else assert.match(robots, rule);
+    }
+  }
 });
 
 await check("download health matches the rendered page", async () => {

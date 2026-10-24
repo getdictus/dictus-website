@@ -10,9 +10,10 @@ import Logo from "./Logo";
 import LanguageToggle, { type ArticleLocaleRoutes } from "./LanguageToggle";
 import styles from "./Nav.module.css";
 
-export default function Nav({ preview = false, blogAvailable = preview, articleRoutes = {} }: {
+export default function Nav({ preview = false, blogAvailable = preview, pricingAvailable = preview, articleRoutes = {} }: {
   preview?: boolean;
   blogAvailable?: boolean;
+  pricingAvailable?: boolean;
   articleRoutes?: ArticleLocaleRoutes;
 }) {
   const t = useTranslations("Nav");
@@ -29,7 +30,7 @@ export default function Nav({ preview = false, blogAvailable = preview, articleR
   const links = [
     { href: "/", label: t("home") },
     ...(blogAvailable ? [{ href: "/blog", label: t("blog") }] : []),
-    ...(preview ? [{ href: "/pricing", label: t("pricing") }] : []),
+    ...(pricingAvailable ? [{ href: "/pricing", label: t("pricing") }] : []),
     { href: "/donate", label: t("support_label") },
   ];
 

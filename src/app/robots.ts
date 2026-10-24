@@ -1,6 +1,7 @@
 import type { MetadataRoute } from "next";
 import { isSitePreview } from "@/config/preview";
 import { isBlogPublic } from "@/config/blog";
+import { isPricingPublic } from "@/config/pricing-release";
 
 export default function robots(): MetadataRoute.Robots {
   if (isSitePreview) {
@@ -11,7 +12,10 @@ export default function robots(): MetadataRoute.Robots {
     rules: {
       userAgent: "*",
       allow: "/",
-      disallow: [...(isBlogPublic ? [] : ["/fr/blog", "/en/blog"]), "/fr/pricing", "/en/pricing"],
+      disallow: [
+        ...(isBlogPublic ? [] : ["/fr/blog", "/en/blog"]),
+        ...(isPricingPublic ? [] : ["/fr/pricing", "/en/pricing"]),
+      ],
     },
     sitemap: "https://getdictus.com/sitemap.xml",
   };

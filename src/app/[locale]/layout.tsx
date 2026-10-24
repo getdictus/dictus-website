@@ -10,6 +10,7 @@ import { notFound } from "next/navigation";
 import { routing } from "@/i18n/routing";
 import { isSitePreview } from "@/config/preview";
 import { isBlogAvailable } from "@/config/blog";
+import { isPricingAvailable } from "@/config/pricing-release";
 import { getBlogArticles, getTranslationPaths } from "@/lib/blog";
 import type { ArticleLocaleRoutes } from "@/components/Nav/LanguageToggle";
 import Nav from "@/components/Nav/Nav";
@@ -126,7 +127,7 @@ export default async function LocaleLayout({ children, params }: Props) {
           >
             {tNav("skip_to_content")}
           </a>
-          <Nav preview={isSitePreview} blogAvailable={isBlogAvailable} articleRoutes={articleRoutes} />
+          <Nav preview={isSitePreview} blogAvailable={isBlogAvailable} pricingAvailable={isPricingAvailable} articleRoutes={articleRoutes} />
           <MotionProvider>
             <main id="main-content">{children}</main>
           </MotionProvider>
