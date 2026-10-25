@@ -138,7 +138,8 @@
     "sub": "Install the keyboard, pick a language, tap the mic.",
     "desktop_lead": "On your computer:",
     "desktop_link": "Dictus Desktop",
-    "desktop_platforms": "Mac, Windows, Linux"
+    "desktop_platforms": "Mac, Windows, Linux",
+    "ribbon_pause": "Pause the tile animation"
   },
   "DesktopDownload": {
     "eyebrow": "DICTUS DESKTOP",

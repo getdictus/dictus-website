@@ -138,7 +138,8 @@
     "sub": "Installez le clavier, choisissez une langue, touchez le micro.",
     "desktop_lead": "Sur ordinateur :",
     "desktop_link": "Dictus Desktop",
-    "desktop_platforms": "Mac, Windows, Linux"
+    "desktop_platforms": "Mac, Windows, Linux",
+    "ribbon_pause": "Mettre en pause l’animation des tuiles"
   },
   "DesktopDownload": {
     "eyebrow": "DICTUS DESKTOP",

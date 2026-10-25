@@ -1,6 +1,7 @@
 "use client";
 
-import { useEffect, useRef } from "react";
+import { useEffect, useRef, useState } from "react";
+import { useTranslations } from "next-intl";
 import styles from "./TileRibbon.module.css";
 
 type TileKind = "bubble" | "mail" | "note" | "spark";
@@ -37,26 +38,46 @@ function Glyph({ kind }: { kind: TileKind }) {
 /**
  * The CTA's tile marquee. It moves by `transform` only (a CSS animation),
  * holds its frame while off-screen and is a static row under reduced motion.
+ * A pause button stops it for good (WCAG 2.2.2).
  */
 export default function TileRibbon({ className }: { className?: string }) {
+  const t = useTranslations("FinalCta");
   const trackRef = useRef<HTMLDivElement>(null);
+  const visibleRef = useRef(false);
+  const [paused, setPaused] = useState(false);
 
   useEffect(() => {
     const track = trackRef.current;
     if (!track) return;
     const observer = new IntersectionObserver(([entry]) => {
-      track.dataset.playing = String(entry.isIntersecting);
+      visibleRef.current = entry.isIntersecting;
+      track.dataset.playing = String(entry.isIntersecting && !paused);
     });
     observer.observe(track);
+    track.dataset.playing = String(visibleRef.current && !paused);
     return () => observer.disconnect();
-  }, []);
+  }, [paused]);
 
-  // Two identical halves, so the -50% loop lands on the same frame.
-  const tiles = [...kinds, ...kinds, ...kinds, ...kinds];
+  // Two identical halves of 24 tiles (about 3,550 px at desktop size), so the
+  // -50% loop lands on the same frame and covers a 2,560 px wide screen.
+  const tiles = Array.from({ length: 6 }, () => kinds).flat();
 
   return (
-    <div aria-hidden="true" className={`${styles.viewport} ${className ?? ""}`}>
-      <div ref={trackRef} data-playing="false" className={styles.track}>
+    <div className={`${styles.viewport} ${className ?? ""}`}>
+      <button
+        type="button"
+        className={styles.toggle}
+        aria-pressed={paused}
+        aria-label={t("ribbon_pause")}
+        onClick={() => setPaused((value) => !value)}
+      >
+        <svg width="14" height="14" viewBox="0 0 14 14" aria-hidden="true">
+          {paused
+            ? <path d="M3 1.5v11l9.5-5.5z" fill="currentColor" />
+            : <path d="M3 1.5h3v11H3zM8 1.5h3v11H8z" fill="currentColor" />}
+        </svg>
+      </button>
+      <div ref={trackRef} data-playing="false" aria-hidden="true" className={styles.track}>
         {tiles.map((kind, index) => (
           <div
             key={index}
