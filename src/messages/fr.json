@@ -120,6 +120,36 @@
     },
     "facts": "TRANSCRIPTION 100 % SUR L’APPAREIL · OPEN SOURCE"
   },
+  "SmartModes": {
+    "heading": "Dictus Pro sur iPhone",
+    "badge": "Pro",
+    "chips_label": "Fonctions de Dictus Pro",
+    "compatibility": "Les Smart Modes nécessitent Apple Intelligence : iPhone 15 Pro ou ultérieur, iOS 26. Vocabulaire, historique et transcription des mémos vocaux fonctionnent sans.",
+    "eyebrow_new": "Nouveau dans Dictus",
+    "eyebrow_also": "Aussi dans Pro",
+    "steps": {
+      "smart": {
+        "chip": "Smart Modes",
+        "title": "Un appui long, un Smart Mode.",
+        "body": "Gardez le doigt sur le micro, glissez jusqu’au mode, relâchez. Dictus écrit dans ce mode."
+      },
+      "vocabulary": {
+        "chip": "Vocabulaire",
+        "title": "Vos mots, bien écrits.",
+        "body": "Notez un nom et la façon dont Dictus l’écrit de travers. La prochaine fois, il l’écrira à votre façon."
+      },
+      "voiceNotes": {
+        "chip": "Mémos vocaux",
+        "title": "Vos mémos vocaux, transcrits.",
+        "body": "Partagez un mémo vocal à Dictus depuis n’importe quelle app. Le texte vous attend dans le clavier."
+      },
+      "history": {
+        "chip": "Historique",
+        "title": "Tout se retrouve.",
+        "body": "Chaque dictée reste sur votre iPhone. Cherchez un mot, retrouvez le texte."
+      }
+    }
+  },
   "Languages": {
     "eyebrow": "LANGUES",
     "title": "Dictez dans près de 100 langues.",
