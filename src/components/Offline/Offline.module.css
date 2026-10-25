@@ -19,17 +19,22 @@
 }
 .steps { grid-area: steps; }
 
+/* The text column sits centred against the taller picture column, so its
+   two steps leave no empty band under them. */
 @media (min-width: 1024px) {
   .layout {
     grid-template-columns: minmax(0, 1fr) minmax(0, 400px);
     grid-template-areas:
-      "head figure"
-      "steps figure";
-    grid-template-rows: auto 1fr;
+      ".     figure"
+      "head  figure"
+      "steps figure"
+      ".     figure";
+    grid-template-rows: 1fr auto auto 1fr;
     column-gap: clamp(48px, 6vw, 96px);
-    row-gap: 40px;
+    row-gap: 0;
     align-items: start;
   }
+  .steps { margin-top: 40px; }
   .figure { width: 100%; }
 }
 
