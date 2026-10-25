@@ -165,6 +165,24 @@ export default function Keyboard() {
     >
       {/* Former id of the iPhone section: older links (blog, hero) land here. */}
       <span id="iphone" aria-hidden="true" className="absolute top-0" />
+      <button
+        type="button"
+        onClick={togglePlayback}
+        aria-label={paused ? t("play") : t("pause")}
+        title={paused ? t("play") : t("pause")}
+        className={styles.playback}
+      >
+        {paused ? (
+          <svg width="14" height="14" viewBox="0 0 14 14" aria-hidden="true">
+            <path d="M3.5 2.2v9.6a.6.6 0 0 0 .9.5l7.6-4.8a.6.6 0 0 0 0-1L4.4 1.7a.6.6 0 0 0-.9.5Z" fill="currentColor" />
+          </svg>
+        ) : (
+          <svg width="14" height="14" viewBox="0 0 14 14" aria-hidden="true">
+            <rect x="3" y="2" width="2.6" height="10" rx="0.8" fill="currentColor" />
+            <rect x="8.4" y="2" width="2.6" height="10" rx="0.8" fill="currentColor" />
+          </svg>
+        )}
+      </button>
       <div className={`mx-auto max-w-[1240px] px-5 min-[760px]:px-[clamp(20px,5.5vw,80px)] ${styles.layout}`}>
         <div className={styles.head}>
           <p className="font-mono text-[13px] tracking-[0.1em] text-accent-text">{t("eyebrow")}</p>
@@ -206,24 +224,6 @@ export default function Keyboard() {
               </div>
             </div>
           </ScenePlayer>
-          <button
-            type="button"
-            onClick={togglePlayback}
-            aria-label={paused ? t("play") : t("pause")}
-            title={paused ? t("play") : t("pause")}
-            className={styles.playback}
-          >
-            {paused ? (
-              <svg width="14" height="14" viewBox="0 0 14 14" aria-hidden="true">
-                <path d="M3.5 2.2v9.6a.6.6 0 0 0 .9.5l7.6-4.8a.6.6 0 0 0 0-1L4.4 1.7a.6.6 0 0 0-.9.5Z" fill="currentColor" />
-              </svg>
-            ) : (
-              <svg width="14" height="14" viewBox="0 0 14 14" aria-hidden="true">
-                <rect x="3" y="2" width="2.6" height="10" rx="0.8" fill="currentColor" />
-                <rect x="8.4" y="2" width="2.6" height="10" rx="0.8" fill="currentColor" />
-              </svg>
-            )}
-          </button>
         </div>
 
         <div className={styles.steps}>
