@@ -1,8 +1,9 @@
 /* v4b FAQ motion, transform and opacity only. An answer takes its full
    height at once (no height animation, so nothing below reflows over time);
-   its text fades in and lifts 6px over --motion-ui. Closing is instant. The
-   "+" turns 45deg into a cross and a blue disc fades in behind it. Reduced
-   motion: everything is instant. */
+   its text fades in and drops 6px into place over --motion-ui. Closing is
+   instant. The "+" turns 45deg into a cross and a blue disc fades in behind
+   it; the glyph turns white once the disc shows (a discrete swap, no colour
+   interpolation). Reduced motion: everything is instant. */
 
 .trigger:focus-visible {
   outline-offset: 2px;
@@ -57,6 +58,7 @@
 
 .icon[data-open] {
   color: var(--color-brand-white);
+  transition: color 0s linear 60ms;
 }
 
 .icon[data-open]::before {
@@ -68,7 +70,7 @@
 }
 
 .answerIn:not([hidden]) > p {
-  animation: answer-in var(--motion-ui) var(--ease-out) both;
+  animation: answer-in var(--motion-ui) var(--ease-out) backwards;
 }
 
 @keyframes answer-in {
@@ -80,6 +82,7 @@
 
 @media (prefers-reduced-motion: reduce) {
   .icon::before,
+  .icon[data-open],
   .plus {
     transition: none;
   }

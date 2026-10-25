@@ -1,6 +1,6 @@
 "use client";
 
-import { useState } from "react";
+import { useLayoutEffect, useRef, useState } from "react";
 import { useLocale, useTranslations } from "next-intl";
 import Section from "@/components/shared/Section";
 import { pricingValues } from "@/config/pricing";
@@ -10,8 +10,8 @@ import styles from "./Faq.module.css";
 /**
  * v4b FAQ (`#faq`): grey ground, one answer open at a time, the first one
  * open on arrival as in the mockup. Opening shows the answer at its full
- * height at once and only fades and lifts its text; closing is instant
- * (Faq.module.css).
+ * height at once and only fades its text down into place; closing is
+ * instant (Faq.module.css).
  */
 export default function Faq() {
   const t = useTranslations("Pricing");
@@ -19,6 +19,16 @@ export default function Faq() {
   const [open, setOpen] = useState<string | null>(faqKeys[0]);
   // The answer open on arrival is already there: only a click animates.
   const [toggled, setToggled] = useState(false);
+  // The answer above the clicked question may close at once: the page scrolls
+  // by the same amount so the clicked question stays under the pointer.
+  const anchor = useRef<{ button: HTMLButtonElement; top: number } | null>(null);
+  useLayoutEffect(() => {
+    if (!anchor.current) return;
+    const { button, top } = anchor.current;
+    anchor.current = null;
+    const shift = button.getBoundingClientRect().top - top;
+    if (shift !== 0) window.scrollBy({ top: shift, behavior: "instant" });
+  }, [open]);
 
   return (
     <Section tone="grey" id="faq" aria-labelledby="faq-title" className="py-[clamp(80px,10vw,150px)]">
@@ -41,7 +51,8 @@ export default function Faq() {
                     id={`faq-q-${key}`}
                     aria-expanded={isOpen}
                     aria-controls={`faq-a-${key}`}
-                    onClick={() => {
+                    onClick={(event) => {
+                      anchor.current = { button: event.currentTarget, top: event.currentTarget.getBoundingClientRect().top };
                       setOpen(isOpen ? null : key);
                       setToggled(true);
                     }}
