@@ -145,8 +145,8 @@ export const ASSET_PATTERNS = {
   linuxRpmArm64: /^Dictus-[\d.]+-\d+\.aarch64\.rpm$/,
 } as const;
 
-// Convenience helper used by the Platforms component to decide
-// Coming-Soon vs Active rendering without repeating `.enabled` checks.
+// Convenience helper used by the Desktop download block to list only the
+// platforms that have at least one file, without repeating `.enabled` checks.
 export function anyEnabled(
   v: DownloadVariant | readonly DownloadVariant[]
 ): boolean {

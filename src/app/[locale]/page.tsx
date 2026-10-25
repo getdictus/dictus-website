@@ -2,7 +2,8 @@ import { setRequestLocale, getTranslations } from "next-intl/server";
 import { getDesktopDownloads } from "@/lib/downloads";
 import { ANDROID_RELEASE_URL } from "@/config/downloads";
 import Hero from "@/components/Hero/Hero";
-import Platforms from "@/components/Platforms/Platforms";
+import FinalCta from "@/components/FinalCta/FinalCta";
+import DesktopDownload from "@/components/FinalCta/DesktopDownload";
 import ProductScenes from "@/components/ProductScenes/ProductScenes";
 import Features from "@/components/Features/Features";
 import Comparison from "@/components/Comparison/Comparison";
@@ -73,13 +74,14 @@ export default async function HomePage({ params }: Props) {
       <Hero />
       <ProductScenes />
       <Offline />
-      <Platforms downloads={downloads} />
       <Features />
       <HowItWorks />
       <Comparison />
       <Languages />
       <OpenSource />
       <Community />
+      <FinalCta />
+      <DesktopDownload downloads={downloads} />
       <Footer />
       <script
         type="application/ld+json"
