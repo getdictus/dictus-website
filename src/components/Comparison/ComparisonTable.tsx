@@ -1,11 +1,13 @@
-import { useTranslations } from "next-intl";
+import { useLocale, useTranslations } from "next-intl";
 import BetaBadge from "@/components/shared/BetaBadge";
+import { pricingValues } from "@/config/pricing";
 
 export const platforms = ["ios", "desktop", "android"] as const;
 export const comparisonRows = ["availability", "interaction", "pricing"] as const;
 
 export default function ComparisonTable() {
   const t = useTranslations("Comparison");
+  const values = pricingValues(useLocale());
 
   return (
     <table className="w-full table-fixed border-collapse text-left text-sm leading-relaxed">
@@ -22,7 +24,7 @@ export default function ComparisonTable() {
         {comparisonRows.map((row) => (
           <tr key={row} className="border-b border-border">
             <th scope="row" className="py-6 pr-5 align-top font-normal text-white-70">{t(row)}</th>
-            {platforms.map((platform) => <td key={platform} className="px-5 py-6 align-top text-white-70">{t(`${platform}_${row}`)}</td>)}
+            {platforms.map((platform) => <td key={platform} className="px-5 py-6 align-top text-white-70">{t(`${platform}_${row}`, values)}</td>)}
           </tr>
         ))}
       </tbody>
