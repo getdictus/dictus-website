@@ -22,10 +22,14 @@
     "android_jsonld_description": "Public beta. Free and open source voice dictation keyboard for Android 10 or later, with on-device transcription."
   },
   "Hero": {
-    "headline": "Your voice stays yours.",
-    "subtitle": "Voice typing. Local by default, open source.",
-    "cta_discover": "Discover Dictus",
-    "platform_desktop": "Mac, Windows and Linux"
+    "title_a": "Speak.",
+    "title_b": "Dictus writes.",
+    "subtitle": "The dictation keyboard that writes in your apps. On your phone, no tracking, open source.",
+    "desktop_prefix": "On your computer:",
+    "desktop_link": "Dictus Desktop",
+    "desktop_platforms": "Mac, Windows, Linux",
+    "written_label": "Dictus writes",
+    "phrases": ["Thanks for your notes!", "I'll read them tonight.", "Shall we talk tomorrow?"]
   },
   "DownloadButtons": {
     "app_store_alt": "Download on the App Store",
