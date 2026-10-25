@@ -3,7 +3,7 @@
 import type { ReactNode } from "react";
 import { m } from "motion/react";
 import { usePinnedStep } from "@/components/shared/PinnedSteps";
-import { CARD_SPRING, EASE_OUT } from "@/config/motion";
+import { CARD_SPRING } from "@/config/motion";
 
 /**
  * Places in the stack, by distance from the front card. The two cards just
@@ -47,12 +47,14 @@ export default function CardStack({ cards }: { cards: ReactNode[] }) {
             transition={CARD_SPRING}
           >
             {card}
-            {/* Shade on the cards behind. The new front card drops it at once. */}
-            <m.div
+            {/* Shade on the cards behind. The new front card drops it in the same
+                commit as the text and chip (a plain style, not a Motion frame later). */}
+            <div
               className="pointer-events-none absolute inset-0 rounded-[32px] bg-brand-grey"
-              initial={false}
-              animate={{ opacity: front ? 0 : 0.55 }}
-              transition={front ? { duration: 0 } : { duration: 0.2, ease: EASE_OUT }}
+              style={{
+                opacity: front ? 0 : 0.55,
+                transition: front ? "none" : "opacity 200ms var(--ease-out)",
+              }}
             />
           </m.div>
         );
