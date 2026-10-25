@@ -1,69 +1,118 @@
+/* v4b nav (epic #51): one pill, light only. Colours are the static v4b tokens,
+   so the site's `.dark` class does not reach it. `data-theme="dark"` is the
+   v4b material over navy and blue sections, not a dark mode.
+   The pill ends 70px from the top (14 + 56): --nav-clearance (100px) clears it. */
 .header {
-  position: fixed; z-index: 50; top: 22px; left: 0; right: 0;
-  padding-inline: clamp(20px, 2.5vw, 36px); display: grid;
-  grid-template-columns: 1fr auto 1fr; align-items: center; pointer-events: none;
+  position: fixed; z-index: 50; top: 0; left: 0; right: 0;
+  display: flex; justify-content: center; padding: 14px 12px 0;
+  pointer-events: none;
 }
-.header > * { pointer-events: auto; }
-.brand { width: fit-content; }
 .pill {
-  grid-column: 2;
-  padding: 5px;
-  background: rgba(255, 255, 255, .1);
-  border: 1px solid rgba(255, 255, 255, .42);
-  box-shadow:
-    0 5px 20px -10px rgba(34, 52, 92, .12),
-    0 1px 3px rgba(34, 52, 92, .04),
-    inset 0 -1px 0 rgba(24, 39, 66, .05);
-  backdrop-filter: blur(2px) saturate(1.1);
-  -webkit-backdrop-filter: blur(2px) saturate(1.1);
+  pointer-events: auto;
+  display: flex; align-items: center; gap: 22px;
+  width: 100%; max-width: 1060px; height: 56px; padding: 0 7px 0 18px;
+  border-radius: 999px; border: 1px solid rgb(255 255 255 / .75);
+  color: var(--color-brand-ink);
+  background: rgb(255 255 255 / .7);
+  box-shadow: 0 8px 24px rgb(10 22 40 / .08);
+  -webkit-backdrop-filter: blur(16px) saturate(1.5);
+  backdrop-filter: blur(16px) saturate(1.5);
+  transition: background-color var(--motion-ui) ease, border-color var(--motion-ui) ease, color var(--motion-ui) ease;
 }
-.links { display: flex; align-items: center; gap: 3px; position: relative; isolation: isolate; }
-.links a {
-  display: flex; align-items: center; justify-content: center; min-height: 44px;
-  padding: 0 21px; border-radius: 999px; font-size: 13px; font-weight: 400;
-  color: #454751;
-  transition: background-color var(--motion-fast) ease, color var(--motion-fast) ease, transform var(--motion-press) var(--ease-out);
+.brand { display: flex; flex: none; }
+.brand :global(span) { color: inherit; }
+
+.links { display: flex; flex: 1; justify-content: center; gap: 24px; font-size: 15px; font-weight: 500; }
+.links a { display: flex; align-items: center; min-height: 44px; color: inherit; }
+.links a[aria-current="page"], .menuLinks a[aria-current="page"] {
+  text-decoration: underline; text-decoration-thickness: 1.5px; text-underline-offset: 6px;
 }
-.links a:active:not(:focus-visible) { transform: scale(.97); }
-.links[data-keyboard] a { transition: none; }
-.links a[aria-current="page"] { color: #101116; background: #ffffff38; box-shadow: inset 0 1px 0 #ffffff55; }
-.links[data-lens-ready] a[aria-current="page"]:not(.support) { background: transparent; box-shadow: none; }
-.links a.support { color: white; background: #2563eb; padding-inline: 23px; box-shadow: inset 0 1px 0 #ffffff29; }
-.links a:focus-visible { outline-offset: 2px; }
-.language { justify-self: end; }
-.brand, .language { transition: opacity var(--motion-fast) ease, visibility 0s linear 0s; }
-/* Below 1440px the side margins are narrower than the logo: let the corners clear the content once the page scrolls. */
-@media (max-width: 1439px) {
-  .header[data-scrolled] .brand, .header[data-scrolled] .language {
-    opacity: 0; visibility: hidden; pointer-events: none;
-    transition: opacity var(--motion-fast) ease, visibility 0s linear var(--motion-fast);
-  }
+
+.segmented { display: flex; flex: none; gap: 2px; padding: 3px; border-radius: 999px; background: rgb(10 22 40 / .06); }
+.segmented button {
+  height: 28px; padding: 0 10px; border-radius: 999px;
+  font-size: 13px; font-weight: 600; color: inherit; cursor: pointer;
 }
-:global(.dark) .pill { background: rgba(18, 35, 57, .18); border-color: rgba(255, 255, 255, .14); }
-:global(.dark) .links a { color: #c7d2e2; }
-:global(.dark) .links a[aria-current="page"] { color: white; }
-:global(.dark) .links a.support { color: white; background: #2563eb; }
+.segmented button[aria-current="true"] { color: var(--color-brand-white); background: var(--color-brand-ink); }
+.segmented button:disabled, .menuLanguages button:disabled { opacity: .45; cursor: not-allowed; }
+
+.cta {
+  display: flex; flex: none; align-items: center; height: 42px; padding: 0 18px;
+  border-radius: 999px; font-size: 15px; font-weight: 600;
+  color: var(--color-brand-white); background: var(--color-brand-ink);
+  transition: transform var(--motion-press) var(--ease-out), background-color var(--motion-ui) ease, color var(--motion-ui) ease;
+}
+.toggle {
+  display: none; flex: none; flex-direction: column; align-items: center; justify-content: center; gap: 5px;
+  width: 44px; height: 44px; margin-left: -14px; border-radius: 999px; color: inherit; cursor: pointer;
+  transition: transform var(--motion-press) var(--ease-out);
+}
+.toggle span { width: 18px; height: 2px; border-radius: 1px; background: currentColor; }
+.cta:active, .toggle:active, .menuLanguages button:active { transform: scale(.97); }
+
+.header[data-theme="dark"] .pill { color: var(--color-brand-white); background: rgb(10 22 40 / .55); border-color: rgb(255 255 255 / .14); }
+.header[data-theme="dark"] .segmented { background: rgb(255 255 255 / .1); }
+.header[data-theme="dark"] .segmented button[aria-current="true"],
+.header[data-theme="dark"] .cta { color: var(--color-brand-ink); background: var(--color-brand-white); }
+/* The global #3D7EFF ring drops to 2.5:1 on this material over the blue section. */
+.header[data-theme="dark"] .pill :focus-visible { outline-color: var(--color-brand-white); }
+
+/* Menu sheet: scales out of the hamburger (29px from the right edge, 36px
+   above the sheet) and back into it along the same path. 95% opaque without
+   a backdrop blur, so the scale stays cheap and no glass stacks on the pill. */
+.sheet {
+  position: fixed; z-index: 49; top: 78px; left: 12px; right: 12px;
+  display: flex; flex-direction: column; max-height: calc(100dvh - 90px); overflow-y: auto; overscroll-behavior: contain;
+  padding: 12px; border-radius: 28px; pointer-events: auto;
+  color: var(--color-brand-ink); background: rgb(255 255 255 / .95);
+  box-shadow: 0 20px 50px rgb(10 22 40 / .18);
+  transform-origin: calc(100% - 29px) -36px;
+  opacity: 0; transform: scale(.96); visibility: hidden;
+  transition: opacity 200ms var(--ease-out), transform 200ms var(--ease-out), visibility 0s linear 200ms;
+}
+.sheet[data-open] {
+  opacity: 1; transform: none; visibility: visible;
+  transition: opacity 220ms var(--ease-out), transform 220ms var(--ease-out), visibility 0s;
+}
+.menuLinks { display: flex; flex-direction: column; }
+.menuLinks a { display: flex; align-items: center; height: 52px; padding: 0 16px; border-radius: 16px; font-size: 22px; font-weight: 500; }
+.menuLanguages { display: flex; gap: 6px; padding: 10px 12px 6px; }
+.menuLanguages button {
+  height: 44px; padding: 0 18px; border-radius: 999px; font-size: 15px; font-weight: 600; cursor: pointer;
+  color: var(--color-brand-ink); background: var(--color-brand-grey);
+  transition: transform var(--motion-press) var(--ease-out);
+}
+.menuLanguages button[aria-current="true"] { color: var(--color-brand-white); background: var(--color-brand-ink); }
+
 @media (hover: hover) and (pointer: fine) {
-  .links a:hover { color: #101116; }
-  .links a.support:hover { color: white; background: #1d55d4; }
-  :global(.dark) .links a:hover { color: white; }
+  .links a:hover { color: var(--color-accent-text); }
+  .header[data-theme="dark"] .links a:hover { color: var(--color-brand-on-navy); }
+  .menuLinks a:hover { background: var(--color-brand-grey); }
 }
-@media (max-width: 760px) {
-  .header { top: 12px; padding-inline: 12px; grid-template-columns: 1fr auto; gap: 6px; }
-  .brand { display: none; }
-  .pill { grid-column: 1; justify-self: center; max-width: 100%; }
-  .links { gap: 0; }
-  .links a { padding-inline: 13px; font-size: 12px; }
-  .links a.support { padding-inline: 15px; }
-  .language button { min-width: 36px; padding-inline: 3px; }
-  .language span { display: none; }
+
+@media (max-width: 899px) {
+  .links, .segmented { display: none; }
+  .cta { margin-left: auto; }
+  .toggle { display: flex; }
 }
-@media (max-width: 440px) {
-  .header { grid-template-columns: 1fr; }
-  .language { position: absolute; top: 62px; right: 16px; }
-  .language button { min-width: 40px; }
+@media (min-width: 900px) {
+  .sheet { display: none; }
+}
+@media (max-width: 359px) {
+  .pill { gap: 14px; padding-left: 14px; }
+  .cta { padding: 0 14px; font-size: 14px; }
+}
+
+@media (prefers-reduced-transparency: reduce) {
+  .pill { background: var(--color-brand-white); border-color: var(--color-brand-rule); -webkit-backdrop-filter: none; backdrop-filter: none; }
+  .sheet { background: var(--color-brand-white); }
+  .header[data-theme="dark"] .pill { background: var(--color-brand-navy); border-color: rgb(255 255 255 / .14); }
 }
 @media (prefers-reduced-motion: reduce) {
-  .links a, .brand, .language, .header[data-scrolled] .brand, .header[data-scrolled] .language { transition: none; }
-  .links a:active { transform: none; }
+  /* Opacity-only fade, no scale. `!important` and the class selector win over
+     the global reduced-motion rule that cuts every transition to .01ms. */
+  .sheet, .sheet[data-open] { transform: none; transition-property: opacity, visibility; transition-timing-function: var(--ease-out); transition-duration: 150ms, 0s !important; }
+  .sheet { transition-delay: 0s, 150ms; }
+  .sheet[data-open] { transition-delay: 0s, 0s; }
+  .cta:active, .toggle:active, .menuLanguages button:active { transform: none; }
 }

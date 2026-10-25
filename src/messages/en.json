@@ -3,14 +3,19 @@
     "voiceNeverLeaves": "Your voice never leaves your phone."
   },
   "Nav": {
-    "fr": "FR",
-    "en": "EN",
     "skip_to_content": "Skip to main content",
-    "support_label": "Support",
-    "home": "Home",
-    "blog": "Blog",
+    "navigation_label": "Main navigation",
+    "features": "Features",
+    "pro": "Pro",
+    "languages": "Languages",
+    "privacy": "Privacy",
     "pricing": "Pricing",
-    "navigation_label": "Main navigation"
+    "blog": "Blog",
+    "download": "Download",
+    "menu_open": "Open menu",
+    "menu_close": "Close menu",
+    "menu_label": "Menu",
+    "language_label": "Language"
   },
   "Metadata": {
     "title": "Dictus — Voice typing, local by default",
