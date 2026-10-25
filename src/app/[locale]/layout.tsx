@@ -127,7 +127,7 @@ export default async function LocaleLayout({ children, params }: Props) {
           >
             {tNav("skip_to_content")}
           </a>
-          <Nav preview={isSitePreview} blogAvailable={isBlogAvailable} pricingAvailable={isPricingAvailable} articleRoutes={articleRoutes} />
+          <Nav blogAvailable={isBlogAvailable} pricingAvailable={isPricingAvailable} articleRoutes={articleRoutes} />
           <MotionProvider>
             <main id="main-content">{children}</main>
           </MotionProvider>

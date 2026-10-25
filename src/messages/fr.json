@@ -1,13 +1,18 @@
 {
   "Nav": {
-    "fr": "FR",
-    "en": "EN",
     "skip_to_content": "Aller au contenu principal",
-    "support_label": "Soutenir",
-    "home": "Home",
+    "navigation_label": "Navigation principale",
+    "features": "Fonctions",
+    "pro": "Pro",
+    "languages": "Langues",
+    "privacy": "Vie privée",
+    "pricing": "Tarifs",
     "blog": "Blog",
-    "pricing": "Pricing",
-    "navigation_label": "Navigation principale"
+    "download": "Télécharger",
+    "menu_open": "Ouvrir le menu",
+    "menu_close": "Fermer le menu",
+    "menu_label": "Menu",
+    "language_label": "Langue"
   },
   "Metadata": {
     "title": "Dictus — La dictée vocale, locale par défaut",
