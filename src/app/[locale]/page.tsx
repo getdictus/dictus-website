@@ -8,9 +8,7 @@ import Features from "@/components/Features/Features";
 import Comparison from "@/components/Comparison/Comparison";
 import HowItWorks from "@/components/HowItWorks/HowItWorks";
 import Languages from "@/components/Languages/Languages";
-
-import OpenSource from "@/components/OpenSource/OpenSource";
-import Community from "@/components/Community/Community";
+import Privacy from "@/components/Privacy/Privacy";
 import Footer from "@/components/Footer/Footer";
 
 type Props = {
@@ -76,8 +74,7 @@ export default async function HomePage({ params }: Props) {
       <HowItWorks />
       <Comparison />
       <Languages />
-      <OpenSource />
-      <Community />
+      <Privacy />
       <Footer />
       <script
         type="application/ld+json"

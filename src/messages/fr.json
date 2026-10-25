@@ -48,18 +48,6 @@
     "privacy_desc": "La transcription est locale par défaut. Le traitement de votre voix se fait sur votre appareil, sans avoir à l’envoyer à un service de transcription distant.",
     "privacy_accent": "Une connexion est nécessaire pour installer l’app et télécharger un modèle. La transcription locale peut ensuite fonctionner hors ligne."
   },
-  "OpenSource": {
-    "title": "La confiance se vérifie.",
-    "desc": "Le code de Dictus est public. Vous pouvez examiner comment votre voix est traitée, suivre les changements et contribuer au projet. Un code ouvert à la vérification, pas une promesse à croire sur parole.",
-    "cta": "Explorer le projet sur GitHub",
-    "ios_source": "Code de l’app iOS",
-    "desktop_source": "Code de l’app Desktop"
-  },
-  "Community": {
-    "title": "La suite s’écrit ensemble.",
-    "desc": "Une idée, un retour sur la dictée ou simplement l’envie de suivre le projet : retrouvons-nous sur Telegram.",
-    "cta": "Rejoindre la communauté"
-  },
   "Comparison": {
     "title": "Un même projet, plusieurs façons de dicter.",
     "intro": "Les apps avancent à leur rythme. Voici ce qui les distingue aujourd’hui.",
@@ -92,6 +80,26 @@
     "layout_english": "ANGLAIS · QWERTY",
     "layout_spanish": "ESPAGNOL · QWERTY",
     "layout_german": "ALLEMAND · QWERTZ"
+  },
+  "PrivacySection": {
+    "eyebrow": "OPEN SOURCE · VIE PRIVÉE",
+    "title": "Votre voix reste sur votre iPhone.",
+    "voice": "Votre voix ne quitte jamais le téléphone.",
+    "device": {
+      "title": "Sur l’appareil",
+      "body": "Une fois le modèle téléchargé, la transcription se fait à 100 % sur l’iPhone, même sans réseau."
+    },
+    "account": {
+      "title": "Sans compte Dictus",
+      "body": "Pas d’inscription, pas d’adresse e‑mail à donner. L’app n’intègre ni analytics ni outil de pistage."
+    },
+    "source": {
+      "title": "Open source",
+      "body": "Le code de l’app iPhone est public, sous licence MIT. Lisez-le, compilez-le, proposez une amélioration.",
+      "cta": "Voir le code sur GitHub",
+      "ios": "Code de l’app iOS",
+      "desktop": "Code de l’app Desktop"
+    }
   },
   "Footer": {
     "copyright": "PIVI Solutions",
