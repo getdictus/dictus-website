@@ -7,6 +7,9 @@ import Languages from "@/components/Languages/Languages";
 import Offline from "@/components/Offline/Offline";
 import SmartModes from "@/components/SmartModes/SmartModes";
 import Privacy from "@/components/Privacy/Privacy";
+import Faq from "@/components/Faq/Faq";
+import { faqKeys } from "@/components/Faq/faqItems";
+import { pricingValues } from "@/config/pricing";
 import FinalCta from "@/components/FinalCta/FinalCta";
 import DesktopDownload from "@/components/FinalCta/DesktopDownload";
 import Footer from "@/components/Footer/Footer";
@@ -20,6 +23,7 @@ export default async function HomePage({ params }: Props) {
   setRequestLocale(locale);
 
   const t = await getTranslations("Metadata");
+  const tPricing = await getTranslations("Pricing");
   const downloads = await getDesktopDownloads();
 
   const desktopApp = {
@@ -60,9 +64,24 @@ export default async function HomePage({ params }: Props) {
     },
   };
 
+  // Same keys and values as the visible FAQ accordion.
+  const faqValues = pricingValues(locale);
+  const faqPage = {
+    "@type": "FAQPage",
+    inLanguage: locale,
+    mainEntity: faqKeys.map((key) => ({
+      "@type": "Question",
+      name: tPricing(`faq.${key}.question`),
+      acceptedAnswer: {
+        "@type": "Answer",
+        text: tPricing(`faq.${key}.answer`, faqValues),
+      },
+    })),
+  };
+
   const jsonLd = {
     "@context": "https://schema.org",
-    "@graph": [desktopApp, androidApp],
+    "@graph": [desktopApp, androidApp, faqPage],
   };
 
   return (
@@ -73,6 +92,7 @@ export default async function HomePage({ params }: Props) {
       <SmartModes />
       <Languages />
       <Privacy />
+      <Faq />
       <FinalCta />
       <DesktopDownload downloads={downloads} />
       <Footer />

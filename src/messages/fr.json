@@ -456,6 +456,10 @@
         "question": "Pourrai-je restaurer mon achat ?",
         "answer": "Oui, avec le même compte Apple que lors du paiement. Utilisez la restauration des achats dans Dictus sur vos appareils iOS compatibles. Le support peut vous aider."
       },
+      "history": {
+        "question": "Combien de dictées l’historique conserve-t-il ?",
+        "answer": "L’historique fait partie de Dictus Pro{proLaunch, select, available {} other {, à venir avec Dictus 2.0}}. Il conserve sur votre iPhone vos {historyLimit} dernières dictées, pour les rechercher, les copier ou les supprimer. Au-delà, chaque nouvelle dictée retire la plus ancienne. L’audio n’est pas conservé."
+      },
       "lifetime": {
         "question": "Que signifie « à vie » ?"
       },
