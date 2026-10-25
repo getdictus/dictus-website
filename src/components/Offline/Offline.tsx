@@ -197,6 +197,8 @@ export default function Offline() {
       aria-labelledby="hors-ligne-title"
       className="py-[clamp(72px,9vw,128px)]"
     >
+      {/* Former id of the "local" section: older links to /#local land here. */}
+      <span id="local" aria-hidden="true" className="absolute top-0" />
       <div
         ref={layoutRef}
         className={`mx-auto max-w-[1240px] px-5 min-[760px]:px-[clamp(20px,5.5vw,80px)] ${styles.layout}`}
