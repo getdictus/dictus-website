@@ -29,6 +29,23 @@ function route(article, locale) {
   return `/${locale}/blog/${article.locales[locale].slug}`;
 }
 
+// v4b nav: the pill and the closed menu sheet both hold the links, so locate
+// by role, which skips the hidden copy.
+const navLabels = { fr: "Navigation principale", en: "Main navigation" };
+const menuLabels = { fr: "Ouvrir le menu", en: "Open menu" };
+
+function navLink(page, locale, name) {
+  return page.getByRole("navigation", { name: navLabels[locale] }).getByRole("link", { name, exact: true });
+}
+
+// Below 900px the links and language switch live in the menu sheet.
+async function openMenu(page, locale) {
+  await page.getByRole("button", { name: menuLabels[locale] }).tap();
+  const menu = page.getByRole("dialog", { name: "Menu" });
+  await expect(menu).toBeVisible();
+  return menu;
+}
+
 async function assertNoOverflow(page) {
   const [content, viewport] = await page.evaluate(() => [document.documentElement.scrollWidth, document.documentElement.clientWidth]);
   assert.ok(content <= viewport + 1, `Content width ${content} exceeds viewport ${viewport}`);
@@ -143,7 +160,7 @@ for (const engine of selected) {
               await page.keyboard.press("Enter");
               await page.waitForURL(`${origin}${route(article, locale)}`);
               await expect(page.locator("h1")).toHaveText(article.locales[locale].title);
-              await expect(page.locator(`header a[href="/${locale}/blog"]`)).toHaveAttribute("aria-current", "page");
+              await expect(navLink(page, locale, "Blog")).toHaveAttribute("aria-current", "page");
             }
           }
         }
@@ -209,9 +226,9 @@ for (const engine of selected) {
         }
         await page.setViewportSize({ width: 390, height: 844 });
         await page.goto(`${origin}${route(article, "fr")}`);
-        await page.getByRole("button", { name: "Switch to English" }).tap();
+        await (await openMenu(page, "fr")).getByRole("button", { name: "English", exact: true }).tap();
         await page.waitForURL(`${origin}${route(article, "en")}`);
-        await page.getByRole("button", { name: "Passer en français" }).tap();
+        await (await openMenu(page, "en")).getByRole("button", { name: "Français", exact: true }).tap();
         await page.waitForURL(`${origin}${route(article, "fr")}`);
         const toc = page.locator('main a[href^="#"]').first();
         await expect(toc).toBeVisible();
@@ -226,7 +243,7 @@ for (const engine of selected) {
         await expect(page.locator(anchor)).toBeInViewport();
         assert.equal(await page.evaluate(() => getComputedStyle(document.documentElement).scrollBehavior), "auto");
         await page.addStyleTag({ content: "* { backdrop-filter: none !important; -webkit-backdrop-filter: none !important; filter: none !important; }" });
-        await page.locator('header a[href="/fr/blog"]').click();
+        await (await openMenu(page, "fr")).getByRole("link", { name: "Blog", exact: true }).tap();
         await page.waitForURL(`${origin}/fr/blog`);
         await expect(page.locator("h1")).toBeVisible();
         await assertNoOverflow(page);
