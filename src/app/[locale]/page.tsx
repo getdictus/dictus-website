@@ -3,9 +3,6 @@ import { getDesktopDownloads } from "@/lib/downloads";
 import { ANDROID_RELEASE_URL } from "@/config/downloads";
 import Hero from "@/components/Hero/Hero";
 import Keyboard from "@/components/Keyboard/Keyboard";
-import Features from "@/components/Features/Features";
-import Comparison from "@/components/Comparison/Comparison";
-import HowItWorks from "@/components/HowItWorks/HowItWorks";
 import Languages from "@/components/Languages/Languages";
 import Offline from "@/components/Offline/Offline";
 import SmartModes from "@/components/SmartModes/SmartModes";
@@ -93,9 +90,6 @@ export default async function HomePage({ params }: Props) {
       <Keyboard />
       <Offline />
       <SmartModes />
-      <Features />
-      <HowItWorks />
-      <Comparison />
       <Languages />
       <Privacy />
       <Faq />

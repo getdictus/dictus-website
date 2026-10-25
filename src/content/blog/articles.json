@@ -162,7 +162,7 @@
           },
           {
             "label": "Comprendre le traitement local de Dictus",
-            "href": "/fr#local"
+            "href": "/fr#hors-ligne"
           },
           {
             "label": "Accéder aux dépôts publics de Dictus",
@@ -321,7 +321,7 @@
           },
           {
             "label": "Understanding local processing in Dictus",
-            "href": "/en#local"
+            "href": "/en#hors-ligne"
           },
           {
             "label": "Access the public Dictus repositories",
