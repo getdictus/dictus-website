@@ -1,0 +1,90 @@
+/* v4b FAQ motion, transform and opacity only. An answer takes its full
+   height at once (no height animation, so nothing below reflows over time);
+   its text fades in and lifts 6px over --motion-ui. Closing is instant. The
+   "+" turns 45deg into a cross and a blue disc fades in behind it. Reduced
+   motion: everything is instant. */
+
+.trigger:focus-visible {
+  outline-offset: 2px;
+}
+
+.icon {
+  position: relative;
+  display: flex;
+  flex: none;
+  width: 36px;
+  height: 36px;
+  align-items: center;
+  justify-content: center;
+  border-radius: 50%;
+  background: var(--color-brand-white);
+  color: var(--color-brand-ink);
+}
+
+/* Blue disc of the open state. */
+.icon::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  border-radius: inherit;
+  background: var(--color-brand-blue);
+  opacity: 0;
+  transition: opacity var(--motion-fast) var(--ease-out);
+}
+
+.plus {
+  position: relative;
+  width: 14px;
+  height: 14px;
+  transition: transform var(--motion-ui) var(--ease-out);
+}
+
+.plus::before,
+.plus::after {
+  content: "";
+  position: absolute;
+  left: 0;
+  top: calc(50% - 0.75px);
+  width: 14px;
+  height: 1.5px;
+  border-radius: 1px;
+  background: currentColor;
+}
+
+.plus::after {
+  transform: rotate(90deg);
+}
+
+.icon[data-open] {
+  color: var(--color-brand-white);
+}
+
+.icon[data-open]::before {
+  opacity: 1;
+}
+
+.icon[data-open] .plus {
+  transform: rotate(45deg);
+}
+
+.answerIn:not([hidden]) > p {
+  animation: answer-in var(--motion-ui) var(--ease-out) both;
+}
+
+@keyframes answer-in {
+  from {
+    opacity: 0;
+    transform: translateY(-6px);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .icon::before,
+  .plus {
+    transition: none;
+  }
+
+  .answerIn:not([hidden]) > p {
+    animation: none;
+  }
+}

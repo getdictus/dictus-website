@@ -499,6 +499,10 @@
         "question": "Will I be able to restore my purchase?",
         "answer": "Yes, with the same Apple account used to pay. Use Restore Purchases in Dictus on your compatible iOS devices. Support can help if needed."
       },
+      "history": {
+        "question": "How many dictations does history keep?",
+        "answer": "History is part of Dictus Pro{proLaunch, select, available {} other {, coming with Dictus 2.0}}. It keeps your last {historyLimit} dictations on your iPhone, so you can search, copy or delete them. Past that limit, each new dictation removes the oldest one. Audio is not kept."
+      },
       "lifetime": {
         "question": "What does “lifetime” mean?"
       },
