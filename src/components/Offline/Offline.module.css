@@ -1,0 +1,183 @@
+/* Mobile: heading, picture, steps. From 1024px: text left, picture right. */
+.layout {
+  display: grid;
+  grid-template-areas:
+    "head"
+    "figure"
+    "steps";
+  row-gap: clamp(28px, 5vw, 48px);
+}
+
+.head { grid-area: head; }
+.figure {
+  grid-area: figure;
+  justify-self: center;
+  width: min(100%, 400px);
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+.steps { grid-area: steps; }
+
+@media (min-width: 1024px) {
+  .layout {
+    grid-template-columns: minmax(0, 1fr) minmax(0, 400px);
+    grid-template-areas:
+      "head figure"
+      "steps figure";
+    grid-template-rows: auto 1fr;
+    column-gap: clamp(48px, 6vw, 96px);
+    row-gap: 40px;
+    align-items: start;
+  }
+  .figure { width: 100%; }
+}
+
+/* The status pill sits above the picture, never on it. */
+.figureBar {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+}
+
+.pill {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  padding: 7px 14px 7px 12px;
+  border-radius: 999px;
+  background: var(--color-brand-white);
+  color: var(--color-brand-ink);
+  font-family: var(--font-dm-mono);
+  font-size: 12px;
+  line-height: 1;
+  letter-spacing: 0.08em;
+}
+
+.pillDot {
+  width: 8px;
+  height: 8px;
+  border-radius: 999px;
+  background: var(--color-recording, #EF4444);
+}
+
+/*
+ * The app's render is 1000 x 1440 px on #0A1628, the section's ground; the
+ * drawing spans x 28 to 970 and y 27 to 1367 over the loop (measured on every
+ * 15th frame of both languages). Browsers decode the video's ground a code
+ * value or two off, so the frame fades its four edges with a mask instead of
+ * showing a hard edge. The fade stays outside the drawing.
+ */
+.frame {
+  position: relative;
+  aspect-ratio: 1000 / 1440;
+  overflow: hidden;
+  -webkit-mask-image:
+    linear-gradient(to right, transparent, #000 2.5%, #000 97.5%, transparent),
+    linear-gradient(to bottom, transparent, #000 1.8%, #000 95%, transparent);
+  -webkit-mask-composite: source-in;
+  mask-image:
+    linear-gradient(to right, transparent, #000 2.5%, #000 97.5%, transparent),
+    linear-gradient(to bottom, transparent, #000 1.8%, #000 95%, transparent);
+  mask-composite: intersect;
+}
+
+.media,
+.media > img,
+.media > video {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+}
+
+/* The still stays under the video until the video shows the still's own frame. */
+.media > video { opacity: 0; }
+.media > video[data-ready="true"] { opacity: 1; }
+
+.cards {
+  display: grid;
+  gap: 12px;
+}
+
+.modelCard {
+  padding: 16px 20px;
+  border-radius: 18px;
+  background: var(--color-brand-white);
+}
+
+.badge {
+  padding: 3px 7px;
+  border-radius: 6px;
+  background: var(--color-mist);
+  color: var(--color-accent-text-deep);
+  font-family: var(--font-dm-mono);
+  font-size: 11px;
+  line-height: 1.2;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+}
+
+.noteCard {
+  padding: 16px 20px;
+  border-radius: 18px;
+  border: 1px solid rgba(255, 255, 255, 0.14);
+}
+
+.rule {
+  display: block;
+  height: 2px;
+  border-radius: 1px;
+  background: rgba(255, 255, 255, 0.14);
+}
+
+/* Pause / play for the loop (WCAG 2.2.2). */
+.playback {
+  display: grid;
+  place-items: center;
+  width: 44px;
+  height: 44px;
+  border-radius: 999px;
+  border: 1px solid rgba(255, 255, 255, 0.24);
+  background: transparent;
+  color: var(--color-brand-white);
+  cursor: pointer;
+  transition: border-color var(--motion-fast) ease, transform var(--motion-press) var(--ease-out);
+}
+
+.playback:active { transform: scale(0.96); }
+
+.playback:focus-visible {
+  outline: 2px solid var(--color-accent-hi, #6BA3FF);
+  outline-offset: 2px;
+}
+
+@media (hover: hover) and (pointer: fine) {
+  .playback:hover { border-color: rgba(255, 255, 255, 0.5); }
+}
+
+/*
+ * One-time entrance: 12px rise and fade, 450ms. Only armed by useRevealOnce
+ * when the section starts below the viewport; each item shows when it scrolls
+ * in. Transitions, so a change mid-entrance retargets instead of jumping.
+ */
+.reveal {
+  transition:
+    opacity 450ms var(--ease-out),
+    transform 450ms var(--ease-out);
+}
+
+[data-reveal="pending"] .reveal:not([data-reveal-item="shown"]) {
+  opacity: 0;
+  transform: translateY(12px);
+}
+
+/* Nothing moves under reduced motion: no loop to pause, no entrance. */
+@media (prefers-reduced-motion: reduce) {
+  .playback { display: none; }
+  .reveal { transition: none; }
+  /* Switched on mid-loop: the paused video gives way to the still. */
+  .media > video,
+  .media > video[data-ready="true"] { opacity: 0; }
+}
