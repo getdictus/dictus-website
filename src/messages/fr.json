@@ -113,6 +113,9 @@
       "speak": {
         "title": "Vous parlez, le texte arrive.",
         "body": "La transcription se fait sur l’iPhone, hors ligne, et le texte arrive là où vous écrivez."
+      },
+      "voice": {
+        "body": "Le code est open source : chacun peut vérifier ce que fait Dictus."
       }
     },
     "facts": "TRANSCRIPTION 100 % SUR L’APPAREIL · OPEN SOURCE"

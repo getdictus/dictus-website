@@ -113,6 +113,9 @@
       "speak": {
         "title": "You speak, the text arrives.",
         "body": "Transcription runs on the iPhone, offline, and the text lands where you are writing."
+      },
+      "voice": {
+        "body": "The code is open source: anyone can check what Dictus does."
       }
     },
     "facts": "TRANSCRIPTION 100% ON DEVICE · OPEN SOURCE"

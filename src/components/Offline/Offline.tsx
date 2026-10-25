@@ -18,7 +18,7 @@ const sceneFiles = {
   en: { av1: "/videos/offline/intro-b-dark-en.webm", hevc: "/videos/offline/intro-b-dark-en.mp4", still: "/images/offline/intro-b-dark-en.webp" },
 } as const;
 
-const STEPS = ["model", "speak"] as const;
+const STEPS = ["model", "speak", "voice"] as const;
 
 // The video is its own clock: there is nothing to draw per frame.
 const drawNothing = () => {};
@@ -291,14 +291,18 @@ export default function Offline() {
         </div>
 
         <div className={styles.steps}>
-          <ol aria-label={t("steps_label")} className="grid gap-x-8 gap-y-7 min-[640px]:max-[1023px]:grid-cols-2 min-[1024px]:max-w-[520px]">
+          <ol aria-label={t("steps_label")} className="grid gap-x-8 gap-y-7 min-[640px]:max-[1023px]:grid-cols-3 min-[1024px]:max-w-[520px]">
             {STEPS.map((key) => (
               <li key={key} className={styles.reveal} data-reveal-item="">
                 <span aria-hidden="true" className={styles.rule} />
-                <h3 className="mt-3.5 text-[clamp(20px,1.7vw,24px)] font-medium tracking-[-0.02em]">
-                  {t(`steps.${key}.title`)}
-                </h3>
-                <p className="mt-1.5 text-[clamp(16px,1.25vw,18px)] leading-normal text-brand-on-navy">
+                {/* The voice step has no title: the voice sentence lives in a shared
+                    key elsewhere, shown once on the page. */}
+                {key !== "voice" && (
+                  <h3 className="mt-3.5 text-[clamp(20px,1.7vw,24px)] font-medium tracking-[-0.02em]">
+                    {t(`steps.${key}.title`)}
+                  </h3>
+                )}
+                <p className={`${key === "voice" ? "mt-3.5" : "mt-1.5"} text-[clamp(16px,1.25vw,18px)] leading-normal text-brand-on-navy`}>
                   {t(`steps.${key}.body`)}
                 </p>
               </li>
