@@ -35,7 +35,7 @@ for (const engine of (process.env.VERIFY_ENGINES || "chromium,firefox,webkit").s
       await expect(page.locator("#free-title")).toBeVisible();
       await expect(page.locator("#pro-title")).toBeVisible();
       await expect(page.locator('[data-pricing-cards] button')).toBeDisabled();
-      await expect(page.locator('[data-pricing-cards] button')).toContainText(locale === "fr" ? "Bientôt disponible" : "Coming soon");
+      await expect(page.locator('[data-pricing-cards] button')).toContainText(locale === "fr" ? "Avec Dictus 2.0" : "Coming with Dictus 2.0");
       const cards = await page.locator('[data-pricing-cards] > section').evaluateAll((nodes) => nodes.map((node) => {
         const box = node.getBoundingClientRect(); return { top: box.top, bottom: box.bottom };
       }));
@@ -49,7 +49,7 @@ for (const engine of (process.env.VERIFY_ENGINES || "chromium,firefox,webkit").s
       await expect(page.locator("article")).toContainText("iOS 17");
       await expect(page.locator("article")).toContainText("iPhone 15 Pro");
       await expect(page.locator("article")).toContainText("iPhone Air");
-      await expect(page.getByRole("table").locator("tbody tr")).toHaveCount(7);
+      await expect(page.getByRole("table").locator("tbody tr")).toHaveCount(8);
       await expect(page.getByRole("table")).toContainText("200");
       await expect(page.locator("[data-pricing-faq] details")).toHaveCount(10);
       await comparison.locator("summary").click();
@@ -63,13 +63,13 @@ for (const engine of (process.env.VERIFY_ENGINES || "chromium,firefox,webkit").s
       const yearly = page.locator('input[value="yearly"]');
       await expect(yearly).toBeChecked();
       await expect(details).toContainText(expected.yearly);
-      await expect(details).toContainText(locale === "fr" ? "éligible" : "eligible");
+      await expect(details).toContainText(locale === "fr" ? "par an" : "per year");
       await yearly.focus();
       await page.keyboard.press("ArrowLeft");
       await expect(page.locator('input[value="monthly"]')).toBeChecked();
       await expect(details).toContainText(expected.monthly);
-      await expect(details).toContainText(locale === "fr" ? "Sans essai" : "No trial");
-      await expect(page.locator('[data-billing-note]')).toContainText(locale === "fr" ? "Sans essai" : "No trial");
+      await expect(details).toContainText(locale === "fr" ? "Renouvellement automatique" : "Renews automatically");
+      await expect(page.locator('[data-billing-note]')).toContainText(locale === "fr" ? "Renouvellement automatique" : "Renews automatically");
       await page.keyboard.press("ArrowRight");
       await page.keyboard.press("ArrowRight");
       await expect(page.locator('input[value="lifetime"]')).toBeChecked();
@@ -122,7 +122,7 @@ for (const engine of (process.env.VERIFY_ENGINES || "chromium,firefox,webkit").s
       await page.goto(`${origin}/${locale}/terms`);
       await expect(page.locator("article")).toContainText(expected.yearly);
       await expect(page.locator("article")).toContainText(lifetime);
-      await expect(page.locator("article")).toContainText(locale === "fr" ? "Seul l’abonnement annuel" : "Only the yearly");
+      await expect(page.locator("article")).toContainText(locale === "fr" ? "rien n’est débité à son terme" : "nothing is charged when it ends");
     });
 
     await check(`${engine}/${locale}: pricing metadata and locale route`, async () => {

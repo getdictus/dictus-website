@@ -46,15 +46,14 @@ export default function Pricing() {
             </section>
 
             <section className={`${styles.card} ${styles.proCard}`} aria-labelledby="pro-title">
-              <div className={styles.cardHeading}><h2 id="pro-title">{t("cards.pro.title")}</h2><p>{t("cards.pro.platform")}</p></div>
+              <div className={styles.cardHeading}><h2 id="pro-title">{t("cards.pro.title")}</h2><p>{t("cards.pro.platform", values)}</p></div>
               <BillingPrice />
-              <p className={styles.description}>{t("cards.pro.description")}</p>
+              <p className={styles.description}>{t("cards.pro.includes")}</p>
               <ul className={styles.features}>
-                <li className={styles.includes}>{t("cards.pro.includes")}</li>
                 {proFeatures.map((key) => <li key={key}>{t(`cards.pro.features.${key}`, values)}</li>)}
               </ul>
               <div className={styles.cardFooter}>
-                <button className={styles.cta} disabled>{t("cards.pro.cta")}</button>
+                <button className={styles.cta} disabled>{t("cards.pro.cta", values)}</button>
                 <p>{t("cards.pro.compatibility")}</p>
               </div>
             </section>
