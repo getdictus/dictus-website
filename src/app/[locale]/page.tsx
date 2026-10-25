@@ -8,6 +8,7 @@ import Features from "@/components/Features/Features";
 import Comparison from "@/components/Comparison/Comparison";
 import HowItWorks from "@/components/HowItWorks/HowItWorks";
 import Languages from "@/components/Languages/Languages";
+import Offline from "@/components/Offline/Offline";
 
 import OpenSource from "@/components/OpenSource/OpenSource";
 import Community from "@/components/Community/Community";
@@ -71,6 +72,7 @@ export default async function HomePage({ params }: Props) {
     <>
       <Hero />
       <ProductScenes />
+      <Offline />
       <Platforms downloads={downloads} />
       <Features />
       <HowItWorks />
