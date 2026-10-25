@@ -2,17 +2,15 @@ import { setRequestLocale, getTranslations } from "next-intl/server";
 import { getDesktopDownloads } from "@/lib/downloads";
 import { ANDROID_RELEASE_URL } from "@/config/downloads";
 import Hero from "@/components/Hero/Hero";
-import FinalCta from "@/components/FinalCta/FinalCta";
-import DesktopDownload from "@/components/FinalCta/DesktopDownload";
-import ProductScenes from "@/components/ProductScenes/ProductScenes";
+import Keyboard from "@/components/Keyboard/Keyboard";
 import Features from "@/components/Features/Features";
 import Comparison from "@/components/Comparison/Comparison";
 import HowItWorks from "@/components/HowItWorks/HowItWorks";
 import Languages from "@/components/Languages/Languages";
 import Offline from "@/components/Offline/Offline";
-
-import OpenSource from "@/components/OpenSource/OpenSource";
-import Community from "@/components/Community/Community";
+import Privacy from "@/components/Privacy/Privacy";
+import FinalCta from "@/components/FinalCta/FinalCta";
+import DesktopDownload from "@/components/FinalCta/DesktopDownload";
 import Footer from "@/components/Footer/Footer";
 
 type Props = {
@@ -72,14 +70,13 @@ export default async function HomePage({ params }: Props) {
   return (
     <>
       <Hero />
-      <ProductScenes />
+      <Keyboard />
       <Offline />
       <Features />
       <HowItWorks />
       <Comparison />
       <Languages />
-      <OpenSource />
-      <Community />
+      <Privacy />
       <FinalCta />
       <DesktopDownload downloads={downloads} />
       <Footer />

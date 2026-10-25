@@ -1,4 +1,7 @@
 {
+  "common": {
+    "voiceNeverLeaves": "Your voice never leaves your phone."
+  },
   "Nav": {
     "skip_to_content": "Skip to main content",
     "navigation_label": "Main navigation",
@@ -22,10 +25,18 @@
     "android_jsonld_description": "Public beta. Free and open source voice dictation keyboard for Android 10 or later, with on-device transcription."
   },
   "Hero": {
-    "headline": "Your voice stays yours.",
-    "subtitle": "Voice typing. Local by default, open source.",
-    "cta_discover": "Discover Dictus",
-    "platform_desktop": "Mac, Windows and Linux"
+    "title_a": "Speak.",
+    "title_b": "Dictus writes.",
+    "subtitle": "The dictation keyboard that writes in your apps. On your phone, no tracking, open source.",
+    "desktop_prefix": "On your computer:",
+    "desktop_link": "Dictus Desktop",
+    "desktop_platforms": "Mac, Windows, Linux",
+    "written_label": "Dictus writes",
+    "phrases": [
+      "Thanks for your notes!",
+      "I'll read them tonight.",
+      "Shall we talk tomorrow?"
+    ]
   },
   "DownloadButtons": {
     "app_store_alt": "Download on the App Store",
@@ -52,18 +63,6 @@
     "privacy_title": "Your voice, on your device.",
     "privacy_desc": "Transcription is local by default. Your device processes your voice without having to send it to a remote transcription service.",
     "privacy_accent": "You need a connection to install the app and download a model. Local transcription can then work offline."
-  },
-  "OpenSource": {
-    "title": "Trust you can check.",
-    "desc": "Dictus code is public. You can examine how your voice is processed, follow changes and contribute to the project. Open to inspection, without having to take our word for it.",
-    "cta": "Explore the project on GitHub",
-    "ios_source": "iOS source code",
-    "desktop_source": "Desktop source code"
-  },
-  "Community": {
-    "title": "Write the next chapter with us.",
-    "desc": "Share an idea, tell us how dictation works for you, or simply follow the project. Join us on Telegram.",
-    "cta": "Join the community"
   },
   "Comparison": {
     "title": "One project, different ways to dictate.",
@@ -131,6 +130,25 @@
     "layout_english": "ENGLISH · QWERTY",
     "layout_spanish": "SPANISH · QWERTY",
     "layout_german": "GERMAN · QWERTZ"
+  },
+  "PrivacySection": {
+    "eyebrow": "OPEN SOURCE · PRIVACY",
+    "title": "Your voice stays on your iPhone.",
+    "device": {
+      "title": "On device",
+      "body": "Once the model is downloaded, transcription runs 100% on the iPhone, even offline."
+    },
+    "tracking": {
+      "title": "No tracking",
+      "body": "The app integrates no analytics, tracking or crash-reporting tool. Sharing iOS crash reports is an Apple setting you choose."
+    },
+    "source": {
+      "title": "Open source",
+      "body": "The iPhone app’s code is public, under the MIT licence. Read it, build it, suggest an improvement.",
+      "cta": "See the code on GitHub",
+      "ios": "iOS source code",
+      "desktop": "Desktop source code"
+    }
   },
   "FinalCta": {
     "title_a": "Speak.",
@@ -516,39 +534,30 @@
       }
     }
   },
-  "ProductScenes": {
-    "platform": "Dictus on iPhone",
-    "title_line_one": "In the apps",
-    "title_line_two": "you already love.",
-    "description": "Your notes, messages and emails. Keep your keyboard, and let your ideas do the talking.",
-    "picker": "Explore the iPhone demo chapters",
-    "video_label": "Dictus demo recorded on an iPhone.",
-    "video_description": "In Apple Notes, a phrase is typed with the Dictus keyboard, its autocorrection and suggestions. Dictation inserts “Hello guys, how are you doing?”. The app then shows the last transcription, models and settings. Typing is shown at 1.5× its original speed; dictation remains at its original speed.",
-    "video_play": "Play the demo",
-    "video_unavailable": "The video is unavailable. You can still explore the screenshots.",
-    "beta": "Try the beta on TestFlight",
-    "source": "View the code on GitHub",
-    "app_store": "Download on the App Store",
-    "android_label": "Android",
-    "android_badge": "Beta",
-    "android": "Free and open source, on Android 10 or later.",
-    "android_link": "Download the APK on GitHub",
-    "screens": {
-      "keyboard": {
-        "label": "The keyboard",
-        "alt": "Apple Notes on iPhone with the Dictus keyboard and its dictation button.",
-        "caption": "The Dictus keyboard in Apple Notes."
+  "Keyboard": {
+    "eyebrow": "IN YOUR KEYBOARD",
+    "title": "The mic is already there.",
+    "scene_description": "The animation comes from the Dictus iPhone app: in a note, “Hi” is typed on the Dictus keyboard, then the mic is tapped, the dictation confirmed, and the paragraph lands in the note.",
+    "steps_label": "One dictation, step by step",
+    "pause": "Pause the animation",
+    "play": "Play the animation",
+    "steps": {
+      "mic": {
+        "title": "Tap the mic.",
+        "body": "Dictus replaces your keyboard, not your apps. Open a chat, an email, a note: the mic is at the top right."
       },
-      "dictation": {
-        "label": "Dictation",
-        "alt": "Dictus recording in Apple Notes, with its waveform and confirmation button.",
-        "caption": "Speak, then find your words in Apple Notes."
+      "speak": {
+        "title": "Talk the way you talk.",
+        "body": "The timer runs while you speak. Tap ✓ when you are done: transcription runs on the phone."
       },
-      "app": {
-        "label": "The app",
-        "alt": "The Dictus app home screen on iPhone.",
-        "caption": "Your transcription, models and settings."
+      "write": {
+        "title": "Dictus writes.",
+        "body": "Capitals and punctuation included, the text lands where your cursor was."
       }
+    },
+    "where": {
+      "title": "Where you write.",
+      "body": "Messages, email, notes, AI assistants: Dictus writes in apps that accept third-party keyboards. For passwords, iOS keeps its own keyboard."
     }
   }
 }

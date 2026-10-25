@@ -1,4 +1,7 @@
 {
+  "common": {
+    "voiceNeverLeaves": "Votre voix ne quitte jamais le téléphone."
+  },
   "Nav": {
     "skip_to_content": "Aller au contenu principal",
     "navigation_label": "Navigation principale",
@@ -22,10 +25,18 @@
     "android_jsonld_description": "Bêta publique. Clavier de dictée vocale gratuit et open source pour Android 10 ou ultérieur, avec transcription sur l’appareil."
   },
   "Hero": {
-    "headline": "Votre voix reste la vôtre.",
-    "subtitle": "La dictée vocale. Locale par défaut, code ouvert.",
-    "cta_discover": "Découvrir Dictus",
-    "platform_desktop": "Mac, Windows et Linux"
+    "title_a": "Parlez.",
+    "title_b": "Dictus écrit.",
+    "subtitle": "Le clavier de dictée qui écrit dans vos apps. Sur votre téléphone, sans pistage, open source.",
+    "desktop_prefix": "Sur ordinateur :",
+    "desktop_link": "Dictus Desktop",
+    "desktop_platforms": "Mac, Windows, Linux",
+    "written_label": "Dictus écrit",
+    "phrases": [
+      "Merci pour tes notes !",
+      "Je regarde ça ce soir.",
+      "On en reparle demain ?"
+    ]
   },
   "DownloadButtons": {
     "app_store_alt": "Télécharger dans l’App Store",
@@ -52,18 +63,6 @@
     "privacy_title": "Votre voix, sur votre appareil.",
     "privacy_desc": "La transcription est locale par défaut. Le traitement de votre voix se fait sur votre appareil, sans avoir à l’envoyer à un service de transcription distant.",
     "privacy_accent": "Une connexion est nécessaire pour installer l’app et télécharger un modèle. La transcription locale peut ensuite fonctionner hors ligne."
-  },
-  "OpenSource": {
-    "title": "La confiance se vérifie.",
-    "desc": "Le code de Dictus est public. Vous pouvez examiner comment votre voix est traitée, suivre les changements et contribuer au projet. Un code ouvert à la vérification, pas une promesse à croire sur parole.",
-    "cta": "Explorer le projet sur GitHub",
-    "ios_source": "Code de l’app iOS",
-    "desktop_source": "Code de l’app Desktop"
-  },
-  "Community": {
-    "title": "La suite s’écrit ensemble.",
-    "desc": "Une idée, un retour sur la dictée ou simplement l’envie de suivre le projet : retrouvons-nous sur Telegram.",
-    "cta": "Rejoindre la communauté"
   },
   "Comparison": {
     "title": "Un même projet, plusieurs façons de dicter.",
@@ -131,6 +130,25 @@
     "layout_english": "ANGLAIS · QWERTY",
     "layout_spanish": "ESPAGNOL · QWERTY",
     "layout_german": "ALLEMAND · QWERTZ"
+  },
+  "PrivacySection": {
+    "eyebrow": "OPEN SOURCE · VIE PRIVÉE",
+    "title": "Votre voix reste sur votre iPhone.",
+    "device": {
+      "title": "Sur l’appareil",
+      "body": "Une fois le modèle téléchargé, la transcription se fait à 100 % sur l’iPhone, même sans réseau."
+    },
+    "tracking": {
+      "title": "Sans pistage",
+      "body": "L’app n’intègre aucun outil d’analytics, de pistage ou de rapport de plantage. Le partage des rapports de plantage d’iOS reste un réglage d’Apple que vous choisissez."
+    },
+    "source": {
+      "title": "Open source",
+      "body": "Le code de l’app iPhone est public, sous licence MIT. Lisez‑le, compilez‑le, proposez une amélioration.",
+      "cta": "Voir le code sur GitHub",
+      "ios": "Code de l’app iOS",
+      "desktop": "Code de l’app Desktop"
+    }
   },
   "FinalCta": {
     "title_a": "Parlez.",
@@ -516,39 +534,30 @@
       }
     }
   },
-  "ProductScenes": {
-    "platform": "Dictus sur iPhone",
-    "title_line_one": "Dans les apps",
-    "title_line_two": "que vous aimez déjà.",
-    "description": "Vos notes, vos messages, vos e-mails. Retrouvez votre clavier, et laissez simplement parler vos idées.",
-    "picker": "Explorer les chapitres de la démonstration iPhone",
-    "video_label": "Démonstration de Dictus enregistrée sur iPhone. Interface en anglais.",
-    "video_description": "Dans Apple Notes, une phrase est saisie avec le clavier Dictus, ses corrections et suggestions. Une dictée insère « Hello guys, how are you doing? ». L’application affiche ensuite la dernière transcription, les modèles et les réglages. La saisie est accélérée de 50 % ; la dictée reste à sa vitesse d’origine.",
-    "video_play": "Lire la démonstration",
-    "video_unavailable": "La vidéo est indisponible. Les captures restent accessibles.",
-    "beta": "Tester la bêta sur TestFlight",
-    "source": "Voir le code sur GitHub",
-    "app_store": "Télécharger sur l’App Store",
-    "android_label": "Android",
-    "android_badge": "Bêta",
-    "android": "Gratuit et open source, sur Android 10 ou ultérieur.",
-    "android_link": "Télécharger l’APK sur GitHub",
-    "screens": {
-      "keyboard": {
-        "label": "Le clavier",
-        "alt": "Capture d’Apple Notes sur iPhone avec le clavier Dictus et son bouton de dictée. Interface en anglais.",
-        "caption": "Le clavier Dictus, dans Apple Notes."
+  "Keyboard": {
+    "eyebrow": "DANS VOTRE CLAVIER",
+    "title": "Le micro est déjà là.",
+    "scene_description": "L’animation vient de l’app Dictus pour iPhone : dans une note, « Salut » est tapé sur le clavier Dictus, puis le micro est touché, la dictée validée, et le paragraphe arrive dans la note.",
+    "steps_label": "Une dictée, étape par étape",
+    "pause": "Mettre l’animation en pause",
+    "play": "Lire l’animation",
+    "steps": {
+      "mic": {
+        "title": "Touchez le micro.",
+        "body": "Dictus remplace votre clavier, pas vos apps. Ouvrez une conversation, un mail, une note : le micro est en haut à droite."
       },
-      "dictation": {
-        "label": "La dictée",
-        "alt": "Capture d’une dictée Dictus en cours dans Apple Notes, avec sa waveform et le bouton de validation. Interface en anglais.",
-        "caption": "Parlez, puis retrouvez vos mots dans Apple Notes."
+      "speak": {
+        "title": "Parlez comme vous parlez.",
+        "body": "Le minuteur tourne pendant que vous parlez. Touchez ✓ quand vous avez fini : la transcription se fait sur le téléphone."
       },
-      "app": {
-        "label": "L’app",
-        "alt": "Capture de l’accueil de l’application Dictus sur iPhone. Interface en anglais.",
-        "caption": "Votre transcription, vos modèles et vos réglages."
+      "write": {
+        "title": "Dictus écrit.",
+        "body": "Majuscules et ponctuation comprises, le texte arrive là où se trouvait votre curseur."
       }
+    },
+    "where": {
+      "title": "Là où vous écrivez.",
+      "body": "Messages, mails, notes, assistants IA : Dictus écrit dans les apps qui acceptent les claviers tiers. Pour les mots de passe, iOS garde son propre clavier."
     }
   }
 }

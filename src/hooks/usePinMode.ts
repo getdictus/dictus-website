@@ -19,7 +19,7 @@ export function hashTargetsAfter(element: Element) {
 
 /**
  * Decides whether a scroll-pinned section pins, and gets out of the way when
- * it should not. The rules come from `ProductScenes/useIphoneStage.ts`,
+ * it should not. The rules come from the former `ProductScenes/useIphoneStage.ts`,
  * which is verified on Chromium and WebKit:
  *
  * - It pins only with room (`PIN_MEDIA_QUERY`) and without reduced motion.
