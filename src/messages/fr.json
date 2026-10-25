@@ -115,6 +115,7 @@
         "body": "La transcription se fait sur l’iPhone, hors ligne, et le texte arrive là où vous écrivez."
       },
       "voice": {
+        "title": "Open source",
         "body": "Le code est open source : chacun peut vérifier ce que fait Dictus."
       }
     },

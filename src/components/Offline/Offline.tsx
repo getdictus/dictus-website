@@ -295,14 +295,10 @@ export default function Offline() {
             {STEPS.map((key) => (
               <li key={key} className={styles.reveal} data-reveal-item="">
                 <span aria-hidden="true" className={styles.rule} />
-                {/* The voice step has no title: the voice sentence lives in a shared
-                    key elsewhere, shown once on the page. */}
-                {key !== "voice" && (
-                  <h3 className="mt-3.5 text-[clamp(20px,1.7vw,24px)] font-medium tracking-[-0.02em]">
-                    {t(`steps.${key}.title`)}
-                  </h3>
-                )}
-                <p className={`${key === "voice" ? "mt-3.5" : "mt-1.5"} text-[clamp(16px,1.25vw,18px)] leading-normal text-brand-on-navy`}>
+                <h3 className="mt-3.5 text-[clamp(20px,1.7vw,24px)] font-medium tracking-[-0.02em]">
+                  {t(`steps.${key}.title`)}
+                </h3>
+                <p className="mt-1.5 text-[clamp(16px,1.25vw,18px)] leading-normal text-brand-on-navy">
                   {t(`steps.${key}.body`)}
                 </p>
               </li>

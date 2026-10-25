@@ -115,6 +115,7 @@
         "body": "Transcription runs on the iPhone, offline, and the text lands where you are writing."
       },
       "voice": {
+        "title": "Open source",
         "body": "The code is open source: anyone can check what Dictus does."
       }
     },
