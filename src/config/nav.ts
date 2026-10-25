@@ -47,5 +47,5 @@ export function resolveNavLinks(gates: Record<NavGate, boolean>): NavLink[] {
  * then it goes to the top of `main`, where the hero holds the App Store and
  * Android download buttons.
  */
-const downloadSection = { id: "telecharger", live: false as boolean, fallback: "main-content" };
+const downloadSection = { id: "telecharger", live: true as boolean, fallback: "main-content" };
 export const downloadTargetId = downloadSection.live ? downloadSection.id : downloadSection.fallback;

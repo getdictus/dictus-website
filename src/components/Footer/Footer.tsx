@@ -21,10 +21,7 @@ function sectionHref(labelKey: NavLabelKey, fallback: string | null): string | n
 }
 
 function productLinks(): FooterLink[] {
-  const links: FooterLink[] = [];
-  // Until `#clavier` ships, the keyboard demo section stands in for it.
-  const features = sectionHref("features", "/#iphone");
-  if (features) links.push({ key: "features", href: features, internal: true });
+  const links: FooterLink[] = [{ key: "features", href: "/#clavier", internal: true }];
   // Pro and Pricing have no home section yet: they point at /pricing, which is
   // only reachable where its release gate is open (never in production).
   if (isPricingAvailable) {
