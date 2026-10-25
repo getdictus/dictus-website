@@ -1,6 +1,6 @@
 import { useTranslations } from "next-intl";
 import { Link } from "@/i18n/navigation";
-import { navEntries, type NavLabelKey } from "@/config/nav";
+import { resolveNavLinks, type NavLabelKey } from "@/config/nav";
 import { isBlogAvailable } from "@/config/blog";
 import { isPricingAvailable } from "@/config/pricing-release";
 
@@ -11,22 +11,22 @@ type FooterLink =
   | { key: string; href: string; internal: false };
 
 /**
- * Home-page section for a nav entry once its section is live, else `fallback`.
- * Read from `nav.ts` so the footer follows each section PR's `live` flip.
+ * Href of a nav entry as the nav resolves it from `nav.ts`, with the same
+ * release gates: its home section once live, else its route, else null when
+ * its gate is closed (Pricing in production).
  */
-function sectionHref(labelKey: NavLabelKey, fallback: string | null): string | null {
-  const entry = navEntries.find((item) => item.labelKey === labelKey);
-  if (entry?.section && entry.live) return `/#${entry.section}`;
-  return fallback;
+function navHref(labelKey: NavLabelKey): string | null {
+  const link = resolveNavLinks({ blog: isBlogAvailable, pricing: isPricingAvailable })
+    .find((item) => item.labelKey === labelKey);
+  if (!link) return null;
+  return link.kind === "section" ? `/#${link.id}` : link.href;
 }
 
 function productLinks(): FooterLink[] {
   const links: FooterLink[] = [{ key: "features", href: "/#clavier", internal: true }];
-  // Pro and Pricing have no home section yet: they point at /pricing, which is
-  // only reachable where its release gate is open (never in production).
-  if (isPricingAvailable) {
-    links.push({ key: "pro", href: sectionHref("pro", "/pricing#pro-title")!, internal: true });
-    links.push({ key: "pricing", href: sectionHref("pricing", "/pricing")!, internal: true });
+  for (const key of ["pro", "pricing"] as const) {
+    const href = navHref(key);
+    if (href) links.push({ key, href, internal: true });
   }
   links.push({ key: "desktop", href: "/#desktop", internal: true });
   return links;
