@@ -1,4 +1,7 @@
 {
+  "common": {
+    "voiceNeverLeaves": "Your voice never leaves your phone."
+  },
   "Nav": {
     "skip_to_content": "Skip to main content",
     "navigation_label": "Main navigation",
@@ -56,18 +59,6 @@
     "privacy_title": "Your voice, on your device.",
     "privacy_desc": "Transcription is local by default. Your device processes your voice without having to send it to a remote transcription service.",
     "privacy_accent": "You need a connection to install the app and download a model. Local transcription can then work offline."
-  },
-  "OpenSource": {
-    "title": "Trust you can check.",
-    "desc": "Dictus code is public. You can examine how your voice is processed, follow changes and contribute to the project. Open to inspection, without having to take our word for it.",
-    "cta": "Explore the project on GitHub",
-    "ios_source": "iOS source code",
-    "desktop_source": "Desktop source code"
-  },
-  "Community": {
-    "title": "Write the next chapter with us.",
-    "desc": "Share an idea, tell us how dictation works for you, or simply follow the project. Join us on Telegram.",
-    "cta": "Join the community"
   },
   "Comparison": {
     "title": "One project, different ways to dictate.",
@@ -135,6 +126,25 @@
     "layout_english": "ENGLISH · QWERTY",
     "layout_spanish": "SPANISH · QWERTY",
     "layout_german": "GERMAN · QWERTZ"
+  },
+  "PrivacySection": {
+    "eyebrow": "OPEN SOURCE · PRIVACY",
+    "title": "Your voice stays on your iPhone.",
+    "device": {
+      "title": "On device",
+      "body": "Once the model is downloaded, transcription runs 100% on the iPhone, even offline."
+    },
+    "tracking": {
+      "title": "No tracking",
+      "body": "The app integrates no analytics, tracking or crash-reporting tool. Sharing iOS crash reports is an Apple setting you choose."
+    },
+    "source": {
+      "title": "Open source",
+      "body": "The iPhone app’s code is public, under the MIT licence. Read it, build it, suggest an improvement.",
+      "cta": "See the code on GitHub",
+      "ios": "iOS source code",
+      "desktop": "Desktop source code"
+    }
   },
   "Footer": {
     "copyright": "PIVI Solutions",
