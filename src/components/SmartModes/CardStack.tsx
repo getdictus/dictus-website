@@ -14,7 +14,7 @@ const SLOTS = [
   "translateX(0px) rotate(0deg) scale(1)",
   "translateX(34px) rotate(5deg) scale(0.94)",
   "translateX(-34px) rotate(-5deg) scale(0.94)",
-  "translateX(0px) rotate(0deg) scale(0.88)",
+  "translateX(0px) rotate(0deg) scale(0.9)",
 ] as const;
 
 /**

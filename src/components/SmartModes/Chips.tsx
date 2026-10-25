@@ -52,7 +52,7 @@ export default function Chips({ label, chips, compatibility }: Props) {
                 data-active={active}
                 aria-current={active ? "step" : undefined}
                 onClick={() => goToStep(index)}
-                className={`min-h-10 shrink-0 whitespace-nowrap rounded-full px-4 text-[15px] font-medium transition-colors duration-200 ease-[var(--ease-out)] focus-visible:outline-brand-ink ${
+                className={`min-h-10 shrink-0 whitespace-nowrap rounded-full px-4 text-[15px] font-medium transition-[color,background-color,transform] duration-200 ease-[var(--ease-out)] active:scale-[0.97] focus-visible:outline-brand-ink ${
                   active ? "bg-brand-ink text-white" : "bg-white text-brand-ink"
                 }`}
               >
