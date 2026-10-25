@@ -221,7 +221,7 @@ export default function PinnedSteps({
                 ? "mx-auto grid w-full max-w-6xl grid-cols-2 items-center gap-16 px-8 pt-20"
                 : `mx-auto grid max-w-6xl gap-12 px-6 py-24 min-[1024px]:px-8 ${stepVisual ? "" : "min-[1024px]:grid-cols-2 min-[1024px]:items-center"}`}
             >
-              <div>
+              <div className="min-w-0">
                 {intro}
                 {pinned ? (
                   <>
@@ -294,7 +294,7 @@ export default function PinnedSteps({
                           data-step-index={index}
                           className={stepVisual ? "grid scroll-mt-14 gap-8 min-[1024px]:grid-cols-2 min-[1024px]:items-center min-[1024px]:gap-16" : undefined}
                         >
-                          <div>
+                          <div className="min-w-0">
                             <StepText step={step} muted={muted} display={display} />
                           </div>
                           {stepVisual && <div className="flex justify-center">{stepVisual(index)}</div>}
