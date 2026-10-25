@@ -17,9 +17,9 @@ const DRIFT_NARROW = 120;
 const WIDE_QUERY = "(min-width: 760px)";
 
 const toneClasses: Record<Greeting["tone"], string> = {
-  0: "text-[30px] font-normal text-brand-ink dark:text-text-primary min-[760px]:text-[64px]",
-  1: "text-[38px] font-medium text-brand-blue dark:text-accent-hi min-[760px]:text-[80px]",
-  2: "text-[26px] font-light text-brand-muted dark:text-white-40 min-[760px]:text-[54px]",
+  0: "text-[30px] font-normal text-brand-ink min-[760px]:text-[64px]",
+  1: "text-[38px] font-medium text-brand-blue min-[760px]:text-[80px]",
+  2: "text-[26px] font-light text-brand-muted min-[760px]:text-[54px]",
 };
 
 /** Scripts where negative tracking would break joining or crowd the glyphs. */
