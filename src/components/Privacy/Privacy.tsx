@@ -14,6 +14,12 @@ const revealedBefore = () => {
 const markRevealed = () => {
   try { sessionStorage.setItem(REVEALED_KEY, "1"); } catch { /* blocked storage */ }
 };
+// The element the URL hash points at. A malformed escape (`#%zz`) is no target.
+const hashTarget = () => {
+  const hash = window.location.hash.slice(1);
+  if (!hash) return null;
+  try { return document.getElementById(decodeURIComponent(hash)); } catch { return document.getElementById(hash); }
+};
 
 /**
  * Cards rise into place once, each the first time it scrolls into view;
@@ -28,8 +34,8 @@ function useRevealOnce() {
     if (!root) return;
     const reduce = window.matchMedia("(prefers-reduced-motion: reduce)");
     // A hash landing scrolls here after this runs, so it counts as on screen.
-    const hashTarget = window.location.hash ? document.getElementById(decodeURIComponent(window.location.hash.slice(1))) : null;
-    const landing = hashTarget?.contains(root) || root.closest("section")?.contains(hashTarget);
+    const target = hashTarget();
+    const landing = target?.contains(root) || root.closest("section")?.contains(target);
     // A reload or a back/forward (browser or client-side) restores the scroll
     // after this runs: content already seen does not play its entrance again.
     const navigation = performance.getEntriesByType("navigation")[0] as PerformanceNavigationTiming | undefined;
@@ -38,9 +44,11 @@ function useRevealOnce() {
     if (reduce.matches || landing || restored || root.getBoundingClientRect().top < window.innerHeight) return;
     const items = [...root.querySelectorAll<HTMLElement>("[data-reveal-item]")];
     root.dataset.reveal = "pending";
+    // Shown at once, without a transition (Privacy.module.css).
     const showAll = () => {
       observer.disconnect();
       root.dataset.reveal = "shown";
+      markRevealed();
     };
     const observer = new IntersectionObserver((entries) => {
       entries
@@ -60,6 +68,7 @@ function useRevealOnce() {
     reduce.addEventListener("change", showAll, { once: true });
     return () => {
       observer.disconnect();
+      delete root.dataset.reveal;
       root.removeEventListener("focusin", showAll);
       reduce.removeEventListener("change", showAll);
     };

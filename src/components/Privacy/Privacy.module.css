@@ -84,10 +84,16 @@
     translate 500ms var(--ease-out);
 }
 
-[data-reveal="pending"] .reveal:not([data-reveal-item="shown"]) {
-  opacity: 0;
-  translate: 0 16px;
+/* Screen only: a printed page shows every card. */
+@media screen {
+  [data-reveal="pending"] .reveal:not([data-reveal-item="shown"]) {
+    opacity: 0;
+    translate: 0 16px;
+  }
 }
+
+/* Keyboard focus or reduced motion switched on mid-entrance: no transition. */
+[data-reveal="shown"] .reveal { transition: none; }
 
 /* Nothing moves under reduced motion. */
 @media (prefers-reduced-motion: reduce) {
