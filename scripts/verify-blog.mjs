@@ -157,6 +157,37 @@ for (const engine of selected) {
       } finally { await context.close(); }
     });
 
+    await check(`${engine}: CTA to #iphone lands under the nav and keeps the Pro pin (#84)`, async () => {
+      const context = await browser.newContext({ viewport: { width: 1440, height: 900 } });
+      const page = await context.newPage();
+      try {
+        for (const locale of ["fr", "en"]) {
+          const article = articles.find((item) => item.locales[locale]?.cta.href === `/${locale}#iphone`);
+          await page.goto(`${origin}${route(article, locale)}`);
+          const cta = page.locator(`main a[href="/${locale}#iphone"]`).first();
+          await cta.scrollIntoViewIfNeeded();
+          await page.evaluate(() => { window.__sameDocument = true; });
+          await cta.click();
+          await page.waitForURL(`${origin}/${locale}#iphone`);
+          assert.equal(await page.evaluate(() => window.__sameDocument), true, "The CTA must navigate client-side");
+          // --nav-clearance: the target lands 100px from the top.
+          await expect.poll(() => page.evaluate(() => Math.abs(document.getElementById("iphone").getBoundingClientRect().top - 100))).toBeLessThanOrEqual(2);
+          const track = page.locator("#pro [data-pinned]");
+          await expect(track).toHaveAttribute("data-pinned", "true");
+          const { start, span } = await track.evaluate((node) => ({ start: node.getBoundingClientRect().top + window.scrollY, span: node.offsetHeight - window.innerHeight }));
+          for (const share of [0.2, 0.5, 0.8]) {
+            await page.evaluate((top) => window.scrollTo({ top, behavior: "instant" }), start + span * share);
+            const sticky = await track.evaluate((node) => {
+              const child = node.firstElementChild;
+              return { position: getComputedStyle(child).position, top: child.getBoundingClientRect().top };
+            });
+            assert.equal(sticky.position, "sticky");
+            assert.ok(Math.abs(sticky.top) <= 1, `Pinned Pro section left the top at ${share}: ${sticky.top}`);
+          }
+        }
+      } finally { await context.close(); }
+    });
+
     await check(`${engine}: responsive reading, touch, focus, anchors, reduced motion and glass fallback`, async () => {
       const context = await browser.newContext({ hasTouch: true, reducedMotion: "reduce", viewport: { width: 390, height: 844 } });
       const page = await context.newPage();

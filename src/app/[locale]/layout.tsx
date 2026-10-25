@@ -118,7 +118,9 @@ export default async function LocaleLayout({ children, params }: Props) {
   }
 
   return (
-    <html lang={locale} className={`${dmSans.variable} ${dmMono.variable}`}>
+    // data-scroll-behavior: Next.js jumps instead of smooth-scrolling on a route
+    // change, so a cross-route hash link lands before the pins measure the page.
+    <html lang={locale} className={`${dmSans.variable} ${dmMono.variable}`} data-scroll-behavior="smooth">
       <body className="bg-ink font-sans text-[var(--theme-text-primary)] antialiased">
         <NextIntlClientProvider messages={messages}>
           <a
