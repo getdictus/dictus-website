@@ -77,6 +77,36 @@
     },
     "facts": "TRANSCRIPTION 100% ON DEVICE · OPEN SOURCE"
   },
+  "SmartModes": {
+    "heading": "Dictus Pro on iPhone",
+    "badge": "Pro",
+    "chips_label": "Dictus Pro features",
+    "compatibility": "Smart Modes require Apple Intelligence: iPhone 15 Pro or later, iOS 26. Vocabulary, history and voice note transcripts work without it.",
+    "eyebrow_new": "New in Dictus",
+    "eyebrow_also": "Also in Pro",
+    "steps": {
+      "smart": {
+        "chip": "Smart Modes",
+        "title": "One long press, one Smart Mode.",
+        "body": "Hold the mic, slide to a mode, let go. Dictus writes in that mode."
+      },
+      "vocabulary": {
+        "chip": "Vocabulary",
+        "title": "Your words, spelled right.",
+        "body": "Note a name and the way Dictus gets it wrong. Next time, it will write it your way."
+      },
+      "voiceNotes": {
+        "chip": "Voice notes",
+        "title": "Your voice notes, transcribed.",
+        "body": "Share a voice note to Dictus from any app. The text is waiting for you in the keyboard."
+      },
+      "history": {
+        "chip": "History",
+        "title": "Everything is easy to find.",
+        "body": "Every dictation stays on your iPhone. Search for a word, find the text."
+      }
+    }
+  },
   "Languages": {
     "eyebrow": "LANGUAGES",
     "title": "Dictate in nearly 100 languages.",

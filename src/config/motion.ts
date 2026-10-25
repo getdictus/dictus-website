@@ -67,3 +67,12 @@ export const EASE_OUT = [0.23, 1, 0.32, 1] as const;
 export const STEP_TEXT_OUT_SECONDS = 0.2;
 export const STEP_TEXT_IN_SECONDS = 0.3;
 export const STEP_TEXT_SHIFT_PX = 8;
+
+/** Step text that switches on the step's frame (`syncText`): it only settles. */
+export const STEP_TEXT_SYNC_SECONDS = 0.2;
+
+/**
+ * Smart Modes card switch (AUDIT, Smart Modes row): one spring per card,
+ * retargeted from its current value when the step changes mid-flight.
+ */
+export const CARD_SPRING = { type: "spring", duration: 0.5, bounce: 0.15 } as const;

@@ -37,8 +37,6 @@
 .figureBar {
   display: flex;
   align-items: center;
-  justify-content: space-between;
-  gap: 12px;
 }
 
 .pill {
@@ -134,6 +132,14 @@
 
 /* Pause / play for the loop (WCAG 2.2.2). */
 .playback {
+  /* Top-right of the section, centred in its top padding (the section's
+     clamp(72px, 9vw, 128px)), so it never covers the heading or the scene
+     and lands below the nav (--nav-clearance) when the section is reached
+     from it. Right edge on the content column's (1240px, same padding). */
+  position: absolute;
+  z-index: 1;
+  top: calc((clamp(72px, 9vw, 128px) - 44px) / 2);
+  right: calc(max(0px, (100% - 1240px) / 2) + 20px);
   display: grid;
   place-items: center;
   width: 44px;
@@ -155,6 +161,10 @@
 
 @media (hover: hover) and (pointer: fine) {
   .playback:hover { border-color: rgba(255, 255, 255, 0.5); }
+}
+
+@media (min-width: 760px) {
+  .playback { right: calc(max(0px, (100% - 1240px) / 2) + clamp(20px, 5.5vw, 80px)); }
 }
 
 /*

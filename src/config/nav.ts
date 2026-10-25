@@ -21,10 +21,10 @@ type NavEntry = {
 };
 
 export const navEntries: readonly NavEntry[] = [
-  { labelKey: "features", section: "clavier", live: false },
+  { labelKey: "features", section: "clavier", live: true },
   { labelKey: "pro", section: "pro", live: false },
   { labelKey: "languages", section: "langues", live: true },
-  { labelKey: "privacy", section: "vie-privee", live: false },
+  { labelKey: "privacy", section: "vie-privee", live: true },
   { labelKey: "pricing", section: "tarifs", live: false, route: "/pricing", gate: "pricing" },
   { labelKey: "blog", route: "/blog", gate: "blog" },
 ];

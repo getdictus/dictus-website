@@ -5,6 +5,7 @@ import Hero from "@/components/Hero/Hero";
 import Keyboard from "@/components/Keyboard/Keyboard";
 import Languages from "@/components/Languages/Languages";
 import Offline from "@/components/Offline/Offline";
+import SmartModes from "@/components/SmartModes/SmartModes";
 import Privacy from "@/components/Privacy/Privacy";
 import FinalCta from "@/components/FinalCta/FinalCta";
 import DesktopDownload from "@/components/FinalCta/DesktopDownload";
@@ -69,6 +70,7 @@ export default async function HomePage({ params }: Props) {
       <Hero />
       <Keyboard />
       <Offline />
+      <SmartModes />
       <Languages />
       <Privacy />
       <FinalCta />
