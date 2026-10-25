@@ -16,6 +16,9 @@ type Props = {
  * scrolls itself to keep the lit chip in view.
  *
  * In normal flow the row sticks under the nav while the steps go by.
+ *
+ * The lit colour switches with no crossfade: a fade would leave the previous
+ * chip looking lit while the text and front card already show the new step.
  */
 export default function Chips({ label, chips, compatibility }: Props) {
   const { activeIndex, goToStep, pinned } = usePinnedStep();
@@ -52,7 +55,7 @@ export default function Chips({ label, chips, compatibility }: Props) {
                 data-active={active}
                 aria-current={active ? "step" : undefined}
                 onClick={() => goToStep(index)}
-                className={`min-h-10 shrink-0 whitespace-nowrap rounded-full px-4 text-[15px] font-medium transition-[color,background-color,transform] duration-200 ease-[var(--ease-out)] active:scale-[0.97] focus-visible:outline-brand-ink ${
+                className={`min-h-10 shrink-0 whitespace-nowrap rounded-full px-4 text-[15px] font-medium transition-transform duration-200 ease-[var(--ease-out)] active:scale-[0.97] focus-visible:outline-brand-ink ${
                   active ? "bg-brand-ink text-white" : "bg-white text-brand-ink"
                 }`}
               >
