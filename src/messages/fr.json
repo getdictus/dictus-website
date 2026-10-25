@@ -1,4 +1,7 @@
 {
+  "common": {
+    "voiceNeverLeaves": "Votre voix ne quitte jamais le téléphone."
+  },
   "Nav": {
     "fr": "FR",
     "en": "EN",
@@ -84,14 +87,13 @@
   "PrivacySection": {
     "eyebrow": "OPEN SOURCE · VIE PRIVÉE",
     "title": "Votre voix reste sur votre iPhone.",
-    "voice": "Votre voix ne quitte jamais le téléphone.",
     "device": {
       "title": "Sur l’appareil",
       "body": "Une fois le modèle téléchargé, la transcription se fait à 100 % sur l’iPhone, même sans réseau."
     },
-    "account": {
-      "title": "Sans compte Dictus",
-      "body": "Pas d’inscription, pas d’adresse e‑mail à donner. L’app n’intègre ni analytics ni outil de pistage."
+    "tracking": {
+      "title": "Sans pistage",
+      "body": "L’app n’intègre aucun outil d’analytics, de pistage ou de rapport de plantage. Le partage des rapports de plantage d’iOS reste un réglage d’Apple que vous choisissez."
     },
     "source": {
       "title": "Open source",

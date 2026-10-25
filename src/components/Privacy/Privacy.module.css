@@ -41,7 +41,7 @@
   }
 
   .cardDevice { z-index: 1; }
-  .cardAccount { z-index: 2; }
+  .cardTracking { z-index: 2; }
   .cardSource { z-index: 3; }
 }
 
@@ -54,7 +54,7 @@
 
   .card + .card { margin-top: -6px; }
   .cardDevice { transform: rotate(-2deg); }
-  .cardAccount { transform: rotate(1.5deg); }
+  .cardTracking { transform: rotate(1.5deg); }
   .cardSource { transform: rotate(-1.5deg); }
 }
 
@@ -72,7 +72,7 @@
   }
 
   .cardDevice { transform: rotate(-3deg); }
-  .cardAccount { transform: rotate(2deg) translateX(-28px); margin-top: 60px; }
+  .cardTracking { transform: rotate(2deg) translateX(-28px); margin-top: 60px; }
   .cardSource { transform: rotate(-2deg) translateX(-56px); }
 }
 

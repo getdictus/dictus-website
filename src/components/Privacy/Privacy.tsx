@@ -85,6 +85,7 @@ const sourceLink = "inline-flex min-h-11 items-center text-[15px] text-brand-bod
  */
 export default function Privacy() {
   const t = useTranslations("PrivacySection");
+  const tCommon = useTranslations("common");
   const cardsRef = useRevealOnce();
 
   return (
@@ -113,18 +114,18 @@ export default function Privacy() {
               {t("device.title")}
             </h3>
             <p className="mt-2.5 text-[17px] leading-normal text-brand-body">
-              {t("voice")} {t("device.body")}
+              {tCommon("voiceNeverLeaves")} {t("device.body")}
             </p>
           </li>
 
-          <li className={`${styles.card} ${styles.cardAccount} ${styles.reveal} bg-brand-blue`} data-reveal-item="">
+          <li className={`${styles.card} ${styles.cardTracking} ${styles.reveal} bg-brand-blue`} data-reveal-item="">
             <span aria-hidden="true" className={`${styles.icon} bg-brand-navy text-[26px] font-semibold text-white`}>
               ∅
             </span>
             <h3 className="mt-[22px] text-[clamp(26px,2.3vw,34px)] font-normal leading-[1.1] tracking-[-0.03em]">
-              {t("account.title")}
+              {t("tracking.title")}
             </h3>
-            <p className="mt-2.5 text-[17px] leading-normal">{t("account.body")}</p>
+            <p className="mt-2.5 text-[17px] leading-normal">{t("tracking.body")}</p>
           </li>
 
           <li
