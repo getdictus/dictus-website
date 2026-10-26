@@ -1,7 +1,7 @@
 import { Fragment } from "react";
 import Phone from "./Phone";
 import { Glyph, SYSTEM_FONT } from "./glyphs";
-import { GLASS, SECONDARY, Toggle } from "./ios";
+import { ACCENT_ON_GLASS, ACCENT_ON_WHITE, GLASS, SECONDARY, Toggle } from "./ios";
 
 /**
  * Still of dictus-ios `VocabularyScene` at its still moment (8.5 s of 11.6,
@@ -44,7 +44,7 @@ export default function VocabularyStill({ locale }: { locale: "fr" | "en" }) {
             <Glyph name="chevronLeft" size={17} weight={2.4} />
           </span>
           <span className="text-[17px] font-semibold">{c.title}</span>
-          <span className={`flex h-11 items-center rounded-full px-3.5 text-[17px] text-accent ${GLASS}`}>{c.edit}</span>
+          <span className={`flex h-11 items-center rounded-full px-3.5 text-[17px] ${GLASS}`} style={{ color: ACCENT_ON_GLASS }}>{c.edit}</span>
         </div>
         <div className="px-4 pt-2">
           <div className="flex min-h-[52px] items-center justify-between rounded-[22px] bg-white px-5 text-[17px]">
@@ -67,7 +67,7 @@ export default function VocabularyStill({ locale }: { locale: "fr" | "en" }) {
             ))}
           </div>
           <p className="px-5 pb-5 pt-2 text-[13px] leading-snug" style={{ color: SECONDARY }}>{c.footer}</p>
-          <div className="flex min-h-[52px] items-center gap-2 rounded-[22px] bg-white px-5 text-[17px] text-accent">
+          <div className="flex min-h-[52px] items-center gap-2 rounded-[22px] bg-white px-5 text-[17px]" style={{ color: ACCENT_ON_WHITE }}>
             <Glyph name="plus" size={18} weight={2} />
             {c.add}
           </div>

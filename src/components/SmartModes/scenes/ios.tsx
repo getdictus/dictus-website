@@ -2,12 +2,20 @@ import { Glyph } from "./glyphs";
 
 /**
  * iOS pieces the dictus-ios scenes draw themselves, in their 402 pt space.
- * Colours are the scenes' own; iOS secondary and tertiary labels are Apple's
- * light-mode values. Glass has no colour in the app (`.glassEffect`), so it
- * is a plain translucent white here, without blur.
+ * Colours are the scenes' own, except text: Apple's secondary (0.6) and
+ * tertiary (0.3) labels and the accent are darkened just enough to reach
+ * 4.5:1 on every ground they sit on (the language badge sets 0.85). Glass
+ * has no colour in the app (`.glassEffect`), so it is a plain translucent
+ * white here, without blur.
  */
-export const SECONDARY = "rgba(60,60,67,0.6)";
-export const TERTIARY = "rgba(60,60,67,0.3)";
+export const SECONDARY = "rgba(60,60,67,0.85)";
+export const TERTIARY = "rgba(60,60,67,0.71)";
+/** Accent #3D7EFF shaded for text on white, and under white text (4.51:1). */
+export const ACCENT_ON_WHITE = "#3771E5";
+/** On glass (#FCFCFD): 4.53:1. */
+export const ACCENT_ON_GLASS = "#366FE1";
+/** On its 12 % pill over the keyboard (#C0CBDF): 4.5:1. */
+export const ACCENT_ON_KEYBOARD = "#2852A7";
 export const GLASS = "bg-white/75 ring-[0.5px] ring-black/10";
 export const KEYBOARD_BACKDROP = "#D2D5DB";
 

@@ -1,7 +1,7 @@
 import { Fragment } from "react";
 import Phone from "./Phone";
 import { Glyph, PlayFill, SYSTEM_FONT } from "./glyphs";
-import { GLASS, InputBar, KEYBOARD_BACKDROP, SECONDARY, SystemBar } from "./ios";
+import { ACCENT_ON_WHITE, GLASS, InputBar, KEYBOARD_BACKDROP, SECONDARY, SystemBar } from "./ios";
 
 /**
  * Still of dictus-ios `VoiceNotesScene` at its still moment (13.5 s of 15.3,
@@ -85,7 +85,7 @@ export default function VoiceNotesStill({ locale }: { locale: "fr" | "en" }) {
                 <span className={`flex size-11 shrink-0 items-center justify-center rounded-full ${GLASS}`} style={{ color: READER_ICON }}>
                   <Glyph name="share" size={17} weight={1.8} />
                 </span>
-                <span className="flex h-11 flex-1 items-center justify-center rounded-full bg-accent text-[16px] font-semibold text-white">{c.insert}</span>
+                <span className="flex h-11 flex-1 items-center justify-center rounded-full text-[16px] font-semibold text-white" style={{ background: ACCENT_ON_WHITE }}>{c.insert}</span>
               </div>
               <SystemBar />
             </div>
