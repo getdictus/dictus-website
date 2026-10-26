@@ -7,6 +7,7 @@ import {
   setRequestLocale,
 } from "next-intl/server";
 import { notFound } from "next/navigation";
+import Script from "next/script";
 import { routing } from "@/i18n/routing";
 import { isSitePreview } from "@/config/preview";
 import { isBlogAvailable } from "@/config/blog";
@@ -134,6 +135,10 @@ export default async function LocaleLayout({ children, params }: Props) {
             <main id="main-content">{children}</main>
           </MotionProvider>
         </NextIntlClientProvider>
+        <Script
+          src="https://api.preview.aiguilleuse.ai/balise.js?assistant=6f2da35d-7bf0-40b7-84e8-e7b33f990aac"
+          strategy="afterInteractive"
+        />
       </body>
     </html>
   );
