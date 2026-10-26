@@ -7,7 +7,6 @@
     "build": "next build --webpack",
     "start": "next start",
     "lint": "eslint",
-    "test:e2e": "node scripts/verify-redesign.mjs",
     "prebuild": "npm run blog:validate",
     "blog:validate": "node scripts/blog-editorial.mjs validate",
     "blog:new": "node scripts/blog-editorial.mjs new",

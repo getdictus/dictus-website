@@ -24,6 +24,9 @@ function navHref(labelKey: NavLabelKey): string | null {
 
 function productLinks(): FooterLink[] {
   const links: FooterLink[] = [{ key: "features", href: "/#clavier", internal: true }];
+  // Pro resolves to its live home section (`/#pro`); Pricing has no home
+  // section yet and falls back to /pricing, behind the pricing release gate,
+  // which is closed in production. Both follow `nav.ts`, like the nav.
   for (const key of ["pro", "pricing"] as const) {
     const href = navHref(key);
     if (href) links.push({ key, href, internal: true });

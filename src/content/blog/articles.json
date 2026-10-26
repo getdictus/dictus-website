@@ -705,7 +705,7 @@
         "cta": {
           "label": "Découvrir Dictus sur iPhone",
           "description": "Voir le clavier en action et accéder à la version iPhone depuis la présentation du produit.",
-          "href": "/fr#iphone"
+          "href": "/fr#clavier"
         },
         "sections": [
           {
@@ -836,7 +836,7 @@
         "cta": {
           "label": "Discover Dictus on iPhone",
           "description": "See the keyboard in action and access the iPhone version from the product overview.",
-          "href": "/en#iphone"
+          "href": "/en#clavier"
         },
         "sections": [
           {
@@ -941,7 +941,7 @@
       }
     },
     "translation": {
-      "sourceHash": "0ead1f3c330529a1fdf61e5235eb5068e79e436a8b333e8b09389fc74d691365",
+      "sourceHash": "c3f09edc1d644fd3fba2642bbf5234743277de9a0f4752864b3fa40b27c6fa9a",
       "generatedAt": "2026-09-18",
       "method": "codex-cli"
     }
