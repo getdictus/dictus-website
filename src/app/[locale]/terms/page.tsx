@@ -65,7 +65,7 @@ export default async function TermsPage({ params }: Props) {
                 {t("contact_text").replace("contact@pivi.solutions", "")}
                 <a
                   href="mailto:contact@pivi.solutions"
-                  className="inline-flex min-h-11 items-center text-[#2563eb] dark:text-accent-hi underline decoration-accent/30 underline-offset-4 hover:decoration-accent"
+                  className="inline-flex min-h-11 items-center text-[#2563eb] underline decoration-accent/30 underline-offset-4 hover:decoration-accent"
                 >
                   contact@pivi.solutions
                 </a>
@@ -75,7 +75,7 @@ export default async function TermsPage({ params }: Props) {
                 {t("privacy_ref_text")}{" "}
                 <Link
                   href="/privacy"
-                  className="inline-flex min-h-11 items-center text-[#2563eb] dark:text-accent-hi underline decoration-accent/30 underline-offset-4 hover:decoration-accent"
+                  className="inline-flex min-h-11 items-center text-[#2563eb] underline decoration-accent/30 underline-offset-4 hover:decoration-accent"
                 >
                   {t("privacy_ref_link")}
                 </Link>

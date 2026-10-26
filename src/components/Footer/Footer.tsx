@@ -22,8 +22,9 @@ function sectionHref(labelKey: NavLabelKey, fallback: string | null): string | n
 
 function productLinks(): FooterLink[] {
   const links: FooterLink[] = [{ key: "features", href: "/#clavier", internal: true }];
-  // Pro and Pricing have no home section yet: they point at /pricing, which is
-  // only reachable where its release gate is open (never in production).
+  // Pro resolves to its live home section (`/#pro`); Pricing has no home
+  // section yet and falls back to /pricing. Both links stay behind the pricing
+  // release gate, which is closed in production.
   if (isPricingAvailable) {
     links.push({ key: "pro", href: sectionHref("pro", "/pricing#pro-title")!, internal: true });
     links.push({ key: "pricing", href: sectionHref("pricing", "/pricing")!, internal: true });

@@ -20,7 +20,6 @@
   "Metadata": {
     "title": "Dictus — La dictée vocale, locale par défaut",
     "description": "Dictez vos messages, notes et e-mails sur iPhone, Mac, Windows et Linux. Transcription locale par défaut et code ouvert. Desktop gratuit.",
-    "jsonld_description": "Dictée vocale avec transcription locale par défaut et code source ouvert, sur iPhone et ordinateur.",
     "desktop_jsonld_description": "Application de dictée vocale gratuite avec transcription locale par défaut sur macOS, Windows et Linux.",
     "android_jsonld_description": "Bêta publique. Clavier de dictée vocale gratuit et open source pour Android 10 ou ultérieur, avec transcription sur l’appareil."
   },
@@ -279,10 +278,6 @@
     "meta_description": "Soutenez le développement de Dictus : la dictée vocale locale par défaut et open source.",
     "heading": "Soutenir Dictus",
     "motivation": "Dictus est un projet indépendant et open source. Votre contribution aide à financer le développement, les serveurs et les futures fonctionnalités. Chaque geste compte.",
-    "fiat_title": "Carte bancaire",
-    "fiat_subtitle": "Visa, Mastercard, Apple Pay...",
-    "btc_title": "Bitcoin",
-    "btc_subtitle": "On-chain & Lightning",
     "method_fiat_title": "Carte bancaire",
     "method_fiat_subtitle": "Visa, Mastercard, Apple Pay…",
     "method_bitcoin_title": "Bitcoin",
@@ -290,13 +285,9 @@
     "method_bitcoin_lightning_tag": "⚡ Lightning supporté",
     "change_method": "Changer de méthode",
     "amount_prompt": "Choisissez un montant (€)",
-    "lightning_mention": "Lightning supporte",
-    "chip_eur": "{amount} EUR",
     "custom_placeholder": "Montant",
     "custom_submit": "Soutenir",
     "thank_you": "Merci pour votre soutien",
-    "error_min": "Montant minimum : 1 EUR",
-    "error_max": "Montant maximum : 999 EUR",
     "error_generic": "Une erreur est survenue. Réessayez.",
     "loading": "Chargement…",
     "why_support_title": "Pourquoi soutenir ?",
@@ -331,25 +322,10 @@
     "title": "La dictée, à votre rythme.",
     "description": "Gratuit sur ordinateur et iPhone, avec Dictus Pro en option.",
     "desktop": {
-      "title": "Dictus Desktop",
-      "free": "Gratuit, aujourd’hui et demain.",
-      "description": "Dictez sur macOS, Windows et Linux. La transcription est locale, le code est public et aucun abonnement n’est nécessaire.",
-      "download": "Télécharger"
+      "free": "Gratuit, aujourd’hui et demain."
     },
-    "ios_title": "Sur iPhone, à votre rythme.",
-    "ios_intro": "Un socle gratuit permanent. Un même Dictus Pro, avec trois façons de le payer à sa sortie.",
     "free": {
-      "title": "Gratuit",
-      "price": "Sans abonnement",
-      "description": "Le clavier et la dictée locale, sans achat Pro. Disponible dès iOS 17 dans les apps compatibles avec les claviers tiers.",
-      "app_store": "Voir sur l’App Store"
-    },
-    "pro": {
-      "platform": "Sur iPhone uniquement",
-      "description": "Pour aller plus loin avec vos mots.",
-      "status": "Offre Pro en préparation",
-      "availability": "Les achats Pro seront disponibles dans l’app iOS via Apple à leur ouverture.",
-      "includes": "Tout le gratuit, plus :"
+      "title": "Gratuit"
     },
     "billing_label": "Mode de paiement de Dictus Pro",
     "plans": {
@@ -373,48 +349,39 @@
       }
     },
     "territory": "Référence France/EUR. Apple affiche le prix de votre pays avant l’achat.",
-    "smart_compatibility": "Les modes intelligents et la correction IA demandent iOS 26 ou ultérieur, Apple Intelligence activée et un iPhone compatible : iPhone 15 Pro ou 15 Pro Max, modèles iPhone 16 ou ultérieurs, ou iPhone Air. Une langue et une région prises en charge sont nécessaires. Un achat Pro ne change pas la compatibilité de votre appareil.",
     "lifetime_label": "Ce que couvre l’achat à vie.",
     "lifetime_scope": "L’achat à vie couvre toutes les fonctionnalités Pro actuelles et futures qui s’exécutent sur votre appareil ou sur un serveur que vous fournissez. Toute fonctionnalité reposant sur une infrastructure Dictus fait l’objet d’une offre distincte.",
     "features": {
       "dictation": {
         "title": "Clavier et dictée locale",
-        "summary": "Votre voix devient du texte sur l’iPhone, dans les apps acceptant les claviers tiers.",
         "detail": "La transcription audio s’effectue sur l’appareil. Certaines apps et certains champs protégés n’acceptent pas les claviers tiers."
       },
       "normal": {
         "title": "Ponctuation et mode Normal",
-        "summary": "Une correction fidèle au texte, sans transformation. La correction IA dépend d’iOS 26 et d’Apple Intelligence.",
         "detail": "La ponctuation dépend du modèle. La correction du mode Normal reste gratuite sur les appareils compatibles avec Apple Intelligence, activée sous iOS 26, dans une langue et une région prises en charge."
       },
       "models": {
         "title": "Choix des modèles",
-        "summary": "Téléchargez et gérez les modèles Whisper ou Parakeet proposés pour votre appareil.",
         "detail": "Les modèles se téléchargent une première fois puis transcrivent localement. Leur disponibilité et leurs performances dépendent de l’appareil, de la mémoire, de la version de l’app et des langues prises en charge."
       },
       "activity": {
         "title": "Suivi de la dictée",
-        "summary": "Live Activity et Dynamic Island, selon les capacités de votre iPhone.",
         "detail": "Les activités en direct dépendent de la version d’iOS et des réglages. L’affichage dans Dynamic Island nécessite un iPhone qui en est équipé."
       },
       "smart": {
         "title": "Modes intelligents",
-        "summary": "Traduire, Message, Liste, Structuré et Résumé, avec Apple Intelligence et iOS 26 sur iPhone compatible.",
         "detail": "Traduire vers une langue prise en charge, Message, Liste, Structuré et Résumé. iOS 26 et Apple Intelligence activée requis : iPhone 15 Pro / Pro Max, modèles iPhone 16 ou ultérieurs, ou iPhone Air ; langue et région compatibles."
       },
       "vocabulary": {
         "title": "Vocabulaire personnalisé",
-        "summary": "Définissez les variantes mal transcrites et le terme qui doit les remplacer. Sans Apple Intelligence.",
         "detail": "Remplacement des variantes de transcription que vous définissez par le terme souhaité. Chaque terme doit avoir au moins une variante pour agir. Cela n’entraîne pas le modèle vocal et ne demande pas Apple Intelligence."
       },
       "history": {
         "title": "Historique local",
-        "summary": "Recherchez, consultez, copiez ou supprimez vos {historyLimit} dernières dictées. Sans Apple Intelligence.",
         "detail": "Conservation locale des {historyLimit} dernières dictées, avec recherche, consultation, copie et suppression. L’historique ne nécessite pas Apple Intelligence."
       },
       "voiceNotes": {
         "title": "Messages vocaux",
-        "summary": "Transcrivez les messages vocaux reçus en les partageant à Dictus. La transcription ne demande pas Apple Intelligence.",
         "detail": "Partagez un message vocal ou un fichier audio depuis votre messagerie vers Dictus pour le transcrire sur votre iPhone, jusqu’à 10 minutes. La transcription fonctionne sans Apple Intelligence ; le résumé d’un message vocal la nécessite."
       }
     },
@@ -471,10 +438,6 @@
         "question": "Un don débloque-t-il Dictus Pro ?",
         "answer": "Non. Un don soutient le projet gratuit ; il ne débloque pas Pro et ne modifie pas votre abonnement."
       }
-    },
-    "support": {
-      "title": "Soutenir le projet gratuit.",
-      "description": "Un don soutient le projet gratuit, sans débloquer Pro."
     },
     "links": {
       "label": "Informations et assistance",
