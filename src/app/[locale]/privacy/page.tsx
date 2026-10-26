@@ -27,6 +27,7 @@ const sections = [
   "full_access",
   "data_usage",
   "third_party",
+  "assistant",
   "data_retention",
   "user_rights",
   "children",
@@ -76,6 +77,16 @@ export default async function PrivacyPage({ params }: Props) {
                 className="mt-3 inline-flex min-h-11 items-center text-[#2563eb] underline decoration-accent/30 underline-offset-4 hover:decoration-accent"
               >
                 {t("desktop_privacy_link")}
+              </a>
+            )}
+            {section === "assistant" && (
+              <a
+                href="https://app.preview.aiguilleuse.ai/vos-donnees/6f2da35d-7bf0-40b7-84e8-e7b33f990aac"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="mt-3 inline-flex min-h-11 items-center text-[#2563eb] underline decoration-accent/30 underline-offset-4 hover:decoration-accent"
+              >
+                {t("assistant_link")}
               </a>
             )}
           </section>
