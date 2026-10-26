@@ -34,8 +34,13 @@ const LETTER_SECONDS = 0.055;
 const FADE_OUT_AT = 4.9;
 const FADE_OUT_SECONDS = 0.45;
 
+/**
+ * The still is frame 0 of the video, in lossless WebP: pixel for pixel the
+ * rig's PNG at 40 % of its bytes. It is the mobile LCP image, and on a slow
+ * link its download time is the LCP.
+ */
 const WALKER_FILES = {
-  still: "/images/hero/walker@2x.png",
+  still: "/images/hero/walker@2x.webp",
   hevc: "/images/hero/walker@2x-hevc-alpha.mov",
   vp9: "/images/hero/walker@2x.webm",
 };
