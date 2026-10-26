@@ -133,7 +133,7 @@ for (const engine of (process.env.VERIFY_ENGINES || "chromium,firefox,webkit").s
       await expect(page.locator('link[hreflang="fr"]')).toHaveAttribute("href", "https://getdictus.com/fr/pricing");
       await expect(page.locator('link[hreflang="en"]')).toHaveAttribute("href", "https://getdictus.com/en/pricing");
       assert.equal(await page.locator('script[type="application/ld+json"]').count(), 0);
-      const language = page.locator("header").getByRole("button", { name: locale === "fr" ? "Switch to English" : "Passer en français", exact: true });
+      const language = page.locator("header").getByRole("button", { name: locale === "fr" ? "EN — Switch to English" : "FR — Passer en français", exact: true });
       await language.click();
       await expect(page).toHaveURL(new RegExp(`/${locale === "fr" ? "en" : "fr"}/pricing$`));
     });
