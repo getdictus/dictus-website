@@ -34,8 +34,12 @@
 /* The strokes, pill, phrase and card need the measured box, so they arrive
    after hydration; one short fade keeps them from popping in. */
 .overlay { position: absolute; left: 0; top: 0; overflow: visible; }
-.overlay, .card { transition: opacity var(--motion-ui) var(--ease-out); }
-@starting-style { .overlay, .card { opacity: 0; } }
+.overlay, .pill, .card { transition: opacity var(--motion-ui) var(--ease-out); }
+@starting-style { .overlay, .pill, .card { opacity: 0; } }
+
+/* The pill under the waveform bars, placed inline by the scene. Its
+   surface is this one rule. */
+.pill { position: absolute; border-radius: 999px; background: #0A1628; }
 
 .card { position: absolute; box-sizing: border-box; min-height: 86px; padding: 10px 14px 12px; border-radius: 18px; background: #F2F2F7; transform: rotate(2deg); }
 .cardLabel { margin: 0; font-family: var(--font-dm-mono), monospace; font-size: 10px; font-weight: 500; letter-spacing: .08em; color: #1F4FC4; }
@@ -59,5 +63,5 @@
 }
 
 @media (prefers-reduced-motion: reduce) {
-  .overlay, .card { transition: none; }
+  .overlay, .pill, .card { transition: none; }
 }

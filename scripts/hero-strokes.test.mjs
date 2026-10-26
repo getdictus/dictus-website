@@ -16,6 +16,7 @@ import {
   polylineDistance,
   rectDistance,
   sampleArc,
+  strokeFade,
   strokePolylines,
   walkerObstacles,
 } from "../src/components/Hero/strokes.ts";
@@ -122,6 +123,25 @@ for (const fixture of layouts) {
       assert.ok(top > 8, `strokes rise to ${top.toFixed(1)} px, above the scene box`);
       assert.ok(layout.walker.y >= -1, "walker taller than the scene box");
     }
+  });
+
+  test(`${fixture.name}: the pill is centred on its axis`, () => {
+    const { pill, walker, card, width } = layout;
+    // Side: the axis of the centred hero text. Stack: the width right of the
+    // walker. Compact: the result card under the pill.
+    const axis = fixture.mode === "side" ? width / 2 : fixture.mode === "stack" ? (walker.x + walker.w + width) / 2 : card.x + card.w / 2;
+    assert.ok(Math.abs(pill.cx - axis) < 0.01, `pill centre ${pill.cx.toFixed(1)}, axis ${axis.toFixed(1)}`);
+  });
+
+  test(`${fixture.name}: the strokes fade in off the mouth and out before the pill`, () => {
+    const { x1, x2, stops } = strokeFade(layout);
+    assert.equal(x1, layout.mouth.x);
+    assert.equal(x2, layout.pill.cx - layout.pill.w / 2);
+    assert.deepEqual(stops.map(([, opacity]) => opacity), [0, 1, 1, 0]);
+    for (let i = 1; i < stops.length; i++) assert.ok(stops[i][0] > stops[i - 1][0], `stops out of order: ${JSON.stringify(stops)}`);
+    assert.ok(stops[0][0] > 0 && stops[3][0] === 1);
+    // Opaque over at least half of the run from the mouth to the pill.
+    assert.ok(stops[2][0] - stops[1][0] > 0.5, `opaque over ${(stops[2][0] - stops[1][0]).toFixed(2)} of the run`);
   });
 }
 
