@@ -18,7 +18,7 @@ export default function FinalCta() {
       inset
       insetGround="grey"
       id="telecharger"
-      aria-labelledby="telecharger-title"
+      aria-labelledby="telecharger-title telecharger-sub"
       className="pt-2 min-[760px]:pt-3"
     >
       <div className="flex flex-col items-center px-[18px] pt-[clamp(112px,12vw,180px)] text-center [&_a:focus-visible]:outline-brand-ink">
@@ -30,7 +30,7 @@ export default function FinalCta() {
           <br />
           {t("title_b")}
         </h2>
-        <p className="mx-auto mt-[clamp(16px,2vw,24px)] max-w-[520px] text-[clamp(17px,1.4vw,20px)] leading-[1.42] [text-wrap:balance]">
+        <p id="telecharger-sub" className="mx-auto mt-[clamp(16px,2vw,24px)] max-w-[520px] text-[clamp(17px,1.4vw,20px)] leading-[1.42] [text-wrap:balance]">
           {t("sub")}
         </p>
         <DownloadButtons className="mt-[clamp(8px,1vw,14px)]" />

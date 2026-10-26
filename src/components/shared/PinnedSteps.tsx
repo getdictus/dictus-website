@@ -1,6 +1,6 @@
 "use client";
 
-import { createContext, useCallback, useContext, useEffect, useRef, useState, type ReactNode } from "react";
+import { createContext, Fragment, useCallback, useContext, useEffect, useRef, useState, type ReactNode } from "react";
 import {
   AnimatePresence,
   m,
@@ -282,11 +282,12 @@ export default function PinnedSteps({
                         ))}
                       </div>
                     )}
-                    {controls}
+                    {/* Same key in both modes, so a focused chip survives the pin dropping. */}
+                    <Fragment key="controls">{controls}</Fragment>
                   </>
                 ) : (
                   <>
-                    {controls}
+                    <Fragment key="controls">{controls}</Fragment>
                     <ol className={stepVisual ? "mt-8 grid gap-16" : "mt-10 grid gap-8"}>
                       {steps.map((step, index) => (
                         <li

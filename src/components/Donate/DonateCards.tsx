@@ -113,7 +113,6 @@ export default function DonateCards() {
         <button
           type="button"
           onClick={() => setStep("fiat")}
-          aria-label={`${t("custom_submit")} — ${t("method_fiat_title")}`}
           className={methodCardClass}
         >
           <div className={tileLargeClass}>
@@ -136,7 +135,6 @@ export default function DonateCards() {
         <button
           type="button"
           onClick={() => setStep("bitcoin")}
-          aria-label={`${t("custom_submit")} — ${t("method_bitcoin_title")}`}
           className={methodCardClass}
         >
           <div className={tileLargeClass}>
