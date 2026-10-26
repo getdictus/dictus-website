@@ -47,7 +47,7 @@ export default function LanguageToggle({ articleRoutes = {}, variant, className,
             type="button"
             lang={target}
             onClick={() => switchTo(target)}
-            aria-label={variant === "pill" ? languages[target].action : undefined}
+            aria-label={variant === "pill" ? `${languages[target].short} — ${languages[target].action}` : undefined}
             aria-current={locale === target ? "true" : undefined}
             disabled={missing}
             title={missing ? languages[target].pending : undefined}

@@ -1,6 +1,6 @@
 import Phone from "./Phone";
 import { Glyph, MicFill, SYSTEM_FONT } from "./glyphs";
-import { GLASS, InputBar, KEYBOARD_BACKDROP, SystemBar } from "./ios";
+import { ACCENT_ON_KEYBOARD, ACCENT_ON_WHITE, GLASS, InputBar, KEYBOARD_BACKDROP, SystemBar } from "./ios";
 
 /**
  * Still of dictus-ios `SmartModesScene` at its still moment (19.5 s of 20,
@@ -41,7 +41,7 @@ export default function SmartModesStill({ locale }: { locale: "fr" | "en" }) {
         <div className="flex-1 rounded-t-[18px]" style={{ background: KEYBOARD_BACKDROP }}>
           {/* Dictus toolbar: Undo replaces the menu button, then the armed mic pill. */}
           <div className="flex h-[52px] items-center justify-between px-3 pt-1">
-            <span className="flex h-9 items-center gap-[5px] rounded-full bg-accent/[0.12] px-3.5 text-accent">
+            <span className="flex h-9 items-center gap-[5px] rounded-full bg-accent/[0.12] px-3.5" style={{ color: ACCENT_ON_KEYBOARD }}>
               <Glyph name="undo" size={13} weight={2.6} />
               <span className="text-[15px] font-semibold">{c.undo}</span>
             </span>
@@ -49,7 +49,7 @@ export default function SmartModesStill({ locale }: { locale: "fr" | "en" }) {
               <span className="flex h-9 w-14 items-center justify-center rounded-full bg-accent text-white">
                 <MicFill size={14} />
               </span>
-              <span className="absolute left-[calc(50%+24px-9px)] top-[calc(50%+13px-9px)] flex size-[18px] items-center justify-center rounded-full bg-white text-[8px] font-bold text-accent shadow-[0_0.5px_1.5px_rgba(0,0,0,0.18)]">
+              <span className="absolute left-[calc(50%+24px-9px)] top-[calc(50%+13px-9px)] flex size-[18px] items-center justify-center rounded-full bg-white text-[8px] font-bold shadow-[0_0.5px_1.5px_rgba(0,0,0,0.18)]" style={{ color: ACCENT_ON_WHITE }}>
                 {c.badge}
               </span>
             </span>
