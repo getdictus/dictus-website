@@ -133,16 +133,18 @@ export type HeroLayout = {
  * - `gateX`, `gateY`, `gateSlope` (side mode): a waypoint across the walker,
  *   `gateY` px above the pill, crossed with that slope, so the arc comes
  *   down between the walker and the text before it levels into the pill;
- * - `pillX`, `pillY`: pill centre, across the hero (side mode), across and
- *   down the walker (stack mode),
- *   or `pillY` px under the mouth (compact mode, where `pillW` is its width).
+ * - `pillX`: pill centre across the hero (side mode: 0.5, the axis of the
+ *   centred hero text). In stack mode the pill is centred in the width left
+ *   free right of the walker, `pillY` down the walker; in compact mode it is
+ *   centred over the result card, `pillY` px under the mouth (`pillW` is its
+ *   width).
  * Tuned so `scripts/hero-strokes.test.mjs` passes with margin at every
  * layout it lists.
  */
 export const ARC = {
-  side: { apexX: 1, rise: 50, pillX: 0.56, gateX: 1.6, gateY: 110, gateSlope: 2 },
-  stack: { apexX: 1.1, rise: 50, tilt: 1, pillX: 2.3, pillY: 0.4 },
-  compact: { apexX: 0.98, rise: 45, tilt: 0.6, pillY: -20, pillW: 132 },
+  side: { apexX: 1, rise: 50, pillX: 0.5, gateX: 1.6, gateY: 110, gateSlope: 2 },
+  stack: { apexX: 1.1, rise: 50, tilt: 1, pillY: 0.4 },
+  compact: { apexX: 0.9, rise: 45, tilt: 0.6, pillY: -30, pillW: 132 },
 };
 
 const clamp = (value: number, min: number, max: number) => Math.min(max, Math.max(min, value));
@@ -241,10 +243,10 @@ function placeScene(mode: HeroMode, width: number, height: number): Omit<HeroLay
   if (mode === "stack") {
     const { walker, mouth, k } = placeWalker(walkerBox(Math.round(Math.max(24, width * 0.05)), height - 8, clamp(height - 24, 320, WALKER.maxHeight)));
     const a = ARC.stack;
-    // Right of the walker at chest height, clear of the phone and the arm
-    // (the mockup's 768 layout put the pill against them and looped). The
-    // result is handwritten under it, rising to the right.
-    const pill = { cx: walker.x + a.pillX * walker.w, cy: walker.y + a.pillY * walker.h, w: 176, h: 68, pad: 16 };
+    // Centred in the width right of the walker, at chest height, clear of the
+    // phone and the arm (the mockup's 768 layout put the pill against them
+    // and looped). The result is handwritten under it, rising to the right.
+    const pill = { cx: (walker.x + walker.w + width) / 2, cy: walker.y + a.pillY * walker.h, w: 176, h: 68, pad: 16 };
     const left = pill.cx - pill.w / 2, bottom = pill.cy + pill.h / 2;
     return {
       ...base, walker, mouth, pill,
@@ -257,15 +259,16 @@ function placeScene(mode: HeroMode, width: number, height: number): Omit<HeroLay
 
   const { walker, mouth, k } = placeWalker(walkerBox(-14, height - 4, clamp(height - 12, 280, 360)));
   const a = ARC.compact;
-  const pill = { cx: width - 14 - a.pillW / 2, cy: mouth.y + a.pillY * k, w: a.pillW, h: 52, pad: 10 };
+  // The pill sits on the axis of the result card under it.
+  const cardX = Math.round(width * 0.46), cardW = width - cardX - 12;
+  const pill = { cx: cardX + cardW / 2, cy: mouth.y + a.pillY * k, w: a.pillW, h: 52, pad: 10 };
   const left = pill.cx - pill.w / 2;
-  const cardX = Math.round(width * 0.46);
   return {
     ...base, walker, mouth, pill,
     arc: voiceArc(mouth, { x: walker.x + a.apexX * walker.w, y: mouth.y - a.rise * k }, { x: left + 4, y: pill.cy }, a.tilt),
     writing: null,
     writingSize: 20,
-    card: { x: cardX, y: pill.cy + pill.h / 2 + 16, w: width - cardX - 12 },
+    card: { x: cardX, y: pill.cy + pill.h / 2 + 16, w: cardW },
   };
 }
 
@@ -350,6 +353,25 @@ export function strokePolylines(layout: HeroLayout, seconds: number, bob = 0, ou
     });
   });
   return lines;
+}
+
+/**
+ * Where the strokes fade, in scene px along x (the arc never turns back, so
+ * x runs along it): clear for `gap` px past the mouth, so they never touch
+ * her face, opaque after `fadeIn` more px, and fading out over the last
+ * `fadeOut` px before the pill's left edge, where they end. Stops of a
+ * horizontal gradient from the mouth to the pill, each as [offset, opacity].
+ */
+const STROKE_FADE = { wide: { gap: 16, fadeIn: 36, fadeOut: 30 }, compact: { gap: 12, fadeIn: 22, fadeOut: 18 } } as const;
+
+export function strokeFade(layout: HeroLayout) {
+  const { gap, fadeIn, fadeOut } = STROKE_FADE[layout.scale];
+  const x1 = layout.mouth.x, x2 = layout.pill.cx - layout.pill.w / 2, run = x2 - x1;
+  return {
+    x1,
+    x2,
+    stops: [[gap / run, 0], [(gap + fadeIn) / run, 1], [1 - fadeOut / run, 1], [1, 0]] as [number, number][],
+  };
 }
 
 /** SVG path data of a polyline. */

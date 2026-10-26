@@ -15,6 +15,7 @@ import {
   heroLayout,
   mouthBob,
   polylinePath,
+  strokeFade,
   strokePolylines,
   type HeroLayout,
   type HeroMode,
@@ -25,9 +26,10 @@ import styles from "./Hero.module.css";
 /** Three phrases of 5.5 s each, one walker loop per phrase. */
 const LOOP_SECONDS = SCENE_LOOP_SECONDS;
 const PHRASE_SECONDS = 5.5;
-/** Reduced motion: the first phrase fully written, the waveform mid-take. */
+/** Reduced motion: the first phrase fully written, the waveform mid-word,
+ *  a full silhouette like the iOS keyboard's recording capture. */
 const STILL_AT = 4.2;
-const STILL_LEVELS_AT = 2.3;
+const STILL_LEVELS_AT = 6.2;
 /** Handwriting: first letter at 0.35 s, then one letter every 55 ms. */
 const FIRST_LETTER = 0.35;
 const LETTER_SECONDS = 0.055;
@@ -220,6 +222,7 @@ export default function HeroScene({ phrases, writtenLabel }: Props) {
     : undefined;
   const pill = layout?.pill;
   const bars = pill ? barLayout(pill.cx - pill.w / 2 + pill.pad, pill.w - pill.pad * 2) : null;
+  const fade = layout ? strokeFade(layout) : null;
 
   const phraseLetters = (phrase: string, index: number, svg: boolean) =>
     Array.from(phrase).map((letter, k) => {
@@ -285,25 +288,37 @@ export default function HeroScene({ phrases, writtenLabel }: Props) {
           )}
         </div>
 
-        {layout && pill && bars && (
+        {pill && (
+          <div className={styles.pill} style={{ left: pill.cx - pill.w / 2, top: pill.cy - pill.h / 2, width: pill.w, height: pill.h }} />
+        )}
+
+        {layout && pill && bars && fade && (
           <svg
             className={styles.overlay}
             width={layout.width}
             height={layout.height}
             viewBox={`0 0 ${layout.width} ${layout.height}`}
           >
+            <defs>
+              {layout.strokes.map((stroke, index) => (
+                <linearGradient key={index} id={`${writingId}-stroke-${index}`} gradientUnits="userSpaceOnUse" x1={fade.x1} y1={0} x2={fade.x2} y2={0}>
+                  {fade.stops.map(([offset, opacity], k) => (
+                    <stop key={k} offset={offset} stopColor={stroke.color} stopOpacity={opacity} />
+                  ))}
+                </linearGradient>
+              ))}
+            </defs>
             {layout.strokes.map((stroke, index) => (
               <path
                 key={index}
                 ref={(node) => { strokeRefs.current[index] = node; }}
                 fill="none"
-                stroke={stroke.color}
+                stroke={`url(#${writingId}-stroke-${index})`}
                 strokeWidth={stroke.width}
                 strokeLinecap="round"
                 strokeLinejoin="round"
               />
             ))}
-            <rect x={pill.cx - pill.w / 2} y={pill.cy - pill.h / 2} width={pill.w} height={pill.h} rx={pill.h / 2} fill="#0A1628" />
             {bars.bars.map((bar, index) => (
               <line
                 key={index}
