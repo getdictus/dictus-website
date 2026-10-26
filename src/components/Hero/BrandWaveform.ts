@@ -5,7 +5,9 @@
  * 0.3 smoothing factor and fall with a 0.85 decay, per 60 Hz frame.
  *
  * Extracted from the hero's former full-screen `Waveform` canvas, without
- * its gradient (the v4b hero has none). Drawn as SVG lines stretched by
+ * its gradient (the v4b hero has none). On the hero's light glass pill the
+ * colours flip: the centre in accent blue #3D7EFF, the outer bars in navy
+ * #0F3460, so they keep their contrast. Drawn as SVG lines stretched by
  * their `transform` attribute: no box layout of the page, but SVG geometry
  * and repaint work every frame.
  */
@@ -15,8 +17,8 @@ export const BAR_GAP = 2;
 const MIN_BAR_HEIGHT = 2;
 const SMOOTHING = 0.3;
 const DECAY = 0.85;
-const CENTRE_COLOUR = "#6BA3FF";
-const EDGE_COLOUR = "#FFFFFF";
+const CENTRE_COLOUR = "#3D7EFF";
+const EDGE_COLOUR = "#0F3460";
 
 export type Bar = { x: number; colour: string; opacity: number };
 
