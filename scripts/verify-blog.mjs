@@ -174,21 +174,22 @@ for (const engine of selected) {
       } finally { await context.close(); }
     });
 
-    await check(`${engine}: CTA to #iphone lands under the nav and keeps the Pro pin (#84)`, async () => {
+    await check(`${engine}: CTA to #clavier lands under the nav and keeps the Pro pin (#84)`, async () => {
       const context = await browser.newContext({ viewport: { width: 1440, height: 900 } });
       const page = await context.newPage();
       try {
         for (const locale of ["fr", "en"]) {
-          const article = articles.find((item) => item.locales[locale]?.cta.href === `/${locale}#iphone`);
+          const article = articles.find((item) => item.locales[locale]?.cta.href === `/${locale}#clavier`);
           await page.goto(`${origin}${route(article, locale)}`);
-          const cta = page.locator(`main a[href="/${locale}#iphone"]`).first();
+          // The footer "Features" link shares this href; the CTA is the article aside.
+          const cta = page.locator(`main aside a[href="/${locale}#clavier"]`);
           await cta.scrollIntoViewIfNeeded();
           await page.evaluate(() => { window.__sameDocument = true; });
           await cta.click();
-          await page.waitForURL(`${origin}/${locale}#iphone`);
+          await page.waitForURL(`${origin}/${locale}#clavier`);
           assert.equal(await page.evaluate(() => window.__sameDocument), true, "The CTA must navigate client-side");
           // --nav-clearance: the target lands 100px from the top.
-          await expect.poll(() => page.evaluate(() => Math.abs(document.getElementById("iphone").getBoundingClientRect().top - 100))).toBeLessThanOrEqual(2);
+          await expect.poll(() => page.evaluate(() => Math.abs(document.getElementById("clavier").getBoundingClientRect().top - 100))).toBeLessThanOrEqual(2);
           const track = page.locator("#pro [data-pinned]");
           await expect(track).toHaveAttribute("data-pinned", "true");
           const { start, span } = await track.evaluate((node) => ({ start: node.getBoundingClientRect().top + window.scrollY, span: node.offsetHeight - window.innerHeight }));
@@ -201,6 +202,17 @@ for (const engine of selected) {
             assert.equal(sticky.position, "sticky");
             assert.ok(Math.abs(sticky.top) <= 1, `Pinned Pro section left the top at ${share}: ${sticky.top}`);
           }
+        }
+      } finally { await context.close(); }
+    });
+
+    await check(`${engine}: legacy #iphone alias still lands on the Keyboard section on direct load`, async () => {
+      const context = await browser.newContext({ viewport: { width: 1440, height: 900 } });
+      const page = await context.newPage();
+      try {
+        for (const locale of ["fr", "en"]) {
+          await page.goto(`${origin}/${locale}#iphone`);
+          await expect.poll(() => page.evaluate(() => Math.abs(document.getElementById("clavier").getBoundingClientRect().top - 100))).toBeLessThanOrEqual(2);
         }
       } finally { await context.close(); }
     });
