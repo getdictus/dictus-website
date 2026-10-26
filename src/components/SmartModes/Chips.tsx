@@ -19,6 +19,9 @@ type Props = {
  *
  * The lit colour switches with no crossfade: a fade would leave the previous
  * chip looking lit while the text and front card already show the new step.
+ *
+ * Focus ring: ink (4.86:1 on blue), 2px off the chip so the scrolling row's
+ * 4px padding does not clip it. Important, as the global ring is unlayered.
  */
 export default function Chips({ label, chips, compatibility }: Props) {
   const { activeIndex, goToStep, pinned } = usePinnedStep();
@@ -55,7 +58,7 @@ export default function Chips({ label, chips, compatibility }: Props) {
                 data-active={active}
                 aria-current={active ? "step" : undefined}
                 onClick={() => goToStep(index)}
-                className={`min-h-10 shrink-0 whitespace-nowrap rounded-full px-4 text-[15px] font-medium transition-transform duration-200 ease-[var(--ease-out)] active:scale-[0.97] focus-visible:outline-brand-ink ${
+                className={`min-h-10 shrink-0 whitespace-nowrap rounded-full px-4 text-[15px] font-medium transition-transform duration-200 ease-[var(--ease-out)] active:scale-[0.97] focus-visible:outline-brand-ink! focus-visible:outline-offset-2! ${
                   active ? "bg-brand-ink text-white" : "bg-white text-brand-ink"
                 }`}
               >
