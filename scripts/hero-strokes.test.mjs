@@ -6,7 +6,7 @@
 // Run with `npm run test:hero` (Node 22.18+ strips the TypeScript types).
 import assert from "node:assert/strict";
 import { test } from "node:test";
-import { recordingLevels } from "../src/components/Hero/BrandWaveform.ts";
+import { BAR_COUNT, BINS_PER_CALLBACK, LevelSmoother, recordingLevels, speechBins, waveformWindow } from "../src/components/Hero/BrandWaveform.ts";
 import {
   MIN_VISIBLE_GAP,
   SCENE_LOOP_SECONDS,
@@ -167,10 +167,53 @@ test("the scene loop has no seam: strokes and waveform at 16.5 s - 1 frame lead 
     next.forEach((line, i) => line.forEach((p, k) => { step = Math.max(step, Math.hypot(p.x - start[i][k].x, p.y - start[i][k].y)); }));
     assert.ok(jump <= step * 1.5 + 0.05, `${fixture.name}: seam ${jump.toFixed(2)} px vs one frame ${step.toFixed(2)} px`);
   }
+  // The waveform crosses the seam like any other callback: the old bins move
+  // BINS_PER_CALLBACK bars right and new ones enter on the left.
   const before = recordingLevels(SCENE_LOOP_SECONDS - frame, SCENE_LOOP_SECONDS);
   const after = recordingLevels(0, SCENE_LOOP_SECONDS);
-  const frameStep = recordingLevels(frame, SCENE_LOOP_SECONDS);
-  const seam = Math.max(...before.map((v, i) => Math.abs(v - after[i])));
-  const normal = Math.max(...frameStep.map((v, i) => Math.abs(v - after[i])));
-  assert.ok(seam <= normal * 1.5, `waveform jumps ${seam.toFixed(3)} across the seam, ${normal.toFixed(3)} in a normal frame`);
+  for (let i = 0; i + BINS_PER_CALLBACK < BAR_COUNT; i++) {
+    assert.ok(Math.abs(after[i + BINS_PER_CALLBACK] - before[i]) < 1e-9, `waveform bar ${i} does not carry across the seam`);
+  }
+});
+
+test("waveform: new bins enter on the left and travel right", () => {
+  // A single spike in a silent stream, seen at two successive callbacks.
+  const bins = new Array(BINS_PER_CALLBACK * 40).fill(0);
+  const spikeAt = 100;
+  bins[spikeAt] = 1;
+  const peak = (levels) => levels.indexOf(Math.max(...levels));
+  const first = waveformWindow(bins, spikeAt);
+  const next = waveformWindow(bins, spikeAt + BINS_PER_CALLBACK);
+  assert.equal(peak(first), 0, "the newest bin is drawn on the leftmost bar");
+  assert.equal(peak(next), BINS_PER_CALLBACK, "one callback later it sits further right");
+
+  // The same through the whole pipeline: a callback later, every lit bar has
+  // moved right by BINS_PER_CALLBACK.
+  const loop = 4;
+  const stream = new Array(Math.round(loop / (4096 / 48000)) * BINS_PER_CALLBACK).fill(0);
+  stream[20 * BINS_PER_CALLBACK + 2] = 0.9;
+  const callback = loop / (stream.length / BINS_PER_CALLBACK);
+  const at = (n) => recordingLevels((n + 0.5) * callback, loop, stream);
+  const a = peak(at(20)), b = peak(at(21)), c = peak(at(22));
+  assert.ok(a < b && b < c, `peak bar ${a} -> ${b} -> ${c} should increase`);
+  assert.equal(b - a, BINS_PER_CALLBACK);
+});
+
+test("waveform: a seeded, speech-like voice with the iOS levels", () => {
+  const bins = speechBins(SCENE_LOOP_SECONDS);
+  assert.deepEqual(bins, speechBins(SCENE_LOOP_SECONDS), "same voice on every load");
+  assert.equal(bins.length % BINS_PER_CALLBACK, 0);
+  assert.ok(bins.every((v) => v >= 0 && v <= 1));
+  const silent = bins.filter((v) => v < 0.05).length / bins.length;
+  assert.ok(silent > 0.15 && silent < 0.45, `pauses take ${(silent * 100).toFixed(0)} % of the take`);
+  for (let t = 0; t < SCENE_LOOP_SECONDS; t += 0.05) {
+    const levels = recordingLevels(t, SCENE_LOOP_SECONDS);
+    assert.equal(levels.length, BAR_COUNT);
+    assert.ok(levels.every((v) => v === 0 || (v >= 0.05 && v <= 1)), "thresholded at 0.05, clamped to 1");
+  }
+  // The iOS driver: rise by 0.3, fall by a 0.85 decay per 60 Hz frame.
+  const smoother = new LevelSmoother();
+  smoother.set(new Array(BAR_COUNT).fill(0.5));
+  const step = smoother.step([1, 0, ...new Array(BAR_COUNT - 2).fill(0.5)], 1 / 60);
+  assert.ok(Math.abs(step[0] - 0.65) < 1e-6 && Math.abs(step[1] - 0.425) < 1e-6);
 });

@@ -26,9 +26,10 @@ import styles from "./Hero.module.css";
 /** Three phrases of 5.5 s each, one walker loop per phrase. */
 const LOOP_SECONDS = SCENE_LOOP_SECONDS;
 const PHRASE_SECONDS = 5.5;
-/** Reduced motion: the first phrase fully written, the waveform mid-take. */
+/** Reduced motion: the first phrase fully written, the waveform mid-word,
+ *  a full silhouette like the iOS keyboard's recording capture. */
 const STILL_AT = 4.2;
-const STILL_LEVELS_AT = 2.3;
+const STILL_LEVELS_AT = 6.2;
 /** Handwriting: first letter at 0.35 s, then one letter every 55 ms. */
 const FIRST_LETTER = 0.35;
 const LETTER_SECONDS = 0.055;
