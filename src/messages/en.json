@@ -193,7 +193,7 @@
     "meta_title": "Privacy Policy — dictus",
     "meta_description": "How Dictus processes your voice locally and protects your data. Privacy policy for the app and website.",
     "title": "Privacy Policy",
-    "last_updated": "Last updated: October 26, 2026",
+    "last_updated": "Last updated: October 27, 2026",
     "intro": "On iOS, your voice and transcribed text stay on your device. On Desktop, audio transcription is also local. Optional post-processing, disabled by default, may send transcribed text to a provider you explicitly choose.",
     "scope": "This policy covers the Dictus apps for iOS and Desktop, and the getdictus.com website.",
     "data_collection_title": "Data Collection",
@@ -218,7 +218,7 @@
     "contact_text": "For any questions: contact@pivi.solutions",
     "desktop_privacy_link": "Read the Desktop privacy documentation",
     "assistant_title": "Website AI assistant",
-    "assistant_text": "The website includes an AI assistant provided by Aiguilleuse (TTINOV), whose script loads from Aiguilleuse’s servers on every page. On each page view, it sends Aiguilleuse the page address (without anything after a “?”) and whether you came from outside the site. Aiguilleuse states that it only keeps daily totals per page, with no cookie or identifier. As with any connection, your browser also sends your IP address. Nothing is stored in your browser until you write to the assistant. If you send it a message, your messages are sent to Aiguilleuse to produce the answers, and a conversation identifier is kept in your browser’s session storage until you close the tab. If you leave a request, your first name, your email or phone number, the summary of your need and your choice about email offers are also sent. Do not share sensitive information. According to Aiguilleuse’s notice, this data stays in the European Union and is not used to train any AI model. A conversation is kept for 6 months after its last message, or up to 3 years if you leave a request. That notice also details its providers and your rights.",
+    "assistant_text": "The website includes an AI assistant provided by Aiguilleuse (TTINOV), whose script loads from Aiguilleuse’s servers on every page. PIVI Solutions, the publisher of Dictus, is the data controller for this assistant’s data, and Aiguilleuse processes it on behalf of PIVI Solutions. On each page view, Aiguilleuse’s script sends Aiguilleuse the page address (without anything after a “?”) and whether you came from outside the site. Aiguilleuse states that it only keeps daily totals per page, with no cookie or identifier. As with any connection, your browser also sends your IP address. Nothing is stored in your browser until you write to the assistant. If you send it a message, your messages are sent to Aiguilleuse to produce the answers, and a conversation identifier is kept in your browser’s session storage until you close the tab. If you leave a request, your first name, your email or phone number, the summary of your need and your choice about email offers are also sent, and your request is emailed to PIVI Solutions at contact@pivi.solutions. Do not share sensitive information. According to Aiguilleuse’s notice, this data stays in the European Union and is not used to train any AI model. A conversation is kept for 6 months after its last message, or up to 3 years if you leave a request. That notice also details its providers and your rights.",
     "assistant_link": "Read Aiguilleuse’s notice on your data (in French)"
   },
   "Terms": {
