@@ -280,7 +280,7 @@
     "meta_title": "Support Dictus - Contribution",
     "meta_description": "Support the development of Dictus: open source voice typing, local by default.",
     "heading": "Support Dictus",
-    "motivation": "Dictus is an independent, open-source project. Your contribution helps fund development, servers, and future features. Every bit counts.",
+    "motivation": "Dictus is an independent, open-source project. Your contribution helps fund development, servers, and future features of the free version; it does not unlock Dictus Pro. Every bit counts.",
     "method_fiat_title": "Credit card",
     "method_fiat_subtitle": "Visa, Mastercard, Apple Pay…",
     "method_bitcoin_title": "Bitcoin",
@@ -404,7 +404,7 @@
       },
       "platforms": {
         "question": "Does Pro also cover my computer?",
-        "answer": "Pro is for iOS only. Desktop stays free. Android is a free public beta; this offering includes neither an Android licence nor cross-device sync."
+        "answer": "Pro is for iOS for now; Dictus Pro for Android is in development. Desktop stays free. Your iOS purchase does not include an Android licence or cross-device sync."
       },
       "plans": {
         "question": "How do the three options differ?",
@@ -470,7 +470,7 @@
         "title": "iPhone",
         "platform": "iOS 17 or later",
         "price": "€0",
-        "frequency": "no subscription",
+        "frequency": "forever",
         "description": "Your voice, in your keyboard.",
         "features": {
           "dictation": "Keyboard for compatible apps",

@@ -280,7 +280,7 @@
     "meta_title": "Soutenir Dictus - Contribution",
     "meta_description": "Soutenez le développement de Dictus : la dictée vocale locale par défaut et open source.",
     "heading": "Soutenir Dictus",
-    "motivation": "Dictus est un projet indépendant et open source. Votre contribution aide à financer le développement, les serveurs et les futures fonctionnalités. Chaque geste compte.",
+    "motivation": "Dictus est un projet indépendant et open source. Votre contribution aide à financer le développement, les serveurs et les futures fonctionnalités de la version gratuite ; elle ne débloque pas Dictus Pro. Chaque geste compte.",
     "method_fiat_title": "Carte bancaire",
     "method_fiat_subtitle": "Visa, Mastercard, Apple Pay…",
     "method_bitcoin_title": "Bitcoin",
@@ -404,7 +404,7 @@
       },
       "platforms": {
         "question": "Pro couvre-t-il aussi mon ordinateur ?",
-        "answer": "Pro concerne uniquement iOS. Desktop reste gratuit. Android est en bêta publique gratuite ; cette offre n’inclut ni licence Android ni synchronisation entre appareils."
+        "answer": "Pro concerne iOS pour l’instant ; Dictus Pro pour Android est en développement. Desktop reste gratuit. L’achat iOS n’inclut ni licence Android ni synchronisation entre appareils."
       },
       "plans": {
         "question": "Quelle différence entre les trois formules ?",
@@ -470,7 +470,7 @@
         "title": "iPhone",
         "platform": "iOS 17 ou ultérieur",
         "price": "0 €",
-        "frequency": "sans abonnement",
+        "frequency": "pour toujours",
         "description": "Votre voix, dans votre clavier.",
         "features": {
           "dictation": "Clavier pour les apps compatibles",
