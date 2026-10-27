@@ -39,7 +39,7 @@ export default async function DonatePage({ params }: Props) {
           {t("heading")}
         </h1>
         <p className="mx-auto mt-6 max-w-xl text-center text-lg leading-relaxed text-white-70">
-          {t("motivation")}
+          {t("motivation").replace("Dictus Pro", "Dictus Pro")}
         </p>
         <DonateCards />
         <section aria-labelledby="why-support-title" className="mt-10">

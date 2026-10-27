@@ -78,10 +78,12 @@
 @media (max-width: 800px) {
   .page { padding: 132px 24px 40px; }
   .intro > p { font-size: 16px; max-width: 320px; margin-inline: auto; }
-  .interactiveBilling { position: sticky; top: 116px; z-index: 10; margin: 28px auto; }
+  /* Stuck 14px under the 70px nav pill. Cards scrolled to the top clear it:
+     html scroll-padding (100px) + 56px = 84 + 56px switch + 16px gap. */
+  .interactiveBilling { position: sticky; top: 84px; z-index: 10; margin: 28px auto; }
   .selectorSurface { background: #e8ebf1ed; box-shadow: 0 4px 20px #1425440a; }
   .cards { grid-template-columns: 1fr; max-width: 460px; margin-inline: auto; gap: 20px; }
-  .card { padding: 30px; }
+  .card { padding: 30px; scroll-margin-top: 56px; }
   .price { font-size: 60px; }
   .cardFooter > p { min-height: 0; }
   .billingNote { max-width: 460px; }
