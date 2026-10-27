@@ -183,7 +183,7 @@
     "company": "PIVI Solutions",
     "privacy_link": "Confidentialité",
     "terms_link": "CGU",
-    "site_privacy": "Ce site n’utilise ni cookies publicitaires ni outils d’analytics.",
+    "site_privacy": "Ce site n’utilise ni cookies publicitaires ni outils d’analytics, à l’exception du comptage des pages vues de son assistant IA.",
     "apple_credit": "Apple et le logo Apple sont des marques d’Apple Inc., déposées aux États-Unis et dans d’autres pays. App Store est une marque de service d’Apple Inc."
   },
   "NotFound": {
@@ -193,11 +193,11 @@
     "meta_title": "Politique de confidentialité — dictus",
     "meta_description": "Comment Dictus traite votre voix localement et protège vos données. Politique de confidentialité de l’app et du site.",
     "title": "Politique de confidentialité",
-    "last_updated": "Dernière mise à jour : 17 septembre 2026",
+    "last_updated": "Dernière mise à jour : 26 octobre 2026",
     "intro": "Sur iOS, votre voix et le texte transcrit restent sur votre appareil. Sur Desktop, la transcription audio est également locale. Un post-traitement facultatif, désactivé par défaut, peut transmettre le texte transcrit au fournisseur que vous choisissez explicitement.",
     "scope": "Cette politique couvre les applications Dictus pour iOS et Desktop, ainsi que le site getdictus.com.",
     "data_collection_title": "Collecte de données",
-    "data_collection_text": "Les applications Dictus ne nécessitent pas de compte Dictus et n’intègrent ni télémétrie ni outils d’analytics. Le site n’utilise ni cookies publicitaires ni outils d’analytics. Si vous choisissez de faire un don, le prestataire de paiement traite les données nécessaires à cette opération.",
+    "data_collection_text": "Les applications Dictus ne nécessitent pas de compte Dictus et n’intègrent ni télémétrie ni outils d’analytics. Le site n’utilise ni cookies publicitaires ni outils d’analytics, à l’exception du comptage des pages vues effectué par son assistant IA, décrit ci-dessous. Si vous choisissez de faire un don, le prestataire de paiement traite les données nécessaires à cette opération.",
     "full_access_title": "Autorisation Full Access",
     "full_access_text": "Sur iOS, l’autorisation Full Access est nécessaire au fonctionnement du clavier de dictée. La voix et le texte transcrit sont traités sur votre appareil.",
     "data_usage_title": "Utilisation des données",
@@ -216,7 +216,10 @@
     "changes_text": "Les mises à jour seront publiées sur cette page avec une date révisée.",
     "contact_title": "Contact",
     "contact_text": "Pour toute question : contact@pivi.solutions",
-    "desktop_privacy_link": "Consulter la documentation de confidentialité Desktop"
+    "desktop_privacy_link": "Consulter la documentation de confidentialité Desktop",
+    "assistant_title": "Assistant IA du site",
+    "assistant_text": "Le site intègre un assistant IA fourni par Aiguilleuse (TTINOV), dont le script se charge depuis les serveurs d’Aiguilleuse sur chaque page. À chaque page vue, il transmet à Aiguilleuse l’adresse de la page (sans ce qui suit un « ? ») et si vous arrivez de l’extérieur du site. Aiguilleuse indique n’en garder que des totaux par jour et par page, sans cookie ni identifiant. Comme pour toute connexion, votre navigateur transmet aussi votre adresse IP. Rien n’est enregistré dans votre navigateur tant que vous n’écrivez pas à l’assistant. Si vous lui envoyez un message, vos messages sont transmis à Aiguilleuse pour produire les réponses, et un identifiant de conversation est gardé dans le stockage de session de votre navigateur jusqu’à la fermeture de l’onglet. Si vous laissez une demande, votre prénom, votre email ou votre téléphone, le résumé de votre besoin et votre choix concernant les offres par email sont aussi transmis. N’indiquez pas d’informations sensibles. Selon la notice d’Aiguilleuse, ces données restent dans l’Union européenne et ne servent à entraîner aucun modèle d’IA. Une conversation est conservée 6 mois après son dernier message, ou 3 ans au plus si vous laissez une demande. Cette notice détaille aussi les prestataires et vos droits.",
+    "assistant_link": "Lire la notice d’Aiguilleuse sur vos données"
   },
   "Terms": {
     "meta_title": "Conditions d’utilisation — dictus",

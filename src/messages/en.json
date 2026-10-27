@@ -183,7 +183,7 @@
     "company": "PIVI Solutions",
     "privacy_link": "Privacy",
     "terms_link": "Terms",
-    "site_privacy": "This site uses no advertising cookies or analytics tools.",
+    "site_privacy": "This site uses no advertising cookies or analytics tools, apart from the page-view count of its AI assistant.",
     "apple_credit": "Apple and the Apple logo are trademarks of Apple Inc., registered in the U.S. and other countries. App Store is a service mark of Apple Inc."
   },
   "NotFound": {
@@ -193,11 +193,11 @@
     "meta_title": "Privacy Policy — dictus",
     "meta_description": "How Dictus processes your voice locally and protects your data. Privacy policy for the app and website.",
     "title": "Privacy Policy",
-    "last_updated": "Last updated: September 17, 2026",
+    "last_updated": "Last updated: October 26, 2026",
     "intro": "On iOS, your voice and transcribed text stay on your device. On Desktop, audio transcription is also local. Optional post-processing, disabled by default, may send transcribed text to a provider you explicitly choose.",
     "scope": "This policy covers the Dictus apps for iOS and Desktop, and the getdictus.com website.",
     "data_collection_title": "Data Collection",
-    "data_collection_text": "The Dictus apps do not require a Dictus account and include no telemetry or analytics tools. The website uses no advertising cookies or analytics tools. If you choose to donate, the payment provider processes the data needed for that transaction.",
+    "data_collection_text": "The Dictus apps do not require a Dictus account and include no telemetry or analytics tools. The website uses no advertising cookies or analytics tools, apart from the page-view count made by its AI assistant, described below. If you choose to donate, the payment provider processes the data needed for that transaction.",
     "full_access_title": "Full Access Permission",
     "full_access_text": "On iOS, Full Access permission is needed for the dictation keyboard to work. Your voice and transcribed text are processed on your device.",
     "data_usage_title": "Data Usage",
@@ -216,7 +216,10 @@
     "changes_text": "Updates will be posted on this page with a revised date.",
     "contact_title": "Contact",
     "contact_text": "For any questions: contact@pivi.solutions",
-    "desktop_privacy_link": "Read the Desktop privacy documentation"
+    "desktop_privacy_link": "Read the Desktop privacy documentation",
+    "assistant_title": "Website AI assistant",
+    "assistant_text": "The website includes an AI assistant provided by Aiguilleuse (TTINOV), whose script loads from Aiguilleuse’s servers on every page. On each page view, it sends Aiguilleuse the page address (without anything after a “?”) and whether you came from outside the site. Aiguilleuse states that it only keeps daily totals per page, with no cookie or identifier. As with any connection, your browser also sends your IP address. Nothing is stored in your browser until you write to the assistant. If you send it a message, your messages are sent to Aiguilleuse to produce the answers, and a conversation identifier is kept in your browser’s session storage until you close the tab. If you leave a request, your first name, your email or phone number, the summary of your need and your choice about email offers are also sent. Do not share sensitive information. According to Aiguilleuse’s notice, this data stays in the European Union and is not used to train any AI model. A conversation is kept for 6 months after its last message, or up to 3 years if you leave a request. That notice also details its providers and your rights.",
+    "assistant_link": "Read Aiguilleuse’s notice on your data (in French)"
   },
   "Terms": {
     "meta_title": "Terms of Use — dictus",
