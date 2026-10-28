@@ -65,9 +65,9 @@ for (const engine of selected) {
           if (preview) {
             await expect(page.locator("h1")).toBeVisible();
             await expect(page.locator('meta[name="robots"]')).toHaveAttribute("content", /noindex.*nofollow/);
-            await expect(page.locator('link[rel="canonical"]')).toHaveAttribute("href", `https://getdictus.com/${locale}/blog`);
+            await expect(page.locator('link[rel="canonical"]')).toHaveAttribute("href", `https://www.getdictus.com/${locale}/blog`);
             await expect(page.locator('meta[property="og:locale"]')).toHaveAttribute("content", locale === "fr" ? "fr_FR" : "en_US");
-            await expect(page.locator('meta[property="og:url"]')).toHaveAttribute("content", `https://getdictus.com/${locale}/blog`);
+            await expect(page.locator('meta[property="og:url"]')).toHaveAttribute("content", `https://www.getdictus.com/${locale}/blog`);
             await expect(page.locator('meta[name="twitter:card"]')).toHaveAttribute("content", "summary_large_image");
             for (const article of articles.filter((item) => item.locales[locale])) {
               await expect(page.locator(`main a[href="${route(article, locale)}"]`).first()).toBeVisible();
@@ -83,15 +83,15 @@ for (const engine of selected) {
             if (!preview) continue;
             await expect(page.locator("html")).toHaveAttribute("lang", locale);
             await expect(page.locator("h1")).toHaveText(content.title);
-            await expect(page.locator('link[rel="canonical"]')).toHaveAttribute("href", `https://getdictus.com${pathname}`);
+            await expect(page.locator('link[rel="canonical"]')).toHaveAttribute("href", `https://www.getdictus.com${pathname}`);
             for (const language of ["fr", "en"].filter((item) => article.locales[item])) {
-              await expect(page.locator(`link[rel="alternate"][hreflang="${language}"]`)).toHaveAttribute("href", `https://getdictus.com${route(article, language)}`);
+              await expect(page.locator(`link[rel="alternate"][hreflang="${language}"]`)).toHaveAttribute("href", `https://www.getdictus.com${route(article, language)}`);
             }
             assert.equal(await page.title(), content.seo.title);
             await expect(page.locator('meta[name="description"]')).toHaveAttribute("content", content.seo.description);
             await expect(page.locator('meta[property="og:title"]')).toHaveAttribute("content", content.social.title);
             await expect(page.locator('meta[property="og:description"]')).toHaveAttribute("content", content.social.description);
-            await expect(page.locator('meta[property="og:url"]')).toHaveAttribute("content", `https://getdictus.com${pathname}`);
+            await expect(page.locator('meta[property="og:url"]')).toHaveAttribute("content", `https://www.getdictus.com${pathname}`);
             await expect(page.locator('meta[property="og:locale"]')).toHaveAttribute("content", locale === "fr" ? "fr_FR" : "en_US");
             await expect(page.locator('meta[name="twitter:title"]')).toHaveAttribute("content", content.social.title);
             await expect(page.locator('meta[name="twitter:description"]')).toHaveAttribute("content", content.social.description);
