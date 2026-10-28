@@ -148,7 +148,10 @@ export default function Footer() {
         </svg>
       </div>
 
-      <div className="mx-auto mt-[clamp(20px,3vw,40px)] max-w-[1240px] px-5 pb-7 min-[760px]:px-[clamp(20px,5.5vw,80px)]">
+      {/* The bottom padding lifts the legal links clear of the assistant
+          widget's fixed bubble and teaser at the end of the page: they cover
+          the bottom 179px of the viewport up to 480px wide, 195px above. */}
+      <div className="mx-auto mt-[clamp(20px,3vw,40px)] max-w-[1240px] px-5 pb-[calc(112px+env(safe-area-inset-bottom))] min-[481px]:pb-[calc(168px+env(safe-area-inset-bottom))] min-[760px]:px-[clamp(20px,5.5vw,80px)]">
         <div className="flex flex-wrap justify-between gap-x-6 gap-y-1 border-t border-brand-rule pt-3 text-[14px] text-brand-muted">
           <span className="inline-flex min-h-11 items-center">© {year} Dictus · {t("company")}</span>
           <span className="flex flex-wrap gap-x-5">
