@@ -1,4 +1,5 @@
 import { setRequestLocale, getTranslations } from "next-intl/server";
+import { pageMetadata } from "@/lib/metadata";
 import { routing } from "@/i18n/routing";
 import Footer from "@/components/Footer/Footer";
 import DonateCards from "@/components/Donate/DonateCards";
@@ -13,18 +14,12 @@ export function generateStaticParams() {
 export async function generateMetadata({ params }: Props): Promise<Metadata> {
   const { locale } = await params;
   const t = await getTranslations({ locale, namespace: "Donate" });
-  return {
+  return pageMetadata({
+    locale,
+    path: "/donate",
     title: t("meta_title"),
     description: t("meta_description"),
-    alternates: {
-      canonical: `/${locale}/donate`,
-      languages: {
-        fr: "/fr/donate",
-        en: "/en/donate",
-        "x-default": "/fr/donate",
-      },
-    },
-  };
+  });
 }
 
 export default async function DonatePage({ params }: Props) {

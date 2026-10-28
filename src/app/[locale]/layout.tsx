@@ -10,6 +10,8 @@ import { notFound } from "next/navigation";
 import Script from "next/script";
 import { routing } from "@/i18n/routing";
 import { isSitePreview } from "@/config/preview";
+import { SITE_URL } from "@/config/site";
+import { pageMetadata } from "@/lib/metadata";
 import { isBlogAvailable } from "@/config/blog";
 import { isPricingAvailable } from "@/config/pricing-release";
 import { getBlogArticles, getTranslationPaths } from "@/lib/blog";
@@ -36,11 +38,6 @@ type Props = {
   params: Promise<{ locale: string }>;
 };
 
-const localeMap: Record<string, string> = {
-  fr: "fr_FR",
-  en: "en_US",
-};
-
 export async function generateMetadata({
   params,
 }: Props): Promise<Metadata> {
@@ -51,40 +48,9 @@ export async function generateMetadata({
   const description = t("description");
 
   return {
-    metadataBase: new URL("https://getdictus.com"),
-    title,
-    description,
+    ...pageMetadata({ locale, path: "", title, description }),
+    metadataBase: new URL(SITE_URL),
     applicationName: "dictus",
-    openGraph: {
-      title,
-      description,
-      url: `/${locale}`,
-      siteName: "dictus",
-      images: [
-        {
-          url: "/og-image.png",
-          width: 1200,
-          height: 630,
-          alt: "dictus",
-        },
-      ],
-      locale: localeMap[locale] ?? "fr_FR",
-      type: "website",
-    },
-    twitter: {
-      card: "summary_large_image",
-      title,
-      description,
-      images: ["/og-image.png"],
-    },
-    alternates: {
-      canonical: `/${locale}`,
-      languages: {
-        fr: "/fr",
-        en: "/en",
-        "x-default": "/fr",
-      },
-    },
     robots: {
       index: !isSitePreview,
       follow: !isSitePreview,

@@ -3,8 +3,7 @@ import { isSitePreview } from "@/config/preview";
 import { isBlogPublic } from "@/config/blog";
 import { isPricingPublic } from "@/config/pricing-release";
 import { getBlogSitemapEntries } from "@/lib/blog";
-
-const BASE_URL = "https://getdictus.com";
+import { SITE_URL as BASE_URL } from "@/config/site";
 
 export default function sitemap(): MetadataRoute.Sitemap {
   if (isSitePreview) return [];

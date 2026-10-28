@@ -1,4 +1,5 @@
 import { setRequestLocale, getTranslations } from "next-intl/server";
+import { pageMetadata } from "@/lib/metadata";
 import { routing } from "@/i18n/routing";
 import { Link } from "@/i18n/navigation";
 import Footer from "@/components/Footer/Footer";
@@ -14,14 +15,12 @@ export function generateStaticParams() {
 export async function generateMetadata({ params }: Props): Promise<Metadata> {
   const { locale } = await params;
   const t = await getTranslations({ locale, namespace: "Terms" });
-  return {
+  return pageMetadata({
+    locale,
+    path: "/terms",
     title: t("meta_title"),
     description: t("meta_description"),
-    alternates: {
-      canonical: `/${locale}/terms`,
-      languages: { fr: "/fr/terms", en: "/en/terms", "x-default": "/fr/terms" },
-    },
-  };
+  });
 }
 
 const sections = [
