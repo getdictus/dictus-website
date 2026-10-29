@@ -1,13 +1,14 @@
 import { useTranslations } from "next-intl";
 import DownloadButtons from "@/components/shared/DownloadButtons";
 import Section from "@/components/shared/Section";
-import HeroScene from "./HeroScene";
+import AppStrip from "./AppStrip";
 import { dmSansDisplay } from "./fonts";
 import styles from "./Hero.module.css";
 
 /**
- * v4b hero: the headline, the download buttons and the walker scene. The
- * text renders on the server and paints first; the scene is decorative.
+ * Home hero: the headline, the download buttons and the app strip. The text
+ * renders on the server and paints first; the strip is decorative, with one
+ * label for the whole row and the owners of the marks named under it.
  */
 export default function Hero() {
   const t = useTranslations("Hero");
@@ -15,8 +16,7 @@ export default function Hero() {
     <Section tone="white" className={styles.hero} aria-labelledby="hero-title">
       <div className={styles.content}>
         <h1 id="hero-title" className={`${styles.title} ${dmSansDisplay.className}`}>
-          {t("title_a")}
-          <br />
+          {t("title_a")}{" "}
           <span className={styles.titleAccent}>{t("title_b")}</span>
         </h1>
         <p className={styles.subtitle}>{t("subtitle")}</p>
@@ -26,7 +26,8 @@ export default function Hero() {
           <span>· {t("desktop_platforms")}</span>
         </a>
       </div>
-      <HeroScene phrases={t.raw("phrases") as string[]} writtenLabel={t("written_label")} />
+      <AppStrip className={styles.strip} />
+      <p className={styles.trademarks}>{t("trademarks")}</p>
     </Section>
   );
 }

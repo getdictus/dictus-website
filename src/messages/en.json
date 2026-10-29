@@ -24,12 +24,15 @@
     "android_jsonld_description": "Public beta. Free and open source voice dictation keyboard for Android 10 or later, with on-device transcription."
   },
   "Hero": {
-    "title_a": "Speak.",
-    "title_b": "Dictus writes.",
-    "subtitle": "The dictation keyboard that writes in your apps. On your phone, no tracking, open source.",
+    "title_a": "Dictate anywhere.",
+    "title_b": "Offline.",
+    "subtitle": "A dictation keyboard for iPhone. Offline, no tracking, open source and free.",
     "desktop_prefix": "On your computer:",
     "desktop_link": "Dictus Desktop",
     "desktop_platforms": "Mac, Windows, Linux",
+    "apps_label": "App icons: WhatsApp, Messages, Mail, Notes, Slack, Gmail, Instagram, Telegram",
+    "strip_pause": "Pause the icon animation",
+    "trademarks": "Trademarks belong to their respective owners.",
     "written_label": "Dictus writes",
     "phrases": [
       "Thanks for your notes!",
@@ -142,8 +145,7 @@
     "sub": "Install the keyboard, pick a language, tap the mic.",
     "desktop_lead": "On your computer:",
     "desktop_link": "Dictus Desktop",
-    "desktop_platforms": "Mac, Windows, Linux",
-    "ribbon_pause": "Pause the tile animation"
+    "desktop_platforms": "Mac, Windows, Linux"
   },
   "DesktopDownload": {
     "eyebrow": "DICTUS DESKTOP",
