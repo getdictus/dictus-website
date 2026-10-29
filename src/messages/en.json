@@ -26,13 +26,13 @@
   "Hero": {
     "title_a": "Dictate anywhere.",
     "title_b": "Offline.",
-    "subtitle": "A dictation keyboard for iPhone. Offline, no tracking, open source and free.",
+    "subtitle": "A dictation keyboard for mobile. Private and open source.",
     "desktop_prefix": "On your computer:",
     "desktop_link": "Dictus Desktop",
     "desktop_platforms": "Mac, Windows, Linux",
     "apps_label": "App icons: WhatsApp, Messages, Mail, Notes, Slack, Gmail, Instagram, Telegram",
     "strip_pause": "Pause the icon animation",
-    "trademarks": "Trademarks belong to their respective owners.",
+    "not_affiliated": "Dictus is not affiliated with any of these brands.",
     "written_label": "Dictus writes",
     "phrases": [
       "Thanks for your notes!",

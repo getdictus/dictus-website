@@ -8,7 +8,8 @@ import styles from "./Hero.module.css";
 /**
  * Home hero: the headline, the download buttons and the app strip. The text
  * renders on the server and paints first; the strip is decorative, with one
- * label for the whole row and the owners of the marks named under it.
+ * label for the whole row and a line under it saying Dictus is not
+ * affiliated with these brands.
  */
 export default function Hero() {
   const t = useTranslations("Hero");
@@ -27,7 +28,7 @@ export default function Hero() {
         </a>
       </div>
       <AppStrip className={styles.strip} />
-      <p className={styles.trademarks}>{t("trademarks")}</p>
+      <p className={styles.notAffiliated}>{t("not_affiliated")}</p>
     </Section>
   );
 }

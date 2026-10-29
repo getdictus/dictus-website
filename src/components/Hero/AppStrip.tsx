@@ -6,8 +6,8 @@ import styles from "./AppStrip.module.css";
 
 /**
  * App icons from Apple's iTunes lookup API (artworkUrl512, country=fr),
- * resized to 152 px WebP. Third-party marks: the hero names their owners
- * under the strip.
+ * resized to 152 px WebP. Third-party marks: the line under the strip
+ * says Dictus is not affiliated with them.
  */
 const apps = ["whatsapp", "messages", "mail", "notes", "slack", "gmail", "instagram", "telegram"] as const;
 

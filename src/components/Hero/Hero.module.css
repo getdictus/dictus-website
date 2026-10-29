@@ -1,6 +1,6 @@
 /* Home hero, light only: every colour is fixed, so the .dark class leaves
    it white. Three text sizes: display, body (18/20), small (13/15). Under
-   the text, the app strip (AppStrip.module.css) and the trademark line.
+   the text, the app strip (AppStrip.module.css) and the not-affiliated line.
 
    The .scene to .card rules below belong to HeroScene, the walker scene,
    which the hero no longer renders. They mirror heroLayout() in strokes.ts
@@ -23,7 +23,7 @@
 }
 
 .strip { margin-top: 12px; }
-.trademarks { margin: 4px 0 0; padding: 0 18px 28px; font-size: 13px; line-height: 18px; color: #5B6880; text-align: center; }
+.notAffiliated { margin: 4px 0 0; padding: 0 18px 28px; font-size: 13px; line-height: 18px; color: #5B6880; text-align: center; }
 
 .scene { position: relative; flex: 1 0 auto; min-height: 372px; }
 .player { position: absolute; inset: 0; }
@@ -69,7 +69,7 @@
   .titleAccent { margin-top: 0; }
   .subtitle { margin-top: 24px; font-size: 20px; }
   .strip { margin-top: 16px; }
-  .trademarks { padding-bottom: 40px; }
+  .notAffiliated { padding-bottom: 40px; }
   .scene { flex: none; height: 456px; min-height: 0; }
   .walker { left: max(24px, 5%); bottom: 8px; height: clamp(320px, calc(100% - 24px), 432px); }
 }

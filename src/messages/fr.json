@@ -26,13 +26,13 @@
   "Hero": {
     "title_a": "Dictez partout.",
     "title_b": "Hors ligne.",
-    "subtitle": "Un clavier de dictée pour iPhone. Hors ligne, sans pistage, open source et gratuit.",
+    "subtitle": "Un clavier de dictée pour mobile. Privé et open source.",
     "desktop_prefix": "Sur ordinateur :",
     "desktop_link": "Dictus Desktop",
     "desktop_platforms": "Mac, Windows, Linux",
     "apps_label": "Icônes d’apps : WhatsApp, Messages, Mail, Notes, Slack, Gmail, Instagram, Telegram",
     "strip_pause": "Mettre en pause l’animation des icônes",
-    "trademarks": "Marques appartenant à leurs propriétaires respectifs.",
+    "not_affiliated": "Dictus n’est affilié à aucune de ces marques.",
     "written_label": "Dictus écrit",
     "phrases": [
       "Merci pour tes notes !",
