@@ -22,8 +22,8 @@
   .desktop:hover .desktopName { color: #1F5FE0; }
 }
 
-.strip { margin-top: 12px; }
-.notAffiliated { margin: 4px 0 0; padding: 0 18px 28px; font-size: 13px; line-height: 18px; color: #5B6880; text-align: center; }
+.strip { margin-top: 12px; padding-bottom: 24px; }
+.notAffiliated { margin: 0; font-size: 13px; line-height: 18px; color: #5B6880; text-align: center; }
 
 .scene { position: relative; flex: 1 0 auto; min-height: 372px; }
 .player { position: absolute; inset: 0; }
@@ -68,8 +68,7 @@
   .title { max-width: none; font-size: clamp(64px, 5vw, 72px); }
   .titleAccent { margin-top: 0; }
   .subtitle { margin-top: 24px; font-size: 20px; }
-  .strip { margin-top: 16px; }
-  .notAffiliated { padding-bottom: 40px; }
+  .strip { margin-top: 16px; padding-bottom: 36px; }
   .scene { flex: none; height: 456px; min-height: 0; }
   .walker { left: max(24px, 5%); bottom: 8px; height: clamp(320px, calc(100% - 24px), 432px); }
 }

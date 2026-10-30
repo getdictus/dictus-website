@@ -27,8 +27,9 @@ export default function Hero() {
           <span>· {t("desktop_platforms")}</span>
         </a>
       </div>
-      <AppStrip className={styles.strip} />
-      <p className={styles.notAffiliated}>{t("not_affiliated")}</p>
+      <AppStrip className={styles.strip}>
+        <p className={styles.notAffiliated}>{t("not_affiliated")}</p>
+      </AppStrip>
     </Section>
   );
 }
