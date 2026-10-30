@@ -128,10 +128,11 @@ for (const engine of (process.env.VERIFY_ENGINES || "chromium,firefox,webkit").s
     await check(`${engine}/${locale}: pricing metadata and locale route`, async () => {
       await page.goto(`${origin}/${locale}/pricing`);
       await expect(page.locator('meta[name="robots"]')).toHaveAttribute("content", /noindex/);
-      await expect(page.locator('link[rel="canonical"]')).toHaveAttribute("href", `https://getdictus.com/${locale}/pricing`);
-      await expect(page.locator('meta[property="og:url"]')).toHaveAttribute("content", `https://getdictus.com/${locale}/pricing`);
-      await expect(page.locator('link[hreflang="fr"]')).toHaveAttribute("href", "https://getdictus.com/fr/pricing");
-      await expect(page.locator('link[hreflang="en"]')).toHaveAttribute("href", "https://getdictus.com/en/pricing");
+      await expect(page.locator('link[rel="canonical"]')).toHaveAttribute("href", `https://www.getdictus.com/${locale}/pricing`);
+      await expect(page.locator('meta[property="og:url"]')).toHaveAttribute("content", `https://www.getdictus.com/${locale}/pricing`);
+      await expect(page.locator('meta[property="og:image"]')).toHaveAttribute("content", "https://www.getdictus.com/og-image.png");
+      await expect(page.locator('link[hreflang="fr"]')).toHaveAttribute("href", "https://www.getdictus.com/fr/pricing");
+      await expect(page.locator('link[hreflang="en"]')).toHaveAttribute("href", "https://www.getdictus.com/en/pricing");
       assert.equal(await page.locator('script[type="application/ld+json"]').count(), 0);
       const language = page.locator("header").getByRole("button", { name: locale === "fr" ? "EN — Switch to English" : "FR — Passer en français", exact: true });
       await language.click();

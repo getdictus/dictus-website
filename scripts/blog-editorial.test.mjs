@@ -55,7 +55,7 @@ test('both reviewed complete versions publish together and changed source invali
   assert.throws(() => validateArticles([article]), /English translation is missing or stale/);
   assert.throws(() => reviewArticle(article, 'en', 'Translator', date), /translation is stale/);
   assert.equal(selectArticles([article], 'en').length, 0);
-  assert.deepEqual(sitemapEntries([article], 'https://getdictus.com'), []);
+  assert.deepEqual(sitemapEntries([article], 'https://www.getdictus.com'), []);
 });
 test('changes to translation, author, source image, source dates or links invalidate their relevant reviews', async () => {
   const article = publishArticle(await ready(), date);
@@ -126,11 +126,11 @@ test('adding a fourth data-only article updates index, localized lookup and futu
   assert.equal(selectArticles(articles, 'fr').length, 4);
   assert.equal(selectArticles(articles, 'en').length, 4);
   assert.deepEqual(translationPaths(articles, 'four'), { fr: '/fr/blog/four-fr', en: '/en/blog/four-en' });
-  const sitemap = sitemapEntries(articles, 'https://getdictus.com');
+  const sitemap = sitemapEntries(articles, 'https://www.getdictus.com');
   assert.equal(sitemap.length, 10);
   assert.ok(sitemap.every((entry) => entry.lastModified === date));
-  assert.deepEqual(sitemap.at(-1).alternates.languages, { fr: 'https://getdictus.com/fr/blog/four-fr', en: 'https://getdictus.com/en/blog/four-en' });
-  assert.equal(sitemap[0].url, 'https://getdictus.com/fr/blog');
+  assert.deepEqual(sitemap.at(-1).alternates.languages, { fr: 'https://www.getdictus.com/fr/blog/four-fr', en: 'https://www.getdictus.com/en/blog/four-en' });
+  assert.equal(sitemap[0].url, 'https://www.getdictus.com/fr/blog');
 });
 test('real dates are checked without throwing RangeError and body determines computed reading time', () => {
   for (const value of ['2026-99-99', '2026-02-30', 'yesterday']) assert.match(articleErrors({ ...draft(), updatedAt: value }).join(' '), /real ISO date/);

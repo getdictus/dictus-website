@@ -3,6 +3,7 @@ import { notFound } from "next/navigation";
 import { setRequestLocale } from "next-intl/server";
 import { routing } from "@/i18n/routing";
 import { isSitePreview } from "@/config/preview";
+import { pageMetadata } from "@/lib/metadata";
 import Section from "@/components/shared/Section";
 import PinnedSteps from "@/components/shared/PinnedSteps";
 import SeamRibbon from "@/components/shared/SeamRibbon";
@@ -27,7 +28,7 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
   if (!isSitePreview) notFound();
   const { locale } = await params;
   return {
-    title: copyFor(locale).metaTitle,
+    ...pageMetadata({ locale, path: "/dev/motion", title: copyFor(locale).metaTitle }),
     robots: { index: false, follow: false },
   };
 }

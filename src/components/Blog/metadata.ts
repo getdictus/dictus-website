@@ -1,8 +1,7 @@
 import type { Metadata } from "next";
 import { articlePath, getTranslationPaths, type LocalizedArticle } from "@/lib/blog";
 import { isSitePreview } from "@/config/preview";
-
-const origin = "https://getdictus.com";
+import { SITE_URL as origin } from "@/config/site";
 
 export function absoluteBlogUrl(path: string) {
   return new URL(path, origin).toString();

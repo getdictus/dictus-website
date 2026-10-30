@@ -24,12 +24,15 @@
     "android_jsonld_description": "Bêta publique. Clavier de dictée vocale gratuit et open source pour Android 10 ou ultérieur, avec transcription sur l’appareil."
   },
   "Hero": {
-    "title_a": "Parlez.",
-    "title_b": "Dictus écrit.",
-    "subtitle": "Le clavier de dictée qui écrit dans vos apps. Sur votre téléphone, sans pistage, open source.",
+    "title_a": "Dictez partout.",
+    "title_b": "Hors ligne.",
+    "subtitle": "Un clavier de dictée pour mobile. Privé et open source.",
     "desktop_prefix": "Sur ordinateur :",
     "desktop_link": "Dictus Desktop",
     "desktop_platforms": "Mac, Windows, Linux",
+    "apps_label": "Icônes d’apps : WhatsApp, Messages, Mail, Notes, Slack, Gmail, Instagram, Telegram",
+    "strip_pause": "Mettre en pause l’animation des icônes",
+    "not_affiliated": "Dictus n’est affilié à aucune de ces marques.",
     "written_label": "Dictus écrit",
     "phrases": [
       "Merci pour tes notes !",
@@ -102,7 +105,7 @@
       "history": {
         "chip": "Historique",
         "title": "Tout se retrouve.",
-        "body": "Chaque dictée reste sur votre iPhone. Cherchez un mot, retrouvez le texte."
+        "body": "Vos dernières dictées restent sur votre iPhone. Cherchez un mot, retrouvez le texte."
       }
     }
   },
@@ -142,8 +145,7 @@
     "sub": "Installez le clavier, choisissez une langue, touchez le micro.",
     "desktop_lead": "Sur ordinateur :",
     "desktop_link": "Dictus Desktop",
-    "desktop_platforms": "Mac, Windows, Linux",
-    "ribbon_pause": "Mettre en pause l’animation des tuiles"
+    "desktop_platforms": "Mac, Windows, Linux"
   },
   "DesktopDownload": {
     "eyebrow": "DICTUS DESKTOP",
@@ -183,7 +185,7 @@
     "company": "PIVI Solutions",
     "privacy_link": "Confidentialité",
     "terms_link": "CGU",
-    "site_privacy": "Ce site n’utilise ni cookies publicitaires ni outils d’analytics.",
+    "site_privacy": "Ce site n’utilise ni cookies publicitaires ni outils d’analytics, à l’exception du comptage des pages vues de son assistant IA.",
     "apple_credit": "Apple et le logo Apple sont des marques d’Apple Inc., déposées aux États-Unis et dans d’autres pays. App Store est une marque de service d’Apple Inc."
   },
   "NotFound": {
@@ -193,11 +195,11 @@
     "meta_title": "Politique de confidentialité — dictus",
     "meta_description": "Comment Dictus traite votre voix localement et protège vos données. Politique de confidentialité de l’app et du site.",
     "title": "Politique de confidentialité",
-    "last_updated": "Dernière mise à jour : 26 octobre 2026",
+    "last_updated": "Dernière mise à jour : 27 octobre 2026",
     "intro": "Sur iOS, votre voix et le texte transcrit restent sur votre appareil. Sur Desktop, la transcription audio est également locale. Un post-traitement facultatif, désactivé par défaut, peut transmettre le texte transcrit au fournisseur que vous choisissez explicitement.",
     "scope": "Cette politique couvre les applications Dictus pour iOS et Desktop, ainsi que le site getdictus.com.",
     "data_collection_title": "Collecte de données",
-    "data_collection_text": "Les applications Dictus ne nécessitent pas de compte Dictus et n’intègrent ni télémétrie ni outils d’analytics. Sur iOS, un retour n’est envoyé que si vous utilisez le formulaire de retour décrit ci-dessous. Le site n’utilise ni cookies publicitaires ni outils d’analytics. Si vous choisissez de faire un don, le prestataire de paiement traite les données nécessaires à cette opération.",
+    "data_collection_text": "Les applications Dictus ne nécessitent pas de compte Dictus et n’intègrent ni télémétrie ni outils d’analytics. Sur iOS, un retour n’est envoyé que si vous utilisez le formulaire de retour décrit ci-dessous. Le site n’utilise ni cookies publicitaires ni outils d’analytics, à l’exception du comptage des pages vues effectué par son assistant IA, décrit ci-dessous. Si vous choisissez de faire un don, le prestataire de paiement traite les données nécessaires à cette opération.",
     "full_access_title": "Autorisation Full Access",
     "full_access_text": "Sur iOS, l’autorisation Full Access est nécessaire au fonctionnement du clavier de dictée. La voix et le texte transcrit sont traités sur votre appareil.",
     "data_usage_title": "Utilisation des données",
@@ -218,7 +220,10 @@
     "changes_text": "Les mises à jour seront publiées sur cette page avec une date révisée.",
     "contact_title": "Contact",
     "contact_text": "Pour toute question : contact@pivi.solutions",
-    "desktop_privacy_link": "Consulter la documentation de confidentialité Desktop"
+    "desktop_privacy_link": "Consulter la documentation de confidentialité Desktop",
+    "assistant_title": "Assistant IA du site",
+    "assistant_text": "Le site intègre un assistant IA fourni par Aiguilleuse (TTINOV), dont le script se charge depuis les serveurs d’Aiguilleuse sur chaque page. PIVI Solutions, éditeur de Dictus, est responsable du traitement des données de cet assistant, et Aiguilleuse les traite pour le compte de PIVI Solutions. À chaque page vue, le script d’Aiguilleuse transmet à Aiguilleuse l’adresse de la page (sans ce qui suit un « ? ») et si vous arrivez de l’extérieur du site. Aiguilleuse indique n’en garder que des totaux par jour et par page, sans cookie ni identifiant. Comme pour toute connexion, votre navigateur transmet aussi votre adresse IP. Rien n’est enregistré dans votre navigateur tant que vous n’écrivez pas à l’assistant. Si vous lui envoyez un message, vos messages sont transmis à Aiguilleuse pour produire les réponses, et un identifiant de conversation est gardé dans le stockage de session de votre navigateur jusqu’à la fermeture de l’onglet. Si vous laissez une demande, votre prénom, votre email ou votre téléphone, le résumé de votre besoin et votre choix concernant les offres par email sont aussi transmis, et votre demande est envoyée par email à PIVI Solutions, à l’adresse contact@pivi.solutions. N’indiquez pas d’informations sensibles. Selon la notice d’Aiguilleuse, ces données restent dans l’Union européenne et ne servent à entraîner aucun modèle d’IA. Une conversation est conservée 6 mois après son dernier message, ou 3 ans au plus si vous laissez une demande. Cette notice détaille aussi les prestataires et vos droits.",
+    "assistant_link": "Lire la notice d’Aiguilleuse sur vos données"
   },
   "Terms": {
     "meta_title": "Conditions d’utilisation — dictus",
@@ -236,7 +241,7 @@
     "subscription_title": "Abonnement Dictus Pro",
     "subscription_text": "Dictus Pro est proposé sous forme d’abonnement à renouvellement automatique, en formule mensuelle ({monthly}) ou annuelle ({yearly}). Ces prix sont la référence France/EUR ; le prix applicable est celui confirmé dans l’app et l’App Store selon le pays. Un achat définitif est également proposé, décrit plus bas. Le paiement est prélevé sur votre compte Apple ID à la confirmation de l’achat. L’abonnement se renouvelle automatiquement pour la même durée, sauf si le renouvellement automatique est désactivé au moins 24 heures avant la fin de la période en cours. Votre compte est débité du montant du renouvellement dans les 24 heures précédant la fin de la période en cours. Vous pouvez gérer votre abonnement et désactiver le renouvellement automatique à tout moment dans les réglages de votre compte Apple ID après l’achat. La résiliation prend effet à la fin de la période en cours ; la période déjà payée n’est pas remboursée.",
     "trial_title": "Essai gratuit",
-    "trial_text": "Sur un iPhone compatible avec les modes intelligents, Dictus Pro est débloqué gratuitement pendant {trialDays} jours, une fois par appareil. L’essai ne demande aucun paiement ni abonnement et ne se transforme jamais en abonnement payant : rien n’est débité à son terme. À la fin de l’essai, les fonctions Dictus Pro se désactivent, sauf si vous souscrivez un abonnement Dictus Pro ou effectuez l’achat définitif. Les abonnements payants suivent alors les règles de renouvellement automatique d’Apple décrites ci-dessus.",
+    "trial_text": "Sur un iPhone compatible avec les modes intelligents, Dictus Pro est débloqué gratuitement pendant {trialDays} jours, une fois par appareil{proLaunch, select, available {} other {, avec Dictus 2.0}}. L’essai ne demande aucun paiement ni abonnement et ne se transforme jamais en abonnement payant : rien n’est débité à son terme. À la fin de l’essai, les fonctions Dictus Pro se désactivent, sauf si vous souscrivez un abonnement Dictus Pro ou effectuez l’achat définitif. Les abonnements payants suivent alors les règles de renouvellement automatique d’Apple décrites ci-dessus.",
     "lifetime_title": "Achat définitif Dictus Pro",
     "lifetime_text": "Dictus Pro est également proposé sous forme d’achat définitif unique. Il ne s’agit pas d’un abonnement : il ne se renouvelle pas et ne fait l’objet d’aucun prélèvement récurrent. Le prix applicable est celui affiché dans l’App Store au moment de l’achat. L’achat est rattaché à votre compte Apple ID et peut être restauré sur vos appareils via la fonction de restauration des achats. {lifetimeScope}",
     "refunds_title": "Paiements et remboursements",
@@ -279,7 +284,7 @@
     "meta_title": "Soutenir Dictus - Contribution",
     "meta_description": "Soutenez le développement de Dictus : la dictée vocale locale par défaut et open source.",
     "heading": "Soutenir Dictus",
-    "motivation": "Dictus est un projet indépendant et open source. Votre contribution aide à financer le développement, les serveurs et les futures fonctionnalités. Chaque geste compte.",
+    "motivation": "Dictus est un projet indépendant et open source. Votre contribution aide à financer le développement, les serveurs et les futures fonctionnalités de la version gratuite ; elle ne débloque pas Dictus Pro. Chaque geste compte.",
     "method_fiat_title": "Carte bancaire",
     "method_fiat_subtitle": "Visa, Mastercard, Apple Pay…",
     "method_bitcoin_title": "Bitcoin",
@@ -403,7 +408,7 @@
       },
       "platforms": {
         "question": "Pro couvre-t-il aussi mon ordinateur ?",
-        "answer": "Pro concerne uniquement iOS. Desktop reste gratuit. Android est en bêta publique gratuite ; cette offre n’inclut ni licence Android ni synchronisation entre appareils."
+        "answer": "Pro concerne iOS pour l’instant ; Dictus Pro pour Android est en développement. Desktop reste gratuit. L’achat iOS n’inclut ni licence Android ni synchronisation entre appareils."
       },
       "plans": {
         "question": "Quelle différence entre les trois formules ?",
@@ -411,11 +416,11 @@
       },
       "trial": {
         "question": "Comment fonctionne l’essai ?",
-        "answer": "Sur un iPhone compatible avec les modes intelligents, Dictus Pro est gratuit pendant {trialDays} jours, une fois par appareil. Aucun paiement ni abonnement n’est nécessaire. À la fin de l’essai, Pro se désactive, sauf si vous choisissez une formule ou l’achat unique. Rien n’est débité automatiquement."
+        "answer": "Sur un iPhone compatible avec les modes intelligents, Dictus Pro est gratuit pendant {trialDays} jours, une fois par appareil{proLaunch, select, available {} other {, avec Dictus 2.0}}. Aucun paiement ni abonnement n’est nécessaire. À la fin de l’essai, Pro se désactive, sauf si vous choisissez une formule ou l’achat unique. Rien n’est débité automatiquement."
       },
       "compatibility": {
         "question": "Mon iPhone est-il compatible ?",
-        "answer": "L’app gratuite demande iOS 17 ou ultérieur. Les modes IA et la correction intelligente nécessitent iOS 26 ou ultérieur et Apple Intelligence activée : iPhone 15 Pro ou 15 Pro Max, modèles iPhone 16 ou ultérieurs, ou iPhone Air, dans une langue et une région prises en charge. L’essai gratuit de Pro est proposé sur ces iPhone. Payer Pro ne change pas ces prérequis. L’historique, le vocabulaire et la transcription des messages vocaux ne demandent pas Apple Intelligence. Les modèles dépendent de l’appareil, de la mémoire, de la version de l’app et des langues ; Dynamic Island nécessite un iPhone qui en est équipé."
+        "answer": "L’app gratuite demande iOS 17 ou ultérieur. Les modes IA et la correction intelligente nécessitent iOS 26 ou ultérieur et Apple Intelligence activée : iPhone 15 Pro ou 15 Pro Max, modèles iPhone 16 ou ultérieurs, ou iPhone Air, dans une langue et une région prises en charge. L’essai gratuit de Pro est proposé sur ces iPhone{proLaunch, select, available {} other {, avec Dictus 2.0}}. Payer Pro ne change pas ces prérequis. L’historique, le vocabulaire et la transcription des messages vocaux ne demandent pas Apple Intelligence. Les modèles dépendent de l’appareil, de la mémoire, de la version de l’app et des langues ; Dynamic Island nécessite un iPhone qui en est équipé."
       },
       "manage": {
         "question": "Comment gérer ou annuler un abonnement ?",
@@ -469,7 +474,7 @@
         "title": "iPhone",
         "platform": "iOS 17 ou ultérieur",
         "price": "0 €",
-        "frequency": "sans abonnement",
+        "frequency": "pour toujours",
         "description": "Votre voix, dans votre clavier.",
         "features": {
           "dictation": "Clavier pour les apps compatibles",
