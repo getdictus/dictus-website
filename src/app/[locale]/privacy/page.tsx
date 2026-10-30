@@ -25,6 +25,7 @@ const sections = [
   "data_collection",
   "full_access",
   "data_usage",
+  "feedback",
   "third_party",
   "assistant",
   "data_retention",
