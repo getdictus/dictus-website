@@ -47,12 +47,13 @@
   box-shadow: 0 8px 18px rgb(10 22 40 / .14), 0 2px 5px rgb(10 22 40 / .08);
 }
 
-/* Pause control, bottom right, outside the faded edge of the strip. */
+/* Caption row under the strip: the not-affiliated line and the pause
+   control, centred together, so the control never sits on an icon and
+   stays apart from the next section's control on the right edge. */
+.caption { display: flex; align-items: center; justify-content: center; gap: 10px; margin-top: 4px; padding: 0 18px; }
+
 .toggle {
-  position: absolute;
-  right: 14px;
-  bottom: 4px;
-  z-index: 1;
+  flex: none;
   display: grid;
   place-items: center;
   width: 32px;
@@ -78,7 +79,6 @@
   .strip { --tile: 76px; --h: 204px; --w: 2880px; --dur: 96s; }
   .slot { offset-path: var(--wave-lg); }
   .float { animation-name: float-lg; }
-  .toggle { right: 24px; }
 }
 
 @keyframes float-lg {

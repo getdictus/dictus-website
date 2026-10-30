@@ -1,6 +1,6 @@
 "use client";
 
-import { useEffect, useRef, useState, type CSSProperties } from "react";
+import { useEffect, useRef, useState, type CSSProperties, type ReactNode } from "react";
 import { useTranslations } from "next-intl";
 import styles from "./AppStrip.module.css";
 
@@ -52,8 +52,10 @@ const WAVES = {
  * a fixed height. Off-screen or paused with the button (WCAG 2.2.2) it holds
  * its frame. Under reduced motion it is paused on the frame set by the
  * negative delays, the same evenly spread strip, and the button is hidden.
+ * The button sits in the caption row under the strip, next to `children`
+ * (the not-affiliated line), so it never covers an icon.
  */
-export default function AppStrip({ className }: { className?: string }) {
+export default function AppStrip({ className, children }: { className?: string; children?: ReactNode }) {
   const t = useTranslations("Hero");
   const stripRef = useRef<HTMLDivElement>(null);
   const visibleRef = useRef(true);
@@ -88,19 +90,22 @@ export default function AppStrip({ className }: { className?: string }) {
           ))}
         </div>
       </div>
-      <button
-        type="button"
-        className={styles.toggle}
-        aria-pressed={paused}
-        aria-label={t("strip_pause")}
-        onClick={() => setPaused((value) => !value)}
-      >
-        <svg width="14" height="14" viewBox="0 0 14 14" aria-hidden="true">
-          {paused
-            ? <path d="M3 1.5v11l9.5-5.5z" fill="currentColor" />
-            : <path d="M3 1.5h3v11H3zM8 1.5h3v11H8z" fill="currentColor" />}
-        </svg>
-      </button>
+      <div className={styles.caption}>
+        {children}
+        <button
+          type="button"
+          className={styles.toggle}
+          aria-pressed={paused}
+          aria-label={t("strip_pause")}
+          onClick={() => setPaused((value) => !value)}
+        >
+          <svg width="14" height="14" viewBox="0 0 14 14" aria-hidden="true">
+            {paused
+              ? <path d="M3 1.5v11l9.5-5.5z" fill="currentColor" />
+              : <path d="M3 1.5h3v11H3zM8 1.5h3v11H8z" fill="currentColor" />}
+          </svg>
+        </button>
+      </div>
     </div>
   );
 }
