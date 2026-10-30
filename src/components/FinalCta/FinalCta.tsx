@@ -1,41 +1,30 @@
 import { useTranslations } from "next-intl";
 import Section from "@/components/shared/Section";
 import DownloadButtons from "@/components/shared/DownloadButtons";
-import TileRibbon from "./TileRibbon";
 
 /**
- * v4b final download CTA (`#telecharger`): a blue inset card on the grey
- * ground. White only for the display headline (3.73:1, large text); every
- * smaller line is ink (4.86:1). The global blue focus ring would vanish on
- * the card, so links inside it take an ink ring instead (important: the
- * global ring in globals.css is unlayered and beats utilities).
+ * Final download CTA (`#telecharger`), calm on white like the hero: the
+ * headline, the download buttons and the Desktop link.
  */
 export default function FinalCta() {
   const t = useTranslations("FinalCta");
 
   return (
-    <Section
-      tone="blue"
-      inset
-      insetGround="grey"
-      id="telecharger"
-      aria-labelledby="telecharger-title telecharger-sub"
-      className="pt-2 min-[760px]:pt-3"
-    >
-      <div className="flex flex-col items-center px-[18px] pt-[clamp(112px,12vw,180px)] text-center [&_a:focus-visible]:outline-brand-ink!">
+    <Section tone="white" id="telecharger" aria-labelledby="telecharger-title telecharger-sub">
+      <div className="flex flex-col items-center px-[18px] pt-[clamp(88px,9vw,140px)] pb-[clamp(72px,8vw,120px)] text-center">
         <h2
           id="telecharger-title"
-          className="text-[clamp(58px,16vw,68px)] font-light leading-[0.92] tracking-[-0.045em] text-white min-[760px]:text-[clamp(72px,10vw,144px)]"
+          className="text-[clamp(44px,11vw,52px)] font-light leading-[1.02] tracking-[-0.045em] text-brand-ink min-[760px]:text-[clamp(52px,4.6vw,72px)]"
         >
           {t("title_a")}
           <br />
-          {t("title_b")}
+          <span className="text-brand-blue">{t("title_b")}</span>
         </h2>
-        <p id="telecharger-sub" className="mx-auto mt-[clamp(16px,2vw,24px)] max-w-[520px] text-[clamp(17px,1.4vw,20px)] leading-[1.42] [text-wrap:balance]">
+        <p id="telecharger-sub" className="mx-auto mt-5 max-w-[520px] text-[18px] leading-[1.45] text-brand-body [text-wrap:balance] min-[760px]:mt-6 min-[760px]:text-[20px]">
           {t("sub")}
         </p>
-        <DownloadButtons className="mt-[clamp(8px,1vw,14px)]" />
-        <p className="max-w-[34ch] text-[15px] leading-normal [text-wrap:balance] min-[760px]:max-w-none">
+        <DownloadButtons className="mt-2" />
+        <p className="max-w-[34ch] text-[15px] leading-normal text-brand-body [text-wrap:balance] min-[760px]:max-w-none">
           {t("desktop_lead")}{" "}
           <a href="#desktop" className="whitespace-nowrap font-semibold underline underline-offset-[3px]">
             {t("desktop_link")}
@@ -43,7 +32,6 @@ export default function FinalCta() {
           <span>· {t("desktop_platforms")}</span>
         </p>
       </div>
-      <TileRibbon className="mt-[clamp(30px,4vw,60px)]" />
     </Section>
   );
 }

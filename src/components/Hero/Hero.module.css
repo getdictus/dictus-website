@@ -1,21 +1,19 @@
-/* v4b hero. Light only: every colour is fixed, so the .dark class leaves it
-   white. No shadow, glow, gradient or filter, except on the glass pill.
+/* Home hero, light only: every colour is fixed, so the .dark class leaves
+   it white. Three text sizes: display, body (18/20), small (13/15). Under
+   the text, the app strip (AppStrip.module.css) and the not-affiliated line.
 
-   Three layouts, the same breakpoints as heroLayout() in strokes.ts:
-   - compact (< 760px): text, then the scene in the space left under it;
-   - stack (760px and up): the same, with the desktop type scale and a
-     scene box sized to the walker;
-   - side (>= 1200 x 700): the scene fills the hero, walker bottom left.
-   The walker rules below mirror heroLayout() so the server markup already
-   places her; the scene then sets the same box inline. */
+   The .scene to .card rules below belong to HeroScene, the walker scene,
+   which the hero no longer renders. They mirror heroLayout() in strokes.ts
+   so the server markup already places her; the scene then sets the same
+   box inline. */
 
-.hero { display: flex; flex-direction: column; min-height: 100svh; overflow: hidden; }
+.hero { overflow: hidden; }
 
-.content { position: relative; z-index: 2; display: flex; flex-direction: column; align-items: center; padding: 92px 18px 0; text-align: center; }
-.title { margin: 0; font-optical-sizing: auto; font-size: clamp(58px, 16vw, 68px); font-weight: 300; line-height: .92; letter-spacing: -.045em; color: #0A1628; }
-.titleAccent { color: #3D7EFF; }
-.subtitle { max-width: 540px; margin: clamp(14px, 1.8vw, 24px) 0 0; font-size: clamp(17px, 1.4vw, 20px); font-weight: 400; line-height: 1.42; color: #33415C; text-wrap: pretty; }
-.downloads { margin-top: clamp(4px, .6vw, 8px); }
+.content { position: relative; z-index: 2; display: flex; flex-direction: column; align-items: center; padding: 112px 18px 0; text-align: center; }
+.title { max-width: 14ch; margin: 0; font-optical-sizing: auto; font-size: clamp(48px, 13.5vw, 56px); font-weight: 300; line-height: 1.04; letter-spacing: -.045em; color: #0A1628; text-wrap: balance; }
+.titleAccent { display: block; margin-top: .12em; color: #3D7EFF; }
+.subtitle { max-width: 520px; margin: 20px 0 0; font-size: 18px; font-weight: 400; line-height: 1.45; color: #33415C; text-wrap: pretty; }
+.downloads { margin-top: 8px; }
 /* 44px tall tap target; only the product name is underlined. */
 .desktop { display: inline-block; padding: 12px 4px; font-size: 15px; line-height: 20px; color: #33415C; }
 .desktopName { font-weight: 600; text-decoration: underline; text-underline-offset: 3px; }
@@ -23,6 +21,9 @@
 @media (hover: hover) and (pointer: fine) {
   .desktop:hover .desktopName { color: #1F5FE0; }
 }
+
+.strip { margin-top: 12px; }
+.notAffiliated { margin: 4px 0 0; padding: 0 18px 28px; font-size: 13px; line-height: 18px; color: #5B6880; text-align: center; }
 
 .scene { position: relative; flex: 1 0 auto; min-height: 372px; }
 .player { position: absolute; inset: 0; }
@@ -63,17 +64,17 @@
 .cardPhrase { grid-area: 1 / 1; margin: 0; font-size: 20px; font-weight: 700; line-height: 1.25; color: #0A1628; }
 
 @media (min-width: 760px) {
-  /* Sized to the walker, not the viewport: on tall tablets the next section
-     shows under the hero instead of a band of empty white. */
-  .hero { min-height: 0; }
-  .content { padding-top: 112px; }
-  .title { font-size: clamp(72px, 10vw, 144px); }
+  .content { padding-top: 156px; }
+  .title { max-width: none; font-size: clamp(64px, 5vw, 72px); }
+  .titleAccent { margin-top: 0; }
+  .subtitle { margin-top: 24px; font-size: 20px; }
+  .strip { margin-top: 16px; }
+  .notAffiliated { padding-bottom: 40px; }
   .scene { flex: none; height: 456px; min-height: 0; }
   .walker { left: max(24px, 5%); bottom: 8px; height: clamp(320px, calc(100% - 24px), 432px); }
 }
 
 @media (min-width: 1200px) and (min-height: 700px) {
-  .hero { display: block; position: relative; height: 100svh; min-height: 800px; }
   .scene { position: absolute; inset: 0; height: auto; }
   .walker { left: max(24px, 6%); bottom: 10px; height: clamp(320px, 48%, 432px); }
 }

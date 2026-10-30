@@ -24,12 +24,15 @@
     "android_jsonld_description": "Bêta publique. Clavier de dictée vocale gratuit et open source pour Android 10 ou ultérieur, avec transcription sur l’appareil."
   },
   "Hero": {
-    "title_a": "Parlez.",
-    "title_b": "Dictus écrit.",
-    "subtitle": "Le clavier de dictée qui écrit dans vos apps. Sur votre téléphone, sans pistage, open source.",
+    "title_a": "Dictez partout.",
+    "title_b": "Hors ligne.",
+    "subtitle": "Un clavier de dictée pour mobile. Privé et open source.",
     "desktop_prefix": "Sur ordinateur :",
     "desktop_link": "Dictus Desktop",
     "desktop_platforms": "Mac, Windows, Linux",
+    "apps_label": "Icônes d’apps : WhatsApp, Messages, Mail, Notes, Slack, Gmail, Instagram, Telegram",
+    "strip_pause": "Mettre en pause l’animation des icônes",
+    "not_affiliated": "Dictus n’est affilié à aucune de ces marques.",
     "written_label": "Dictus écrit",
     "phrases": [
       "Merci pour tes notes !",
@@ -142,8 +145,7 @@
     "sub": "Installez le clavier, choisissez une langue, touchez le micro.",
     "desktop_lead": "Sur ordinateur :",
     "desktop_link": "Dictus Desktop",
-    "desktop_platforms": "Mac, Windows, Linux",
-    "ribbon_pause": "Mettre en pause l’animation des tuiles"
+    "desktop_platforms": "Mac, Windows, Linux"
   },
   "DesktopDownload": {
     "eyebrow": "DICTUS DESKTOP",
