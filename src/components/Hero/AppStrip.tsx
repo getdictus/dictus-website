@@ -53,12 +53,15 @@ const WAVES = {
  * its frame. Under reduced motion it is paused on the frame set by the
  * negative delays, the same evenly spread strip, and the button is hidden.
  * The button sits in the caption row under the strip, next to `children`
- * (the not-affiliated line), so it never covers an icon.
+ * (the not-affiliated line), so it never covers an icon. It stays out of
+ * sight until the strip is hovered or the button has keyboard focus; on
+ * touch, a tap on the strip itself toggles the pause (#121).
  */
 export default function AppStrip({ className, children }: { className?: string; children?: ReactNode }) {
   const t = useTranslations("Hero");
   const stripRef = useRef<HTMLDivElement>(null);
   const visibleRef = useRef(true);
+  const pointerRef = useRef("");
   const [paused, setPaused] = useState(false);
 
   useEffect(() => {
@@ -78,7 +81,17 @@ export default function AppStrip({ className, children }: { className?: string; 
 
   return (
     <div className={`${styles.root} ${className ?? ""}`}>
-      <div ref={stripRef} data-app-strip role="img" aria-label={t("apps_label")} className={styles.strip} style={WAVES}>
+      <div
+        ref={stripRef}
+        data-app-strip
+        role="img"
+        aria-label={t("apps_label")}
+        className={styles.strip}
+        style={WAVES}
+        // Touch only: a mouse has the hover-revealed button, a keyboard the button itself.
+        onPointerDown={(event) => { pointerRef.current = event.pointerType; }}
+        onClick={() => { if (pointerRef.current === "touch") setPaused((value) => !value); }}
+      >
         <div className={styles.track}>
           {Array.from({ length: SLOTS }, (_, i) => (
             <div key={i} className={styles.slot} style={{ "--f": i / SLOTS, "--b": (i % 5) / 5 } as CSSProperties}>

@@ -63,6 +63,17 @@
   background: #0A1628;
   color: #FFFFFF;
   cursor: pointer;
+  /* Out of sight at rest (#121), still in the tab order and the
+     accessibility tree. It keeps its slot, so revealing it moves nothing. */
+  opacity: 0;
+  transition: opacity 150ms ease;
+}
+
+/* Keyboard focus shows it at once: no fade on a keyboard action. */
+.toggle:focus-visible { opacity: 1; transition: none; }
+
+@media (hover: hover) and (pointer: fine) {
+  .root:hover .toggle { opacity: 1; }
 }
 
 @keyframes drift {

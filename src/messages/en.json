@@ -139,14 +139,6 @@
       "desktop": "Desktop source code"
     }
   },
-  "FinalCta": {
-    "title_a": "Speak.",
-    "title_b": "Dictus writes.",
-    "sub": "Install the keyboard, pick a language, tap the mic.",
-    "desktop_lead": "On your computer:",
-    "desktop_link": "Dictus Desktop",
-    "desktop_platforms": "Mac, Windows, Linux"
-  },
   "DesktopDownload": {
     "eyebrow": "DICTUS DESKTOP",
     "title": "Also on your computer.",
@@ -174,6 +166,8 @@
     "link_features": "Features",
     "link_pro": "Dictus Pro",
     "link_pricing": "Pricing",
+    "link_app_store": "App Store",
+    "link_android": "Android · Beta",
     "link_desktop": "Dictus Desktop",
     "link_blog": "Blog",
     "link_support": "Support",

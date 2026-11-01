@@ -139,14 +139,6 @@
       "desktop": "Code de l’app Desktop"
     }
   },
-  "FinalCta": {
-    "title_a": "Parlez.",
-    "title_b": "Dictus écrit.",
-    "sub": "Installez le clavier, choisissez une langue, touchez le micro.",
-    "desktop_lead": "Sur ordinateur :",
-    "desktop_link": "Dictus Desktop",
-    "desktop_platforms": "Mac, Windows, Linux"
-  },
   "DesktopDownload": {
     "eyebrow": "DICTUS DESKTOP",
     "title": "Aussi sur votre ordinateur.",
@@ -174,6 +166,8 @@
     "link_features": "Fonctions",
     "link_pro": "Dictus Pro",
     "link_pricing": "Tarifs",
+    "link_app_store": "App Store",
+    "link_android": "Android · Bêta",
     "link_desktop": "Dictus Desktop",
     "link_blog": "Blog",
     "link_support": "Support",

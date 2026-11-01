@@ -10,8 +10,7 @@ import Privacy from "@/components/Privacy/Privacy";
 import Faq from "@/components/Faq/Faq";
 import { faqKeys } from "@/components/Faq/faqItems";
 import { pricingValues } from "@/config/pricing";
-import FinalCta from "@/components/FinalCta/FinalCta";
-import DesktopDownload from "@/components/FinalCta/DesktopDownload";
+import DesktopDownload from "@/components/DesktopDownload/DesktopDownload";
 import Footer from "@/components/Footer/Footer";
 
 type Props = {
@@ -93,7 +92,6 @@ export default async function HomePage({ params }: Props) {
       <Languages />
       <Privacy />
       <Faq />
-      <FinalCta />
       <DesktopDownload downloads={downloads} />
       <Footer />
       <script
