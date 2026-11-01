@@ -1,9 +1,12 @@
-/* v4b FAQ motion, transform and opacity only. An answer takes its full
-   height at once (no height animation, so nothing below reflows over time);
-   its text fades in and drops 6px into place over --motion-ui. Closing is
-   instant. The "+" turns 45deg into a cross and a blue disc fades in behind
-   it; the glyph turns white once the disc shows (a discrete swap, no colour
-   interpolation). Reduced motion: everything is instant. */
+/* v4b FAQ motion. An answer opens and closes by animating its grid row from
+   0fr to 1fr over --motion-ui, so the answer that closes and the one that
+   opens change height together and the page never snaps (Faq.tsx keeps the
+   clicked question still); its text fades and drops 6px into place at the
+   same time. A closed answer turns invisible once collapsed, which keeps it
+   out of the accessibility tree. The "+" turns 45deg into a cross and a blue
+   disc fades in behind it; the glyph turns white once the disc shows (a
+   discrete swap, no colour interpolation). Reduced motion: everything is
+   instant. */
 
 .trigger:focus-visible {
   outline-offset: 2px;
@@ -69,15 +72,37 @@
   transform: rotate(45deg);
 }
 
-.answerIn:not([hidden]) > p {
-  animation: answer-in var(--motion-ui) var(--ease-out) backwards;
+.answer {
+  display: grid;
+  grid-template-rows: 0fr;
+  visibility: hidden;
+  transition:
+    grid-template-rows var(--motion-ui) var(--ease-out),
+    visibility 0s linear var(--motion-ui);
 }
 
-@keyframes answer-in {
-  from {
-    opacity: 0;
-    transform: translateY(-6px);
-  }
+.answer[data-open] {
+  grid-template-rows: 1fr;
+  visibility: visible;
+  transition: grid-template-rows var(--motion-ui) var(--ease-out);
+}
+
+.answer > div {
+  min-height: 0;
+  overflow: hidden;
+}
+
+.answer p {
+  opacity: 0;
+  transform: translateY(-6px);
+  transition:
+    opacity var(--motion-ui) var(--ease-out),
+    transform var(--motion-ui) var(--ease-out);
+}
+
+.answer[data-open] p {
+  opacity: 1;
+  transform: none;
 }
 
 @media (prefers-reduced-motion: reduce) {
@@ -87,7 +112,9 @@
     transition: none;
   }
 
-  .answerIn:not([hidden]) > p {
-    animation: none;
+  .answer,
+  .answer[data-open],
+  .answer p {
+    transition: none;
   }
 }
