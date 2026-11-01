@@ -26,7 +26,7 @@ export default function FinalCta() {
         <DownloadButtons className="mt-2" />
         <p className="max-w-[34ch] text-[15px] leading-normal text-brand-body [text-wrap:balance] min-[760px]:max-w-none">
           {t("desktop_lead")}{" "}
-          <a href="#desktop" className="whitespace-nowrap font-semibold underline underline-offset-[3px]">
+          <a href="#desktop" className="whitespace-nowrap font-semibold underline underline-offset-[3px] transition-colors [@media(hover:hover)_and_(pointer:fine)]:hover:text-accent-text">
             {t("desktop_link")}
           </a>{" "}
           <span>· {t("desktop_platforms")}</span>

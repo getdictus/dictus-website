@@ -93,7 +93,7 @@ export default function Footer() {
     <footer data-navtheme="light" className="overflow-hidden bg-brand-white pt-[clamp(48px,6vw,88px)] text-brand-ink">
       <div className="mx-auto flex max-w-[1240px] flex-wrap gap-[clamp(28px,5vw,80px)] px-5 min-[760px]:px-[clamp(20px,5.5vw,80px)]">
         <div className="flex max-w-[340px] flex-[1_1_260px] flex-col gap-3.5">
-          <Link href="/" prefetch={false} className="flex items-center gap-3 self-start">
+          <Link href="/" prefetch={false} className="flex items-center gap-3 self-start transition-opacity duration-150 [@media(hover:hover)_and_(pointer:fine)]:hover:opacity-70">
             <AppIcon className="size-10" />
             <span className="text-[30px] font-extralight leading-none tracking-[-0.04em]">Dictus</span>
           </Link>

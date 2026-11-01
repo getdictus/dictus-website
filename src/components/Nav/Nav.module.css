@@ -14,16 +14,30 @@
   border-radius: 999px; border: 1px solid rgb(255 255 255 / .75);
   color: var(--color-brand-ink);
   background: rgb(255 255 255 / .7);
-  box-shadow: 0 8px 24px rgb(10 22 40 / .08);
+  /* Depth (#117): a lit top edge, a hairline that still reads on white where
+     the white border disappears, a close contact shadow and a wide soft one. */
+  box-shadow: inset 0 1px 0 rgb(255 255 255 / .9), 0 0 0 .5px rgb(10 22 40 / .06),
+    0 1px 2px rgb(10 22 40 / .06), 0 10px 30px rgb(10 22 40 / .1);
   -webkit-backdrop-filter: blur(16px) saturate(1.5);
   backdrop-filter: blur(16px) saturate(1.5);
   transition: background-color var(--motion-ui) ease, border-color var(--motion-ui) ease, color var(--motion-ui) ease;
 }
+/* Without backdrop-filter the 70% white would show the page through as is. */
+@supports not ((backdrop-filter: blur(1px)) or (-webkit-backdrop-filter: blur(1px))) {
+  .pill { background: rgb(255 255 255 / .94); }
+  .header[data-theme="dark"] .pill { background: rgb(10 22 40 / .92); }
+}
 .brand { display: flex; flex: none; }
 .brand :global(span) { color: inherit; }
 
-.links { display: flex; flex: 1; justify-content: center; gap: 24px; font-size: 15px; font-weight: 500; }
-.links a { display: flex; align-items: center; min-height: 44px; color: inherit; }
+.links { flex: 1; display: flex; justify-content: center; font-size: 15px; font-weight: 500; }
+/* The lens (GlassSelectorLens, z-index -1) slides behind the hovered or
+   focused link, or rests on the current page. Each link carries 12px of
+   padding on both sides, so the labels stay 24px apart as before. */
+.lensGroup { position: relative; isolation: isolate; align-items: center; }
+.links a { display: flex; align-items: center; height: 36px; padding: 0 12px; border-radius: 999px; color: inherit; transition: color var(--motion-fast) ease; }
+.lensGroup [data-glass-selector-lens] > * { border-color: rgb(255 255 255 / .9); background: rgb(10 22 40 / .06); box-shadow: inset 0 1px 0 rgb(255 255 255 / .7); -webkit-backdrop-filter: none; backdrop-filter: none; }
+.header[data-theme="dark"] .lensGroup [data-glass-selector-lens] > * { border-color: rgb(255 255 255 / .14); background: rgb(255 255 255 / .12); box-shadow: inset 0 1px 0 rgb(255 255 255 / .12); }
 .links a[aria-current="page"], .menuLinks a[aria-current="page"] {
   text-decoration: underline; text-decoration-thickness: 1.5px; text-underline-offset: 6px;
 }
@@ -32,6 +46,7 @@
 .segmented button {
   height: 28px; padding: 0 10px; border-radius: 999px;
   font-size: 13px; font-weight: 600; color: inherit; cursor: pointer;
+  transition: background-color var(--motion-fast) ease;
 }
 .segmented button[aria-current="true"] { color: var(--color-brand-white); background: var(--color-brand-ink); }
 .segmented button:disabled, .menuLanguages button:disabled { opacity: .45; cursor: not-allowed; }
@@ -40,17 +55,19 @@
   display: flex; flex: none; align-items: center; height: 42px; padding: 0 18px;
   border-radius: 999px; font-size: 15px; font-weight: 600;
   color: var(--color-brand-white); background: var(--color-brand-ink);
-  transition: transform var(--motion-press) var(--ease-out), background-color var(--motion-ui) ease, color var(--motion-ui) ease;
 }
 .toggle {
   display: none; flex: none; flex-direction: column; align-items: center; justify-content: center; gap: 5px;
   width: 44px; height: 44px; margin-left: -14px; border-radius: 999px; color: inherit; cursor: pointer;
-  transition: transform var(--motion-press) var(--ease-out);
+  transition: transform var(--motion-press) var(--ease-out), background-color var(--motion-fast) ease;
 }
 .toggle span { width: 18px; height: 2px; border-radius: 1px; background: currentColor; }
-.cta:active, .toggle:active, .menuLanguages button:active { transform: scale(.97); }
+.toggle:active { transform: scale(.97); }
 
-.header[data-theme="dark"] .pill { color: var(--color-brand-white); background: rgb(10 22 40 / .55); border-color: rgb(255 255 255 / .14); }
+.header[data-theme="dark"] .pill {
+  color: var(--color-brand-white); background: rgb(10 22 40 / .55); border-color: rgb(255 255 255 / .14);
+  box-shadow: inset 0 1px 0 rgb(255 255 255 / .12), 0 1px 2px rgb(0 0 0 / .12), 0 10px 30px rgb(0 0 0 / .22);
+}
 .header[data-theme="dark"] .segmented { background: rgb(255 255 255 / .1); }
 .header[data-theme="dark"] .segmented button[aria-current="true"],
 .header[data-theme="dark"] .cta { color: var(--color-brand-ink); background: var(--color-brand-white); }
@@ -80,7 +97,6 @@
 .menuLanguages button {
   height: 44px; padding: 0 18px; border-radius: 999px; font-size: 15px; font-weight: 600; cursor: pointer;
   color: var(--color-brand-ink); background: var(--color-brand-grey);
-  transition: transform var(--motion-press) var(--ease-out);
 }
 .menuLanguages button[aria-current="true"] { color: var(--color-brand-white); background: var(--color-brand-ink); }
 
@@ -88,6 +104,12 @@
   .links a:hover { color: var(--color-accent-text); }
   .header[data-theme="dark"] .links a:hover { color: var(--color-brand-on-navy); }
   .menuLinks a:hover { background: var(--color-brand-grey); }
+  .segmented button:not([aria-current="true"]):not(:disabled):hover { background: rgb(10 22 40 / .08); }
+  .header[data-theme="dark"] .segmented button:not([aria-current="true"]):not(:disabled):hover { background: rgb(255 255 255 / .14); }
+  .toggle:hover { background: rgb(10 22 40 / .06); }
+  .header[data-theme="dark"] .toggle:hover { background: rgb(255 255 255 / .12); }
+  .cta:hover { background: #142744; }
+  .header[data-theme="dark"] .cta:hover { background: var(--color-mist); }
 }
 
 @media (max-width: 899px) {
@@ -114,5 +136,5 @@
   .sheet, .sheet[data-open] { transform: none; transition-property: opacity, visibility; transition-timing-function: var(--ease-out); transition-duration: 150ms, 0s !important; }
   .sheet { transition-delay: 0s, 150ms; }
   .sheet[data-open] { transition-delay: 0s, 0s; }
-  .cta:active, .toggle:active, .menuLanguages button:active { transform: none; }
+  .toggle:active { transform: none; }
 }

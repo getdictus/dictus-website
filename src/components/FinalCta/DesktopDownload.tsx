@@ -8,6 +8,9 @@ import Section from "@/components/shared/Section";
 type Os = "mac" | "win" | "linux";
 const ORDERED: readonly Os[] = ["mac", "win", "linux"];
 
+// Underlined at rest; the text turns blue under a fine pointer.
+const secondaryLink = "inline-flex min-h-11 items-center font-medium text-brand-ink underline underline-offset-[3px] transition-colors [@media(hover:hover)_and_(pointer:fine)]:hover:text-accent-text";
+
 const RELEASES_URL = "https://github.com/getdictus/dictus-desktop/releases";
 const SOURCE_URL = "https://github.com/getdictus/dictus-desktop";
 
@@ -102,7 +105,7 @@ export default function DesktopDownload({ downloads }: { downloads: DownloadsCon
                       rel="noopener noreferrer"
                       data-download-os={os}
                       data-download-format={isLinuxFormat(variant) ? variant.type : undefined}
-                      className="inline-flex min-h-11 items-center gap-2 rounded-[10px] bg-brand-navy px-3.5 text-[14px] font-medium text-white [@media(hover:hover)_and_(pointer:fine)]:hover:bg-[#142744]"
+                      className="button-lift inline-flex min-h-11 items-center gap-2 rounded-[10px] bg-brand-navy px-3.5 text-[14px] font-medium text-white [@media(hover:hover)_and_(pointer:fine)]:hover:bg-[#142744]"
                     >
                       <svg width="14" height="14" viewBox="0 0 20 20" fill="none" stroke="currentColor" strokeWidth="1.5" aria-hidden="true">
                         <path d="M10 2v11m-4-4 4 4 4-4M3 14v3h14v-3" />
@@ -119,10 +122,10 @@ export default function DesktopDownload({ downloads }: { downloads: DownloadsCon
 
         <p className="mt-5 flex flex-wrap items-center gap-x-5 gap-y-1 text-[15px] text-brand-body">
           <span>{t("version", { version: downloads.version })}</span>
-          <a href={RELEASES_URL} target="_blank" rel="noopener noreferrer" className="inline-flex min-h-11 items-center font-medium text-brand-ink underline underline-offset-[3px]">
+          <a href={RELEASES_URL} target="_blank" rel="noopener noreferrer" className={secondaryLink}>
             {t("other_platforms")}
           </a>
-          <a href={SOURCE_URL} target="_blank" rel="noopener noreferrer" className="inline-flex min-h-11 items-center font-medium text-brand-ink underline underline-offset-[3px]">
+          <a href={SOURCE_URL} target="_blank" rel="noopener noreferrer" className={secondaryLink}>
             {t("source")}
           </a>
         </p>
