@@ -104,9 +104,14 @@
    - White text on accent #3D7EFF (3.73:1) only at large sizes:
      >= 24px regular or >= 18.66px bold. Smaller text on blue uses ink.
    - On navy, body text uses brand-on-navy #B8C4D9 (10.3:1).
+   - Filled buttons, badges and icon tiles use accent-strong #2563EB with
+     white text (5.17:1; 6.70:1 on the gradient end #1D4ED8), never navy:
+     navy is kept for the logo squircle (#118). On a blue ground they turn
+     white with accent-strong text.
    Ratios: node scripts/contrast-v4b.mjs */
 @theme static {
   --color-accent-strong: #2563EB;
+  --color-accent-strong-end: #1D4ED8;
   --color-accent-text: #1F5FE0;
   --color-accent-text-deep: #1F4FC4;
   --color-mist: #DCE8FF;
@@ -220,6 +225,17 @@ a {
   .button-lift:not(:disabled):active {
     transform: none;
   }
+}
+
+/* ─── Filled brand-blue button (#118) ───
+   The brand kit's Button gradient with white text, for every primary button
+   that used navy. Pair it with .button-lift: the lift and shadow are the
+   hover feedback, so there is no colour swap (a gradient cannot fade into
+   another one, it would jump). */
+.button-blue {
+  color: var(--color-brand-white);
+  background-color: var(--color-accent-strong);
+  background-image: linear-gradient(135deg, var(--color-accent-strong), var(--color-accent-strong-end));
 }
 
 @media (prefers-reduced-motion: reduce) {

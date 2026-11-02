@@ -347,7 +347,7 @@ function ProgressSegment({
 }) {
   const transform = useTransform(progress, [index / count, (index + 1) / count], ["scaleX(0)", "scaleX(1)"]);
   const rail = tone === "navy" || tone === "blue" ? "bg-white/20" : "bg-brand-rule-strong";
-  const fill = tone === "blue" ? "bg-brand-ink" : "bg-accent";
+  const fill = tone === "blue" ? "bg-white" : "bg-accent";
   return (
     <div className={`h-1 flex-1 overflow-hidden rounded-full ${rail}`}>
       <m.div className={`h-full origin-left ${fill}`} style={{ transform }} />

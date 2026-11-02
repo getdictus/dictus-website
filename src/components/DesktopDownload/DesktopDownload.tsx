@@ -105,7 +105,7 @@ export default function DesktopDownload({ downloads }: { downloads: DownloadsCon
                       rel="noopener noreferrer"
                       data-download-os={os}
                       data-download-format={isLinuxFormat(variant) ? variant.type : undefined}
-                      className="button-lift inline-flex min-h-11 items-center gap-2 rounded-[10px] bg-brand-navy px-3.5 text-[14px] font-medium text-white [@media(hover:hover)_and_(pointer:fine)]:hover:bg-[#142744]"
+                      className="button-lift button-blue inline-flex min-h-11 items-center gap-2 rounded-[10px] px-3.5 text-[14px] font-medium"
                     >
                       <svg width="14" height="14" viewBox="0 0 20 20" fill="none" stroke="currentColor" strokeWidth="1.5" aria-hidden="true">
                         <path d="M10 2v11m-4-4 4 4 4-4M3 14v3h14v-3" />

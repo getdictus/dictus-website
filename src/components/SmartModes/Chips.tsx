@@ -59,7 +59,7 @@ export default function Chips({ label, chips, compatibility }: Props) {
                 aria-current={active ? "step" : undefined}
                 onClick={() => goToStep(index)}
                 className={`min-h-10 shrink-0 whitespace-nowrap rounded-full px-4 text-[15px] font-medium transition-[transform,background-color] duration-200 ease-[var(--ease-out)] active:scale-[0.97] focus-visible:outline-brand-ink! focus-visible:outline-offset-2! ${
-                  active ? "bg-brand-ink text-white" : "bg-white text-brand-ink [@media(hover:hover)_and_(pointer:fine)]:hover:bg-mist"
+                  active ? "bg-accent-strong text-white" : "bg-white text-brand-ink [@media(hover:hover)_and_(pointer:fine)]:hover:bg-mist"
                 }`}
               >
                 {chip}
