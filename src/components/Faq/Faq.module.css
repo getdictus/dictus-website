@@ -99,7 +99,7 @@
   overflow: hidden;
 }
 
-.answer p {
+.answer .body {
   opacity: 0;
   transform: translateY(-6px);
   transition:
@@ -107,7 +107,7 @@
     transform var(--motion-ui) var(--ease-out);
 }
 
-.answer[data-open] p {
+.answer[data-open] .body {
   opacity: 1;
   transform: none;
 }
@@ -121,7 +121,7 @@
 
   .answer,
   .answer[data-open],
-  .answer p {
+  .answer .body {
     transition: none;
   }
 }
