@@ -28,14 +28,14 @@ for (const engine of (process.env.VERIFY_ENGINES || "chromium,firefox,webkit").s
 
   for (const locale of ["fr", "en"]) {
     const expected = locale === "fr" ? { yearly: /39,99\s*€/, monthly: /4,99\s*€/, lifetime: /149,99\s*€/ } : { yearly: /€39\.99/, monthly: /€4\.99/, lifetime: /€149\.99/ };
-    await check(`${engine}/${locale}: free foundation, forthcoming Pro and complete comparison`, async () => {
+    await check(`${engine}/${locale}: free foundation, available Pro and complete comparison`, async () => {
       const response = await page.goto(`${origin}/${locale}/pricing`);
       assert.equal(response.status(), 200);
       await expect(page.locator("#desktop-free-title")).toBeVisible();
       await expect(page.locator("#free-title")).toBeVisible();
       await expect(page.locator("#pro-title")).toBeVisible();
       await expect(page.locator('[data-pricing-cards] button')).toBeDisabled();
-      await expect(page.locator('[data-pricing-cards] button')).toContainText(locale === "fr" ? "Avec Dictus 2.0" : "Coming with Dictus 2.0");
+      await expect(page.locator('[data-pricing-cards] button')).toContainText(locale === "fr" ? "Disponible dans l’app" : "Available in the app");
       const cards = await page.locator('[data-pricing-cards] > section').evaluateAll((nodes) => nodes.map((node) => {
         const box = node.getBoundingClientRect(); return { top: box.top, bottom: box.bottom };
       }));

@@ -1,11 +1,11 @@
 /**
- * Dictus Pro catalogue, France/EUR reference for the preview.
- * Provisional until Pierre confirms: prices, currency, trial length and history limit.
+ * Dictus Pro catalogue, France/EUR reference.
+ * Confirmed for launch: prices, currency, 14-day trial and 200-dictation history; no founder offer.
  * Copy never repeats these values; it reads them through pricingValues().
  */
 export const proCatalogue = {
-  // "upcoming" until Dictus 2.0 ships Pro. Switching to "available" updates every "coming with Dictus 2.0" sentence.
-  launch: "upcoming" as "upcoming" | "available",
+  // "available" since Dictus 2.0 ships Pro. "upcoming" restores every "coming with Dictus 2.0" sentence.
+  launch: "available" as "upcoming" | "available",
   currency: "EUR",
   territory: "FR",
   // Reverse trial: Pro unlocked for free, no purchase or subscription, never charged at the end.
