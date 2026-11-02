@@ -120,7 +120,7 @@ for (const engine of (process.env.VERIFY_ENGINES || "chromium,firefox,webkit").s
         assert.equal((await page.request.get(`${origin}/${locale}/${route}`)).status(), 200);
       }
       await page.goto(`${origin}/${locale}/terms`);
-      await expect(page.locator("article")).toContainText(expected.yearly);
+      await expect(page.locator("article")).not.toContainText("€");
       await expect(page.locator("article")).toContainText(lifetime);
       await expect(page.locator("article")).toContainText(locale === "fr" ? "rien n’est débité à son terme" : "nothing is charged when it ends");
     });
