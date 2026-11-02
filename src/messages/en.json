@@ -317,15 +317,8 @@
     "empty": "The first articles are being prepared."
   },
   "Pricing": {
-    "meta_title": "Pricing — Free Desktop and Dictus Pro for iPhone",
-    "title": "Dictation, your way.",
-    "description": "Free on desktop and iPhone, with optional Dictus Pro.",
-    "desktop": {
-      "free": "Free, today and tomorrow."
-    },
-    "free": {
-      "title": "Free"
-    },
+    "meta_title": "Pricing — Dictus free, Dictus Pro optional",
+    "description": "On desktop, iPhone and Android. Dictus Pro adds Smart Modes, custom vocabulary and history, on iPhone today.",
     "billing_label": "Dictus Pro billing option",
     "plans": {
       "monthly": {
@@ -348,7 +341,6 @@
       }
     },
     "territory": "France/EUR reference. Apple shows the price for your country before you buy.",
-    "lifetime_label": "What lifetime covers.",
     "lifetime_scope": "The lifetime purchase covers every current and future Pro feature that runs on your device or on a server you provide. Any feature relying on Dictus infrastructure is a separate offering.",
     "features": {
       "dictation": {
@@ -385,12 +377,15 @@
       }
     },
     "comparison": {
-      "title": "The details, simply.",
-      "description": "The same Pro features, however you pay.",
+      "title": "Free or Pro, on iPhone.",
+      "description": "The same Pro features, whichever way you pay. On Android, dictation is free in beta and Pro is in development.",
       "caption": "Comparison of free iPhone features and Dictus Pro",
-      "feature": "On iPhone",
+      "eyebrow": "IN DETAIL",
+      "free": "Free",
+      "pro": "Pro",
+      "feature": "Feature",
       "included": "Included",
-      "pro_only": "Pro only"
+      "not_included": "Not included"
     },
     "faq_title": "Your questions.",
     "faq": {
@@ -446,41 +441,9 @@
       "donate": "Support Dictus",
       "apple": "Manage a subscription with Apple"
     },
-    "details_label": "Compare features",
     "cards": {
-      "desktop": {
-        "title": "Desktop",
-        "platform": "macOS, Windows, Linux",
-        "price": "€0",
-        "frequency": "forever",
-        "description": "Local dictation on your computer.",
-        "features": {
-          "dictation": "Dictate in your apps",
-          "models": "Your choice of models",
-          "privacy": "Your voice stays on your device",
-          "opensource": "Public source code"
-        },
-        "cta": "Download"
-      },
-      "iphone": {
-        "title": "iPhone",
-        "platform": "iOS 17 or later",
-        "price": "€0",
-        "frequency": "forever",
-        "description": "Your voice, in your keyboard.",
-        "features": {
-          "dictation": "Keyboard for compatible apps",
-          "normal": "Punctuation and basic correction",
-          "models": "Whisper and Parakeet models",
-          "activity": "Live Activity and Dynamic Island"
-        },
-        "compatibility": "Features depend on model and device.",
-        "cta": "View on the App Store"
-      },
       "pro": {
-        "title": "iPhone Pro",
-        "platform": "iPhone only · free for {trialDays} days",
-        "includes": "Everything in Free, plus:",
+        "includes": "Everything free, plus:",
         "features": {
           "smart": "Five Smart Modes",
           "vocabulary": "Your custom vocabulary",
@@ -488,9 +451,49 @@
           "voiceNotes": "Voice note transcripts"
         },
         "cta": "{proLaunch, select, available {Available in the app} other {Coming with Dictus 2.0}}",
-        "compatibility": "Trial and AI modes: iOS 26+ and Apple Intelligence."
+        "compatibility": "Trial and AI modes: iOS 26+ and Apple Intelligence.",
+        "badge": "Dictus Pro",
+        "platforms_label": "Dictus Pro platforms",
+        "iphone": "iPhone",
+        "android": "Android · soon",
+        "store_cta": "Try it in the app",
+        "store_label": "Try Dictus Pro in the iPhone app, on the App Store"
+      },
+      "free": {
+        "eyebrow": "FREE",
+        "price": "€0",
+        "frequency": "forever",
+        "description": "Local dictation, on all your devices.",
+        "platforms_label": "Free platforms",
+        "platforms": {
+          "desktop": {
+            "name": "Computer",
+            "detail": "macOS, Windows, Linux",
+            "cta": "Download"
+          },
+          "iphone": {
+            "name": "iPhone",
+            "detail": "iOS 17 or later",
+            "cta": "App Store"
+          },
+          "android": {
+            "name": "Android",
+            "badge": "Beta",
+            "detail": "Android 10 or later",
+            "cta": "APK"
+          }
+        },
+        "features": {
+          "local": "Transcription on your device",
+          "models": "Whisper and Parakeet models",
+          "opensource": "Public source code"
+        }
       }
-    }
+    },
+    "eyebrow": "PRICING",
+    "title_a": "Dictation is free.",
+    "title_b": "Pro goes further.",
+    "scope_note": "Desktop stays free, no Pro needed. An iPhone purchase does not apply to Android."
   },
   "Keyboard": {
     "eyebrow": "IN YOUR KEYBOARD",

@@ -1,21 +1,29 @@
 "use client";
 
-import { useLayoutEffect, useRef, useState } from "react";
+import { useLayoutEffect, useRef, useState, type ReactNode } from "react";
 import { useLocale, useTranslations } from "next-intl";
 import Section from "@/components/shared/Section";
 import { pricingValues } from "@/config/pricing";
-import { faqKeys } from "./faqItems";
+import { faqKeys as homeFaqKeys } from "./faqItems";
 import styles from "./Faq.module.css";
+
+type FaqProps = {
+  /** Questions in display order, each reading `Pricing.faq.<key>`. */
+  keys?: readonly string[];
+  /** Extra content under an answer, by question key (a link, for example). */
+  extras?: Partial<Record<string, ReactNode>>;
+};
 
 /**
  * v4b FAQ (`#faq`): grey ground, one answer open at a time, the first one
- * open on arrival as in the mockup. Answers open and close with a short
- * height transition (Faq.module.css).
+ * open on arrival as in the mockup. Answers open and close with a
+ * short height transition (Faq.module.css). /pricing reuses it with its own
+ * questions and links.
  */
-export default function Faq() {
+export default function Faq({ keys: faqKeys = homeFaqKeys, extras = {} }: FaqProps) {
   const t = useTranslations("Pricing");
   const values = pricingValues(useLocale());
-  const [open, setOpen] = useState<string | null>(faqKeys[0]);
+  const [open, setOpen] = useState<string | null>(faqKeys[0] ?? null);
   // The answer above the clicked question shrinks while the clicked one grows:
   // the page scrolls by the same amount on every frame of the transition, so
   // the clicked question stays under the pointer and nothing snaps.
@@ -89,9 +97,12 @@ export default function Faq() {
                   className={styles.answer}
                 >
                   <div>
-                    <p className="pb-6 pr-[clamp(0px,5vw,56px)] text-[17px] leading-[1.55] text-brand-body">
-                      {t(`faq.${key}.answer`, values)}
-                    </p>
+                    <div className={`${styles.body} pb-6 pr-[clamp(0px,5vw,56px)]`}>
+                      <p className="text-[17px] leading-[1.55] text-brand-body">
+                        {key === "lifetime" ? t("lifetime_scope") : t(`faq.${key}.answer`, values)}
+                      </p>
+                      {extras[key]}
+                    </div>
                   </div>
                 </div>
               </div>

@@ -4,8 +4,6 @@ import { useCallback, useEffect, useRef, useState } from "react";
 import { useLocale, useTranslations } from "next-intl";
 import { Link, usePathname } from "@/i18n/navigation";
 import { downloadTargetId, resolveNavLinks, type NavLink } from "@/config/nav";
-import GlassSelectorLens from "@/components/shared/GlassSelectorLens";
-import { useGlassSelector } from "@/components/shared/useGlassSelector";
 import Logo from "./Logo";
 import LanguageToggle, { type ArticleLocaleRoutes } from "./LanguageToggle";
 import styles from "./Nav.module.css";
@@ -29,11 +27,6 @@ export default function Nav({ blogAvailable = false, pricingAvailable = false, a
   const links = resolveNavLinks({ blog: blogAvailable, pricing: pricingAvailable });
   const anchor = (id: string) => (onHome ? `#${id}` : `/${locale}#${id}`);
   const item = { anchor, activePath, label: (link: NavLink) => t(link.labelKey) };
-  // The lens rests on the current page's link (Blog, Pricing) and follows the
-  // hovered or keyboard-focused link; on the home page it shows on hover only.
-  const current = links.find((link) => link.kind === "route" && link.href === activePath)?.labelKey ?? null;
-  const { groupRef: lensRef, groupProps: lensProps, geometry: lensGeometry, keyboard: lensKeyboard } =
-    useGlassSelector<HTMLElement>(current);
 
   const [open, setOpen] = useState(false);
   const [theme, setTheme] = useState<"light" | "dark">("light");
@@ -124,10 +117,8 @@ export default function Nav({ blogAvailable = false, pricingAvailable = false, a
     <header className={styles.header} data-theme={theme}>
       <div className={styles.pill}>
         <div className={styles.brand}><Logo /></div>
-        <nav ref={lensRef} {...lensProps} aria-label={t("navigation_label")}
-          className={`${styles.links} ${styles.lensGroup}`}>
-          <GlassSelectorLens geometry={lensGeometry} keyboard={lensKeyboard} />
-          {links.map((link) => <NavItem key={link.labelKey} link={link} lensKey={link.labelKey} {...item} />)}
+        <nav aria-label={t("navigation_label")} className={styles.links}>
+          {links.map((link) => <NavItem key={link.labelKey} link={link} {...item} />)}
         </nav>
         <LanguageToggle variant="pill" className={styles.segmented} articleRoutes={articleRoutes} />
         <a className={`${styles.cta} button-lift button-blue`} href={anchor(downloadTargetId)}>{t("download")}</a>
@@ -149,18 +140,16 @@ export default function Nav({ blogAvailable = false, pricingAvailable = false, a
   );
 }
 
-function NavItem({ link, anchor, activePath, label, onNavigate, lensKey }: {
+function NavItem({ link, anchor, activePath, label, onNavigate }: {
   link: NavLink;
   anchor: (id: string) => string;
   activePath: string;
   label: (link: NavLink) => string;
   onNavigate?: () => void;
-  /** Set in the desktop pill only, where the lens follows the links. */
-  lensKey?: string;
 }) {
-  if (link.kind === "section") return <a href={anchor(link.id)} onClick={onNavigate} data-lens-key={lensKey}>{label(link)}</a>;
+  if (link.kind === "section") return <a href={anchor(link.id)} onClick={onNavigate}>{label(link)}</a>;
   return (
-    <Link href={link.href} prefetch={false} onClick={onNavigate} data-lens-key={lensKey}
+    <Link href={link.href} prefetch={false} onClick={onNavigate}
       aria-current={activePath === link.href ? "page" : undefined}>
       {label(link)}
     </Link>
