@@ -42,7 +42,7 @@ function isLinuxFormat(variant: DownloadVariant): variant is LinuxFormat {
 }
 
 /**
- * Dictus Desktop downloads (`#desktop`), right under the final CTA. Every
+ * Dictus Desktop downloads (`#desktop`), between the FAQ and the footer. Every
  * platform and file comes from the latest dictus-desktop release
  * (`getDesktopDownloads()`). The server renders all three platforms with
  * nothing highlighted; after mount the visitor's system is highlighted in

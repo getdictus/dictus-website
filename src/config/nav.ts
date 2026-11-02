@@ -43,9 +43,7 @@ export function resolveNavLinks(gates: Record<NavGate, boolean>): NavLink[] {
 }
 
 /**
- * The "Download" CTA targets the v4b final CTA section once it ships. Until
- * then it goes to the top of `main`, where the hero holds the App Store and
- * Android download buttons.
+ * The "Download" CTA goes to the top of `main`, where the hero holds the App
+ * Store and Android download buttons (#121 removed the final CTA section).
  */
-const downloadSection = { id: "telecharger", live: true as boolean, fallback: "main-content" };
-export const downloadTargetId = downloadSection.live ? downloadSection.id : downloadSection.fallback;
+export const downloadTargetId = "main-content";
