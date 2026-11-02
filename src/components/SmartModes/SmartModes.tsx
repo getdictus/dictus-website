@@ -62,7 +62,7 @@ export default function SmartModes() {
       heading={t("heading")}
       badge={
         <>
-          <span className="rounded-full bg-brand-ink px-3 py-1 text-[13px] font-semibold text-white">{t("badge")}</span>
+          <span className="rounded-full bg-brand-white px-3 py-1 text-[13px] font-semibold text-accent-strong">{t("badge")}</span>
           <span className="text-[14px] font-medium">{tPricing("cards.pro.cta", pricingValues(locale))}</span>
         </>
       }

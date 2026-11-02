@@ -130,7 +130,7 @@ export default function Nav({ blogAvailable = false, pricingAvailable = false, a
           {links.map((link) => <NavItem key={link.labelKey} link={link} lensKey={link.labelKey} {...item} />)}
         </nav>
         <LanguageToggle variant="pill" className={styles.segmented} articleRoutes={articleRoutes} />
-        <a className={`${styles.cta} button-lift`} href={anchor(downloadTargetId)}>{t("download")}</a>
+        <a className={`${styles.cta} button-lift button-blue`} href={anchor(downloadTargetId)}>{t("download")}</a>
         <button ref={toggleRef} type="button" className={styles.toggle}
           aria-expanded={open} aria-controls="nav-menu" aria-label={t(open ? "menu_close" : "menu_open")}
           onClick={() => (open ? closeMenu(true) : openMenu())}>

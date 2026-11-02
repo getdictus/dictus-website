@@ -142,7 +142,7 @@ export default function Privacy() {
         <ul ref={cardsRef} className={styles.cards}>
           <li className={`${styles.card} ${styles.cardDevice} ${styles.reveal}`} data-reveal-item="">
             <CardSurface className="bg-brand-white">
-              <span aria-hidden="true" className={`${styles.icon} bg-brand-blue`}>
+              <span aria-hidden="true" className={`${styles.icon} bg-accent-strong`}>
                 <span className={styles.phone} />
               </span>
               <h3 className="mt-[22px] text-[clamp(26px,2.3vw,34px)] font-normal leading-[1.1] tracking-[-0.03em]">
@@ -156,7 +156,7 @@ export default function Privacy() {
 
           <li className={`${styles.card} ${styles.cardTracking} ${styles.reveal}`} data-reveal-item="">
             <CardSurface className="bg-brand-blue">
-              <span aria-hidden="true" className={`${styles.icon} bg-brand-navy text-[26px] font-semibold text-white`}>
+              <span aria-hidden="true" className={`${styles.icon} bg-brand-white text-[26px] font-semibold text-accent-strong`}>
                 ∅
               </span>
               <h3 className="mt-[22px] text-[clamp(26px,2.3vw,34px)] font-normal leading-[1.1] tracking-[-0.03em]">
@@ -172,7 +172,7 @@ export default function Privacy() {
             data-reveal-item=""
           >
             <CardSurface className="bg-brand-white">
-              <span aria-hidden="true" className={`${styles.icon} bg-brand-navy font-mono text-[20px] text-[#93C5FD]`}>
+              <span aria-hidden="true" className={`${styles.icon} bg-accent-strong font-mono text-[20px] text-white`}>
                 &lt;/&gt;
               </span>
               <h3 className="mt-[22px] text-[clamp(26px,2.3vw,34px)] font-normal leading-[1.1] tracking-[-0.03em]">
@@ -183,7 +183,7 @@ export default function Privacy() {
                 href="https://github.com/getdictus"
                 target="_blank"
                 rel="noopener noreferrer"
-                className="button-lift mt-5 inline-flex h-12 items-center gap-1.5 rounded-full bg-brand-navy px-5 text-[15px] font-semibold text-white [@media(hover:hover)_and_(pointer:fine)]:hover:bg-[#142744]"
+                className="button-lift button-blue mt-5 inline-flex h-12 items-center gap-1.5 rounded-full px-5 text-[15px] font-semibold"
               >
                 {t("source.cta")}
                 <span aria-hidden="true">→</span>

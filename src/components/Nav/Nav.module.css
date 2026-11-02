@@ -48,13 +48,14 @@
   font-size: 13px; font-weight: 600; color: inherit; cursor: pointer;
   transition: background-color var(--motion-fast) ease;
 }
-.segmented button[aria-current="true"] { color: var(--color-brand-white); background: var(--color-brand-ink); }
+.segmented button[aria-current="true"] { color: var(--color-brand-white); background: var(--color-accent-strong); }
 .segmented button:disabled, .menuLanguages button:disabled { opacity: .45; cursor: not-allowed; }
 
+/* Fill and text come from .button-blue (globals.css, #118); the dark
+   material below swaps them for a white pill with ink text. */
 .cta {
   display: flex; flex: none; align-items: center; height: 42px; padding: 0 18px;
   border-radius: 999px; font-size: 15px; font-weight: 600;
-  color: var(--color-brand-white); background: var(--color-brand-ink);
 }
 .toggle {
   display: none; flex: none; flex-direction: column; align-items: center; justify-content: center; gap: 5px;
@@ -98,7 +99,7 @@
   height: 44px; padding: 0 18px; border-radius: 999px; font-size: 15px; font-weight: 600; cursor: pointer;
   color: var(--color-brand-ink); background: var(--color-brand-grey);
 }
-.menuLanguages button[aria-current="true"] { color: var(--color-brand-white); background: var(--color-brand-ink); }
+.menuLanguages button[aria-current="true"] { color: var(--color-brand-white); background: var(--color-accent-strong); }
 
 @media (hover: hover) and (pointer: fine) {
   .links a:hover { color: var(--color-accent-text); }
@@ -108,7 +109,6 @@
   .header[data-theme="dark"] .segmented button:not([aria-current="true"]):not(:disabled):hover { background: rgb(255 255 255 / .14); }
   .toggle:hover { background: rgb(10 22 40 / .06); }
   .header[data-theme="dark"] .toggle:hover { background: rgb(255 255 255 / .12); }
-  .cta:hover { background: #142744; }
   .header[data-theme="dark"] .cta:hover { background: var(--color-mist); }
 }
 
