@@ -6,10 +6,16 @@
    out of the accessibility tree. The "+" turns 45deg into a cross and a blue
    disc fades in behind it; the glyph turns white once the disc shows (a
    discrete swap, no colour interpolation). Reduced motion: everything is
-   instant. */
+   instant. Hover (fine pointer): the closed icon's disc turns mist. */
 
 .trigger:focus-visible {
   outline-offset: 2px;
+}
+
+@media (hover: hover) and (pointer: fine) {
+  .trigger:hover .icon {
+    background: var(--color-mist);
+  }
 }
 
 .icon {
@@ -23,6 +29,7 @@
   border-radius: 50%;
   background: var(--color-brand-white);
   color: var(--color-brand-ink);
+  transition: background-color var(--motion-fast) ease;
 }
 
 /* Blue disc of the open state. */

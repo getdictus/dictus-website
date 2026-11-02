@@ -204,7 +204,7 @@ export default function Offline() {
         onClick={togglePlayback}
         aria-label={paused ? t("play") : t("pause")}
         title={paused ? t("play") : t("pause")}
-        className={styles.playback}
+        className={`${styles.playback} button-lift`}
       >
         {paused ? (
           <svg width="14" height="14" viewBox="0 0 14 14" aria-hidden="true">

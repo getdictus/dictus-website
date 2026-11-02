@@ -167,6 +167,61 @@ a {
   outline-offset: 5px;
 }
 
+/* ─── Shared button interaction (#117) ───
+   Every button and button-like link: a 2px lift and a soft shadow under a
+   fine pointer, a press on :active everywhere. Defined once here; components
+   add the class and keep no transition or :active transform of their own.
+   The shadow sits on ::after and only fades (opacity), so nothing but
+   transform and opacity animates. `:where()` keeps `position` overridable by
+   a component that places the button itself (absolute, sticky...). Reduced
+   motion keeps the shadow and colour changes, drops the movement. */
+:where(.button-lift) {
+  position: relative;
+}
+
+.button-lift {
+  transition:
+    transform var(--motion-fast) var(--ease-out),
+    background-color var(--motion-fast) ease,
+    border-color var(--motion-fast) ease,
+    color var(--motion-fast) ease;
+}
+
+.button-lift::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  border-radius: inherit;
+  box-shadow: 0 2px 6px rgb(10 22 40 / 0.1), 0 10px 22px rgb(10 22 40 / 0.16);
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity var(--motion-fast) ease;
+}
+
+@media (hover: hover) and (pointer: fine) {
+  .button-lift:not(:disabled):hover {
+    transform: translateY(-2px);
+  }
+
+  .button-lift:not(:disabled):hover::after {
+    opacity: 1;
+  }
+}
+
+/* After the hover rule so a press wins over the lift. Pressing is quicker
+   than the release, which goes back at --motion-fast. */
+.button-lift:not(:disabled):active {
+  transform: scale(0.97);
+  transition-duration: var(--motion-press);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .button-lift:not(:disabled):hover,
+  .button-lift:not(:disabled):active {
+    transform: none;
+  }
+}
+
 @media (prefers-reduced-motion: reduce) {
   html {
     scroll-behavior: auto;
