@@ -130,10 +130,8 @@
   background: var(--color-brand-white);
   color: var(--color-brand-ink);
   cursor: pointer;
-  transition: border-color var(--motion-fast) ease, transform var(--motion-press) var(--ease-out);
 }
 
-.playback:active { transform: scale(0.96); }
 
 .playback:focus-visible {
   outline: 2px solid var(--color-accent-text);

@@ -39,7 +39,7 @@ export default function Languages() {
           {layouts.map((layout) => (
             <li
               key={layout}
-              className="rounded-[10px] bg-brand-navy px-3.5 py-2.5 font-mono text-[13px] tracking-[0.06em] text-white"
+              className="rounded-[10px] bg-accent-strong px-3.5 py-2.5 font-mono text-[13px] tracking-[0.06em] text-white"
             >
               {t(`layout_${layout}`)}
             </li>

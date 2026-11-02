@@ -3,6 +3,7 @@ import { Link } from "@/i18n/navigation";
 import { resolveNavLinks, type NavLabelKey } from "@/config/nav";
 import { isBlogAvailable } from "@/config/blog";
 import { isPricingAvailable } from "@/config/pricing-release";
+import { ANDROID_RELEASE_URL, APP_STORE_URL } from "@/config/downloads";
 
 const CONTACT_EMAIL = "contact@pivi.solutions";
 
@@ -31,7 +32,12 @@ function productLinks(): FooterLink[] {
     const href = navHref(key);
     if (href) links.push({ key, href, internal: true });
   }
-  links.push({ key: "desktop", href: "/#desktop", internal: true });
+  // Store links: the download path at the end of every page (#121).
+  links.push(
+    { key: "app_store", href: APP_STORE_URL, internal: false },
+    { key: "android", href: ANDROID_RELEASE_URL, internal: false },
+    { key: "desktop", href: "/#desktop", internal: true },
+  );
   return links;
 }
 
@@ -78,7 +84,7 @@ function AppIcon({ className }: { className?: string }) {
 
 /**
  * v4b footer, shared by every page: logo and tagline, three link columns,
- * the full-width wordmark, then the legal row and the Apple credit.
+ * then the legal row and the Apple credit.
  */
 export default function Footer() {
   const t = useTranslations("Footer");
@@ -93,7 +99,7 @@ export default function Footer() {
     <footer data-navtheme="light" className="overflow-hidden bg-brand-white pt-[clamp(48px,6vw,88px)] text-brand-ink">
       <div className="mx-auto flex max-w-[1240px] flex-wrap gap-[clamp(28px,5vw,80px)] px-5 min-[760px]:px-[clamp(20px,5.5vw,80px)]">
         <div className="flex max-w-[340px] flex-[1_1_260px] flex-col gap-3.5">
-          <Link href="/" prefetch={false} className="flex items-center gap-3 self-start">
+          <Link href="/" prefetch={false} className="flex items-center gap-3 self-start transition-opacity duration-150 [@media(hover:hover)_and_(pointer:fine)]:hover:opacity-70">
             <AppIcon className="size-10" />
             <span className="text-[30px] font-extralight leading-none tracking-[-0.04em]">Dictus</span>
           </Link>
@@ -125,33 +131,10 @@ export default function Footer() {
         </nav>
       </div>
 
-      {/* Full-width wordmark. textLength pins the word to the box whatever font
-          is loaded yet, so it never reflows. */}
-      <div className="mx-auto mt-[clamp(40px,6vw,80px)] max-w-[1240px] px-5 min-[760px]:px-[clamp(20px,5.5vw,80px)]">
-        <svg viewBox="0 0 1000 236" className="block h-auto w-full" aria-hidden="true">
-          <g transform="scale(2.95)">
-            <rect width="80" height="80" rx="18" fill="#0A1628" />
-            <rect x="19" y="31" width="9" height="18" rx="4.5" fill="white" opacity={0.45} />
-            <rect x="35.5" y="19" width="9" height="42" rx="4.5" fill="#6BA3FF" />
-            <rect x="52" y="26" width="9" height="27" rx="4.5" fill="white" opacity={0.65} />
-          </g>
-          <text
-            x="290"
-            y="196"
-            textLength="704"
-            lengthAdjust="spacing"
-            fill="#0A1628"
-            style={{ fontFamily: "var(--font-dm-sans)", fontSize: 262, fontWeight: 200, letterSpacing: "-0.04em" }}
-          >
-            Dictus
-          </text>
-        </svg>
-      </div>
-
       {/* The bottom padding lifts the legal links clear of the assistant
           widget's fixed bubble and teaser at the end of the page: they cover
           the bottom 179px of the viewport up to 480px wide, 195px above. */}
-      <div className="mx-auto mt-[clamp(20px,3vw,40px)] max-w-[1240px] px-5 pb-[calc(112px+env(safe-area-inset-bottom))] min-[481px]:pb-[calc(168px+env(safe-area-inset-bottom))] min-[760px]:px-[clamp(20px,5.5vw,80px)]">
+      <div className="mx-auto mt-[clamp(40px,6vw,80px)] max-w-[1240px] px-5 pb-[calc(112px+env(safe-area-inset-bottom))] min-[481px]:pb-[calc(168px+env(safe-area-inset-bottom))] min-[760px]:px-[clamp(20px,5.5vw,80px)]">
         <div className="flex flex-wrap justify-between gap-x-6 gap-y-1 border-t border-brand-rule pt-3 text-[14px] text-brand-muted">
           <span className="inline-flex min-h-11 items-center">© {year} Dictus · {t("company")}</span>
           <span className="flex flex-wrap gap-x-5">

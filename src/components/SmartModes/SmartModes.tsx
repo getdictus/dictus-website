@@ -20,9 +20,10 @@ const scenes: Record<SmartModesStep, (props: { locale: "fr" | "en" }) => React.R
 };
 
 /**
- * v4b Smart Modes & Pro section (`#pro`): the blue inset card, pinned over
- * the four Dictus Pro features. Text, lit chip and front card all read the
- * same step, so they change on the same frame. Each card is a still of the
+ * v4b Smart Modes & Pro section (`#pro`): blue to the page edges, its rounded
+ * top pulled over the section before, pinned over the four Dictus Pro
+ * features. Text, lit chip and front card all read the same step, so they
+ * change on the same frame. Each card is a still of the
  * feature's dictus-ios onboarding scene.
  *
  * Without room or under reduced motion, `PinnedSteps` lays the steps out in
@@ -54,15 +55,14 @@ export default function SmartModes() {
       id="pro"
       pin="smartModes"
       tone="blue"
-      inset
-      insetGround="white"
+      overlapTop
       headingHidden
       syncText
       progress={false}
       heading={t("heading")}
       badge={
         <>
-          <span className="rounded-full bg-brand-ink px-3 py-1 text-[13px] font-semibold text-white">{t("badge")}</span>
+          <span className="rounded-full bg-brand-white px-3 py-1 text-[13px] font-semibold text-accent-strong">{t("badge")}</span>
           <span className="text-[14px] font-medium">{tPricing("cards.pro.cta", pricingValues(locale))}</span>
         </>
       }

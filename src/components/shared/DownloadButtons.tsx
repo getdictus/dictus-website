@@ -27,7 +27,7 @@ export default function DownloadButtons({ className }: { className?: string }) {
         <Image className={styles.badge} src={badge.src} width={badge.width} height={48}
           alt={t("app_store_alt")} unoptimized />
       </a>
-      <a className={styles.android} href={ANDROID_RELEASE_URL} target="_blank" rel="noopener noreferrer"
+      <a className={`${styles.android} button-lift`} href={ANDROID_RELEASE_URL} target="_blank" rel="noopener noreferrer"
         aria-label={t("android_label")}>
         <span className={styles.arrow} aria-hidden="true">↓</span>
         {t("android")}

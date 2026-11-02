@@ -66,9 +66,8 @@ type Props = {
   steps: PinnedStep[];
   /** Right-hand visual. It reads the step with `usePinnedStep()`. */
   visual?: ReactNode;
-  /** Rounded inset card on `insetGround` (see `Section`). */
-  inset?: boolean;
-  insetGround?: SectionTone;
+  /** Rounded top corners pulled over the previous section (see `Section`). */
+  overlapTop?: boolean;
   /** Shown in place of the eyebrow text, before the step counter. */
   badge?: ReactNode;
   /**
@@ -112,8 +111,7 @@ export default function PinnedSteps({
   heading,
   steps,
   visual,
-  inset,
-  insetGround,
+  overlapTop,
   badge,
   headingHidden = false,
   syncText = false,
@@ -202,10 +200,8 @@ export default function PinnedSteps({
     <Section
       tone={tone}
       id={id}
-      inset={inset}
-      insetGround={insetGround}
+      overlapTop={overlapTop}
       aria-labelledby={`${id}-heading`}
-      className={inset ? "pt-2 min-[760px]:pt-3" : undefined}
       onFocusCapture={onFocusCapture}
     >
       <PinnedStepContext.Provider value={state}>
@@ -347,7 +343,7 @@ function ProgressSegment({
 }) {
   const transform = useTransform(progress, [index / count, (index + 1) / count], ["scaleX(0)", "scaleX(1)"]);
   const rail = tone === "navy" || tone === "blue" ? "bg-white/20" : "bg-brand-rule-strong";
-  const fill = tone === "blue" ? "bg-brand-ink" : "bg-accent";
+  const fill = tone === "blue" ? "bg-white" : "bg-accent";
   return (
     <div className={`h-1 flex-1 overflow-hidden rounded-full ${rail}`}>
       <m.div className={`h-full origin-left ${fill}`} style={{ transform }} />

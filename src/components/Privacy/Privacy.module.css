@@ -1,7 +1,12 @@
 /* v4b Privacy & Open source cards. Below 760px they stack flat; from 760px
    they tilt slightly, stacked in one column up to 1023px so no card edge or
-   text comes near the screen edge, then side by side and overlapping. The
-   tilt is static. */
+   text comes near the screen edge, then side by side and overlapping.
+
+   Each <li> (.card) holds the layout, the resting rotation and the entrance;
+   its .surface is the visible card. Under a fine pointer the surface tilts
+   and shifts toward it (Privacy.tsx sets its transform on pointermove), on
+   top of the resting rotation, and eases back on leave. Nothing tilts on
+   touch or under reduced motion; the hover shadow stays in both. */
 
 .cards {
   display: grid;
@@ -13,9 +18,40 @@
 
 .card {
   position: relative;
+}
+
+.surface {
+  position: relative;
   border-radius: 32px;
   padding: clamp(26px, 2.6vw, 40px);
   box-shadow: 0 1px 2px rgb(10 22 40 / 0.06), 0 12px 32px rgb(10 22 40 / 0.08);
+  /* Settling back after the pointer leaves: slower than UI feedback on
+     purpose, so the card visibly comes to rest instead of snapping. */
+  transition: transform 450ms var(--ease-out);
+}
+
+/* While the pointer moves, each new angle is reached quickly and the
+   transition retargets from wherever the card is, so it follows smoothly. */
+.surface[data-tilting] {
+  transition-duration: 150ms;
+}
+
+/* Deeper shadow while hovered: a second shadow that only fades in. */
+.surface::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  border-radius: inherit;
+  box-shadow: 0 4px 10px rgb(10 22 40 / 0.06), 0 28px 56px rgb(10 22 40 / 0.14);
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity var(--motion-ui) ease;
+}
+
+@media (hover: hover) and (pointer: fine) {
+  .surface:hover::after {
+    opacity: 1;
+  }
 }
 
 .icon {
@@ -36,7 +72,7 @@
 }
 
 @media (min-width: 760px) {
-  .card {
+  .surface {
     border-radius: 40px;
   }
 
@@ -98,4 +134,5 @@
 /* Nothing moves under reduced motion. */
 @media (prefers-reduced-motion: reduce) {
   .reveal { transition: none; }
+  .surface { transform: none !important; }
 }

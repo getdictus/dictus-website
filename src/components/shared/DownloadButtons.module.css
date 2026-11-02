@@ -5,14 +5,13 @@
 .appStore { display: block; flex: none; border-radius: 8px; }
 .badge { display: block; width: auto; height: 48px; }
 
-/* Same height, fill, border and radius as the black badge so both read as one pair. */
-.android { display: inline-flex; align-items: center; justify-content: center; gap: 10px; flex: none; box-sizing: border-box; height: 48px; padding: 0 22px; border: 1px solid #a6a6a6; border-radius: 9px; background: #0a1628; color: #fff; font-size: 17px; font-weight: 600; line-height: 1; letter-spacing: -.01em; white-space: nowrap; transition: background-color var(--motion-fast) ease; }
+/* Same height, fill, border and radius as the black badge so both read as one pair:
+   pure black #000 like Apple's artwork (#118). */
+.android { display: inline-flex; align-items: center; justify-content: center; gap: 10px; flex: none; box-sizing: border-box; height: 48px; padding: 0 22px; border: 1px solid #a6a6a6; border-radius: 9px; background: #000; color: #fff; font-size: 17px; font-weight: 600; line-height: 1; letter-spacing: -.01em; white-space: nowrap; }
 .arrow { color: #6ba3ff; font-family: system-ui, sans-serif; font-weight: 600; }
 
+/* Hover: the .button-lift lift and shadow, plus a step up to Apple's dark
+   elevated grey, so the hover still reads under reduced motion (no lift). */
 @media (hover: hover) and (pointer: fine) {
-  .android:hover { background: #142744; }
-}
-
-@media (prefers-reduced-motion: reduce) {
-  .android { transition: none; }
+  .android:hover { background: #1c1c1e; }
 }

@@ -11,6 +11,9 @@ const pairs = [
   ["#33415C", "#F2F2F7", "body on grey"],
   ["#5B6880", "#FFFFFF", "muted on white"],
   ["#5B6880", "#F2F2F7", "muted on grey"],
+  ["#FFFFFF", "#2563EB", "white on accent-strong (filled buttons, #118)"],
+  ["#FFFFFF", "#1D4ED8", "white on accent-strong-end (button gradient end)"],
+  ["#2563EB", "#FFFFFF", "accent-strong on white (badge/tile on blue)"],
 ];
 
 function luminance(hex) {
