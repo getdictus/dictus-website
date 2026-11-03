@@ -1,6 +1,5 @@
 import { getTranslations } from "next-intl/server";
 import type { LocalizedArticle } from "@/lib/blog";
-import styles from "./Blog.module.css";
 
 export function formatArticleDate(value: string, locale: string) {
   return new Intl.DateTimeFormat(locale === "fr" ? "fr-FR" : "en-US", {
@@ -16,7 +15,7 @@ export default async function ArticleMeta({ article, full = false }: { article: 
   const date = article.publishedAt ?? article.createdAt;
 
   return (
-    <p className={styles.meta}>
+    <p className="m-0 flex flex-wrap items-baseline gap-x-5 gap-y-1 text-[14px] leading-[1.6] text-brand-muted">
       <span>
         {article.status === "draft" ? t("draft_date") : t("published_date")}{" "}
         <time dateTime={date}>{formatArticleDate(date, article.locale)}</time>
