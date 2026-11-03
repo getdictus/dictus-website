@@ -47,8 +47,8 @@
   },
   "Offline": {
     "eyebrow": "EVEN OFFLINE",
-    "title": "The metro cuts the signal.",
-    "lead": "Between two stations, no more 4G. Once its model is downloaded, Dictus doesn’t need it to write.",
+    "title": "Dictation that works fully offline.",
+    "lead": "Dictus transcribes your voice right on your iPhone. Once the model is downloaded, you don’t need the internet to dictate: no signal, no Wi-Fi, no server.",
     "scene_description": "The animation comes from the Dictus iPhone app: in a metro carriage with no network, a woman dictates into her phone and a mail draft writes itself: “Notes from today. Great meeting this morning. Next steps for the launch below.”",
     "no_network": "NO NETWORK",
     "pause": "Pause the animation",
