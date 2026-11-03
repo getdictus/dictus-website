@@ -11,7 +11,8 @@
     "updatedAt": "2026-11-03",
     "relatedIds": [
       "capture-dictus-desktop",
-      "capture-clavier-iphone"
+      "capture-clavier-iphone",
+      "smart-modes-iphone"
     ],
     "review": {},
     "locales": {
@@ -185,8 +186,8 @@
       "en": {
         "slug": "local-dictation-privacy",
         "title": "Local or cloud voice dictation: where do your voice and text go?",
-        "summary": "Follow the path of audio, transcription, and rewritten text, then find out what is stored and what travels over the network, on iPhone and computer alike.",
-        "intro": "Local dictation turns audio into text on your device. Cloud transcription sends audio to a remote service. That distinction is not enough: a rewrite may then send the text, a history may keep a copy, and the app that receives the text may sync it. To choose a tool, track voice and text separately.",
+        "summary": "Follow the path of audio, transcription, and rewritten text, then find out what is stored and what goes over the network, on iPhone and computer alike.",
+        "intro": "Local dictation turns audio into text on your device. Cloud transcription sends audio to a remote service. That distinction is not enough: rewriting may then send the text elsewhere, a history may keep a copy, and the app that receives the text may sync it. To choose a tool, track voice and text separately.",
         "category": "Privacy",
         "tags": [
           "Local processing",
@@ -205,7 +206,7 @@
           "width": 680,
           "height": 570,
           "alt": "Dictus Desktop General settings on macOS, with a local voice model selected.",
-          "caption": "Actual screenshot of Dictus Desktop 0.3.0 on macOS, dated September 17, 2026. The selected voice model runs on the computer."
+          "caption": "Actual screenshot of Dictus Desktop 0.3.0 on macOS, on September 17, 2026. The selected voice model runs on the computer."
         },
         "cta": {
           "label": "Read the privacy policy",
@@ -217,13 +218,13 @@
             "id": "suivre-les-etapes",
             "heading": "Follow the data through each step",
             "paragraphs": [
-              "Take a short dictated note. The microphone captures audio. A recognition engine turns that audio into words. An optional feature can then correct or rewrite the text. Finally, the result goes into a note, document, or messaging app. Each of these steps may have a different destination.",
+              "Take a short dictated note. The microphone produces audio. A recognition engine turns that audio into words. An optional feature may then correct or rewrite the text. Finally, the result goes into a note, document, or messaging app. Each of these steps may have a different destination.",
               "So ask a dictation tool four questions: where is the audio processed, where is the text processed, what is stored, and what happens to the result after it is inserted?"
             ],
             "bullets": [
               "Capture: the microphone records your voice for the current recording.",
-              "Transcription: a model converts audio into text, on the device or with a provider.",
-              "Optional rewriting: another feature corrects or rephrases the text, also locally or remotely.",
+              "Transcription: a model converts the audio into text, on the device or with a provider.",
+              "Optional rewriting: another feature corrects or rephrases the text, either locally or remotely.",
               "Storage and destination: the tool may keep a history, and the app that receives the text has its own rules."
             ]
           },
@@ -231,18 +232,18 @@
             "id": "local-ou-distant",
             "heading": "What changes between local and remote transcription",
             "paragraphs": [
-              "Locally, the processing happens on your device. The model must be installed there, and the device provides the computing power and storage. Once the model is ready, transcription works without a connection.",
-              "With remote transcription, the audio goes to a service that does the processing. You then need to check its terms: data sent, retention period, permitted uses, and deletion. The word “cloud” does not answer any of these questions; they must be checked provider by provider.",
-              "Local or remote alone says nothing about speed or accuracy. The model, hardware, background noise, and dictated content all matter. The easiest approach is to try a short passage without sensitive information."
+              "Locally, processing happens on your device. The model must be installed there, and the device provides the processing power and storage. Once the model is ready, transcription works without a connection.",
+              "With remote transcription, the audio goes to a service that does the processing. You then need to check its terms: data sent, retention period, permitted uses, and deletion. The word “cloud” answers none of these questions; you need to check each provider individually.",
+              "Local or remote alone tells you nothing about speed or accuracy. The model, hardware, background noise, and dictated content all matter. The simplest approach is to try a short passage without sensitive information."
             ],
             "bullets": []
           },
           {
             "id": "preparer-hors-ligne",
-            "heading": "Offline after setup, not without a connection during installation",
+            "heading": "Offline after setup, not without a network during installation",
             "paragraphs": [
-              "A local dictation app downloads its model from the Internet, then uses it on the device. Downloading the app, downloading models, and updates are network exchanges separate from transcription.",
-              "Before working without a connection, finish installing and preparing the model, then try it in a note with your usual settings. If you have enabled rewriting through an online provider, that step still needs its service, even when transcription is local."
+              "A local dictation app downloads its model over the Internet, then uses it on the device. Downloading the app, downloading models, and updates are network exchanges separate from transcription.",
+              "Before working without a connection, finish installing and setting up the model, then try it in a note using your usual settings. If you have enabled rewriting through an online provider, that step still needs its service, even when transcription is local."
             ],
             "bullets": []
           },
@@ -250,10 +251,10 @@
             "id": "dictus-par-plateforme",
             "heading": "How these distinctions apply to Dictus",
             "paragraphs": [
-              "In Dictus Desktop 0.3.0, audio is transcribed on the computer. Text post-processing is optional and disabled by default. It can run on the computer using the built-in model, Apple Intelligence on Mac Apple Silicon, or a local server such as Ollama. If you choose an online provider, the transcribed text and instruction are sent to it; never the audio.",
+              "In Dictus Desktop 0.3.0, audio is transcribed on the computer. Text post-processing is optional and disabled by default. It can run on the computer with the built-in model, Apple Intelligence on Apple Silicon Macs, or a local server such as Ollama. If you choose an online provider, the transcribed text and instruction are sent to it; audio is never sent.",
               "On computer, the network is used to download models, which you initiate yourself, and to check for updates, which is enabled by default and can be disabled. The Desktop privacy documentation lists every address the app may contact.",
-              "In Dictus iOS 2.0, transcription uses a model installed on the iPhone. Smart Modes and correction in Normal mode rely on Apple Intelligence, which also runs on the device. They require iOS 26, a compatible iPhone, and Apple Intelligence enabled. Simple dictation does not depend on it: the app works from iOS 17.",
-              "The keyboard requests full access, which lets it hand the recording to the Dictus app. This permission also technically allows network access, but the dictation flow does not send your voice or text to a server. Installations, updates, model downloads, and Dictus Pro purchases, processed by Apple, are separate operations."
+              "In Dictus iOS 2.0, transcription uses a model installed on the iPhone. Smart Modes and Normal mode correction rely on Apple Intelligence, which also runs on the device. They require iOS 26, a compatible iPhone, and Apple Intelligence enabled. Simple dictation does not depend on it: the app works starting with iOS 17.",
+              "The keyboard requests Full Access, which lets it hand off recording to the Dictus app. This permission also technically allows network access, but the dictation flow does not send your voice or text to a server. Installations, updates, model downloads, and Dictus Pro purchases, processed by Apple, are separate operations."
             ],
             "bullets": []
           },
@@ -263,9 +264,9 @@
             "paragraphs": [
               "Dictus Desktop keeps your recent transcriptions and their audio in its history on the computer: 5 entries by default. You can set the limit and automatic deletion of recordings in Advanced > History.",
               "On iPhone, Dictus Pro history keeps your 200 most recent dictations on the device, text only, never audio. You can clear it at any time in Settings > Transcription, even after Dictus Pro ends. Your custom vocabulary also stays on the iPhone. Audio from a voice message shared with Dictus is deleted as soon as it is transcribed.",
-              "The text correction diagnostics screen may keep the original text and corrected text on the iPhone. These logs leave the device only if you export them yourself, for example, for support.",
-              "TODO(Pierre): dictus-ios PRIVACY.md says that debug logs contain no transcription content, while PolishEventStore keeps the raw and corrected text for the diagnostics screen. Confirm which wording to keep.",
-              "Finally, the app that receives the text may sync it. Dictating locally into a document does not change that document’s or its service’s settings. For information that must stay on the device, also check the final destination."
+              "The text correction diagnostic screen may keep the original and corrected text on the iPhone. These logs leave the device only if you export them yourself, for example, for support.",
+              "TODO(Pierre): dictus-ios PRIVACY.md says debug logs contain no transcription content, while PolishEventStore keeps the raw and corrected text for the diagnostic screen. Confirm which wording to keep.",
+              "Finally, the app that receives the text may sync it. Dictating locally into a document does not change that document’s or its service’s settings. If information needs to stay on the device, check the final destination too."
             ],
             "bullets": []
           },
@@ -273,23 +274,23 @@
             "id": "questions-a-poser",
             "heading": "Questions to ask before choosing a tool",
             "paragraphs": [
-              "There is no need to memorize model names. Instead, look for a specific answer to each of these questions for your version and settings:"
+              "You do not need to memorize model names. Instead, look for a clear answer to each of these questions for your version and settings:"
             ],
             "bullets": [
               "Where does my voice become text: on my device or with a provider?",
               "What needs to be downloaded before I can work without a connection?",
               "Does correction or rewriting send the text elsewhere? Is it enabled by default?",
-              "What recordings, texts, histories, or diagnostics are kept, and how can I delete them?",
+              "What recordings, texts, histories, or diagnostics are stored, and how can I delete them?",
               "Which operations use the network outside transcription?",
-              "Does the app where I insert the text sync it as well?"
+              "Does the app where I insert the text sync it in turn?"
             ]
           },
           {
             "id": "verifier-les-sources",
             "heading": "Check the code and put it into practice",
             "paragraphs": [
-              "Dictus code is public: the sources below point to the versions examined and the files that process or store your data. This is not an external audit, but anyone can check.",
-              "To put it into practice, follow the iPhone or computer guide linked to this article. Start with a low-stakes note and keep the options you understand."
+              "Dictus code is public: the sources below point to the versions reviewed and the files that process or store your data. This is not an external audit, but anyone can check.",
+              "To put it into practice, follow the iPhone or computer guide linked to this article. Start with a note that does not matter, and keep the options you understand."
             ],
             "bullets": []
           }
@@ -351,7 +352,7 @@
       }
     },
     "translation": {
-      "sourceHash": "716e06a91c0d90841d45a219608a33a4171ae721e612b00968f25c2af274976e",
+      "sourceHash": "8802876d36b583b8720271764ecfd2335e419c83c397ddda35cb4ed24aa92912",
       "generatedAt": "2026-11-03",
       "method": "codex-cli"
     }
@@ -841,7 +842,8 @@
     "updatedAt": "2026-11-03",
     "relatedIds": [
       "local-par-defaut",
-      "capture-dictus-desktop"
+      "capture-dictus-desktop",
+      "smart-modes-iphone"
     ],
     "review": {},
     "locales": {
@@ -1009,8 +1011,8 @@
       "en": {
         "slug": "iphone-voice-dictation",
         "title": "Voice dictation on iPhone: getting started with Dictus 2.0",
-        "summary": "Install the Dictus keyboard, prepare the voice model, dictate a first note, then discover what Dictus Pro adds.",
-        "intro": "Dictus is a dictation keyboard for iPhone. You speak, the text appears where you write, and transcription happens on your phone. This guide covers Dictus 2.0: installation, the voice model, your first dictation, and what Dictus Pro adds.",
+        "summary": "Install the Dictus keyboard, set up the voice model, dictate your first note, then discover what Dictus Pro adds.",
+        "intro": "Dictus is a dictation keyboard for iPhone. You speak, text appears wherever you write, and transcription happens on your phone. This guide covers Dictus 2.0: installation, the voice model, your first dictation, and what Dictus Pro adds.",
         "category": "iPhone",
         "tags": [
           "Voice dictation",
@@ -1018,7 +1020,7 @@
           "Dictus Pro"
         ],
         "seo": {
-          "title": "iPhone voice dictation: install and use the Dictus 2.0 keyboard",
+          "title": "Voice dictation on iPhone: install and use the Dictus 2.0 keyboard",
           "description": "Install the Dictus keyboard on iPhone, enable full access, download the model, and dictate in your apps. Plus, what Dictus Pro adds."
         },
         "social": {
@@ -1030,7 +1032,7 @@
           "width": 858,
           "height": 1864,
           "alt": "The Dictus keyboard recording in Messages on iPhone, with the waveform, the cross to cancel, and the checkmark to finish.",
-          "caption": "The actual Dictus 2.0 interface, captured in an iPhone simulator for the App Store listing. The conversation and sound level are demo data."
+          "caption": "Actual Dictus 2.0 interface, captured in an iPhone simulator for the App Store listing. The conversation and sound level are demo data."
         },
         "cta": {
           "label": "Discover Dictus on iPhone",
@@ -1043,7 +1045,7 @@
             "heading": "What you need",
             "paragraphs": [
               "Dictus 2.0 works on iPhone with iOS 17 or later. The app is free on the App Store.",
-              "Make sure you have an internet connection and enough free space for the voice model: from a few hundred megabytes to more than one gigabyte, depending on the model. Once the model is installed, dictation works offline.",
+              "Make sure you have a connection and enough free space for the voice model: from a few hundred megabytes to over one gigabyte, depending on the model. Once the model is installed, dictation works without a network connection.",
               "TODO(Pierre): as of November 3, 2026, the App Store listing still shows version 1.9.0. Confirm that Dictus 2.0.0 is live before publishing this guide."
             ],
             "bullets": []
@@ -1052,10 +1054,10 @@
             "id": "installer-le-clavier",
             "heading": "Install the keyboard and enable full access",
             "paragraphs": [
-              "Download Dictus and open the app. The welcome screen guides you step by step: first choose the language and keyboard layout, then add the keyboard.",
+              "Download Dictus and open the app. The welcome screen guides you step by step: first, choose the language and keyboard layout, then add the keyboard.",
               "Follow the button on the welcome screen, or go to Settings > General > Keyboard > Keyboards. Add Dictus, then enable “Allow Full Access.”",
-              "Full access is required. Without it, the keyboard microphone stays disabled and the bar displays “Full Access Required.” This lets the keyboard hand off recording to the Dictus app, which transcribes on your iPhone. The permission also technically allows network access; the privacy guide explains what that means.",
-              "iOS sometimes closes Dictus when you change this setting. Just reopen the app: the welcome screen resumes at the same step."
+              "Full access is required. Without it, the keyboard microphone stays disabled and the bar displays “Full access required.” This lets the keyboard hand off recording to the Dictus app, which transcribes on your iPhone. The permission also technically allows network access; the privacy guide explains what that means.",
+              "iOS sometimes closes Dictus when you change this setting. Simply reopen the app: the welcome screen resumes at the same step."
             ],
             "bullets": []
           },
@@ -1065,19 +1067,19 @@
             "paragraphs": [
               "The welcome screen suggests the recommended model for your iPhone. Start the download, then let Dictus prepare it: a screen with a countdown accompanies this step. You can change models later in the Models tab.",
               "Next, allow microphone access when Dictus asks.",
-              "On an iPhone compatible with Apple Intelligence, the welcome screen also introduces Dictus Pro features and offers you the option to choose three Smart Modes. You can skip these screens; they aren’t needed to dictate."
+              "On an iPhone compatible with Apple Intelligence, the welcome screen also introduces Dictus Pro features and invites you to choose three Smart Modes. You can skip these screens: they aren’t needed for dictation."
             ],
             "bullets": []
           },
           {
             "id": "premiere-dictee",
-            "heading": "Try your first dictation",
+            "heading": "Make your first dictation",
             "paragraphs": [
               "The welcome flow ends with a test field: the keyboard opens automatically, you dictate a sentence, and you’re ready to go.",
-              "Then, in any app, open a text field, hold the globe, and choose Dictus. Tap the blue microphone at the top right of the keyboard, speak, then tap the green checkmark. The text is inserted at the cursor. The cross cancels without inserting anything.",
+              "After that, in any app, open a text field, press and hold the globe, and choose Dictus. Tap the blue microphone at the top right of the keyboard, speak, then tap the green checkmark. The text is inserted at the cursor. The cross cancels without inserting anything.",
               "Right after insertion, “Undo” stays in the keyboard bar for 8 seconds so you can remove the inserted text.",
-              "The first time you tap the microphone, iOS may open the Dictus app while it starts up. Follow its prompt to return to your app and continue.",
-              "For a first try, dictate in Notes, for example: “Remember to water the plants tonight.” Always proofread before sending, especially proper names, numbers, and negations."
+              "The first time you tap the microphone, iOS may open the Dictus app while it starts. Follow its prompt to return to your app and continue.",
+              "For a first try, dictate into Notes, for example: “Remember to water the plants tonight.” Always review the text before sending, especially proper names, numbers, and negations."
             ],
             "bullets": []
           },
@@ -1085,36 +1087,36 @@
             "id": "limites-et-aide",
             "heading": "If the keyboard doesn’t respond as expected",
             "paragraphs": [
-              "iOS sets the rules for third-party keyboards. Password fields and some phone number fields always show Apple’s keyboard, and some apps don’t allow third-party keyboards. In these cases, Dictus doesn’t appear; it isn’t a malfunction.",
+              "iOS sets the rules for third-party keyboards. Password fields and some phone number fields always display Apple’s keyboard, and some apps reject third-party keyboards. In these cases, Dictus won’t appear; it isn’t a malfunction.",
               "For anything else, here are the most useful checks:"
             ],
             "bullets": [
               "Dictus doesn’t appear when you tap the globe: check that it’s added under Settings > General > Keyboard > Keyboards.",
-              "The microphone is dimmed and shows “Full Access Required”: enable full access for Dictus in the same settings.",
-              "Nothing is being recorded: check microphone permission under Settings > Dictus, and make sure a model is installed in the Models tab.",
-              "“Dictation interrupted” appears, for example after a call: your text is waiting for you in the Dictus app. Tap the banner to find it.",
-              "The problem persists: contact support and include your Dictus version, iOS version, the app involved, and the step where you’re stuck."
+              "The microphone is grayed out with “Full access required”: enable Dictus full access in those same settings.",
+              "Nothing is recording: check microphone permission under Settings > Dictus, and make sure a model is installed in the Models tab.",
+              "“Dictation interrupted” appears, for example after a call: your text is waiting in the Dictus app. Tap the banner to find it.",
+              "The problem persists: contact support and include the Dictus version, the iOS version, the app involved, and the step where you get stuck."
             ]
           },
           {
             "id": "dictus-pro",
             "heading": "What Dictus Pro adds",
             "paragraphs": [
-              "The keyboard, on-device dictation, model selection, and Normal mode remain free. Dictus Pro adds four features:"
+              "The keyboard, local dictation, model selection, and Normal mode remain free. Dictus Pro adds four features:"
             ],
             "bullets": [
-              "Smart Modes: hold the microphone, slide to a mode, and release. Dictus writes your dictation as a Message, List, Structured text, Summary, or Translation.",
-              "Custom vocabulary: enter a name and the way Dictus gets it wrong. Dictus then replaces it with your preferred spelling.",
+              "Smart Modes: press and hold the microphone, slide to a mode, and release. Dictus writes your dictation as a Message, List, Structured text, Summary, or Translation.",
+              "Custom vocabulary: enter a name and how Dictus gets it wrong. Dictus will then replace it with your spelling.",
               "Searchable history: your 200 most recent dictations stay on your iPhone, text only. Search for a word, copy a dictation, or delete one.",
-              "Voice messages: share a voice message received in a messaging app to Dictus, up to 10 minutes long. The text will be waiting in the keyboard."
+              "Voice messages: share a voice message you received in a messaging app with Dictus, up to 10 minutes long. The text will be waiting in the keyboard."
             ]
           },
           {
             "id": "essai-pro",
             "heading": "Requirements and free trial",
             "paragraphs": [
-              "Smart Modes require iOS 26 and Apple Intelligence enabled, so you’ll need a compatible iPhone. Vocabulary, history, and voice message transcription work without Apple Intelligence.",
-              "On an iPhone compatible with Apple Intelligence, Dictus Pro is free for 14 days, once per device. The trial requires no payment or subscription. At the end, the app returns to the free version unless you choose a plan.",
+              "Smart Modes require iOS 26 and Apple Intelligence enabled, so you need a compatible iPhone. Vocabulary, history, and voice message transcription work without Apple Intelligence.",
+              "On an iPhone compatible with Apple Intelligence, Dictus Pro is offered for 14 days, once per device. The trial requires neither payment nor a subscription. When it ends, the app returns to the free version if you don’t choose a plan.",
               "Plans and prices are on the Pricing page, linked in the sources."
             ],
             "bullets": []
@@ -1126,7 +1128,7 @@
             "href": "https://apps.apple.com/fr/app/dictus-ai-voice-keyboard/id6761262378"
           },
           {
-            "label": "Dictus iOS 2.0 welcome screen steps",
+            "label": "Dictus iOS 2.0 welcome flow steps",
             "href": "https://github.com/getdictus/dictus-ios/blob/ed6057404cee574010647fc44f017e309b2ea711/DictusCore/Sources/DictusCore/OnboardingStep.swift"
           },
           {
@@ -1150,7 +1152,7 @@
             "href": "https://developer.apple.com/documentation/uikit/configuring-a-custom-keyboard-interface"
           },
           {
-            "label": "Apple: what full access allows for a keyboard",
+            "label": "Apple: scope of a keyboard’s full access",
             "href": "https://developer.apple.com/library/archive/documentation/General/Conceptual/ExtensibilityPG/CustomKeyboard.html"
           },
           {
@@ -1169,7 +1171,414 @@
       }
     },
     "translation": {
-      "sourceHash": "a04fb1e766ae1a14a7a905b1cf659c853fd516fccfc6a02aaa4d030ec70e91f2",
+      "sourceHash": "1a41dac5aca412dc092c9eb353cb454a4408209c8962eb7e07074eb201d93399",
+      "generatedAt": "2026-11-03",
+      "method": "codex-cli"
+    }
+  },
+  {
+    "id": "smart-modes-iphone",
+    "sourceLocale": "fr",
+    "status": "draft",
+    "author": {
+      "name": "Pierre",
+      "url": "https://github.com/Pivii"
+    },
+    "createdAt": "2026-11-03",
+    "updatedAt": "2026-11-03",
+    "relatedIds": [
+      "capture-clavier-iphone",
+      "local-par-defaut"
+    ],
+    "review": {},
+    "locales": {
+      "fr": {
+        "slug": "smart-modes-iphone",
+        "title": "Smart Modes sur iPhone : les cinq modes de Dictus en pratique",
+        "summary": "Message, Liste, Structuré, Résumé et Traduction : à quoi sert chaque mode, comment l’activer depuis le clavier et ce qu’il faut pour qu’il fonctionne.",
+        "intro": "Les Smart Modes réécrivent votre dictée avant de l’insérer : un message prêt à envoyer, une liste, un texte structuré, un résumé ou une traduction. Ils font partie de Dictus Pro et tournent sur Apple Intelligence, directement sur l’iPhone. Voici comment les utiliser, ce qu’ils demandent et un exemple pour chacun.",
+        "category": "iPhone",
+        "tags": [
+          "Smart Modes",
+          "Dictus Pro",
+          "Apple Intelligence"
+        ],
+        "seo": {
+          "title": "Smart Modes Dictus : Message, Liste, Structuré, Résumé, Traduction",
+          "description": "Comment utiliser les cinq Smart Modes du clavier Dictus sur iPhone : prérequis (iOS 26, Apple Intelligence), activation et un exemple par mode."
+        },
+        "social": {
+          "title": "Les Smart Modes de Dictus, mode par mode",
+          "description": "Un appui long sur le micro, un mode, et votre dictée arrive réécrite. Prérequis et exemples."
+        },
+        "image": {
+          "src": "/images/products/ios-smart-mode-fan-fr.jpg",
+          "width": 858,
+          "height": 1864,
+          "alt": "Le clavier Dictus dans Messages sur iPhone, avec l’éventail des modes ouvert au-dessus du micro : Normal, Message, Liste et Traduction vers l’anglais.",
+          "caption": "Interface réelle de Dictus 2.0, capturée dans un simulateur iPhone pour la fiche App Store. La conversation est une donnée de démonstration."
+        },
+        "cta": {
+          "label": "Voir Dictus Pro",
+          "description": "Comparer la version gratuite et Dictus Pro, et retrouver les conditions de l’essai.",
+          "href": "/fr/pricing"
+        },
+        "sections": [
+          {
+            "id": "ce-que-font-les-modes",
+            "heading": "Ce que font les Smart Modes",
+            "paragraphs": [
+              "En mode Normal, Dictus insère ce que vous avez dit, avec la ponctuation. Un Smart Mode va plus loin : il réécrit la dictée dans une forme précise, puis l’insère au curseur.",
+              "Chaque mode reste fidèle à ce que vous avez dit. Il garde votre langue, vos noms, vos chiffres et vos dates, et n’ajoute aucun fait. Seule la Traduction change de langue, par définition."
+            ],
+            "bullets": [
+              "Message : un message clair, prêt à envoyer, dans votre ton.",
+              "Liste : vos idées en points, sous un titre court.",
+              "Structuré : une longue dictée remise en ordre, en paragraphes.",
+              "Résumé : l’essentiel en quelques phrases.",
+              "Traduction : votre dictée en français, anglais, espagnol ou allemand."
+            ]
+          },
+          {
+            "id": "prerequis",
+            "heading": "Ce qu’il faut pour les utiliser",
+            "paragraphs": [
+              "Les Smart Modes font partie de Dictus Pro. Sur un iPhone compatible, l’essai gratuit de 14 jours les débloque sans paiement.",
+              "Le reste dépend d’Apple Intelligence, qui fait le travail sur l’appareil :"
+            ],
+            "bullets": [
+              "iOS 26 ou ultérieur.",
+              "Un iPhone compatible avec Apple Intelligence : iPhone 15 Pro ou 15 Pro Max, modèles iPhone 16 ou ultérieurs, ou iPhone Air.",
+              "Apple Intelligence activée dans Réglages > Apple Intelligence et Siri, avec Siri dans la même langue que l’iPhone.",
+              "Une langue dictée prise en charge par Apple Intelligence."
+            ]
+          },
+          {
+            "id": "utiliser-un-mode",
+            "heading": "Dicter avec un mode",
+            "paragraphs": [
+              "Dans le clavier Dictus, gardez le doigt sur le micro : l’éventail des modes s’ouvre au-dessus. Glissez jusqu’au mode voulu et relâchez. Parlez, puis touchez la coche verte comme pour une dictée normale. Le texte arrive réécrit.",
+              "Le clavier affiche trois modes à la fois, plus Normal. Par défaut : Structuré, Liste et Traduction vers l’anglais. Pour changer, ouvrez Dictus > Réglages > Dictus Pro > Mode intelligent : ajoutez, retirez ou réordonnez vos trois modes. Le même écran permet de désactiver les Smart Modes.",
+              "Les modes servent aussi aux messages vocaux de Dictus Pro : dans leurs réglages, « Après la transcription » peut faire passer chaque message vocal par un Smart Mode."
+            ],
+            "bullets": []
+          },
+          {
+            "id": "exemple-message",
+            "heading": "Message",
+            "paragraphs": [
+              "Message enlève ce qui n’existe que parce que vous parliez : hésitations, répétitions, phrases reprises. Il garde tout ce que vous dites à la personne, votre tutoiement ou vouvoiement et votre registre. Le texte arrive en courts blocs, un par idée, sans point final.",
+              "Exemple rédigé pour cet article, pas une sortie enregistrée de Dictus. Avant : « euh salut Julie je voulais te dire que je serai en retard ce soir enfin vers vingt heures quoi tu peux commencer sans moi ». Après : « Salut Julie », puis « Je serai en retard ce soir, vers vingt heures », puis « Tu peux commencer sans moi »."
+            ],
+            "bullets": []
+          },
+          {
+            "id": "exemple-liste",
+            "heading": "Liste",
+            "paragraphs": [
+              "Liste condense la dictée en un titre court suivi d’un point par idée, dans l’ordre où vous les avez dites. Ce qu’il reste à faire devient une action à l’infinitif, facile à cocher. Avec moins de deux points, Dictus affiche « Trop court pour une liste » et insère la dictée en Normal.",
+              "Exemple rédigé pour cet article, pas une sortie enregistrée de Dictus. Avant : « alors pour samedi il faut que je prenne du pain des tomates et euh du fromage et aussi penser à rappeler le traiteur ». Après : le titre « Courses et préparatifs de samedi : », puis ces points :"
+            ],
+            "bullets": [
+              "Prendre du pain",
+              "Prendre des tomates",
+              "Prendre du fromage",
+              "Rappeler le traiteur"
+            ]
+          },
+          {
+            "id": "exemple-structure",
+            "heading": "Structuré",
+            "paragraphs": [
+              "Structuré réécrit une longue dictée comme un texte écrit : phrases reformulées, un paragraphe par sujet, dans votre ordre. Il ne résume pas : chaque point que vous avez fait reste dans le texte, à la première personne si vous parliez ainsi.",
+              "Exemple rédigé pour cet article, pas une sortie enregistrée de Dictus. Avant : « bon alors la réunion de ce matin ça s’est bien passé on a validé le budget enfin presque il reste le poste formation et sinon pour le salon je pense qu’on devrait réserver le stand cette semaine parce que les prix montent ».",
+              "Après, premier paragraphe : « La réunion de ce matin s’est bien passée. On a presque validé le budget : il reste le poste formation. » Second paragraphe : « Pour le salon, je pense qu’on devrait réserver le stand cette semaine, parce que les prix montent. »"
+            ],
+            "bullets": []
+          },
+          {
+            "id": "exemple-resume",
+            "heading": "Résumé",
+            "paragraphs": [
+              "Résumé garde l’essentiel en peu de phrases : ce qui s’est passé, ce qui est décidé, ce que vous allez faire. Il coupe fort, environ au quart de la longueur, et écrit en phrases complètes, sans liste, en gardant votre « je » ou votre « on ».",
+              "Exemple rédigé pour cet article, pas une sortie enregistrée de Dictus. Avant : « alors j’ai appelé le garage ce matin ils m’ont dit que la pièce n’était pas encore arrivée qu’elle devait arriver jeudi peut-être vendredi et que du coup la voiture serait prête au plus tôt lundi donc je vais devoir prendre le train toute la semaine ce qui est pénible mais bon ». Après : « La pièce du garage n’est pas arrivée : la voiture ne sera prête que lundi au plus tôt, et je vais prendre le train toute la semaine. »"
+            ],
+            "bullets": []
+          },
+          {
+            "id": "exemple-traduction",
+            "heading": "Traduction",
+            "paragraphs": [
+              "Traduction écrit ce que vous auriez écrit dans la langue choisie : français, anglais, espagnol ou allemand. Elle traduit le sens plutôt que les mots, garde votre registre et laisse tels quels les noms propres et les noms de produits. Chaque langue cible est un mode à part, par exemple Traduction vers l’espagnol.",
+              "Exemple rédigé pour cet article, pas une sortie enregistrée de Dictus, avec la Traduction vers l’espagnol. Avant : « salut Tom je suis à la gare je t’attends devant l’entrée principale ». Après : « Hola Tom, estoy en la estación. Te espero delante de la entrada principal. »"
+            ],
+            "bullets": []
+          },
+          {
+            "id": "quand-un-mode-ne-tourne-pas",
+            "heading": "Quand un mode ne peut pas tourner",
+            "paragraphs": [
+              "Si une condition manque au moment de dicter, le clavier le dit, par exemple : « Les modes exigent Apple Intelligence. Activez-le dans Réglages. » Quand Apple Intelligence est désactivée ou télécharge encore son modèle, la dictée est insérée en Normal et le clavier vous le signale.",
+              "Si Apple Intelligence refuse une dictée déjà enregistrée, Message, Liste, Structuré et Résumé insèrent vos mots sans réécriture et indiquent que le mode n’a pas tourné. La Traduction, elle, n’insère rien et donne la raison : un texte non traduit serait trompeur."
+            ],
+            "bullets": []
+          },
+          {
+            "id": "relire",
+            "heading": "Relire avant d’envoyer",
+            "paragraphs": [
+              "Un Smart Mode réécrit, il peut donc se tromper de nuance. Relisez le texte avant de l’envoyer, surtout les noms, les chiffres et les négations. Si un mode ne convient pas à une dictée, glissez sur Normal la fois suivante.",
+              "TODO(Pierre) : remplacer les exemples rédigés par de vraies sorties de Dictus 2.0 sur iPhone, ou confirmer qu’ils représentent bien le comportement de chaque mode."
+            ],
+            "bullets": []
+          }
+        ],
+        "sources": [
+          {
+            "label": "Les Smart Modes de Dictus 2.0 : liste et modes affichés par défaut",
+            "href": "https://github.com/getdictus/dictus-ios/blob/ed6057404cee574010647fc44f017e309b2ea711/DictusCore/Sources/DictusCore/Polish/SmartModeCatalogue.swift"
+          },
+          {
+            "label": "Conditions d’Apple Intelligence pour les Smart Modes",
+            "href": "https://github.com/getdictus/dictus-ios/blob/ed6057404cee574010647fc44f017e309b2ea711/DictusCore/Sources/DictusCore/Polish/SmartModeAvailability.swift"
+          },
+          {
+            "label": "Vérification d’iOS 26 et du modèle Apple sur l’appareil",
+            "href": "https://github.com/getdictus/dictus-ios/blob/ed6057404cee574010647fc44f017e309b2ea711/DictusCore/Sources/DictusCore/Polish/PolishAvailability.swift"
+          },
+          {
+            "label": "Consignes du mode Message",
+            "href": "https://github.com/getdictus/dictus-ios/blob/ed6057404cee574010647fc44f017e309b2ea711/DictusCore/Sources/DictusCore/Polish/Prompts/SmartModeMessagePrompt.swift"
+          },
+          {
+            "label": "Consignes du mode Liste",
+            "href": "https://github.com/getdictus/dictus-ios/blob/ed6057404cee574010647fc44f017e309b2ea711/DictusCore/Sources/DictusCore/Polish/Prompts/SmartModeNotesPrompt.swift"
+          },
+          {
+            "label": "Consignes du mode Structuré",
+            "href": "https://github.com/getdictus/dictus-ios/blob/ed6057404cee574010647fc44f017e309b2ea711/DictusCore/Sources/DictusCore/Polish/Prompts/SmartModeStructuredPrompt.swift"
+          },
+          {
+            "label": "Consignes du mode Résumé",
+            "href": "https://github.com/getdictus/dictus-ios/blob/ed6057404cee574010647fc44f017e309b2ea711/DictusCore/Sources/DictusCore/Polish/Prompts/SmartModeSummaryPrompt.swift"
+          },
+          {
+            "label": "Consignes du mode Traduction",
+            "href": "https://github.com/getdictus/dictus-ios/blob/ed6057404cee574010647fc44f017e309b2ea711/DictusCore/Sources/DictusCore/Polish/Prompts/SmartModeTranslatePrompt.swift"
+          },
+          {
+            "label": "Langues de traduction",
+            "href": "https://github.com/getdictus/dictus-ios/blob/ed6057404cee574010647fc44f017e309b2ea711/DictusCore/Sources/DictusCore/SupportedLanguage.swift"
+          },
+          {
+            "label": "Utiliser les Smart Modes depuis le clavier",
+            "href": "https://github.com/getdictus/dictus-ios/blob/ed6057404cee574010647fc44f017e309b2ea711/.claude/skills/verify-dictus-ios/features/smart-modes.md"
+          },
+          {
+            "label": "Tarifs et compatibilité de Dictus Pro",
+            "href": "/fr/pricing"
+          },
+          {
+            "label": "Conditions de l’essai gratuit",
+            "href": "/fr/terms"
+          }
+        ]
+      },
+      "en": {
+        "slug": "smart-modes-iphone",
+        "title": "Smart Modes on iPhone: Dictus’s five modes in practice",
+        "summary": "Message, List, Structured, Summary, and Translation: what each mode does, how to activate it from the keyboard, and what it needs to work.",
+        "intro": "Smart Modes rewrite your dictation before inserting it: a message ready to send, a list, structured text, a summary, or a translation. They’re part of Dictus Pro and run on Apple Intelligence, directly on iPhone. Here’s how to use them, what they require, and an example of each.",
+        "category": "iPhone",
+        "tags": [
+          "Smart Modes",
+          "Dictus Pro",
+          "Apple Intelligence"
+        ],
+        "seo": {
+          "title": "Dictus Smart Modes: Message, List, Structured, Summary, Translation",
+          "description": "How to use the five Smart Modes on the Dictus keyboard on iPhone: requirements (iOS 26, Apple Intelligence), activation, and an example of each mode."
+        },
+        "social": {
+          "title": "Dictus Smart Modes, one mode at a time",
+          "description": "Press and hold the microphone, choose a mode, and your dictation is rewritten as you speak. Requirements and examples."
+        },
+        "image": {
+          "src": "/images/products/ios-smart-mode-fan-en.jpg",
+          "width": 858,
+          "height": 1864,
+          "alt": "The Dictus keyboard in Messages on iPhone, with the mode fan open above the microphone: Normal, Message, List, and Translation to French.",
+          "caption": "Actual Dictus 2.0 interface, captured in an iPhone simulator for the App Store listing. The conversation is demonstration data."
+        },
+        "cta": {
+          "label": "See Dictus Pro",
+          "description": "Compare the free version with Dictus Pro and find the trial terms.",
+          "href": "/en/pricing"
+        },
+        "sections": [
+          {
+            "id": "ce-que-font-les-modes",
+            "heading": "What Smart Modes do",
+            "paragraphs": [
+              "In Normal mode, Dictus inserts what you said, with punctuation. A Smart Mode goes further: it rewrites your dictation into a specific format, then inserts it at the cursor.",
+              "Each mode stays true to what you said. It preserves your language, names, numbers, and dates, and adds no facts. Translation is the only mode that changes languages, by definition."
+            ],
+            "bullets": [
+              "Message: a clear message, ready to send, in your tone.",
+              "List: your ideas as bullet points under a short heading.",
+              "Structured: a long dictation reorganized into paragraphs.",
+              "Summary: the key points in a few sentences.",
+              "Translation: your dictation in French, English, Spanish, or German."
+            ]
+          },
+          {
+            "id": "prerequis",
+            "heading": "What you need to use them",
+            "paragraphs": [
+              "Smart Modes are part of Dictus Pro. On a compatible iPhone, the 14-day free trial unlocks them with no payment.",
+              "The rest depends on Apple Intelligence, which does the work on the device:"
+            ],
+            "bullets": [
+              "iOS 26 or later.",
+              "An iPhone compatible with Apple Intelligence: iPhone 15 Pro or 15 Pro Max, iPhone 16 models or later, or iPhone Air.",
+              "Apple Intelligence enabled in Settings > Apple Intelligence & Siri, with Siri set to the same language as the iPhone.",
+              "A dictation language supported by Apple Intelligence."
+            ]
+          },
+          {
+            "id": "utiliser-un-mode",
+            "heading": "Dictate with a mode",
+            "paragraphs": [
+              "On the Dictus keyboard, press and hold the microphone: the mode fan opens above it. Slide to the mode you want and release. Speak, then tap the green checkmark as you would for a regular dictation. Your text appears rewritten.",
+              "The keyboard shows three modes at a time, plus Normal. By default: Structured, List, and Translation to English. To change them, open Dictus > Settings > Dictus Pro > Smart Mode: add, remove, or reorder your three modes. You can also turn Smart Modes off on the same screen.",
+              "Modes also work with Dictus Pro voice messages: in their settings, “After transcription” can send each voice message through a Smart Mode."
+            ],
+            "bullets": []
+          },
+          {
+            "id": "exemple-message",
+            "heading": "Message",
+            "paragraphs": [
+              "Message removes things that are only there because you were speaking: hesitations, repetitions, and restarted sentences. It keeps everything you’re saying to the person, whether you use informal or formal address, and your register. The text appears in short blocks, one per idea, without a final period.",
+              "Example written for this article, not a recorded Dictus output. Before: “um hi Julie I wanted to tell you that I’ll be late tonight well around eight or so you can start without me”. After: “Hi Julie”, then “I’ll be late tonight, around eight”, then “You can start without me”."
+            ],
+            "bullets": []
+          },
+          {
+            "id": "exemple-liste",
+            "heading": "List",
+            "paragraphs": [
+              "List condenses your dictation into a short heading followed by one bullet per idea, in the order you said them. Anything left to do becomes an action in the infinitive, easy to check off. With fewer than two items, Dictus displays “Too short for a list.” and inserts the dictation in Normal mode.",
+              "Example written for this article, not a recorded Dictus output. Before: “so for Saturday I need to get some bread tomatoes and um cheese and also remember to call the caterer back”. After: the heading “Saturday shopping and preparations:”, followed by these bullets:"
+            ],
+            "bullets": [
+              "Get bread",
+              "Get tomatoes",
+              "Get cheese",
+              "Call the caterer back"
+            ]
+          },
+          {
+            "id": "exemple-structure",
+            "heading": "Structured",
+            "paragraphs": [
+              "Structured rewrites a long dictation as written text: rephrased sentences, one paragraph per topic, in your original order. It doesn’t summarize: every point you made stays in the text, in the first person if that’s how you spoke.",
+              "Example written for this article, not a recorded Dictus output. Before: “well so this morning’s meeting went well we approved the budget well almost the training line is still outstanding and as for the trade show I think we should book the booth this week because prices are going up”.",
+              "After, first paragraph: “This morning’s meeting went well. We almost approved the budget: the training line is still outstanding.” Second paragraph: “As for the trade show, I think we should book the booth this week because prices are going up.”"
+            ],
+            "bullets": []
+          },
+          {
+            "id": "exemple-resume",
+            "heading": "Summary",
+            "paragraphs": [
+              "Summary keeps the key points in a few sentences: what happened, what’s been decided, and what you’re going to do. It cuts heavily, to about a quarter of the length, and uses complete sentences, without a list, while keeping your “I” or “we”.",
+              "Example written for this article, not a recorded Dictus output. Before: “so I called the garage this morning they told me the part hadn’t arrived yet that it should arrive Thursday maybe Friday and so the car would be ready Monday at the earliest so I’ll have to take the train all week which is a pain but oh well”. After: “The garage part hasn’t arrived: the car won’t be ready until Monday at the earliest, so I’ll take the train all week.”"
+            ],
+            "bullets": []
+          },
+          {
+            "id": "exemple-traduction",
+            "heading": "Translation",
+            "paragraphs": [
+              "Translation writes what you would have written in the chosen language: French, English, Spanish, or German. It translates the meaning rather than the words, keeps your register, and leaves proper names and product names unchanged. Each target language is a separate mode, such as Translation to Spanish.",
+              "Example written for this article, not a recorded Dictus output, using Translation to Spanish. Before: “hi Tom I’m at the station I’m waiting for you in front of the main entrance”. After: “Hola Tom, estoy en la estación. Te espero delante de la entrada principal.”"
+            ],
+            "bullets": []
+          },
+          {
+            "id": "quand-un-mode-ne-tourne-pas",
+            "heading": "When a mode can’t run",
+            "paragraphs": [
+              "If a requirement is missing when you dictate, the keyboard tells you, for example: “Smart Modes need Apple Intelligence. Turn it on in Settings.” If Apple Intelligence is off or still downloading its model, the dictation is inserted in Normal mode and the keyboard lets you know.",
+              "If Apple Intelligence refuses a dictation that has already been recorded, Message, List, Structured, and Summary insert your words without rewriting them and indicate that the mode didn’t run. Translation, however, inserts nothing and gives the reason: untranslated text would be misleading."
+            ],
+            "bullets": []
+          },
+          {
+            "id": "relire",
+            "heading": "Review before sending",
+            "paragraphs": [
+              "A Smart Mode rewrites your words, so it can get the nuance wrong. Review the text before sending it, especially names, numbers, and negations. If a mode doesn’t suit a dictation, slide to Normal next time.",
+              "TODO(Pierre): replace the written examples with real Dictus 2.0 outputs on iPhone, or confirm that they accurately represent how each mode behaves."
+            ],
+            "bullets": []
+          }
+        ],
+        "sources": [
+          {
+            "label": "Dictus 2.0 Smart Modes: list and default displayed modes",
+            "href": "https://github.com/getdictus/dictus-ios/blob/ed6057404cee574010647fc44f017e309b2ea711/DictusCore/Sources/DictusCore/Polish/SmartModeCatalogue.swift"
+          },
+          {
+            "label": "Apple Intelligence requirements for Smart Modes",
+            "href": "https://github.com/getdictus/dictus-ios/blob/ed6057404cee574010647fc44f017e309b2ea711/DictusCore/Sources/DictusCore/Polish/SmartModeAvailability.swift"
+          },
+          {
+            "label": "Checking iOS 26 and the Apple model on the device",
+            "href": "https://github.com/getdictus/dictus-ios/blob/ed6057404cee574010647fc44f017e309b2ea711/DictusCore/Sources/DictusCore/Polish/PolishAvailability.swift"
+          },
+          {
+            "label": "Message mode instructions",
+            "href": "https://github.com/getdictus/dictus-ios/blob/ed6057404cee574010647fc44f017e309b2ea711/DictusCore/Sources/DictusCore/Polish/Prompts/SmartModeMessagePrompt.swift"
+          },
+          {
+            "label": "List mode instructions",
+            "href": "https://github.com/getdictus/dictus-ios/blob/ed6057404cee574010647fc44f017e309b2ea711/DictusCore/Sources/DictusCore/Polish/Prompts/SmartModeNotesPrompt.swift"
+          },
+          {
+            "label": "Structured mode instructions",
+            "href": "https://github.com/getdictus/dictus-ios/blob/ed6057404cee574010647fc44f017e309b2ea711/DictusCore/Sources/DictusCore/Polish/Prompts/SmartModeStructuredPrompt.swift"
+          },
+          {
+            "label": "Summary mode instructions",
+            "href": "https://github.com/getdictus/dictus-ios/blob/ed6057404cee574010647fc44f017e309b2ea711/DictusCore/Sources/DictusCore/Polish/Prompts/SmartModeSummaryPrompt.swift"
+          },
+          {
+            "label": "Translation mode instructions",
+            "href": "https://github.com/getdictus/dictus-ios/blob/ed6057404cee574010647fc44f017e309b2ea711/DictusCore/Sources/DictusCore/Polish/Prompts/SmartModeTranslatePrompt.swift"
+          },
+          {
+            "label": "Translation languages",
+            "href": "https://github.com/getdictus/dictus-ios/blob/ed6057404cee574010647fc44f017e309b2ea711/DictusCore/Sources/DictusCore/SupportedLanguage.swift"
+          },
+          {
+            "label": "Using Smart Modes from the keyboard",
+            "href": "https://github.com/getdictus/dictus-ios/blob/ed6057404cee574010647fc44f017e309b2ea711/.claude/skills/verify-dictus-ios/features/smart-modes.md"
+          },
+          {
+            "label": "Dictus Pro pricing and compatibility",
+            "href": "/en/pricing"
+          },
+          {
+            "label": "Free trial terms",
+            "href": "/en/terms"
+          }
+        ]
+      }
+    },
+    "translation": {
+      "sourceHash": "70c5b92511a5687215a2053f17575d7ceb1f0897ffad146d1d01bab19da74461",
       "generatedAt": "2026-11-03",
       "method": "codex-cli"
     }

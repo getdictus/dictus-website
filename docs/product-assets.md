@@ -174,3 +174,9 @@ to 858 × 1864. Nothing else was changed.
 |---|---|---|
 | `ios-recording-fr.jpg` | `fr-FR/01-recording-reminders.png` | `a7c55670617d45acf6aa888f0ba90d374c46a432172bd5dd7a74529daa76c187` |
 | `ios-recording-en.jpg` | `en-GB/01-recording-reminders.png` | `083a2c39d6722d81e0e74f00ff938b6ebab7ea7123f08eacc3fd7e9d322ae0e1` |
+| `ios-smart-mode-fan-fr.jpg` | `fr-FR/02-smart-mode-fan-translate.png` | `2c50859df63defa170ebf7fec939d99b32219334c77d8f304d0e4f5d8b930df0` |
+| `ios-smart-mode-fan-en.jpg` | `en-GB/02-smart-mode-fan-translate.png` | `5f7c46f4ba4cb9be23e888785877cadf09ba2a7fc45124b1a3c47957196f6358` |
+
+The two Smart Mode captures show the fan opened from the mic, with the
+translation row highlighted (→ EN on the French capture, → FR on the English
+one). The English capture also shows a demonstration message bubble.
