@@ -8,7 +8,7 @@
       "url": "https://github.com/Pivii"
     },
     "createdAt": "2026-09-18",
-    "updatedAt": "2026-09-18",
+    "updatedAt": "2026-11-03",
     "relatedIds": [
       "capture-dictus-desktop",
       "capture-clavier-iphone"
@@ -18,8 +18,8 @@
       "fr": {
         "slug": "dictee-vocale-locale-confidentialite",
         "title": "Dictée vocale locale ou cloud : où vont votre voix et votre texte ?",
-        "summary": "Comprendre le trajet de l’audio, de la transcription et du texte corrigé, puis vérifier les téléchargements, la conservation et les options réseau.",
-        "intro": "Une dictée locale transforme l’audio en texte sur votre appareil. Une transcription cloud envoie l’audio à un service distant pour cette étape. Mais cette seule distinction ne dit pas tout : une reformulation peut ensuite transmettre le texte, un historique peut en garder une copie et l’application de destination peut le synchroniser. Pour choisir, suivez séparément la voix et le texte.",
+        "summary": "Suivre le trajet de l’audio, de la transcription et du texte réécrit, puis savoir ce qui est conservé et ce qui passe par le réseau, sur iPhone comme sur ordinateur.",
+        "intro": "Une dictée locale transforme l’audio en texte sur votre appareil. Une transcription cloud envoie l’audio à un service distant. Cette distinction ne suffit pas : une réécriture peut ensuite transmettre le texte, un historique peut en garder une copie, et l’app qui reçoit le texte peut le synchroniser. Pour choisir un outil, suivez séparément la voix et le texte.",
         "category": "Confidentialité",
         "tags": [
           "Traitement local",
@@ -27,18 +27,18 @@
         ],
         "seo": {
           "title": "Dictée vocale locale ou cloud : comprendre la confidentialité",
-          "description": "Où vont votre voix et votre texte ? Distinguez transcription locale, reformulation, historique et connexions réseau dans un outil de dictée."
+          "description": "Où vont votre voix et votre texte ? Transcription locale, réécriture, historique et connexions réseau : ce qu’il faut vérifier dans un outil de dictée."
         },
         "social": {
           "title": "Votre voix, votre texte : comprendre la dictée locale",
-          "description": "Un guide pour suivre les données étape par étape et poser les bonnes questions avant de choisir un outil de dictée."
+          "description": "Suivre les données étape par étape et poser les bonnes questions avant de choisir un outil de dictée."
         },
         "image": {
           "src": "/images/products/desktop-general-fr.jpg",
           "width": 680,
           "height": 570,
-          "alt": "Les réglages Général de Dictus Desktop sur macOS, en français, avec un modèle vocal local sélectionné.",
-          "caption": "Capture réelle de Dictus Desktop 0.3.0 sur macOS, le 17 septembre 2026, en français. Elle illustre le choix du modèle ; une image de réglages ne constitue pas un audit des connexions réseau."
+          "alt": "Les réglages Général de Dictus Desktop sur macOS, avec un modèle vocal local sélectionné.",
+          "caption": "Capture réelle de Dictus Desktop 0.3.0 sur macOS, le 17 septembre 2026. Le modèle vocal sélectionné tourne sur l’ordinateur."
         },
         "cta": {
           "label": "Lire la politique de confidentialité",
@@ -50,33 +50,32 @@
             "id": "suivre-les-etapes",
             "heading": "Suivre les données en plusieurs étapes",
             "paragraphs": [
-              "Imaginez une courte note dictée pour vous-même. Votre microphone produit d’abord de l’audio. Un moteur de reconnaissance transforme ensuite cet audio en mots. Une éventuelle fonction de correction ou de reformulation travaille sur ce texte. Enfin, le résultat arrive dans une note, un document ou une messagerie. Ces opérations peuvent avoir des destinations différentes.",
-              "Il faut donc poser plusieurs questions à un outil de dictée : où est traité l’audio, où est traité le texte, qu’est-ce qui est enregistré et que devient le résultat après insertion ? Une réponse sur la première étape ne suffit pas à décrire toute la chaîne."
+              "Prenez une courte note dictée. Le microphone produit de l’audio. Un moteur de reconnaissance transforme cet audio en mots. Une fonction facultative peut ensuite corriger ou réécrire ce texte. Enfin, le résultat arrive dans une note, un document ou une messagerie. Chacune de ces étapes peut avoir une destination différente.",
+              "Posez donc quatre questions à un outil de dictée : où est traité l’audio, où est traité le texte, qu’est-ce qui est enregistré, et que devient le résultat après insertion ?"
             ],
             "bullets": [
               "Capture : le microphone recueille votre voix pour l’enregistrement en cours.",
-              "Transcription : le modèle convertit cet audio en texte, sur l’appareil ou chez un fournisseur distant.",
-              "Amélioration facultative : une autre fonction peut corriger ou reformuler le texte, elle aussi localement ou à distance.",
-              "Conservation et destination : l’outil peut garder un historique ; l’application qui reçoit le texte a ensuite son propre fonctionnement."
+              "Transcription : un modèle convertit l’audio en texte, sur l’appareil ou chez un fournisseur.",
+              "Réécriture facultative : une autre fonction corrige ou reformule le texte, elle aussi en local ou à distance.",
+              "Conservation et destination : l’outil peut garder un historique, et l’app qui reçoit le texte a ses propres règles."
             ]
           },
           {
             "id": "local-ou-distant",
             "heading": "Ce qui change entre une transcription locale et distante",
             "paragraphs": [
-              "En local, le calcul nécessaire à la reconnaissance se fait sur votre appareil. Le modèle doit être disponible et l’appareil fournit les ressources de calcul et de stockage. Une fois cette préparation terminée, la transcription peut fonctionner sans connexion si le moteur et la configuration choisis le permettent.",
-              "Dans une transcription distante, l’audio est transmis à un service qui effectue le calcul. Il faut alors examiner les conditions de ce service : données envoyées, durée de conservation, usages autorisés et possibilités de suppression. Le mot « cloud » ne suffit pas à répondre à ces questions ; les pratiques doivent se vérifier fournisseur par fournisseur.",
-              "Ces modes ne permettent pas, à eux seuls, de déduire une vitesse ou une précision universelle. Le modèle, le matériel, l’environnement sonore et le contenu dicté comptent. Pour votre usage, essayez un court passage sans information sensible et relisez le résultat."
+              "En local, le calcul se fait sur votre appareil. Le modèle doit y être installé, et l’appareil fournit la puissance et le stockage. Une fois le modèle prêt, la transcription fonctionne sans connexion.",
+              "Dans une transcription distante, l’audio part chez un service qui fait le calcul. Il faut alors regarder ses conditions : données envoyées, durée de conservation, usages autorisés, suppression. Le mot « cloud » ne répond à aucune de ces questions ; elles se vérifient fournisseur par fournisseur.",
+              "Local ou distant ne dit rien, seul, de la vitesse ou de la précision. Le modèle, le matériel, le bruit ambiant et le contenu dicté comptent. Le plus simple reste d’essayer sur un court passage sans information sensible."
             ],
             "bullets": []
           },
           {
             "id": "preparer-hors-ligne",
-            "heading": "Hors ligne après préparation ne signifie pas sans réseau à l’installation",
+            "heading": "Hors ligne après préparation, pas sans réseau à l’installation",
             "paragraphs": [
-              "Une application peut télécharger son modèle sur Internet, puis l’utiliser sur l’appareil. Le téléchargement du logiciel, celui des modèles et les mises à jour sont des échanges réseau distincts de la transcription. Un réglage local ne les fait pas disparaître.",
-              "Avant un usage sans connexion, terminez l’installation et la préparation du modèle. Faites ensuite un essai dans une note avec la configuration que vous utiliserez vraiment. Si vous avez activé une amélioration distante du texte, cette étape reste dépendante de son service, même lorsque la reconnaissance audio est locale.",
-              "Un essai hors ligne réussi est utile pour préparer votre travail. Il ne démontre pas à lui seul l’absence de tout échange à un autre moment : les réglages, les mises à jour et le code de la version utilisée restent des informations complémentaires."
+              "Une app de dictée locale télécharge son modèle sur Internet, puis l’utilise sur l’appareil. Le téléchargement de l’app, celui des modèles et les mises à jour sont des échanges réseau distincts de la transcription.",
+              "Avant de travailler sans connexion, terminez l’installation et la préparation du modèle, puis faites un essai dans une note avec vos réglages habituels. Si vous avez activé une réécriture chez un fournisseur en ligne, cette étape-là a toujours besoin de son service, même quand la transcription est locale."
             ],
             "bullets": []
           },
@@ -84,10 +83,10 @@
             "id": "dictus-par-plateforme",
             "heading": "Comment ces distinctions s’appliquent à Dictus",
             "paragraphs": [
-              "Pour Dictus Desktop 0.3.0, l’audio est transcrit sur l’ordinateur. Le post-traitement du texte est facultatif et désactivé par défaut. Si vous activez un fournisseur distant, le texte et les instructions de traitement peuvent lui être envoyés. Un moteur local et un fournisseur distant ne doivent donc pas être confondus, même si tous deux interviennent après la dictée.",
-              "Le téléchargement des modèles vocaux, celui des modèles facultatifs d’amélioration et la recherche de mises à jour utilisent le réseau. Si une configuration accepte une adresse personnalisée, vérifiez sa destination réelle : son libellé ne garantit pas qu’elle pointe sur votre ordinateur. Le guide de démarrage conserve les options de post-traitement désactivées pour le premier essai.",
-              "Pour Dictus iOS 1.8.2, la transcription utilise un modèle sur l’iPhone, après son téléchargement. L’amélioration facultative proposée sur les appareils compatibles s’appuie sur le modèle local du système lorsqu’il est disponible. Cette amélioration demande iOS 26 ou ultérieur, un appareil compatible avec Apple Intelligence, son activation et un modèle local prêt. La dictée ordinaire ne dépend pas de cette option ; le prérequis de l’app reste iOS 17 pour cette version.",
-              "L’accès complet demandé par le clavier permet notamment le partage avec l’app et autorise techniquement le réseau. Il ne signifie pas que le parcours de transcription envoie votre voix à un serveur, mais ce n’est pas non plus une barrière réseau. Les installations et mises à jour de l’app, les téléchargements de modèles ou le partage volontaire de diagnostics avec le support sont des opérations distinctes. Les paiements de soutien sur le site passent eux aussi par leurs prestataires."
+              "Dans Dictus Desktop 0.3.0, l’audio est transcrit sur l’ordinateur. Le post-traitement du texte est facultatif et désactivé par défaut. Il peut tourner sur l’ordinateur, avec le modèle intégré, Apple Intelligence sur Mac Apple Silicon ou un serveur local comme Ollama. Si vous choisissez un fournisseur en ligne, le texte transcrit et la consigne lui sont envoyés ; l’audio, jamais.",
+              "Sur ordinateur, le réseau sert au téléchargement des modèles, que vous déclenchez vous-même, et à la recherche de mises à jour, activée par défaut et désactivable. La documentation de confidentialité Desktop liste chaque adresse que l’app peut contacter.",
+              "Dans Dictus iOS 2.0, la transcription utilise un modèle installé sur l’iPhone. Les Smart Modes et la correction du mode Normal s’appuient sur Apple Intelligence, qui tourne elle aussi sur l’appareil. Ils demandent iOS 26, un iPhone compatible et Apple Intelligence activée. La dictée simple n’en dépend pas : l’app fonctionne dès iOS 17.",
+              "Le clavier demande l’accès complet, qui lui permet de confier l’enregistrement à l’app Dictus. Cette permission autorise aussi techniquement le réseau, mais le parcours de dictée n’envoie ni votre voix ni votre texte à un serveur. Les installations, les mises à jour, les téléchargements de modèles et les achats Dictus Pro, traités par Apple, sont des opérations distinctes."
             ],
             "bullets": []
           },
@@ -95,9 +94,11 @@
             "id": "conservation-et-destination",
             "heading": "Local ne veut pas dire sans historique",
             "paragraphs": [
-              "Dictus Desktop peut conserver localement des enregistrements audio et leurs transcriptions. Regardez les réglages d’historique et de conservation, et supprimez les éléments dont vous n’avez plus besoin. Le traitement local évite de confier la transcription audio à un serveur distant ; il ne remplace pas la protection de l’ordinateur, de ses accès et de ses sauvegardes.",
-              "Sur iPhone aussi, il faut distinguer traitement et conservation : des données de diagnostic de l’amélioration du texte peuvent contenir le texte original et corrigé dans le stockage local partagé de l’app. Ne déduisez pas de la transcription locale qu’aucun texte n’est jamais enregistré. Avant d’exporter des journaux au support, considérez ce partage comme une action explicite portant sur des données de diagnostic.",
-              "Enfin, une note ou un message peut être synchronisé par l’application qui reçoit le texte. Dicter localement dans un document ne change pas les réglages de ce document ou de son service. Pour une information que vous voulez garder sur l’appareil, examinez aussi la destination finale."
+              "Dictus Desktop garde dans son historique vos dernières transcriptions et leur audio, sur l’ordinateur : 5 entrées par défaut. Vous réglez la limite et la suppression automatique des enregistrements dans Avancé > Historique.",
+              "Sur iPhone, l’historique de Dictus Pro garde vos 200 dernières dictées sur l’appareil, texte seulement, jamais l’audio. Vous pouvez l’effacer à tout moment dans Réglages > Transcription, même après la fin de Dictus Pro. Votre vocabulaire personnalisé reste lui aussi sur l’iPhone. L’audio d’un message vocal partagé à Dictus est supprimé dès qu’il est transcrit.",
+              "L’écran de diagnostic de la correction du texte peut garder sur l’iPhone le texte d’origine et le texte corrigé. Ces journaux ne quittent l’appareil que si vous les exportez vous-même, par exemple pour le support.",
+              "TODO(Pierre) : PRIVACY.md de dictus-ios dit que les journaux de débogage ne contiennent aucun contenu de transcription, alors que PolishEventStore garde le texte brut et corrigé pour l’écran de diagnostic. Confirmer la formulation à garder.",
+              "Enfin, l’app qui reçoit le texte peut le synchroniser. Dicter localement dans un document ne change rien aux réglages de ce document ou de son service. Pour une information qui doit rester sur l’appareil, regardez aussi la destination finale."
             ],
             "bullets": []
           },
@@ -105,24 +106,23 @@
             "id": "questions-a-poser",
             "heading": "Les questions à poser avant de choisir un outil",
             "paragraphs": [
-              "Vous n’avez pas besoin de retenir tous les noms de modèles. Cherchez plutôt des réponses précises aux questions suivantes, pour votre version et vos réglages. Si une réponse manque, évitez de transformer une formule commerciale en garantie."
+              "Inutile de retenir les noms des modèles. Cherchez plutôt une réponse précise à chacune de ces questions, pour votre version et vos réglages :"
             ],
             "bullets": [
-              "Où la voix est-elle convertie en texte : sur mon appareil ou chez un fournisseur ?",
-              "Que faut-il télécharger ou préparer avant de pouvoir travailler sans connexion ?",
-              "Une correction ou une reformulation envoie-t-elle le texte ailleurs ? Est-elle activée par défaut ?",
-              "Quels enregistrements, textes, historiques ou diagnostics sont conservés, et comment les gérer ?",
+              "Où la voix devient-elle du texte : sur mon appareil ou chez un fournisseur ?",
+              "Que faut-il télécharger avant de pouvoir travailler sans connexion ?",
+              "Une correction ou une réécriture envoie-t-elle le texte ailleurs ? Est-elle activée par défaut ?",
+              "Quels enregistrements, textes, historiques ou diagnostics sont conservés, et comment les effacer ?",
               "Quelles opérations utilisent le réseau en dehors de la transcription ?",
-              "L’application où je colle ou insère le texte le synchronise-t-elle à son tour ?",
-              "Les explications concernent-elles la version réellement disponible et le matériel que j’utilise ?"
+              "L’app où j’insère le texte le synchronise-t-elle à son tour ?"
             ]
           },
           {
             "id": "verifier-les-sources",
-            "heading": "Vérifier le code et préparer son premier usage",
+            "heading": "Vérifier le code et passer à la pratique",
             "paragraphs": [
-              "Le code public de Dictus permet d’examiner ces choix. Les références ci-dessous pointent vers les versions étudiées et les parties relatives au traitement ou à la conservation. Pouvoir consulter le code ne signifie pas qu’un audit externe a été réalisé ; cet article repose sur les sources et les visuels documentés, sans mesure indépendante de tous les échanges réseau.",
-              "Pour passer à la pratique, utilisez le guide iPhone ou ordinateur lié à cet article. Commencez avec une note sans enjeu, gardez les options que vous comprenez et vérifiez le résultat. La page de confidentialité et la présentation du traitement local complètent ce parcours."
+              "Le code de Dictus est public : les sources ci-dessous pointent vers les versions étudiées et les fichiers qui traitent ou conservent vos données. Ce n’est pas un audit externe, mais chacun peut vérifier.",
+              "Pour passer à la pratique, suivez le guide iPhone ou ordinateur lié à cet article. Commencez par une note sans enjeu et gardez les options que vous comprenez."
             ],
             "bullets": []
           }
@@ -133,28 +133,36 @@
             "href": "https://github.com/getdictus/dictus-desktop/blob/v0.3.0/docs/PRIVACY.md"
           },
           {
-            "label": "Réglages du post-traitement et des fournisseurs Desktop",
+            "label": "Réglages du post-traitement et de l’historique Desktop",
             "href": "https://github.com/getdictus/dictus-desktop/blob/v0.3.0/src-tauri/src/settings.rs"
-          },
-          {
-            "label": "Téléchargements des modèles facultatifs Desktop",
-            "href": "https://github.com/getdictus/dictus-desktop/blob/v0.3.0/src-tauri/src/managers/llm.rs"
           },
           {
             "label": "Conservation locale de l’historique Desktop",
             "href": "https://github.com/getdictus/dictus-desktop/blob/v0.3.0/src-tauri/src/managers/history.rs"
           },
           {
-            "label": "Code public de Dictus iOS 1.8.2",
-            "href": "https://github.com/getdictus/dictus-ios/tree/v1.8.2"
+            "label": "Confidentialité de Dictus iOS",
+            "href": "https://github.com/getdictus/dictus-ios/blob/ed6057404cee574010647fc44f017e309b2ea711/PRIVACY.md"
           },
           {
-            "label": "Conditions de disponibilité de l’amélioration locale sur iPhone",
-            "href": "https://github.com/getdictus/dictus-ios/blob/v1.8.2/DictusCore/Sources/DictusCore/Polish/PolishAvailability.swift"
+            "label": "Code public de Dictus iOS 2.0",
+            "href": "https://github.com/getdictus/dictus-ios/tree/ed6057404cee574010647fc44f017e309b2ea711"
           },
           {
-            "label": "Diagnostics locaux de l’amélioration du texte sur iPhone",
-            "href": "https://github.com/getdictus/dictus-ios/blob/v1.8.2/DictusCore/Sources/DictusCore/Polish/PolishEventStore.swift"
+            "label": "Conditions de disponibilité d’Apple Intelligence sur iPhone",
+            "href": "https://github.com/getdictus/dictus-ios/blob/ed6057404cee574010647fc44f017e309b2ea711/DictusCore/Sources/DictusCore/Polish/PolishAvailability.swift"
+          },
+          {
+            "label": "Historique local de l’iPhone",
+            "href": "https://github.com/getdictus/dictus-ios/blob/ed6057404cee574010647fc44f017e309b2ea711/DictusCore/Sources/DictusCore/History/TranscriptionHistoryStore.swift"
+          },
+          {
+            "label": "Vocabulaire personnalisé stocké sur l’iPhone",
+            "href": "https://github.com/getdictus/dictus-ios/blob/ed6057404cee574010647fc44f017e309b2ea711/DictusCore/Sources/DictusCore/Vocabulary/VocabularyStore.swift"
+          },
+          {
+            "label": "Diagnostics locaux de la correction du texte",
+            "href": "https://github.com/getdictus/dictus-ios/blob/ed6057404cee574010647fc44f017e309b2ea711/DictusCore/Sources/DictusCore/Polish/PolishEventStore.swift"
           },
           {
             "label": "Apple : permissions des claviers tiers",
@@ -177,8 +185,8 @@
       "en": {
         "slug": "local-dictation-privacy",
         "title": "Local or cloud voice dictation: where do your voice and text go?",
-        "summary": "Understand the path taken by audio, transcriptions and corrected text, then check downloads, retention and network options.",
-        "intro": "Local dictation turns audio into text on your device. Cloud transcription sends audio to a remote service for this step. But that distinction alone does not tell the whole story: rephrasing may then transmit the text, a history may keep a copy, and the destination app may sync it. To make your choice, follow your voice and text separately.",
+        "summary": "Follow the path of audio, transcription, and rewritten text, then find out what is stored and what travels over the network, on iPhone and computer alike.",
+        "intro": "Local dictation turns audio into text on your device. Cloud transcription sends audio to a remote service. That distinction is not enough: a rewrite may then send the text, a history may keep a copy, and the app that receives the text may sync it. To choose a tool, track voice and text separately.",
         "category": "Privacy",
         "tags": [
           "Local processing",
@@ -186,56 +194,55 @@
         ],
         "seo": {
           "title": "Local or cloud voice dictation: understanding privacy",
-          "description": "Where do your voice and text go? Distinguish between local transcription, rephrasing, history and network connections in a dictation tool."
+          "description": "Where do your voice and text go? Local transcription, rewriting, history, and network connections: what to check in a dictation tool."
         },
         "social": {
           "title": "Your voice, your text: understanding local dictation",
-          "description": "A guide to following your data step by step and asking the right questions before choosing a dictation tool."
+          "description": "Follow the data step by step and ask the right questions before choosing a dictation tool."
         },
         "image": {
-          "src": "/images/products/desktop-general-fr.jpg",
+          "src": "/images/products/desktop-general-en.jpg",
           "width": 680,
           "height": 570,
-          "alt": "The General settings in Dictus Desktop on macOS, in French, with a local speech model selected.",
-          "caption": "An actual screenshot of Dictus Desktop 0.3.0 on macOS, taken on September 17, 2026, in French. It illustrates model selection; an image of settings does not constitute an audit of network connections."
+          "alt": "Dictus Desktop General settings on macOS, with a local voice model selected.",
+          "caption": "Actual screenshot of Dictus Desktop 0.3.0 on macOS, dated September 17, 2026. The selected voice model runs on the computer."
         },
         "cta": {
           "label": "Read the privacy policy",
-          "description": "Read the information from Dictus and continue with the iPhone and computer guides linked below.",
+          "description": "Review Dictus information and continue with the related iPhone and computer guides below.",
           "href": "/en/privacy"
         },
         "sections": [
           {
             "id": "suivre-les-etapes",
-            "heading": "Follow your data through each step",
+            "heading": "Follow the data through each step",
             "paragraphs": [
-              "Imagine dictating a short note to yourself. Your microphone first produces audio. A recognition engine then turns that audio into words. An optional correction or rephrasing feature works on that text. Finally, the result arrives in a note, a document or a messaging app. These operations may have different destinations.",
-              "You therefore need to ask a dictation tool several questions: where is the audio processed, where is the text processed, what is saved, and what happens to the result after insertion? An answer about the first step is not enough to describe the entire chain."
+              "Take a short dictated note. The microphone captures audio. A recognition engine turns that audio into words. An optional feature can then correct or rewrite the text. Finally, the result goes into a note, document, or messaging app. Each of these steps may have a different destination.",
+              "So ask a dictation tool four questions: where is the audio processed, where is the text processed, what is stored, and what happens to the result after it is inserted?"
             ],
             "bullets": [
-              "Capture: the microphone picks up your voice for the current recording.",
-              "Transcription: the model converts this audio into text, on the device or at a remote provider.",
-              "Optional enhancement: another feature may correct or rephrase the text, also either locally or remotely.",
-              "Retention and destination: the tool may keep a history; the app receiving the text then operates according to its own rules."
+              "Capture: the microphone records your voice for the current recording.",
+              "Transcription: a model converts audio into text, on the device or with a provider.",
+              "Optional rewriting: another feature corrects or rephrases the text, also locally or remotely.",
+              "Storage and destination: the tool may keep a history, and the app that receives the text has its own rules."
             ]
           },
           {
             "id": "local-ou-distant",
             "heading": "What changes between local and remote transcription",
             "paragraphs": [
-              "With local transcription, the computation required for recognition takes place on your device. The model must be available, and the device provides the computing and storage resources. Once this preparation is complete, transcription can work without a connection if the chosen engine and configuration allow it.",
-              "With remote transcription, the audio is sent to a service that performs the computation. You then need to examine that service's terms: the data sent, retention periods, permitted uses and deletion options. The word “cloud” is not enough to answer these questions; practices need to be checked for each provider.",
-              "These modes alone do not establish a universal level of speed or accuracy. The model, hardware, sound environment and dictated content all matter. For your own use, try a short passage without sensitive information and review the result."
+              "Locally, the processing happens on your device. The model must be installed there, and the device provides the computing power and storage. Once the model is ready, transcription works without a connection.",
+              "With remote transcription, the audio goes to a service that does the processing. You then need to check its terms: data sent, retention period, permitted uses, and deletion. The word “cloud” does not answer any of these questions; they must be checked provider by provider.",
+              "Local or remote alone says nothing about speed or accuracy. The model, hardware, background noise, and dictated content all matter. The easiest approach is to try a short passage without sensitive information."
             ],
             "bullets": []
           },
           {
             "id": "preparer-hors-ligne",
-            "heading": "Offline after setup does not mean no network use during installation",
+            "heading": "Offline after setup, not without a connection during installation",
             "paragraphs": [
-              "An app may download its model from the Internet, then use it on the device. Software downloads, model downloads and updates are network exchanges separate from transcription. A local setting does not make them disappear.",
-              "Before working without a connection, finish installing the app and preparing the model. Then try it in a note using the configuration you will actually use. If you have enabled remote text enhancement, that step still depends on its service, even when audio recognition is local.",
-              "A successful offline test is useful for preparing your work. By itself, it does not demonstrate the absence of all exchanges at other times: the settings, updates and code of the version you use remain additional sources of information."
+              "A local dictation app downloads its model from the Internet, then uses it on the device. Downloading the app, downloading models, and updates are network exchanges separate from transcription.",
+              "Before working without a connection, finish installing and preparing the model, then try it in a note with your usual settings. If you have enabled rewriting through an online provider, that step still needs its service, even when transcription is local."
             ],
             "bullets": []
           },
@@ -243,20 +250,22 @@
             "id": "dictus-par-plateforme",
             "heading": "How these distinctions apply to Dictus",
             "paragraphs": [
-              "In Dictus Desktop 0.3.0, audio is transcribed on the computer. Text post-processing is optional and disabled by default. If you enable a remote provider, the text and processing instructions may be sent to it. A local engine and a remote provider should therefore not be confused, even if both operate after dictation.",
-              "Downloading speech models, downloading optional enhancement models and checking for updates use the network. If a configuration accepts a custom address, check its actual destination: its label does not guarantee that it points to your computer. The getting started guide keeps post-processing options disabled for the first test.",
-              "In Dictus iOS 1.8.2, transcription uses a model on the iPhone after it has been downloaded. The optional enhancement offered on compatible devices relies on the system's local model when available. This enhancement requires iOS 26 or later, a device compatible with Apple Intelligence, that feature to be enabled, and a local model to be ready. Ordinary dictation does not depend on this option; the app's requirement remains iOS 17 for this version.",
-              "The full access requested by the keyboard allows sharing with the app, among other things, and technically permits network access. It does not mean that the transcription process sends your voice to a server, but it is not a network barrier either. App installations and updates, model downloads and voluntarily sharing diagnostics with support are separate operations. Support payments on the website also go through their respective providers."
+              "In Dictus Desktop 0.3.0, audio is transcribed on the computer. Text post-processing is optional and disabled by default. It can run on the computer using the built-in model, Apple Intelligence on Mac Apple Silicon, or a local server such as Ollama. If you choose an online provider, the transcribed text and instruction are sent to it; never the audio.",
+              "On computer, the network is used to download models, which you initiate yourself, and to check for updates, which is enabled by default and can be disabled. The Desktop privacy documentation lists every address the app may contact.",
+              "In Dictus iOS 2.0, transcription uses a model installed on the iPhone. Smart Modes and correction in Normal mode rely on Apple Intelligence, which also runs on the device. They require iOS 26, a compatible iPhone, and Apple Intelligence enabled. Simple dictation does not depend on it: the app works from iOS 17.",
+              "The keyboard requests full access, which lets it hand the recording to the Dictus app. This permission also technically allows network access, but the dictation flow does not send your voice or text to a server. Installations, updates, model downloads, and Dictus Pro purchases, processed by Apple, are separate operations."
             ],
             "bullets": []
           },
           {
             "id": "conservation-et-destination",
-            "heading": "Local does not mean no history",
+            "heading": "Local does not mean there is no history",
             "paragraphs": [
-              "Dictus Desktop can store audio recordings and their transcriptions locally. Check the history and retention settings, and delete items you no longer need. Local processing avoids entrusting audio transcription to a remote server; it does not replace protecting the computer, access to it and its backups.",
-              "On iPhone too, processing and retention need to be distinguished: text enhancement diagnostic data may contain the original and corrected text in the app's shared local storage. Do not assume that local transcription means no text is ever saved. Before exporting logs to support, treat this sharing as an explicit action involving diagnostic data.",
-              "Finally, a note or message may be synced by the app receiving the text. Dictating locally into a document does not change the settings of that document or its service. For information you want to keep on the device, also examine the final destination."
+              "Dictus Desktop keeps your recent transcriptions and their audio in its history on the computer: 5 entries by default. You can set the limit and automatic deletion of recordings in Advanced > History.",
+              "On iPhone, Dictus Pro history keeps your 200 most recent dictations on the device, text only, never audio. You can clear it at any time in Settings > Transcription, even after Dictus Pro ends. Your custom vocabulary also stays on the iPhone. Audio from a voice message shared with Dictus is deleted as soon as it is transcribed.",
+              "The text correction diagnostics screen may keep the original text and corrected text on the iPhone. These logs leave the device only if you export them yourself, for example, for support.",
+              "TODO(Pierre): dictus-ios PRIVACY.md says that debug logs contain no transcription content, while PolishEventStore keeps the raw and corrected text for the diagnostics screen. Confirm which wording to keep.",
+              "Finally, the app that receives the text may sync it. Dictating locally into a document does not change that document’s or its service’s settings. For information that must stay on the device, also check the final destination."
             ],
             "bullets": []
           },
@@ -264,24 +273,23 @@
             "id": "questions-a-poser",
             "heading": "Questions to ask before choosing a tool",
             "paragraphs": [
-              "You do not need to remember every model name. Instead, look for precise answers to the following questions for your version and settings. If an answer is missing, avoid turning a marketing phrase into a guarantee."
+              "There is no need to memorize model names. Instead, look for a specific answer to each of these questions for your version and settings:"
             ],
             "bullets": [
-              "Where is my voice converted into text: on my device or at a provider?",
-              "What needs to be downloaded or prepared before I can work without a connection?",
-              "Does correction or rephrasing send the text elsewhere? Is it enabled by default?",
-              "Which recordings, texts, histories or diagnostics are retained, and how can I manage them?",
+              "Where does my voice become text: on my device or with a provider?",
+              "What needs to be downloaded before I can work without a connection?",
+              "Does correction or rewriting send the text elsewhere? Is it enabled by default?",
+              "What recordings, texts, histories, or diagnostics are kept, and how can I delete them?",
               "Which operations use the network outside transcription?",
-              "Does the app where I paste or insert the text sync it in turn?",
-              "Do the explanations apply to the version actually available and the hardware I use?"
+              "Does the app where I insert the text sync it as well?"
             ]
           },
           {
             "id": "verifier-les-sources",
-            "heading": "Check the code and prepare for your first use",
+            "heading": "Check the code and put it into practice",
             "paragraphs": [
-              "The public Dictus code lets you examine these choices. The references below point to the versions studied and the parts relating to processing or retention. Being able to inspect the code does not mean that an external audit has been carried out; this article is based on the documented sources and visuals, without independent measurement of all network exchanges.",
-              "To get started in practice, use the iPhone or computer guide linked to this article. Start with a low-stakes note, keep the options you understand and check the result. The privacy page and the overview of local processing complement these steps."
+              "Dictus code is public: the sources below point to the versions examined and the files that process or store your data. This is not an external audit, but anyone can check.",
+              "To put it into practice, follow the iPhone or computer guide linked to this article. Start with a low-stakes note and keep the options you understand."
             ],
             "bullets": []
           }
@@ -292,39 +300,47 @@
             "href": "https://github.com/getdictus/dictus-desktop/blob/v0.3.0/docs/PRIVACY.md"
           },
           {
-            "label": "Desktop post-processing and provider settings",
+            "label": "Desktop post-processing and history settings",
             "href": "https://github.com/getdictus/dictus-desktop/blob/v0.3.0/src-tauri/src/settings.rs"
           },
           {
-            "label": "Desktop optional model downloads",
-            "href": "https://github.com/getdictus/dictus-desktop/blob/v0.3.0/src-tauri/src/managers/llm.rs"
-          },
-          {
-            "label": "Desktop local history retention",
+            "label": "Local storage of Desktop history",
             "href": "https://github.com/getdictus/dictus-desktop/blob/v0.3.0/src-tauri/src/managers/history.rs"
           },
           {
-            "label": "Dictus iOS 1.8.2 public code",
-            "href": "https://github.com/getdictus/dictus-ios/tree/v1.8.2"
+            "label": "Dictus iOS privacy",
+            "href": "https://github.com/getdictus/dictus-ios/blob/ed6057404cee574010647fc44f017e309b2ea711/PRIVACY.md"
           },
           {
-            "label": "Availability requirements for local enhancement on iPhone",
-            "href": "https://github.com/getdictus/dictus-ios/blob/v1.8.2/DictusCore/Sources/DictusCore/Polish/PolishAvailability.swift"
+            "label": "Dictus iOS 2.0 public code",
+            "href": "https://github.com/getdictus/dictus-ios/tree/ed6057404cee574010647fc44f017e309b2ea711"
           },
           {
-            "label": "Local text enhancement diagnostics on iPhone",
-            "href": "https://github.com/getdictus/dictus-ios/blob/v1.8.2/DictusCore/Sources/DictusCore/Polish/PolishEventStore.swift"
+            "label": "Apple Intelligence availability requirements on iPhone",
+            "href": "https://github.com/getdictus/dictus-ios/blob/ed6057404cee574010647fc44f017e309b2ea711/DictusCore/Sources/DictusCore/Polish/PolishAvailability.swift"
+          },
+          {
+            "label": "Local iPhone history",
+            "href": "https://github.com/getdictus/dictus-ios/blob/ed6057404cee574010647fc44f017e309b2ea711/DictusCore/Sources/DictusCore/History/TranscriptionHistoryStore.swift"
+          },
+          {
+            "label": "Custom vocabulary stored on iPhone",
+            "href": "https://github.com/getdictus/dictus-ios/blob/ed6057404cee574010647fc44f017e309b2ea711/DictusCore/Sources/DictusCore/Vocabulary/VocabularyStore.swift"
+          },
+          {
+            "label": "Local text correction diagnostics",
+            "href": "https://github.com/getdictus/dictus-ios/blob/ed6057404cee574010647fc44f017e309b2ea711/DictusCore/Sources/DictusCore/Polish/PolishEventStore.swift"
           },
           {
             "label": "Apple: third-party keyboard permissions",
             "href": "https://developer.apple.com/library/archive/documentation/General/Conceptual/ExtensibilityPG/CustomKeyboard.html"
           },
           {
-            "label": "Understanding local processing in Dictus",
+            "label": "Understanding Dictus local processing",
             "href": "/en#hors-ligne"
           },
           {
-            "label": "Access the public Dictus repositories",
+            "label": "Access Dictus public repositories",
             "href": "/en#open-source"
           },
           {
@@ -335,8 +351,8 @@
       }
     },
     "translation": {
-      "sourceHash": "4362d27068ccc99ec158b20ea790c38bc3a3135c567390cdd363b21f3a9e2138",
-      "generatedAt": "2026-09-18",
+      "sourceHash": "716e06a91c0d90841d45a219608a33a4171ae721e612b00968f25c2af274976e",
+      "generatedAt": "2026-11-03",
       "method": "codex-cli"
     }
   },
