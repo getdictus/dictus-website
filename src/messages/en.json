@@ -296,7 +296,9 @@
   },
   "Blog": {
     "meta_title": "Voice typing, everyday use and privacy — Dictus Blog",
-    "title": "Writing with your voice, in practice.",
+    "eyebrow": "BLOG",
+    "title_a": "Writing with your voice,",
+    "title_b": "in practice.",
     "description": "A closer look at dictation on iPhone and desktop, local transcription, and finding your own way to write.",
     "preview_title": "Blog preview.",
     "preview_description": "Three practical guides under review. Publication awaits editorial approval and the remaining product checks.",

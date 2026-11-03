@@ -296,7 +296,9 @@
   },
   "Blog": {
     "meta_title": "Dictée vocale, usages et confidentialité — Blog Dictus",
-    "title": "Écrire à la voix, en pratique.",
+    "eyebrow": "BLOG",
+    "title_a": "Écrire à la voix,",
+    "title_b": "en pratique.",
     "description": "Des repères pour dicter sur iPhone et ordinateur, comprendre la transcription locale et trouver sa façon d’écrire.",
     "preview_title": "Aperçu du blog.",
     "preview_description": "Trois guides pratiques en cours de relecture. Leur publication attend la validation éditoriale et les derniers essais produit.",
