@@ -1,0 +1,138 @@
+/* v4b Privacy & Open source cards. Below 760px they stack flat; from 760px
+   they tilt slightly, stacked in one column up to 1023px so no card edge or
+   text comes near the screen edge, then side by side and overlapping.
+
+   Each <li> (.card) holds the layout, the resting rotation and the entrance;
+   its .surface is the visible card. Under a fine pointer the surface tilts
+   and shifts toward it (Privacy.tsx sets its transform on pointermove), on
+   top of the resting rotation, and eases back on leave. Nothing tilts on
+   touch or under reduced motion; the hover shadow stays in both. */
+
+.cards {
+  display: grid;
+  gap: 16px;
+  margin: clamp(40px, 5vw, 72px) 0 0;
+  padding: 0;
+  list-style: none;
+}
+
+.card {
+  position: relative;
+}
+
+.surface {
+  position: relative;
+  border-radius: 32px;
+  padding: clamp(26px, 2.6vw, 40px);
+  box-shadow: 0 1px 2px rgb(10 22 40 / 0.06), 0 12px 32px rgb(10 22 40 / 0.08);
+  /* Settling back after the pointer leaves: slower than UI feedback on
+     purpose, so the card visibly comes to rest instead of snapping. */
+  transition: transform 450ms var(--ease-out);
+}
+
+/* While the pointer moves, each new angle is reached quickly and the
+   transition retargets from wherever the card is, so it follows smoothly. */
+.surface[data-tilting] {
+  transition-duration: 150ms;
+}
+
+/* Deeper shadow while hovered: a second shadow that only fades in. */
+.surface::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  border-radius: inherit;
+  box-shadow: 0 4px 10px rgb(10 22 40 / 0.06), 0 28px 56px rgb(10 22 40 / 0.14);
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity var(--motion-ui) ease;
+}
+
+@media (hover: hover) and (pointer: fine) {
+  .surface:hover::after {
+    opacity: 1;
+  }
+}
+
+.icon {
+  display: flex;
+  width: 56px;
+  height: 56px;
+  align-items: center;
+  justify-content: center;
+  border-radius: 16px;
+}
+
+/* The phone outline of the first card's icon. */
+.phone {
+  width: 20px;
+  height: 32px;
+  border: 3px solid #ffffff;
+  border-radius: 6px;
+}
+
+@media (min-width: 760px) {
+  .surface {
+    border-radius: 40px;
+  }
+
+  .cardDevice { z-index: 1; }
+  .cardTracking { z-index: 2; }
+  .cardSource { z-index: 3; }
+}
+
+@media (min-width: 760px) and (max-width: 1023px) {
+  .cards {
+    max-width: 560px;
+    margin-inline: auto;
+    gap: 0;
+  }
+
+  .card + .card { margin-top: -6px; }
+  .cardDevice { transform: rotate(-2deg); }
+  .cardTracking { transform: rotate(1.5deg); }
+  .cardSource { transform: rotate(-1.5deg); }
+}
+
+@media (min-width: 1024px) {
+  .cards {
+    display: flex;
+    align-items: flex-start;
+    gap: 0;
+  }
+
+  .card {
+    flex: 1 1 0;
+    min-width: 0;
+    max-width: 420px;
+  }
+
+  .cardDevice { transform: rotate(-3deg); }
+  .cardTracking { transform: rotate(2deg) translateX(-28px); margin-top: 60px; }
+  .cardSource { transform: rotate(-2deg) translateX(-56px); }
+}
+
+/* Entrance: each card rises 16px into place once, 60ms apart when they
+   arrive together. `translate` leaves the static tilt on `transform` alone. */
+.reveal {
+  transition:
+    opacity 500ms var(--ease-out),
+    translate 500ms var(--ease-out);
+}
+
+/* Screen only: a printed page shows every card. */
+@media screen {
+  [data-reveal="pending"] .reveal:not([data-reveal-item="shown"]) {
+    opacity: 0;
+    translate: 0 16px;
+  }
+}
+
+/* Keyboard focus or reduced motion switched on mid-entrance: no transition. */
+[data-reveal="shown"] .reveal { transition: none; }
+
+/* Nothing moves under reduced motion. */
+@media (prefers-reduced-motion: reduce) {
+  .reveal { transition: none; }
+  .surface { transform: none !important; }
+}

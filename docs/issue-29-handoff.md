@@ -34,7 +34,7 @@
 - Firefox n'a pas pu être testé dans l'environnement actuel : son processus d'automatisation échoue au démarrage.
 - Mesurer Lighthouse avant publication : l'objectif 90+ figure dans les exigences, mais aucune mesure finale n'est consignée dans la validation actuelle.
 
-Desktop reste gratuit ; Android est en développement. « Local par défaut » tient compte du post-traitement Desktop facultatif et des accès réseau nécessaires aux téléchargements, mises à jour et paiements. Lire `CLAUDE.md` et le dernier brief de l'issue avant de modifier ces affirmations.
+Desktop reste gratuit. Android est en bêta publique, avec l’APK publié sur GitHub (`releases/latest`). « Local par défaut » tient compte du post-traitement Desktop facultatif et des accès réseau nécessaires aux téléchargements, mises à jour et paiements. Lire `CLAUDE.md` et le dernier brief de l'issue avant de modifier ces affirmations.
 
 ## Validation effectuée
 

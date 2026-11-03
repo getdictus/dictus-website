@@ -1,0 +1,127 @@
+/* v4b FAQ motion. An answer opens and closes by animating its grid row from
+   0fr to 1fr over --motion-ui, so the answer that closes and the one that
+   opens change height together and the page never snaps (Faq.tsx keeps the
+   clicked question still); its text fades and drops 6px into place at the
+   same time. A closed answer turns invisible once collapsed, which keeps it
+   out of the accessibility tree. The "+" turns 45deg into a cross and a blue
+   disc fades in behind it; the glyph turns white once the disc shows (a
+   discrete swap, no colour interpolation). Reduced motion: everything is
+   instant. Hover (fine pointer): the closed icon's disc turns mist. */
+
+.trigger:focus-visible {
+  outline-offset: 2px;
+}
+
+@media (hover: hover) and (pointer: fine) {
+  .trigger:hover .icon {
+    background: var(--color-mist);
+  }
+}
+
+.icon {
+  position: relative;
+  display: flex;
+  flex: none;
+  width: 36px;
+  height: 36px;
+  align-items: center;
+  justify-content: center;
+  border-radius: 50%;
+  background: var(--color-brand-white);
+  color: var(--color-brand-ink);
+  transition: background-color var(--motion-fast) ease;
+}
+
+/* Blue disc of the open state. */
+.icon::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  border-radius: inherit;
+  background: var(--color-brand-blue);
+  opacity: 0;
+  transition: opacity var(--motion-fast) var(--ease-out);
+}
+
+.plus {
+  position: relative;
+  width: 14px;
+  height: 14px;
+  transition: transform var(--motion-ui) var(--ease-out);
+}
+
+.plus::before,
+.plus::after {
+  content: "";
+  position: absolute;
+  left: 0;
+  top: calc(50% - 0.75px);
+  width: 14px;
+  height: 1.5px;
+  border-radius: 1px;
+  background: currentColor;
+}
+
+.plus::after {
+  transform: rotate(90deg);
+}
+
+.icon[data-open] {
+  color: var(--color-brand-white);
+  transition: color 0s linear 60ms;
+}
+
+.icon[data-open]::before {
+  opacity: 1;
+}
+
+.icon[data-open] .plus {
+  transform: rotate(45deg);
+}
+
+.answer {
+  display: grid;
+  grid-template-rows: 0fr;
+  visibility: hidden;
+  transition:
+    grid-template-rows var(--motion-ui) var(--ease-out),
+    visibility 0s linear var(--motion-ui);
+}
+
+.answer[data-open] {
+  grid-template-rows: 1fr;
+  visibility: visible;
+  transition: grid-template-rows var(--motion-ui) var(--ease-out);
+}
+
+.answer > div {
+  min-height: 0;
+  overflow: hidden;
+}
+
+.answer .body {
+  opacity: 0;
+  transform: translateY(-6px);
+  transition:
+    opacity var(--motion-ui) var(--ease-out),
+    transform var(--motion-ui) var(--ease-out);
+}
+
+.answer[data-open] .body {
+  opacity: 1;
+  transform: none;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .icon::before,
+  .icon[data-open],
+  .plus {
+    transition: none;
+  }
+
+  .answer,
+  .answer[data-open],
+  .answer .body {
+    transition: none;
+  }
+}

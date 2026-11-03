@@ -1,4 +1,5 @@
 import { setRequestLocale, getTranslations } from "next-intl/server";
+import { pageMetadata } from "@/lib/metadata";
 import { routing } from "@/i18n/routing";
 import { Link } from "@/i18n/navigation";
 import Footer from "@/components/Footer/Footer";
@@ -14,14 +15,12 @@ export function generateStaticParams() {
 export async function generateMetadata({ params }: Props): Promise<Metadata> {
   const { locale } = await params;
   const t = await getTranslations({ locale, namespace: "Terms" });
-  return {
+  return pageMetadata({
+    locale,
+    path: "/terms",
     title: t("meta_title"),
     description: t("meta_description"),
-    alternates: {
-      canonical: `/${locale}/terms`,
-      languages: { fr: "/fr/terms", en: "/en/terms", "x-default": "/fr/terms" },
-    },
-  };
+  });
 }
 
 const sections = [
@@ -65,7 +64,7 @@ export default async function TermsPage({ params }: Props) {
                 {t("contact_text").replace("contact@pivi.solutions", "")}
                 <a
                   href="mailto:contact@pivi.solutions"
-                  className="inline-flex min-h-11 items-center text-[#2563eb] dark:text-accent-hi underline decoration-accent/30 underline-offset-4 hover:decoration-accent"
+                  className="inline-flex min-h-11 items-center text-[#2563eb] underline decoration-accent/30 underline-offset-4 hover:decoration-accent"
                 >
                   contact@pivi.solutions
                 </a>
@@ -75,7 +74,7 @@ export default async function TermsPage({ params }: Props) {
                 {t("privacy_ref_text")}{" "}
                 <Link
                   href="/privacy"
-                  className="inline-flex min-h-11 items-center text-[#2563eb] dark:text-accent-hi underline decoration-accent/30 underline-offset-4 hover:decoration-accent"
+                  className="inline-flex min-h-11 items-center text-[#2563eb] underline decoration-accent/30 underline-offset-4 hover:decoration-accent"
                 >
                   {t("privacy_ref_link")}
                 </Link>

@@ -62,7 +62,7 @@
 .toc a:hover { color: var(--blog-link); text-decoration: underline; text-underline-offset: 4px; }
 .prose { max-width: 68ch; min-width: 0; margin-inline: auto; font-size: 18px; font-weight: 300; line-height: 1.8; color: var(--blog-body); }
 .prose section + section { margin-top: 47px; }
-.prose h2 { margin: 0 0 18px; color: var(--theme-text-primary); font-size: 30px; font-weight: 300; line-height: 1.25; letter-spacing: -.025em; scroll-margin-top: 125px; }
+.prose h2 { margin: 0 0 18px; color: var(--theme-text-primary); font-size: 30px; font-weight: 300; line-height: 1.25; letter-spacing: -.025em; scroll-margin-top: 25px; /* 125px with the html scroll-padding */ }
 .prose p { margin: 0 0 22px; }
 .prose ul { margin: 0 0 22px; padding-left: 1.25em; }
 .prose li { padding-left: .3em; margin-block: 9px; }

@@ -29,6 +29,23 @@ function route(article, locale) {
   return `/${locale}/blog/${article.locales[locale].slug}`;
 }
 
+// v4b nav: the pill and the closed menu sheet both hold the links, so locate
+// by role, which skips the hidden copy.
+const navLabels = { fr: "Navigation principale", en: "Main navigation" };
+const menuLabels = { fr: "Ouvrir le menu", en: "Open menu" };
+
+function navLink(page, locale, name) {
+  return page.getByRole("navigation", { name: navLabels[locale] }).getByRole("link", { name, exact: true });
+}
+
+// Below 900px the links and language switch live in the menu sheet.
+async function openMenu(page, locale) {
+  await page.getByRole("button", { name: menuLabels[locale] }).tap();
+  const menu = page.getByRole("dialog", { name: "Menu" });
+  await expect(menu).toBeVisible();
+  return menu;
+}
+
 async function assertNoOverflow(page) {
   const [content, viewport] = await page.evaluate(() => [document.documentElement.scrollWidth, document.documentElement.clientWidth]);
   assert.ok(content <= viewport + 1, `Content width ${content} exceeds viewport ${viewport}`);
@@ -48,9 +65,9 @@ for (const engine of selected) {
           if (preview) {
             await expect(page.locator("h1")).toBeVisible();
             await expect(page.locator('meta[name="robots"]')).toHaveAttribute("content", /noindex.*nofollow/);
-            await expect(page.locator('link[rel="canonical"]')).toHaveAttribute("href", `https://getdictus.com/${locale}/blog`);
+            await expect(page.locator('link[rel="canonical"]')).toHaveAttribute("href", `https://www.getdictus.com/${locale}/blog`);
             await expect(page.locator('meta[property="og:locale"]')).toHaveAttribute("content", locale === "fr" ? "fr_FR" : "en_US");
-            await expect(page.locator('meta[property="og:url"]')).toHaveAttribute("content", `https://getdictus.com/${locale}/blog`);
+            await expect(page.locator('meta[property="og:url"]')).toHaveAttribute("content", `https://www.getdictus.com/${locale}/blog`);
             await expect(page.locator('meta[name="twitter:card"]')).toHaveAttribute("content", "summary_large_image");
             for (const article of articles.filter((item) => item.locales[locale])) {
               await expect(page.locator(`main a[href="${route(article, locale)}"]`).first()).toBeVisible();
@@ -66,15 +83,15 @@ for (const engine of selected) {
             if (!preview) continue;
             await expect(page.locator("html")).toHaveAttribute("lang", locale);
             await expect(page.locator("h1")).toHaveText(content.title);
-            await expect(page.locator('link[rel="canonical"]')).toHaveAttribute("href", `https://getdictus.com${pathname}`);
+            await expect(page.locator('link[rel="canonical"]')).toHaveAttribute("href", `https://www.getdictus.com${pathname}`);
             for (const language of ["fr", "en"].filter((item) => article.locales[item])) {
-              await expect(page.locator(`link[rel="alternate"][hreflang="${language}"]`)).toHaveAttribute("href", `https://getdictus.com${route(article, language)}`);
+              await expect(page.locator(`link[rel="alternate"][hreflang="${language}"]`)).toHaveAttribute("href", `https://www.getdictus.com${route(article, language)}`);
             }
             assert.equal(await page.title(), content.seo.title);
             await expect(page.locator('meta[name="description"]')).toHaveAttribute("content", content.seo.description);
             await expect(page.locator('meta[property="og:title"]')).toHaveAttribute("content", content.social.title);
             await expect(page.locator('meta[property="og:description"]')).toHaveAttribute("content", content.social.description);
-            await expect(page.locator('meta[property="og:url"]')).toHaveAttribute("content", `https://getdictus.com${pathname}`);
+            await expect(page.locator('meta[property="og:url"]')).toHaveAttribute("content", `https://www.getdictus.com${pathname}`);
             await expect(page.locator('meta[property="og:locale"]')).toHaveAttribute("content", locale === "fr" ? "fr_FR" : "en_US");
             await expect(page.locator('meta[name="twitter:title"]')).toHaveAttribute("content", content.social.title);
             await expect(page.locator('meta[name="twitter:description"]')).toHaveAttribute("content", content.social.description);
@@ -143,7 +160,7 @@ for (const engine of selected) {
               await page.keyboard.press("Enter");
               await page.waitForURL(`${origin}${route(article, locale)}`);
               await expect(page.locator("h1")).toHaveText(article.locales[locale].title);
-              await expect(page.locator(`header a[href="/${locale}/blog"]`)).toHaveAttribute("aria-current", "page");
+              await expect(navLink(page, locale, "Blog")).toHaveAttribute("aria-current", "page");
             }
           }
         }
@@ -154,6 +171,49 @@ for (const engine of selected) {
         await page.getByRole("button", { name: "Passer en français" }).click();
         await page.waitForURL(`${origin}/fr/blog`);
         assert.deepEqual(errors, []);
+      } finally { await context.close(); }
+    });
+
+    await check(`${engine}: CTA to #clavier lands under the nav and keeps the Pro pin (#84)`, async () => {
+      const context = await browser.newContext({ viewport: { width: 1440, height: 900 } });
+      const page = await context.newPage();
+      try {
+        for (const locale of ["fr", "en"]) {
+          const article = articles.find((item) => item.locales[locale]?.cta.href === `/${locale}#clavier`);
+          await page.goto(`${origin}${route(article, locale)}`);
+          // The footer "Features" link shares this href; the CTA is the article aside.
+          const cta = page.locator(`main aside a[href="/${locale}#clavier"]`);
+          await cta.scrollIntoViewIfNeeded();
+          await page.evaluate(() => { window.__sameDocument = true; });
+          await cta.click();
+          await page.waitForURL(`${origin}/${locale}#clavier`);
+          assert.equal(await page.evaluate(() => window.__sameDocument), true, "The CTA must navigate client-side");
+          // --nav-clearance: the target lands 100px from the top.
+          await expect.poll(() => page.evaluate(() => Math.abs(document.getElementById("clavier").getBoundingClientRect().top - 100))).toBeLessThanOrEqual(2);
+          const track = page.locator("#pro [data-pinned]");
+          await expect(track).toHaveAttribute("data-pinned", "true");
+          const { start, span } = await track.evaluate((node) => ({ start: node.getBoundingClientRect().top + window.scrollY, span: node.offsetHeight - window.innerHeight }));
+          for (const share of [0.2, 0.5, 0.8]) {
+            await page.evaluate((top) => window.scrollTo({ top, behavior: "instant" }), start + span * share);
+            const sticky = await track.evaluate((node) => {
+              const child = node.firstElementChild;
+              return { position: getComputedStyle(child).position, top: child.getBoundingClientRect().top };
+            });
+            assert.equal(sticky.position, "sticky");
+            assert.ok(Math.abs(sticky.top) <= 1, `Pinned Pro section left the top at ${share}: ${sticky.top}`);
+          }
+        }
+      } finally { await context.close(); }
+    });
+
+    await check(`${engine}: legacy #iphone alias still lands on the Keyboard section on direct load`, async () => {
+      const context = await browser.newContext({ viewport: { width: 1440, height: 900 } });
+      const page = await context.newPage();
+      try {
+        for (const locale of ["fr", "en"]) {
+          await page.goto(`${origin}/${locale}#iphone`);
+          await expect.poll(() => page.evaluate(() => Math.abs(document.getElementById("clavier").getBoundingClientRect().top - 100))).toBeLessThanOrEqual(2);
+        }
       } finally { await context.close(); }
     });
 
@@ -178,9 +238,9 @@ for (const engine of selected) {
         }
         await page.setViewportSize({ width: 390, height: 844 });
         await page.goto(`${origin}${route(article, "fr")}`);
-        await page.getByRole("button", { name: "Switch to English" }).tap();
+        await (await openMenu(page, "fr")).getByRole("button", { name: "English", exact: true }).tap();
         await page.waitForURL(`${origin}${route(article, "en")}`);
-        await page.getByRole("button", { name: "Passer en français" }).tap();
+        await (await openMenu(page, "en")).getByRole("button", { name: "Français", exact: true }).tap();
         await page.waitForURL(`${origin}${route(article, "fr")}`);
         const toc = page.locator('main a[href^="#"]').first();
         await expect(toc).toBeVisible();
@@ -195,7 +255,7 @@ for (const engine of selected) {
         await expect(page.locator(anchor)).toBeInViewport();
         assert.equal(await page.evaluate(() => getComputedStyle(document.documentElement).scrollBehavior), "auto");
         await page.addStyleTag({ content: "* { backdrop-filter: none !important; -webkit-backdrop-filter: none !important; filter: none !important; }" });
-        await page.locator('header a[href="/fr/blog"]').click();
+        await (await openMenu(page, "fr")).getByRole("link", { name: "Blog", exact: true }).tap();
         await page.waitForURL(`${origin}/fr/blog`);
         await expect(page.locator("h1")).toBeVisible();
         await assertNoOverflow(page);

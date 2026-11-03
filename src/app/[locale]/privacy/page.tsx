@@ -1,4 +1,5 @@
 import { setRequestLocale, getTranslations } from "next-intl/server";
+import { pageMetadata } from "@/lib/metadata";
 import { routing } from "@/i18n/routing";
 import Footer from "@/components/Footer/Footer";
 import type { Metadata } from "next";
@@ -12,14 +13,12 @@ export function generateStaticParams() {
 export async function generateMetadata({ params }: Props): Promise<Metadata> {
   const { locale } = await params;
   const t = await getTranslations({ locale, namespace: "Privacy" });
-  return {
+  return pageMetadata({
+    locale,
+    path: "/privacy",
     title: t("meta_title"),
     description: t("meta_description"),
-    alternates: {
-      canonical: `/${locale}/privacy`,
-      languages: { fr: "/fr/privacy", en: "/en/privacy", "x-default": "/fr/privacy" },
-    },
-  };
+  });
 }
 
 const sections = [
@@ -27,6 +26,7 @@ const sections = [
   "full_access",
   "data_usage",
   "third_party",
+  "assistant",
   "data_retention",
   "user_rights",
   "children",
@@ -60,7 +60,7 @@ export default async function PrivacyPage({ params }: Props) {
                 {t("contact_text").replace("contact@pivi.solutions", "")}{" "}
                 <a
                   href="mailto:contact@pivi.solutions"
-                  className="inline-flex min-h-11 items-center text-[#2563eb] dark:text-accent-hi underline decoration-accent/30 underline-offset-4 hover:decoration-accent"
+                  className="inline-flex min-h-11 items-center text-[#2563eb] underline decoration-accent/30 underline-offset-4 hover:decoration-accent"
                 >
                   contact@pivi.solutions
                 </a>
@@ -73,9 +73,19 @@ export default async function PrivacyPage({ params }: Props) {
                 href="https://github.com/getdictus/dictus-desktop/blob/main/docs/PRIVACY.md"
                 target="_blank"
                 rel="noopener noreferrer"
-                className="mt-3 inline-flex min-h-11 items-center text-[#2563eb] dark:text-accent-hi underline decoration-accent/30 underline-offset-4 hover:decoration-accent"
+                className="mt-3 inline-flex min-h-11 items-center text-[#2563eb] underline decoration-accent/30 underline-offset-4 hover:decoration-accent"
               >
                 {t("desktop_privacy_link")}
+              </a>
+            )}
+            {section === "assistant" && (
+              <a
+                href="https://app.preview.aiguilleuse.ai/vos-donnees/6f2da35d-7bf0-40b7-84e8-e7b33f990aac"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="mt-3 inline-flex min-h-11 items-center text-[#2563eb] underline decoration-accent/30 underline-offset-4 hover:decoration-accent"
+              >
+                {t("assistant_link")}
               </a>
             )}
           </section>

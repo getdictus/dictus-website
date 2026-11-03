@@ -12,6 +12,14 @@
 // derived from it. The live site auto-syncs with the latest release without
 // needing changes here.
 
+// Dictus iOS on the App Store. The id-only URL lets Apple pick the visitor's
+// storefront.
+export const APP_STORE_URL = "https://apps.apple.com/app/id6761262378";
+
+// Dictus Android ships as a public beta APK on GitHub Releases. `latest`
+// always resolves to the newest release, so the link never goes stale.
+export const ANDROID_RELEASE_URL = "https://github.com/getdictus/dictus-android/releases/latest";
+
 const DESKTOP_VERSION = "v0.2.1";
 
 // Asset filenames carry the bare number (no `v`), so derive it rather than
@@ -137,8 +145,8 @@ export const ASSET_PATTERNS = {
   linuxRpmArm64: /^Dictus-[\d.]+-\d+\.aarch64\.rpm$/,
 } as const;
 
-// Convenience helper used by the Platforms component to decide
-// Coming-Soon vs Active rendering without repeating `.enabled` checks.
+// Convenience helper used by the Desktop download block to list only the
+// platforms that have at least one file, without repeating `.enabled` checks.
 export function anyEnabled(
   v: DownloadVariant | readonly DownloadVariant[]
 ): boolean {

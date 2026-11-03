@@ -12,6 +12,11 @@
   --motion-fast: 180ms;
   --motion-ui: 240ms;
 
+  /* Room kept above anchor targets and focused elements for the fixed nav:
+     its pill ends 78px from the top (Nav.module.css), plus 22px of air.
+     usePinMode re-aligns on the same 100px. */
+  --nav-clearance: 100px;
+
   --theme-bg-primary: #F2F2F7;
   --theme-bg-body: #F2F2F7;
   --theme-bg-secondary: #EFF1F5;
@@ -76,17 +81,53 @@
   --color-accent: #3D7EFF;
   --color-accent-hi: #6BA3FF;
   --color-sky: var(--theme-sky);
-  --color-mist: #DBEAFE;
 
   /* Semantic — static */
   --color-recording: #EF4444;
-  --color-smart: #8B5CF6;
   --color-success: #22C55E;
   --color-warning: #F59E0B;
 
   /* Glow — static */
   --color-glow: rgba(61, 126, 255, 0.35);
   --color-glow-soft: rgba(61, 126, 255, 0.12);
+}
+
+/* ─── v4b palette (redesign, epic #51) ───
+   Single-theme values from the v4b mockup, cross-checked with dictus-ios
+   DictusColors.swift. `static` keeps every variable in the output so CSS
+   modules can read them with var(). Section grounds: white, grey, navy, blue
+   (see src/components/shared/Section.tsx).
+
+   Contrast rules (WCAG 2.x, AA):
+   - Small text on white or grey never uses accent #3D7EFF (3.73:1 on white).
+     Use accent-text #1F5FE0 (5.57:1 on white, 4.99:1 on grey).
+   - White text on accent #3D7EFF (3.73:1) only at large sizes:
+     >= 24px regular or >= 18.66px bold. Smaller text on blue uses ink.
+   - On navy, body text uses brand-on-navy #B8C4D9 (10.3:1).
+   - Filled buttons, badges and icon tiles use accent-strong #2563EB with
+     white text (5.17:1; 6.70:1 on the gradient end #1D4ED8), never navy:
+     navy is kept for the logo squircle (#118). On a blue ground they turn
+     white with accent-strong text.
+   Ratios: node scripts/contrast-v4b.mjs */
+@theme static {
+  --color-accent-strong: #2563EB;
+  --color-accent-strong-end: #1D4ED8;
+  --color-accent-text: #1F5FE0;
+  --color-accent-text-deep: #1F4FC4;
+  --color-mist: #DCE8FF;
+
+  --color-brand-ink: #0A1628;
+  --color-brand-body: #33415C;
+  --color-brand-muted: #5B6880;
+  --color-brand-on-navy: #B8C4D9;
+
+  --color-brand-white: #FFFFFF;
+  --color-brand-grey: #F2F2F7;
+  --color-brand-navy: #0A1628;
+  --color-brand-blue: #3D7EFF;
+
+  --color-brand-rule: #E6E8EE;
+  --color-brand-rule-strong: #DCDFE7;
 }
 
 @theme inline {
@@ -106,6 +147,7 @@
 
 html {
   scroll-behavior: smooth;
+  scroll-padding-top: var(--nav-clearance);
 }
 
 body {
@@ -128,6 +170,72 @@ a {
 :where(a, button):focus-visible {
   outline: 2px solid #3d7eff;
   outline-offset: 5px;
+}
+
+/* ─── Shared button interaction (#117) ───
+   Every button and button-like link: a 2px lift and a soft shadow under a
+   fine pointer, a press on :active everywhere. Defined once here; components
+   add the class and keep no transition or :active transform of their own.
+   The shadow sits on ::after and only fades (opacity), so nothing but
+   transform and opacity animates. `:where()` keeps `position` overridable by
+   a component that places the button itself (absolute, sticky...). Reduced
+   motion keeps the shadow and colour changes, drops the movement. */
+:where(.button-lift) {
+  position: relative;
+}
+
+.button-lift {
+  transition:
+    transform var(--motion-fast) var(--ease-out),
+    background-color var(--motion-fast) ease,
+    border-color var(--motion-fast) ease,
+    color var(--motion-fast) ease;
+}
+
+.button-lift::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  border-radius: inherit;
+  box-shadow: 0 2px 6px rgb(10 22 40 / 0.1), 0 10px 22px rgb(10 22 40 / 0.16);
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity var(--motion-fast) ease;
+}
+
+@media (hover: hover) and (pointer: fine) {
+  .button-lift:not(:disabled):hover {
+    transform: translateY(-2px);
+  }
+
+  .button-lift:not(:disabled):hover::after {
+    opacity: 1;
+  }
+}
+
+/* After the hover rule so a press wins over the lift. Pressing is quicker
+   than the release, which goes back at --motion-fast. */
+.button-lift:not(:disabled):active {
+  transform: scale(0.97);
+  transition-duration: var(--motion-press);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .button-lift:not(:disabled):hover,
+  .button-lift:not(:disabled):active {
+    transform: none;
+  }
+}
+
+/* ─── Filled brand-blue button (#118) ───
+   The brand kit's Button gradient with white text, for every primary button
+   that used navy. Pair it with .button-lift: the lift and shadow are the
+   hover feedback, so there is no colour swap (a gradient cannot fade into
+   another one, it would jump). */
+.button-blue {
+  color: var(--color-brand-white);
+  background-color: var(--color-accent-strong);
+  background-image: linear-gradient(135deg, var(--color-accent-strong), var(--color-accent-strong-end));
 }
 
 @media (prefers-reduced-motion: reduce) {

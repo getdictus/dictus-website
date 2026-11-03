@@ -9,7 +9,10 @@ import {
 import { notFound } from "next/navigation";
 import { routing } from "@/i18n/routing";
 import { isSitePreview } from "@/config/preview";
+import { SITE_URL } from "@/config/site";
+import { pageMetadata } from "@/lib/metadata";
 import { isBlogAvailable } from "@/config/blog";
+import { isPricingAvailable } from "@/config/pricing-release";
 import { getBlogArticles, getTranslationPaths } from "@/lib/blog";
 import type { ArticleLocaleRoutes } from "@/components/Nav/LanguageToggle";
 import Nav from "@/components/Nav/Nav";
@@ -34,11 +37,6 @@ type Props = {
   params: Promise<{ locale: string }>;
 };
 
-const localeMap: Record<string, string> = {
-  fr: "fr_FR",
-  en: "en_US",
-};
-
 export async function generateMetadata({
   params,
 }: Props): Promise<Metadata> {
@@ -49,40 +47,9 @@ export async function generateMetadata({
   const description = t("description");
 
   return {
-    metadataBase: new URL("https://getdictus.com"),
-    title,
-    description,
+    ...pageMetadata({ locale, path: "", title, description }),
+    metadataBase: new URL(SITE_URL),
     applicationName: "dictus",
-    openGraph: {
-      title,
-      description,
-      url: `/${locale}`,
-      siteName: "dictus",
-      images: [
-        {
-          url: "/og-image.png",
-          width: 1200,
-          height: 630,
-          alt: "dictus",
-        },
-      ],
-      locale: localeMap[locale] ?? "fr_FR",
-      type: "website",
-    },
-    twitter: {
-      card: "summary_large_image",
-      title,
-      description,
-      images: ["/og-image.png"],
-    },
-    alternates: {
-      canonical: `/${locale}`,
-      languages: {
-        fr: "/fr",
-        en: "/en",
-        "x-default": "/fr",
-      },
-    },
     robots: {
       index: !isSitePreview,
       follow: !isSitePreview,
@@ -117,7 +84,9 @@ export default async function LocaleLayout({ children, params }: Props) {
   }
 
   return (
-    <html lang={locale} className={`${dmSans.variable} ${dmMono.variable}`}>
+    // data-scroll-behavior: Next.js jumps instead of smooth-scrolling on a route
+    // change, so a cross-route hash link lands before the pins measure the page.
+    <html lang={locale} className={`${dmSans.variable} ${dmMono.variable}`} data-scroll-behavior="smooth">
       <body className="bg-ink font-sans text-[var(--theme-text-primary)] antialiased">
         <NextIntlClientProvider messages={messages}>
           <a
@@ -126,7 +95,7 @@ export default async function LocaleLayout({ children, params }: Props) {
           >
             {tNav("skip_to_content")}
           </a>
-          <Nav preview={isSitePreview} blogAvailable={isBlogAvailable} articleRoutes={articleRoutes} />
+          <Nav blogAvailable={isBlogAvailable} pricingAvailable={isPricingAvailable} articleRoutes={articleRoutes} />
           <MotionProvider>
             <main id="main-content">{children}</main>
           </MotionProvider>

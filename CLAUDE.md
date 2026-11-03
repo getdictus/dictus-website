@@ -60,7 +60,7 @@ Le brand kit complet est dans `/dictus-brand-kit.html` (ouvrir dans un navigateu
 | Sky | `#93C5FD` | Highlights, icônes |
 | Text Light | `#000000` | Texte principal sur clair |
 | Body Light | `rgba(0,0,0,0.60)` | Texte courant sur clair |
-| Mist | `#DBEAFE` | Accent très clair |
+| Mist | `#DCE8FF` | Accent très clair |
 | White | `#FFFFFF` | Texte principal sur sombre et CTA bleus |
 | White 70% | `rgba(255,255,255,0.70)` | Texte body |
 | White 40% | `rgba(255,255,255,0.40)` | Labels, texte secondaire |
@@ -74,7 +74,6 @@ Le brand kit complet est dans `/dictus-brand-kit.html` (ouvrir dans un navigateu
 | Token | Hex | Usage |
 |-------|-----|-------|
 | Recording | `#EF4444` | État enregistrement |
-| Smart Mode | `#8B5CF6` | Mode LLM intelligent |
 | Success | `#22C55E` | Insertion réussie |
 | Warning | `#F59E0B` | Erreur, modèle lent |
 
@@ -110,7 +109,6 @@ L'icône représente une **onde sonore stylisée** — trois barres verticales d
 | Idle | `rgba(255,255,255,0.3)` | Attente |
 | Recording | `#EF4444` + pulse | Enregistrement actif |
 | Transcribing | `#3D7EFF` + pulse | Transcription en cours |
-| Smart Mode | `#8B5CF6` + pulse | Reformulation LLM |
 | Inserted | `#22C55E` | Texte inséré avec succès |
 
 ## Règles

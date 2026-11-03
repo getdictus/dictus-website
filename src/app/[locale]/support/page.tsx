@@ -1,4 +1,5 @@
 import { setRequestLocale, getTranslations } from "next-intl/server";
+import { pageMetadata } from "@/lib/metadata";
 import { routing } from "@/i18n/routing";
 import Footer from "@/components/Footer/Footer";
 import type { Metadata } from "next";
@@ -12,14 +13,12 @@ export function generateStaticParams() {
 export async function generateMetadata({ params }: Props): Promise<Metadata> {
   const { locale } = await params;
   const t = await getTranslations({ locale, namespace: "Support" });
-  return {
+  return pageMetadata({
+    locale,
+    path: "/support",
     title: t("meta_title"),
     description: t("meta_description"),
-    alternates: {
-      canonical: `/${locale}/support`,
-      languages: { fr: "/fr/support", en: "/en/support", "x-default": "/fr/support" },
-    },
-  };
+  });
 }
 
 export default async function SupportPage({ params }: Props) {
@@ -40,7 +39,7 @@ export default async function SupportPage({ params }: Props) {
           <p className="mt-3 leading-relaxed text-white-70">
             <a
               href="mailto:contact@pivi.solutions"
-              className="inline-flex min-h-11 items-center text-[#2563eb] dark:text-accent-hi underline decoration-accent/30 underline-offset-4 hover:decoration-accent"
+              className="inline-flex min-h-11 items-center text-[#2563eb] underline decoration-accent/30 underline-offset-4 hover:decoration-accent"
             >
               {t("email_text")}
             </a>
@@ -55,7 +54,7 @@ export default async function SupportPage({ params }: Props) {
               href="https://github.com/getdictus/dictus-ios/issues"
               target="_blank"
               rel="noopener noreferrer"
-              className="inline-flex min-h-11 items-center text-[#2563eb] dark:text-accent-hi underline decoration-accent/30 underline-offset-4 hover:decoration-accent"
+              className="inline-flex min-h-11 items-center text-[#2563eb] underline decoration-accent/30 underline-offset-4 hover:decoration-accent"
             >
               {t("github_link_text")}
             </a>
@@ -70,7 +69,7 @@ export default async function SupportPage({ params }: Props) {
               href="https://t.me/getdictus"
               target="_blank"
               rel="noopener noreferrer"
-              className="inline-flex min-h-11 items-center text-[#2563eb] dark:text-accent-hi underline decoration-accent/30 underline-offset-4 hover:decoration-accent"
+              className="inline-flex min-h-11 items-center text-[#2563eb] underline decoration-accent/30 underline-offset-4 hover:decoration-accent"
             >
               {t("telegram_link_text")}
             </a>
