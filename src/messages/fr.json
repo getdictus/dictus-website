@@ -47,8 +47,8 @@
   },
   "Offline": {
     "eyebrow": "MÊME SANS RÉSEAU",
-    "title": "Le métro coupe le réseau.",
-    "lead": "Entre deux stations, plus de 4G. Une fois son modèle téléchargé, Dictus n’en a pas besoin pour écrire.",
+    "title": "Une dictée 100 % hors ligne.",
+    "lead": "Dictus transcrit votre voix directement sur votre iPhone. Une fois le modèle téléchargé, plus besoin d’Internet pour dicter : ni réseau, ni Wi-Fi, ni serveur.",
     "scene_description": "L’animation vient de l’app Dictus pour iPhone : dans une rame de métro, sans réseau, une femme dicte dans son téléphone et un brouillon de mail s’écrit : « Notes du jour. Très bonne réunion ce matin. Prochaines étapes ci-dessous. »",
     "no_network": "AUCUN RÉSEAU",
     "pause": "Mettre l’animation en pause",
