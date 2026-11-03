@@ -349,7 +349,7 @@
       "url": "https://github.com/Pivii"
     },
     "createdAt": "2026-09-18",
-    "updatedAt": "2026-09-18",
+    "updatedAt": "2026-11-03",
     "relatedIds": [
       "local-par-defaut",
       "capture-clavier-iphone"
@@ -358,28 +358,29 @@
     "locales": {
       "fr": {
         "slug": "dictee-vocale-gratuite-ordinateur",
-        "title": "Dictée vocale gratuite : démarrer sur Mac, Windows ou Linux",
-        "summary": "Choisir le téléchargement Dictus Desktop, préparer le micro et le modèle local, puis organiser un premier essai de dictée dans une note.",
-        "intro": "Dictus Desktop est un logiciel de dictée vocale gratuit pour Mac, Windows et Linux. Il transforme votre voix en texte sur l’ordinateur, puis l’insère dans le champ actif. Pour commencer, choisissez le bon installateur, préparez un modèle vocal et vérifiez le microphone ainsi que le raccourci de dictée. Ce guide détaille ces choix et les limites connues avant votre premier essai.",
+        "title": "Dictus Desktop : le tutoriel pour dicter gratuitement sur Mac, Windows et Linux",
+        "summary": "Installer Dictus Desktop 0.3.0, accorder les permissions, choisir un modèle, régler le raccourci et dicter dans n’importe quelle app. Avec l’historique, le post-traitement et le dépannage.",
+        "intro": "Dictus Desktop est gratuit et le restera. Vous appuyez sur un raccourci, vous parlez, et le texte arrive dans l’app que vous utilisez. La transcription se fait sur votre ordinateur. Ce tutoriel suit la version 0.3.0, la dernière publiée : installation par système, permissions, modèle, raccourci, première dictée, puis les réglages utiles et les solutions aux problèmes courants.",
         "category": "Ordinateur",
         "tags": [
           "Dictée gratuite",
+          "Tutoriel",
           "Premiers pas"
         ],
         "seo": {
-          "title": "Dictée vocale gratuite sur Mac, Windows et Linux | Dictus",
-          "description": "Préparer Dictus Desktop : téléchargement adapté à votre ordinateur, modèle vocal local, microphone et premier essai. Gratuité et limites par système."
+          "title": "Tutoriel Dictus Desktop : dictée vocale gratuite sur Mac, Windows et Linux",
+          "description": "Installer Dictus Desktop, régler permissions, modèle et raccourci, dicter, retrouver l’historique et résoudre les problèmes courants. Le guide pas à pas."
         },
         "social": {
-          "title": "Commencer la dictée gratuite sur ordinateur",
-          "description": "Quel fichier télécharger, quoi préparer et comment essayer une première note avec Dictus Desktop sur votre ordinateur."
+          "title": "Dicter sur ordinateur avec Dictus Desktop, pas à pas",
+          "description": "Installation par système, permissions, modèle, raccourci, historique et post-traitement : tout pour bien démarrer."
         },
         "image": {
           "src": "/images/products/desktop-general-fr.jpg",
           "width": 680,
           "height": 570,
-          "alt": "Réglages Général de Dictus Desktop sur macOS, en français, avec raccourci, mode Appuyer pour parler et modèle Whisper Turbo.",
-          "caption": "Capture réelle de Dictus Desktop 0.3.0 sur macOS, le 17 septembre 2026. L’interface est en français. Whisper Turbo est le modèle sélectionné sur cet ordinateur, pas le modèle imposé à chaque installation."
+          "alt": "Réglages Général de Dictus Desktop sur macOS : raccourci de transcription, Appuyer pour parler, modèle Whisper Turbo et réglages du son.",
+          "caption": "Capture réelle de Dictus Desktop 0.3.0 sur macOS, le 17 septembre 2026. Whisper Turbo est le modèle choisi sur cet ordinateur ; à l’installation, Dictus recommande Parakeet V3."
         },
         "cta": {
           "label": "Choisir mon téléchargement Desktop",
@@ -388,82 +389,145 @@
         },
         "sections": [
           {
-            "id": "gratuit-pour-quoi",
-            "heading": "Un logiciel gratuit pour écrire à la voix",
+            "id": "avant-de-commencer",
+            "heading": "Avant de commencer",
             "paragraphs": [
-              "Dictus Desktop est gratuit aujourd’hui et le restera. La dictée locale ne demande pas de souscrire un abonnement à l’app. Son code est public. Cette gratuité concerne la version ordinateur ; elle ne décrit pas les offres de la version iPhone.",
-              "Le parcours visé ici consiste à dicter dans une zone de texte : une note, un brouillon d’e-mail ou un document ouvert. Il ne s’agit pas d’envoyer un fichier audio à un site de transcription. Vous gardez le choix de l’application dans laquelle vous écrivez, sous réserve que l’insertion y fonctionne.",
-              "Un post-traitement facultatif peut faire intervenir un fournisseur externe et ses propres conditions, éventuellement payantes. Il est désactivé par défaut et n’est pas requis pour commencer. Gardez-le désactivé pendant ce premier essai pour comprendre d’abord la transcription locale."
+              "Dictus Desktop fonctionne sur macOS, Windows et Linux. Il ne demande ni compte ni abonnement, et son code est public. Dictus Pro concerne uniquement l’app iPhone : rien n’est payant sur ordinateur.",
+              "Il faut une connexion pour télécharger l’app et un modèle vocal. Ensuite, la dictée fonctionne hors ligne. Seuls les téléchargements de modèles, la recherche de mises à jour et, si vous l’activez, un post-traitement chez un fournisseur en ligne utilisent le réseau.",
+              "Les téléchargements sont sur la section Desktop du site et sur la page des versions GitHub. Le site détecte votre système et propose le bon fichier."
             ],
             "bullets": []
           },
           {
-            "id": "choisir-le-fichier",
-            "heading": "Choisir le bon téléchargement pour son ordinateur",
+            "id": "installer-mac",
+            "heading": "Installer sur Mac",
             "paragraphs": [
-              "Partez de la section Desktop du site ou de la page officielle des releases. Au 18 septembre 2026, la dernière version publique vérifiée est 0.3.0. Les téléchargements évoluent : choisissez la version proposée au moment de votre installation plutôt que de chercher un ancien fichier ailleurs.",
-              "Le système et l’architecture sont deux informations différentes. Un installateur prévu pour votre système peut encore être destiné à une autre famille de processeurs. En cas de doute, vérifiez les informations de votre ordinateur avant de télécharger."
+              "Prenez le fichier DMG qui correspond à votre Mac : aarch64 pour une puce Apple, x64 pour un processeur Intel. Il faut macOS 10.15 ou ultérieur. Ouvrez le DMG, glissez Dictus dans Applications, puis lancez l’app.",
+              "TODO(Pierre) : l’issue #61 (DMG signé mais pas notarisé, avertissement Gatekeeper au premier lancement) est toujours ouverte, alors que le README et le site indiquent « signé et notarisé ». Confirmer l’état des DMG 0.3.0 et, si l’avertissement existe, la marche exacte pour ouvrir l’app.",
+              "TODO(Pierre) : capture de l’ouverture du DMG sur macOS."
+            ],
+            "bullets": []
+          },
+          {
+            "id": "installer-windows",
+            "heading": "Installer sur Windows",
+            "paragraphs": [
+              "Choisissez l’installateur EXE ou MSI, en x64 ou ARM64 selon votre PC. Le type de paquet peut dépendre des règles de votre organisation.",
+              "L’installateur n’est pas encore signé : une demande au programme gratuit de SignPath Foundation est en cours. Windows SmartScreen affiche donc un écran bleu et l’éditeur apparaît comme inconnu. Cliquez sur « Informations complémentaires », puis sur « Exécuter quand même ». Si vous préférez éviter cette étape, vous pouvez compiler l’app depuis le code source.",
+              "TODO(Pierre) : capture de l’écran SmartScreen avec « Informations complémentaires »."
+            ],
+            "bullets": []
+          },
+          {
+            "id": "installer-linux",
+            "heading": "Installer sur Linux",
+            "paragraphs": [
+              "Trois formats sont proposés : AppImage, .deb (Ubuntu, Debian) et .rpm (Fedora, openSUSE), en x64 ou ARM64. Dans les noms de fichiers, amd64 et x86_64 désignent x64 ; arm64 et aarch64 désignent ARM64.",
+              "Installez l’outil de saisie adapté à votre session : xdotool sous X11, wtype sous Wayland, ou dotool pour les deux, en ajoutant votre utilisateur au groupe input. Si l’app ne démarre pas avec une erreur sur libgtk-layer-shell, installez libgtk-layer-shell0 (Debian, Ubuntu) ou gtk-layer-shell (Fedora, Arch).",
+              "La prise en charge de Wayland reste partielle. Le raccourci global s’y configure dans votre environnement de bureau : associez votre combinaison à la commande handy --toggle-transcription. Le programme porte encore le nom handy, hérité du projet d’origine."
+            ],
+            "bullets": []
+          },
+          {
+            "id": "permissions",
+            "heading": "Accorder les permissions au premier lancement",
+            "paragraphs": [
+              "Au premier lancement, Dictus vérifie ses autorisations avant de vous faire choisir un modèle.",
+              "Sur Mac, il demande le microphone, pour entendre votre voix, et l’accessibilité, pour taper le texte dans vos apps. Après l’accessibilité, macOS demande de redémarrer l’app : utilisez le bouton « Redémarrer Dictus ».",
+              "Sur Windows, il demande le microphone. S’il est refusé, ouvrez Paramètres > Confidentialité et sécurité > Microphone et autorisez aussi l’accès des applications de bureau.",
+              "Sous Linux, il n’y a pas d’écran d’autorisation : le micro dépend des réglages de son de votre système.",
+              "TODO(Pierre) : capture de l’écran « Autorisations requises » sur macOS."
+            ],
+            "bullets": []
+          },
+          {
+            "id": "choisir-le-modele",
+            "heading": "Choisir un modèle",
+            "paragraphs": [
+              "L’écran suivant liste les modèles de transcription. Parakeet V3 est marqué « Recommandé » : rapide et précis, il détecte la langue tout seul et tourne bien sur le processeur. Il pèse environ 456 Mo.",
+              "Les modèles Whisper (Small, Medium, Turbo, Large) profitent d’une carte graphique, recommandée à partir de Medium. D’autres modèles ne reconnaissent que l’anglais, comme Parakeet V2 ou Moonshine : lisez la description de chaque carte avant de télécharger.",
+              "Un modèle se télécharge une fois, puis reste sur l’ordinateur. Vous pouvez en changer quand vous voulez dans l’onglet Modèles.",
+              "TODO(Pierre) : capture de l’écran de choix du modèle avec Parakeet V3 « Recommandé »."
+            ],
+            "bullets": []
+          },
+          {
+            "id": "raccourci",
+            "heading": "Régler le raccourci et Appuyer pour parler",
+            "paragraphs": [
+              "Tout se passe dans l’onglet Général, visible sur la capture en haut de l’article. Par défaut, le raccourci de transcription est Option + Espace sur Mac et Ctrl + Espace sur Windows et Linux. Échap annule l’enregistrement en cours.",
+              "« Appuyer pour parler » est activé par défaut : maintenez le raccourci pendant que vous parlez, relâchez pour lancer la transcription. Désactivez-le si vous préférez appuyer une fois pour démarrer et une fois pour arrêter.",
+              "Si une autre app utilise déjà la même combinaison, cliquez sur le raccourci dans Général et choisissez-en une autre.",
+              "Dans le même onglet, la partie Son règle le microphone utilisé, le signal sonore et la coupure du son pendant l’enregistrement. Choisissez le bon micro si vous avez un casque ou plusieurs entrées."
+            ],
+            "bullets": []
+          },
+          {
+            "id": "premiere-dictee",
+            "heading": "Faire une première dictée",
+            "paragraphs": [
+              "Ouvrez une note ou un document et cliquez à l’endroit où le texte doit arriver. Maintenez le raccourci, dites une phrase courte, puis relâchez.",
+              "Une petite fenêtre d’enregistrement s’affiche en bas de l’écran pendant que vous parlez, sauf sous Linux où elle est masquée par défaut. Dès la transcription terminée, Dictus colle le texte dans le champ actif.",
+              "Pour un premier essai, dictez par exemple : « Pense à arroser les plantes ce soir. » Relisez ensuite les noms propres, les chiffres et la ponctuation avant de vous en servir."
+            ],
+            "bullets": []
+          },
+          {
+            "id": "autres-reglages",
+            "heading": "Les autres réglages utiles",
+            "paragraphs": [
+              "L’onglet Avancé regroupe le reste des réglages :"
             ],
             "bullets": [
-              "Mac : choisissez le fichier DMG Apple Silicon pour une puce Apple, ou Intel pour un processeur Intel. Dans les noms de fichiers, aarch64 correspond ici à Apple Silicon et x64 à Intel.",
-              "Windows : la release propose des installateurs EXE et MSI, pour x64 ou ARM64. Choisissez l’architecture de votre appareil ; le type de paquet peut aussi dépendre des règles de votre organisation.",
-              "Linux : la release propose AppImage, DEB et RPM. Choisissez le format adapté à votre distribution et l’architecture de votre processeur. Selon le paquet, les noms utilisent amd64 ou x86_64 pour la famille x64, arm64 ou aarch64 pour la famille ARM64."
+              "Application : démarrer masqué, lancer Dictus au démarrage, icône dans la barre, position de la fenêtre d’enregistrement, délai avant de libérer le modèle de la mémoire.",
+              "Sortie : méthode de collage, outil de frappe sous Linux, gestion du presse-papiers et envoi automatique. Si le texte ne se colle pas dans une app, essayez une autre méthode de collage.",
+              "Transcription : mots personnalisés, pour les noms et termes souvent mal entendus, et ajout d’un espace après le texte.",
+              "Post-traitement et Historique : détaillés ci-dessous."
             ]
           },
           {
-            "id": "limites-installation",
-            "heading": "Connaître les limites d’installation avant de poursuivre",
+            "id": "transcrire-un-fichier",
+            "heading": "Transcrire un fichier audio",
             "paragraphs": [
-              "Le parcours d’installation n’a pas été rejoué sur les trois systèmes pour ce guide. La capture provient d’une installation existante sur Mac ; elle ne prouve pas une installation neuve ni une dictée complète. Les étapes qui suivent sont une préparation fondée sur la version publique et un protocole d’essai à réaliser sur votre ordinateur.",
-              "Sur macOS, un problème de notarisation des fichiers DMG de la version 0.3.0 est suivi dans le dépôt : Gatekeeper peut afficher un avertissement à l’ouverture d’un téléchargement. La documentation signale aussi un installateur Windows non signé. Le guide ne suppose donc pas une ouverture sans avertissement. Si votre système bloque l’installation, relevez le message exact et consultez le support ou le suivi de version avant de poursuivre.",
-              "Sous Linux, l’insertion et les raccourcis dépendent également de la session graphique ; la prise en charge de Wayland reste partielle. Le dépôt documente ces contraintes. Ce guide ne présente pas une procédure universelle d’installation ou de permissions pour toutes les distributions."
+              "L’onglet Transcrire un fichier, nouveau dans la version 0.3.0, transcrit un fichier audio de l’ordinateur avec votre modèle : déposez le fichier et la transcription démarre. Il accepte notamment les messages vocaux Telegram et WhatsApp et les enregistrements .m4a. Le résultat rejoint l’historique."
             ],
             "bullets": []
           },
           {
-            "id": "preparer-micro-modele",
-            "heading": "Préparer le microphone, les permissions et le modèle",
+            "id": "historique",
+            "heading": "Retrouver ses dictées dans l’historique",
             "paragraphs": [
-              "Au premier lancement, suivez les autorisations proposées avant de télécharger le modèle. Sur Mac, le parcours vérifie le microphone et l’accessibilité ; cette dernière sert notamment à l’insertion du texte. Sur Windows, le parcours vérifie le microphone. Sous Linux, ce parcours n’affiche pas d’écran d’autorisation équivalent ; suivez les indications du dépôt pour votre environnement.",
-              "Pendant la configuration initiale, choisissez un modèle vocal et attendez la fin de son téléchargement, de sa vérification et de sa préparation. Cette étape utilise Internet ; la conversion de l’audio en texte s’effectue ensuite sur l’ordinateur. La place disponible et les ressources du matériel comptent, sans qu’un temps de traitement identique puisse être promis.",
-              "Dans la version 0.3.0, Parakeet V3 est le modèle recommandé et prend en charge le français et l’anglais. Certains autres modèles ne prennent en charge que l’anglais : vérifiez la langue prévue avant de changer de modèle.",
-              "Dans Général, repérez le modèle sélectionné, le raccourci de transcription et le réglage « Appuyer pour parler ». Dans Son, vérifiez le microphone choisi, surtout si vous utilisez un casque ou plusieurs entrées audio. La capture montre un choix existant ; vous pouvez garder le modèle recommandé par votre propre installation.",
-              "Utilisez le raccourci affiché dans vos réglages : il peut avoir été modifié, et un autre logiciel peut utiliser les mêmes touches. Ne prenez pas un raccourci trouvé dans un ancien tutoriel comme la preuve de votre configuration actuelle."
+              "L’onglet Historique liste vos dernières transcriptions avec leur audio. Pour chacune, vous pouvez copier le texte, la garder en favori, la re-transcrire ou la supprimer. Un bouton ouvre le dossier des enregistrements.",
+              "Par défaut, Dictus garde 5 entrées. Dans Avancé > Historique, changez cette limite et la suppression automatique des enregistrements : jamais, après 3 jours, après 2 semaines, après 3 mois, ou en gardant seulement les plus récents. Tout reste sur l’ordinateur.",
+              "TODO(Pierre) : capture de l’onglet Historique, sans contenu privé."
             ],
             "bullets": []
           },
           {
-            "id": "essai-dans-une-note",
-            "heading": "Faire un premier essai dans une note",
+            "id": "post-traitement",
+            "heading": "Le post-traitement, en option",
             "paragraphs": [
-              "Choisissez une note vide ou un document sans contenu confidentiel et cliquez à l’endroit où le texte doit apparaître. Pour cet essai, activez « Appuyer pour parler » et gardez le post-traitement facultatif désactivé. Vous pourrez ainsi observer le résultat de la transcription seule.",
-              "Maintenez le raccourci de transcription affiché dans Général, prononcez une courte phrase, puis relâchez les touches. Gardez le champ de destination actif pendant le traitement. Vérifiez ensuite où le texte a été inséré avant de continuer.",
-              "Pour l’exercice, vous pouvez dicter : « Pense à arroser les plantes ce soir. » Vérifiez que l’action et le moment ont bien été transcrits. Ce premier essai sert à vérifier ensemble le micro, le déclenchement et l’insertion avant de passer à vos propres textes.",
-              "Relisez les noms propres, les nombres, la ponctuation et les négations. Corrigez le texte avant de l’envoyer ou de l’utiliser dans un document important. Une fois cet essai compris, répétez-le dans l’application où vous souhaitez vraiment écrire."
+              "Le post-traitement fait réécrire le texte transcrit par un modèle de langage : nettoyage, reformulation ou traduction. Il est désactivé par défaut, et l’onglet Post-traitement reste caché tant qu’il l’est. Pour l’afficher, activez Post-traitement dans Avancé > Post-traitement.",
+              "Vous choisissez ensuite un fournisseur. Sur votre appareil : le modèle intégré, Apple Intelligence sur les Mac Apple Silicon, ou un serveur local comme Ollama ou LM Studio. En ligne : un service externe avec votre clé API. Dans ce cas, le texte transcrit et la consigne partent chez ce fournisseur ; l’audio, jamais.",
+              "Le post-traitement a son propre raccourci, distinct de celui de la dictée simple. Vous décidez à chaque dictée.",
+              "TODO(Pierre) : capture de l’onglet Post-traitement, avec les fournisseurs locaux et en ligne."
             ],
             "bullets": []
           },
           {
-            "id": "verifications-utiles",
-            "heading": "Que vérifier si le premier essai ne fonctionne pas ?",
+            "id": "depannage",
+            "heading": "Dépannage",
             "paragraphs": [
-              "Les contrôles ci-dessous correspondent aux réglages documentés. Ils ne garantissent pas de résoudre tous les problèmes et ne sont pas présentés comme des pannes reproduites ici. Pour un signalement utile, précisez le système, l’architecture, la version de Dictus, l’application de destination et le message affiché."
+              "Les problèmes les plus fréquents et leur solution :"
             ],
             "bullets": [
-              "Aucun enregistrement apparent : vérifiez le micro sélectionné dans Général > Son, l’autorisation système et le raccourci réellement configuré.",
-              "Le traitement ne démarre pas : vérifiez qu’un modèle est téléchargé et sélectionné, puis terminez sa préparation avant de réessayer.",
-              "Le texte ne s’insère pas : essayez un champ de texte simple, gardez-le actif et vérifiez les permissions d’accessibilité sur Mac. Suivez la demande de redémarrage si l’écran d’autorisation la présente.",
-              "Un souci limité à une application ou à une session graphique : comparez avec une note simple et consultez les problèmes connus du dépôt, notamment pour Wayland. Évitez de publier un enregistrement privé dans un ticket de support."
+              "Rien ne s’enregistre : vérifiez le micro choisi dans Général et l’autorisation du système, par exemple Réglages Système > Confidentialité et sécurité > Microphone sur Mac.",
+              "Le texte ne s’insère pas sur Mac : vérifiez l’accessibilité dans Réglages Système > Confidentialité et sécurité, puis redémarrez Dictus.",
+              "Le raccourci ne fait rien : une autre app l’utilise peut-être, choisissez-en un autre. Sous Wayland, configurez-le dans votre environnement de bureau.",
+              "Rien ne s’insère sous Linux : installez xdotool, wtype ou dotool selon votre session.",
+              "Whisper plante sur certaines configurations Windows ou Linux, un problème connu : passez à Parakeet V3, qui tourne sur le processeur. Sous Windows, si la fenêtre d’enregistrement s’affiche sans capter de son, le problème est suivi dans l’issue #8.",
+              "Toujours bloqué : ouvrez une issue sur GitHub avec votre système, l’architecture, la version de Dictus, l’app de destination et le message affiché. N’y joignez pas d’enregistrement privé."
             ]
-          },
-          {
-            "id": "local-et-suite",
-            "heading": "Comprendre ce qui reste local",
-            "paragraphs": [
-              "La transcription audio de Dictus Desktop est locale. Cela n’empêche pas les téléchargements de modèles, les vérifications de mises à jour ni, si vous le choisissez, un traitement distant du texte. L’historique peut aussi conserver des enregistrements et des transcriptions sur l’ordinateur.",
-              "Le guide confidentialité explique ces étapes et leur portée. Après insertion, votre note ou votre e-mail dépend aussi du fonctionnement de l’application qui le reçoit. Pour continuer, choisissez le téléchargement adapté ci-dessous et consultez les sources ou le support si votre environnement diffère."
-            ],
-            "bullets": []
           }
         ],
         "sources": [
@@ -472,24 +536,36 @@
             "href": "https://github.com/getdictus/dictus-desktop/releases/tag/v0.3.0"
           },
           {
-            "label": "Documentation de la version publique et contraintes par système",
+            "label": "README de la version 0.3.0 : installation, Linux et signature",
             "href": "https://github.com/getdictus/dictus-desktop/blob/v0.3.0/README.md"
           },
           {
-            "label": "Réglages et valeurs par défaut de la version publique",
+            "label": "Réglages et valeurs par défaut",
             "href": "https://github.com/getdictus/dictus-desktop/blob/v0.3.0/src-tauri/src/settings.rs"
           },
           {
-            "label": "Modèles disponibles et langues prises en charge",
+            "label": "Modèles disponibles et modèle recommandé",
             "href": "https://github.com/getdictus/dictus-desktop/blob/v0.3.0/src-tauri/src/managers/model.rs"
           },
           {
-            "label": "Suivi de l’avertissement Gatekeeper sur les DMG",
+            "label": "Écran des autorisations au premier lancement",
+            "href": "https://github.com/getdictus/dictus-desktop/blob/v0.3.0/src/components/onboarding/AccessibilityOnboarding.tsx"
+          },
+          {
+            "label": "Confidentialité et connexions réseau de la version ordinateur",
+            "href": "https://github.com/getdictus/dictus-desktop/blob/v0.3.0/docs/PRIVACY.md"
+          },
+          {
+            "label": "Suivi de la notarisation des DMG",
             "href": "https://github.com/getdictus/dictus-desktop/issues/61"
           },
           {
-            "label": "Confidentialité de la version ordinateur",
-            "href": "https://github.com/getdictus/dictus-desktop/blob/v0.3.0/docs/PRIVACY.md"
+            "label": "Onglet Post-traitement caché à l’installation",
+            "href": "https://github.com/getdictus/dictus-desktop/issues/63"
+          },
+          {
+            "label": "Windows : enregistrement sans son",
+            "href": "https://github.com/getdictus/dictus-desktop/issues/8"
           },
           {
             "label": "Signaler un problème avec la version ordinateur",
@@ -507,112 +583,176 @@
       },
       "en": {
         "slug": "free-desktop-dictation",
-        "title": "Free voice dictation: getting started on Mac, Windows or Linux",
-        "summary": "Choose your Dictus Desktop download, prepare your microphone and local model, then try dictating into a note for the first time.",
-        "intro": "Dictus Desktop is free voice dictation software for Mac, Windows and Linux. It turns your voice into text on your computer, then inserts it into the active field. To get started, choose the right installer, prepare a speech model and check your microphone and dictation shortcut. This guide explains those choices and the known limitations before your first attempt.",
+        "title": "Dictus Desktop: A Tutorial for Free Dictation on Mac, Windows, and Linux",
+        "summary": "Install Dictus Desktop 0.3.0, grant permissions, choose a model, set the shortcut, and dictate in any app. Includes history, post-processing, and troubleshooting.",
+        "intro": "Dictus Desktop is free and will remain free. Press a shortcut, speak, and your text appears in the app you’re using. Transcription happens on your computer. This tutorial covers version 0.3.0, the latest release: installation for each system, permissions, model selection, shortcuts, your first dictation, useful settings, and solutions to common problems.",
         "category": "Computer",
         "tags": [
           "Free dictation",
+          "Tutorial",
           "Getting started"
         ],
         "seo": {
-          "title": "Free voice dictation on Mac, Windows and Linux | Dictus",
-          "description": "Set up Dictus Desktop: the right download for your computer, a local speech model, your microphone and a first test. Free access and limitations by system."
+          "title": "Dictus Desktop Tutorial: Free Voice Dictation on Mac, Windows, and Linux",
+          "description": "Install Dictus Desktop, set permissions, choose a model and shortcut, dictate, find your history, and troubleshoot common issues. A step-by-step guide."
         },
         "social": {
-          "title": "Get started with free dictation on your computer",
-          "description": "Which file to download, what to prepare and how to try your first note with Dictus Desktop on your computer."
+          "title": "Dictate on your computer with Dictus Desktop, step by step",
+          "description": "Installation for each system, permissions, model, shortcut, history, and post-processing: everything you need to get started."
         },
         "image": {
-          "src": "/images/products/desktop-general-fr.jpg",
+          "src": "/images/products/desktop-general-en.jpg",
           "width": 680,
           "height": 570,
-          "alt": "Dictus Desktop General settings on macOS, in French, showing the shortcut, Push to Talk mode and Whisper Turbo model.",
-          "caption": "Actual screenshot of Dictus Desktop 0.3.0 on macOS, taken on 17 September 2026. The interface is in French. Whisper Turbo is the model selected on this computer, not a model required for every installation."
+          "alt": "Dictus Desktop General settings on macOS: transcription shortcut, Push to talk, Whisper Turbo model, and sound settings.",
+          "caption": "Actual screenshot of Dictus Desktop 0.3.0 on macOS, dated September 17, 2026. Whisper Turbo is the model selected on this computer; during installation, Dictus recommends Parakeet V3."
         },
         "cta": {
           "label": "Choose my Desktop download",
-          "description": "Find downloads by operating system, architecture and package format.",
+          "description": "Find downloads by system, architecture, and package format.",
           "href": "/en#desktop"
         },
         "sections": [
           {
-            "id": "gratuit-pour-quoi",
-            "heading": "Free software for writing with your voice",
+            "id": "avant-de-commencer",
+            "heading": "Before you begin",
             "paragraphs": [
-              "Dictus Desktop is free today and will remain free. Local dictation does not require an app subscription. Its code is public. This free access applies to the computer version; it does not describe the plans available for the iPhone version.",
-              "The workflow covered here involves dictating into a text area: a note, an email draft or an open document. It does not involve sending an audio file to a transcription website. You can choose which application you write in, provided text insertion works there.",
-              "Optional post-processing may involve an external provider with its own terms and potentially its own charges. It is disabled by default and is not required to get started. Keep it disabled for this first test so you can understand local transcription first."
+              "Dictus Desktop works on macOS, Windows, and Linux. It requires no account or subscription, and its source code is public. Dictus Pro is for the iPhone app only: nothing on the computer is paid.",
+              "You need an internet connection to download the app and a voice model. After that, dictation works offline. Only model downloads, update checks, and, if you enable it, post-processing through an online provider use the network.",
+              "Downloads are available in the Desktop section of the website and on the GitHub releases page. The website detects your system and offers the right file."
             ],
             "bullets": []
           },
           {
-            "id": "choisir-le-fichier",
-            "heading": "Choose the right download for your computer",
+            "id": "installer-mac",
+            "heading": "Install on Mac",
             "paragraphs": [
-              "Start with the Desktop section of the website or the official releases page. As of 18 September 2026, the latest verified public version is 0.3.0. Downloads change: choose the version available when you install rather than looking elsewhere for an old file.",
-              "The operating system and architecture are two different pieces of information. An installer intended for your operating system may still target a different processor family. If you are unsure, check your computer’s information before downloading."
+              "Get the DMG file that matches your Mac: aarch64 for an Apple chip, x64 for an Intel processor. You need macOS 10.15 or later. Open the DMG, drag Dictus to Applications, then launch the app.",
+              "TODO(Pierre): issue #61 (signed but not notarized DMG, Gatekeeper warning on first launch) is still open, although the README and website say “signed and notarized.” Confirm the status of the 0.3.0 DMGs and, if the warning appears, the exact steps for opening the app.",
+              "TODO(Pierre): screenshot of opening the DMG on macOS."
+            ],
+            "bullets": []
+          },
+          {
+            "id": "installer-windows",
+            "heading": "Install on Windows",
+            "paragraphs": [
+              "Choose the EXE or MSI installer, in x64 or ARM64 depending on your PC. The package type may depend on your organization’s rules.",
+              "The installer is not signed yet: an application to the free SignPath Foundation program is in progress. Windows SmartScreen therefore displays a blue screen and lists the publisher as unknown. Click “More info,” then “Run anyway.” If you’d rather skip this step, you can build the app from source.",
+              "TODO(Pierre): screenshot of the SmartScreen screen with “More info.”"
+            ],
+            "bullets": []
+          },
+          {
+            "id": "installer-linux",
+            "heading": "Install on Linux",
+            "paragraphs": [
+              "Three formats are available: AppImage, .deb (Ubuntu, Debian), and .rpm (Fedora, openSUSE), in x64 or ARM64. In file names, amd64 and x86_64 mean x64; arm64 and aarch64 mean ARM64.",
+              "Install the input tool suited to your session: xdotool on X11, wtype on Wayland, or dotool for both, and add your user to the input group. If the app fails to start with a libgtk-layer-shell error, install libgtk-layer-shell0 (Debian, Ubuntu) or gtk-layer-shell (Fedora, Arch).",
+              "Wayland support is still partial. Configure the global shortcut in your desktop environment: assign your key combination to the command handy --toggle-transcription. The program is still called handy, a name inherited from the original project."
+            ],
+            "bullets": []
+          },
+          {
+            "id": "permissions",
+            "heading": "Grant permissions on first launch",
+            "paragraphs": [
+              "On first launch, Dictus checks its permissions before asking you to choose a model.",
+              "On Mac, it asks for microphone access to hear your voice and accessibility access to type text in your apps. After accessibility access is granted, macOS asks you to restart the app: use the “Restart Dictus” button.",
+              "On Windows, it asks for microphone access. If access is denied, open Settings > Privacy & security > Microphone and also allow desktop apps to access it.",
+              "On Linux, there is no permission screen: microphone access depends on your system sound settings.",
+              "TODO(Pierre): screenshot of the “Permissions required” screen on macOS."
+            ],
+            "bullets": []
+          },
+          {
+            "id": "choisir-le-modele",
+            "heading": "Choose a model",
+            "paragraphs": [
+              "The next screen lists transcription models. Parakeet V3 is marked “Recommended”: it’s fast and accurate, detects the language automatically, and runs well on the processor. It weighs about 456 MB.",
+              "Whisper models (Small, Medium, Turbo, Large) benefit from a graphics card, recommended from Medium onward. Other models only recognize English, such as Parakeet V2 or Moonshine: read each card’s description before downloading.",
+              "A model downloads once and then stays on your computer. You can change it whenever you like in the Models tab.",
+              "TODO(Pierre): screenshot of the model selection screen with Parakeet V3 marked “Recommended.”"
+            ],
+            "bullets": []
+          },
+          {
+            "id": "raccourci",
+            "heading": "Set the shortcut and Push to talk",
+            "paragraphs": [
+              "Everything is in the General tab, shown in the screenshot at the top of the article. By default, the transcription shortcut is Option + Space on Mac and Ctrl + Space on Windows and Linux. Escape cancels the current recording.",
+              "“Push to talk” is enabled by default: hold the shortcut while you speak, then release it to start transcription. Turn it off if you’d rather press once to start and once to stop.",
+              "If another app already uses the same combination, click the shortcut in General and choose a different one.",
+              "In the same tab, the Sound section controls the microphone in use, sound cues, and muting during recording. Choose the right microphone if you have a headset or multiple inputs."
+            ],
+            "bullets": []
+          },
+          {
+            "id": "premiere-dictee",
+            "heading": "Try your first dictation",
+            "paragraphs": [
+              "Open a note or document and click where the text should appear. Hold the shortcut, say a short sentence, then release it.",
+              "A small recording window appears at the bottom of the screen while you speak, except on Linux, where it is hidden by default. As soon as transcription finishes, Dictus pastes the text into the active field.",
+              "For a first try, dictate something like: “Remember to water the plants tonight.” Then review proper names, numbers, and punctuation before using the text."
+            ],
+            "bullets": []
+          },
+          {
+            "id": "autres-reglages",
+            "heading": "Other useful settings",
+            "paragraphs": [
+              "The Advanced tab contains the remaining settings:"
             ],
             "bullets": [
-              "Mac: choose the Apple Silicon DMG file for an Apple chip, or Intel for an Intel processor. In the filenames, aarch64 refers to Apple Silicon here, and x64 to Intel.",
-              "Windows: the release offers EXE and MSI installers for x64 or ARM64. Choose your device’s architecture; the package type may also depend on your organization’s policies.",
-              "Linux: the release offers AppImage, DEB and RPM. Choose the format that suits your distribution and your processor’s architecture. Depending on the package, filenames use amd64 or x86_64 for the x64 family, and arm64 or aarch64 for the ARM64 family."
+              "Application: start hidden, launch Dictus at startup, show the menu bar icon, set the recording window position, and choose how long to wait before freeing the model from memory.",
+              "Output: paste method, typing tool on Linux, clipboard handling, and automatic sending. If text doesn’t paste into an app, try a different paste method.",
+              "Transcription: custom words for names and terms that are often misheard, and adding a space after the text.",
+              "Post-processing and History: explained below."
             ]
           },
           {
-            "id": "limites-installation",
-            "heading": "Understand the installation limitations before continuing",
+            "id": "transcrire-un-fichier",
+            "heading": "Transcribe an audio file",
             "paragraphs": [
-              "The installation process was not repeated on all three operating systems for this guide. The screenshot comes from an existing Mac installation; it does not demonstrate a fresh installation or a complete dictation session. The steps below are preparation based on the public version and a test procedure to carry out on your computer.",
-              "On macOS, an issue with notarization of the DMG files for version 0.3.0 is being tracked in the repository: Gatekeeper may display a warning when you open a download. The documentation also notes an unsigned Windows installer. This guide therefore does not assume that opening the installer will be warning-free. If your system blocks installation, note the exact message and consult support or the release tracking information before continuing.",
-              "On Linux, text insertion and shortcuts also depend on the graphical session; Wayland support remains partial. The repository documents these constraints. This guide does not provide a universal installation or permissions procedure for every distribution."
+              "The Transcribe a file tab, new in version 0.3.0, transcribes an audio file from your computer using your model: drop in the file and transcription starts. It supports, among other formats, Telegram and WhatsApp voice messages and .m4a recordings. The result is added to your history."
             ],
             "bullets": []
           },
           {
-            "id": "preparer-micro-modele",
-            "heading": "Prepare your microphone, permissions and model",
+            "id": "historique",
+            "heading": "Find your dictations in History",
             "paragraphs": [
-              "On first launch, follow the permission prompts before downloading the model. On Mac, setup checks microphone and accessibility permissions; the latter is used for text insertion, among other things. On Windows, setup checks microphone permissions. On Linux, this setup process does not display an equivalent permissions screen; follow the repository’s guidance for your environment.",
-              "During initial setup, choose a speech model and wait for it to finish downloading, verifying and preparing. This step uses the Internet; audio is then converted to text on your computer. Available storage and hardware resources matter, and identical processing times cannot be promised.",
-              "In version 0.3.0, Parakeet V3 is the recommended model and supports French and English. Some other models support only English: check the intended language before switching models.",
-              "In General, find the selected model, the transcription shortcut and the “Push to Talk” setting. In Sound, check the selected microphone, especially if you use a headset or several audio inputs. The screenshot shows an existing selection; you can keep the model recommended by your own installation.",
-              "Use the shortcut shown in your settings: it may have been changed, and another application may use the same keys. Do not treat a shortcut found in an old tutorial as proof of your current configuration."
+              "The History tab lists your recent transcriptions with their audio. For each one, you can copy the text, save it as a favorite, transcribe it again, or delete it. A button opens the recordings folder.",
+              "By default, Dictus keeps 5 entries. In Advanced > History, change this limit and set automatic deletion for recordings: never, after 3 days, after 2 weeks, after 3 months, or keep only the most recent ones. Everything stays on your computer.",
+              "TODO(Pierre): screenshot of the History tab, with no private content."
             ],
             "bullets": []
           },
           {
-            "id": "essai-dans-une-note",
-            "heading": "Try dictating into a note for the first time",
+            "id": "post-traitement",
+            "heading": "Post-processing, optional",
             "paragraphs": [
-              "Choose an empty note or a document without confidential content and click where you want the text to appear. For this test, enable “Push to Talk” and keep optional post-processing disabled. This lets you observe the result of transcription alone.",
-              "Hold down the transcription shortcut shown in General, say a short sentence, then release the keys. Keep the destination field active during processing. Then check where the text was inserted before continuing.",
-              "For this exercise, you can dictate: “Remember to water the plants this evening.” Check that the action and timing were transcribed correctly. This first test checks the microphone, activation and text insertion together before you move on to your own texts.",
-              "Check proper names, numbers, punctuation and negations. Correct the text before sending it or using it in an important document. Once you understand this test, repeat it in the application where you actually want to write."
+              "Post-processing uses a language model to rewrite transcribed text: cleaning it up, rephrasing it, or translating it. It is disabled by default, and the Post-processing tab stays hidden while it is off. To show it, enable Post-processing in Advanced > Post-processing.",
+              "Then choose a provider. On your device: the built-in model, Apple Intelligence on Apple Silicon Macs, or a local server such as Ollama or LM Studio. Online: an external service using your API key. In that case, the transcribed text and instruction are sent to that provider; the audio never is.",
+              "Post-processing has its own shortcut, separate from the one for standard dictation. You choose whether to use it for each dictation.",
+              "TODO(Pierre): screenshot of the Post-processing tab, showing local and online providers."
             ],
             "bullets": []
           },
           {
-            "id": "verifications-utiles",
-            "heading": "What should you check if the first test does not work?",
+            "id": "depannage",
+            "heading": "Troubleshooting",
             "paragraphs": [
-              "The checks below correspond to documented settings. They are not guaranteed to resolve every problem and are not presented as failures reproduced here. To make a useful report, include your operating system, architecture, Dictus version, destination application and the message displayed."
+              "Common problems and their solutions:"
             ],
             "bullets": [
-              "No apparent recording: check the microphone selected in General > Sound, the system permission and the shortcut actually configured.",
-              "Processing does not start: check that a model is downloaded and selected, then finish preparing it before trying again.",
-              "Text is not inserted: try a simple text field, keep it active and check accessibility permissions on Mac. Follow the restart prompt if the permissions screen displays one.",
-              "An issue limited to one application or graphical session: compare with a simple note and consult the repository’s known issues, particularly for Wayland. Avoid posting a private recording in a support ticket."
+              "Nothing is recorded: check the microphone selected in General and the system permission, for example System Settings > Privacy & Security > Microphone on Mac.",
+              "Text doesn’t appear on Mac: check accessibility in System Settings > Privacy & Security, then restart Dictus.",
+              "The shortcut does nothing: another app may be using it; choose a different one. On Wayland, configure it in your desktop environment.",
+              "Nothing appears on Linux: install xdotool, wtype, or dotool, depending on your session.",
+              "Whisper crashes on some Windows or Linux configurations, a known issue: switch to Parakeet V3, which runs on the processor. On Windows, if the recording window appears but captures no sound, the issue is being tracked in issue #8.",
+              "Still stuck: open a GitHub issue with your system, architecture, Dictus version, destination app, and the message shown. Don’t attach a private recording."
             ]
-          },
-          {
-            "id": "local-et-suite",
-            "heading": "Understand what stays local",
-            "paragraphs": [
-              "Dictus Desktop audio transcription is local. This does not prevent model downloads, update checks or, if you choose it, remote text processing. History may also store recordings and transcriptions on your computer.",
-              "The privacy guide explains these steps and their scope. After insertion, your note or email also depends on how the receiving application works. To continue, choose the appropriate download below and consult the sources or support if your environment differs."
-            ],
-            "bullets": []
           }
         ],
         "sources": [
@@ -621,24 +761,36 @@
             "href": "https://github.com/getdictus/dictus-desktop/releases/tag/v0.3.0"
           },
           {
-            "label": "Public version documentation and constraints by operating system",
+            "label": "Version 0.3.0 README: installation, Linux, and signing",
             "href": "https://github.com/getdictus/dictus-desktop/blob/v0.3.0/README.md"
           },
           {
-            "label": "Public version settings and defaults",
+            "label": "Settings and defaults",
             "href": "https://github.com/getdictus/dictus-desktop/blob/v0.3.0/src-tauri/src/settings.rs"
           },
           {
-            "label": "Available models and supported languages",
+            "label": "Available models and recommended model",
             "href": "https://github.com/getdictus/dictus-desktop/blob/v0.3.0/src-tauri/src/managers/model.rs"
           },
           {
-            "label": "Tracking the Gatekeeper warning for DMGs",
+            "label": "First-launch permissions screen",
+            "href": "https://github.com/getdictus/dictus-desktop/blob/v0.3.0/src/components/onboarding/AccessibilityOnboarding.tsx"
+          },
+          {
+            "label": "Privacy and network connections for the computer version",
+            "href": "https://github.com/getdictus/dictus-desktop/blob/v0.3.0/docs/PRIVACY.md"
+          },
+          {
+            "label": "DMG notarization tracking",
             "href": "https://github.com/getdictus/dictus-desktop/issues/61"
           },
           {
-            "label": "Privacy in the computer version",
-            "href": "https://github.com/getdictus/dictus-desktop/blob/v0.3.0/docs/PRIVACY.md"
+            "label": "Post-processing tab hidden on installation",
+            "href": "https://github.com/getdictus/dictus-desktop/issues/63"
+          },
+          {
+            "label": "Windows: recording without sound",
+            "href": "https://github.com/getdictus/dictus-desktop/issues/8"
           },
           {
             "label": "Report a problem with the computer version",
@@ -656,8 +808,8 @@
       }
     },
     "translation": {
-      "sourceHash": "94c4aea11d9b9b4d48442e027f3da8886e5f6ea3244c3198050ef6cb5f97b6b4",
-      "generatedAt": "2026-09-18",
+      "sourceHash": "1589bab9c8eac5f2813b83c1668599f375c937bd0904f9f530bcbf4abcb41218",
+      "generatedAt": "2026-11-03",
       "method": "codex-cli"
     }
   },
