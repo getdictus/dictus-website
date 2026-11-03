@@ -155,3 +155,22 @@ production deployment.
 The current Desktop scene combines genuine localized settings screenshots with
 the explicitly illustrative native pill animation documented above. It is not
 an end-to-end dictation recording.
+
+## Dictus iOS 2.0 App Store captures (blog, issue #132)
+
+The blog guides for Dictus iOS 2.0 reuse two App Store captures from
+`getdictus/dictus-ios`, folder `assets/appstore/captures/`, at commit
+`ed6057404cee574010647fc44f017e309b2ea711` (`develop`, 3 November 2026).
+They show the shipping keyboard UI in an iPhone simulator. The conversations,
+the phone number and the recording levels are demonstration data: the recording
+overlay is driven by `assets/appstore/tools/capture/inject-recording.sh`, which
+writes App Group state instead of recording a microphone. No dictation result
+is shown.
+
+Each PNG (1320 × 2868) was converted to JPEG with `sips -Z 1864`, quality 82,
+to 858 × 1864. Nothing else was changed.
+
+| Website file | Source capture | Source SHA-256 |
+|---|---|---|
+| `ios-recording-fr.jpg` | `fr-FR/01-recording-reminders.png` | `a7c55670617d45acf6aa888f0ba90d374c46a432172bd5dd7a74529daa76c187` |
+| `ios-recording-en.jpg` | `en-GB/01-recording-reminders.png` | `083a2c39d6722d81e0e74f00ff938b6ebab7ea7123f08eacc3fd7e9d322ae0e1` |
