@@ -14,7 +14,7 @@ export const proCatalogue = {
   plans: {
     monthly: { cents: 499, productId: "solutions.pivi.dictus.pro.monthly" },
     yearly: { cents: 3999, productId: "solutions.pivi.dictus.pro.yearly" },
-    lifetime: { cents: 14999, productId: "solutions.pivi.dictus.pro.lifetime" },
+    lifetime: { cents: 14999, productId: "solutions.pivi.dictus.pro.lifetime2" },
   },
 } as const;
 
