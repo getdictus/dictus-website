@@ -1,10 +1,12 @@
 // Headless pricing contract checks. No screenshots or videos are written.
 // VERIFY_ENGINES=chromium,webkit npm run test:pricing -- http://localhost:4328
+// VERIFY_MODE=production checks a production build (Pricing indexed); default checks preview (noindex site-wide).
 import assert from "node:assert/strict";
 import { chromium, firefox, webkit, expect } from "@playwright/test";
 
 const origin = new URL(process.argv[2] || "http://localhost:4328").origin;
 const engines = { chromium, firefox, webkit };
+const preview = process.env.VERIFY_MODE !== "production";
 let passed = 0;
 let failed = 0;
 
@@ -125,7 +127,7 @@ for (const engine of (process.env.VERIFY_ENGINES || "chromium,firefox,webkit").s
 
     await check(`${engine}/${locale}: pricing metadata and locale route`, async () => {
       await page.goto(`${origin}/${locale}/pricing`);
-      await expect(page.locator('meta[name="robots"]')).toHaveAttribute("content", /noindex/);
+      await expect(page.locator('meta[name="robots"]')).toHaveAttribute("content", preview ? /noindex/ : "index, follow");
       await expect(page.locator('link[rel="canonical"]')).toHaveAttribute("href", `https://www.getdictus.com/${locale}/pricing`);
       await expect(page.locator('meta[property="og:url"]')).toHaveAttribute("content", `https://www.getdictus.com/${locale}/pricing`);
       await expect(page.locator('meta[property="og:image"]')).toHaveAttribute("content", "https://www.getdictus.com/og-image.png");
@@ -187,11 +189,18 @@ for (const engine of (process.env.VERIFY_ENGINES || "chromium,firefox,webkit").s
   await browser.close();
 }
 
-await check("preview: robots and sitemap keep unfinished offers unindexed", async () => {
+await check(`${preview ? "preview: robots and sitemap keep the site unindexed" : "production: robots and sitemap expose Pricing"}`, async () => {
   const robots = await (await fetch(`${origin}/robots.txt`)).text();
-  assert.match(robots, /Disallow: \//);
   const sitemap = await (await fetch(`${origin}/sitemap.xml`)).text();
-  assert.doesNotMatch(sitemap, /\/pricing</);
+  if (preview) {
+    assert.match(robots, /Disallow: \/\s/);
+    assert.doesNotMatch(sitemap, /\/pricing</);
+  } else {
+    assert.doesNotMatch(robots, /Disallow: \/\s/);
+    assert.doesNotMatch(robots, /Disallow: \/(fr|en)\/pricing/);
+    assert.match(sitemap, /<loc>https:\/\/www\.getdictus\.com\/fr\/pricing<\/loc>/);
+    assert.match(sitemap, /<loc>https:\/\/www\.getdictus\.com\/en\/pricing<\/loc>/);
+  }
 });
 console.log(`${passed} passed, ${failed} failed`);
 process.exitCode = failed ? 1 : 0;
