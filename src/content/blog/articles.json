@@ -1187,7 +1187,7 @@
       "url": "https://github.com/Pivii"
     },
     "createdAt": "2026-11-03",
-    "updatedAt": "2026-11-03",
+    "updatedAt": "2026-11-05",
     "relatedIds": [
       "capture-clavier-iphone",
       "local-par-defaut"
@@ -1214,11 +1214,11 @@
           "description": "Un appui long sur le micro, un mode, et votre dictée arrive réécrite. Prérequis et exemples."
         },
         "image": {
-          "src": "/images/products/ios-smart-mode-fan-fr.jpg",
-          "width": 858,
-          "height": 1864,
-          "alt": "Le clavier Dictus dans Messages sur iPhone, avec l’éventail des modes ouvert au-dessus du micro : Normal, Message, Liste et Traduction vers l’anglais.",
-          "caption": "Interface réelle de Dictus 2.0, capturée dans un simulateur iPhone pour la fiche App Store. La conversation est une donnée de démonstration."
+          "src": "/images/products/smart-modes-cover-fr.jpg",
+          "width": 1600,
+          "height": 1200,
+          "alt": "Le visuel Smart Modes de Dictus sur fond bleu : un iPhone dessiné avec le clavier Dictus, une phrase traduite dans le champ de texte et le bouton Annuler, devant les cartes des autres fonctions de Dictus Pro.",
+          "caption": "Visuel de la page d’accueil de Dictus, repris de la scène Smart Modes de l’accueil de l’app iPhone : une phrase dictée vient d’être traduite. C’est une illustration de l’interface, pas une capture d’écran."
         },
         "cta": {
           "label": "Voir Dictus Pro",
@@ -1390,7 +1390,7 @@
         "slug": "smart-modes-iphone",
         "title": "Smart Modes on iPhone: Dictus’s five modes in practice",
         "summary": "Message, List, Structured, Summary, and Translation: what each mode does, how to activate it from the keyboard, and what it needs to work.",
-        "intro": "Smart Modes rewrite your dictation before inserting it: a message ready to send, a list, structured text, a summary, or a translation. They’re part of Dictus Pro and run on Apple Intelligence, directly on iPhone. Here’s how to use them, what they require, and an example of each.",
+        "intro": "Smart Modes rewrite your dictation before inserting it: a message ready to send, a list, structured text, a summary, or a translation. They are part of Dictus Pro and run on Apple Intelligence, directly on iPhone. Here’s how to use them, what they require, and an example of each.",
         "category": "iPhone",
         "tags": [
           "Smart Modes",
@@ -1399,18 +1399,18 @@
         ],
         "seo": {
           "title": "Dictus Smart Modes: Message, List, Structured, Summary, Translation",
-          "description": "How to use the five Smart Modes on the Dictus keyboard on iPhone: requirements (iOS 26, Apple Intelligence), activation, and an example of each mode."
+          "description": "How to use the five Dictus keyboard Smart Modes on iPhone: requirements (iOS 26, Apple Intelligence), activation, and an example of each mode."
         },
         "social": {
           "title": "Dictus Smart Modes, one mode at a time",
-          "description": "Press and hold the microphone, choose a mode, and your dictation is rewritten as you speak. Requirements and examples."
+          "description": "Long-press the microphone, choose a mode, and your dictation arrives rewritten. Requirements and examples."
         },
         "image": {
-          "src": "/images/products/ios-smart-mode-fan-en.jpg",
-          "width": 858,
-          "height": 1864,
-          "alt": "The Dictus keyboard in Messages on iPhone, with the mode fan open above the microphone: Normal, Message, List, and Translation to French.",
-          "caption": "Actual Dictus 2.0 interface, captured in an iPhone simulator for the App Store listing. The conversation is demonstration data."
+          "src": "/images/products/smart-modes-cover-en.jpg",
+          "width": 1600,
+          "height": 1200,
+          "alt": "Dictus Smart Modes artwork on a blue background: a drawn iPhone with the Dictus keyboard, a translated sentence in the text field, and the Undo button, in front of cards for other Dictus Pro features.",
+          "caption": "Artwork from the Dictus home page, based on the Smart Modes scene from the iPhone app’s onboarding: a dictated sentence has just been translated. This is an illustration of the interface, not a screenshot."
         },
         "cta": {
           "label": "See Dictus Pro",
@@ -1422,14 +1422,14 @@
             "id": "ce-que-font-les-modes",
             "heading": "What Smart Modes do",
             "paragraphs": [
-              "In Normal mode, Dictus inserts what you said, with punctuation. A Smart Mode goes further: it rewrites your dictation into a specific format, then inserts it at the cursor.",
-              "Each mode stays true to what you said. It preserves your language, names, numbers, and dates, and adds no facts. Translation is the only mode that changes languages, by definition."
+              "In Normal mode, Dictus inserts what you said, with punctuation. A Smart Mode goes further: it rewrites your dictation in a specific form, then inserts it at the cursor.",
+              "Each mode stays faithful to what you said. It keeps your language, names, numbers, and dates, and adds no facts. Translation is the only mode that changes language, by definition."
             ],
             "bullets": [
               "Message: a clear message, ready to send, in your tone.",
               "List: your ideas as bullet points under a short heading.",
               "Structured: a long dictation reorganized into paragraphs.",
-              "Summary: the key points in a few sentences.",
+              "Summary: the essentials in a few sentences.",
               "Translation: your dictation in French, English, Spanish, or German."
             ]
           },
@@ -1451,8 +1451,8 @@
             "id": "utiliser-un-mode",
             "heading": "Dictate with a mode",
             "paragraphs": [
-              "On the Dictus keyboard, press and hold the microphone: the mode fan opens above it. Slide to the mode you want and release. Speak, then tap the green checkmark as you would for a regular dictation. Your text appears rewritten.",
-              "The keyboard shows three modes at a time, plus Normal. By default: Structured, List, and Translation to English. To change them, open Dictus > Settings > Dictus Pro > Smart Mode: add, remove, or reorder your three modes. You can also turn Smart Modes off on the same screen.",
+              "In the Dictus keyboard, keep your finger on the microphone: the mode selector opens above it. Slide to the mode you want and release. Speak, then tap the green checkmark as you would for a normal dictation. The text arrives rewritten.",
+              "The keyboard shows three modes at a time, plus Normal. By default: Structured, List, and Translation to English. To change them, open Dictus > Settings > Dictus Pro > Smart Mode: add, remove, or reorder your three modes. You can also turn off Smart Modes on the same screen.",
               "Modes also work with Dictus Pro voice messages: in their settings, “After transcription” can send each voice message through a Smart Mode."
             ],
             "bullets": []
@@ -1461,8 +1461,8 @@
             "id": "exemple-message",
             "heading": "Message",
             "paragraphs": [
-              "Message removes things that are only there because you were speaking: hesitations, repetitions, and restarted sentences. It keeps everything you’re saying to the person, whether you use informal or formal address, and your register. The text appears in short blocks, one per idea, without a final period.",
-              "Example written for this article, not a recorded Dictus output. Before: “um hi Julie I wanted to tell you that I’ll be late tonight well around eight or so you can start without me”. After: “Hi Julie”, then “I’ll be late tonight, around eight”, then “You can start without me”."
+              "Message removes what’s there only because you were speaking: hesitations, repetitions, and restarted sentences. It keeps everything you say to the other person, whether you address them formally or informally, and preserves your register. The text arrives in short blocks, one per idea, with no final punctuation.",
+              "Example written for this article, not a recorded Dictus output. Before: “um hi Julie I wanted to tell you I’ll be late tonight well around eight o’clock you can start without me”. After: “Hi Julie”, then “I’ll be late tonight, around eight o’clock”, then “You can start without me”."
             ],
             "bullets": []
           },
@@ -1470,13 +1470,13 @@
             "id": "exemple-liste",
             "heading": "List",
             "paragraphs": [
-              "List condenses your dictation into a short heading followed by one bullet per idea, in the order you said them. Anything left to do becomes an action in the infinitive, easy to check off. With fewer than two items, Dictus displays “Too short for a list.” and inserts the dictation in Normal mode.",
-              "Example written for this article, not a recorded Dictus output. Before: “so for Saturday I need to get some bread tomatoes and um cheese and also remember to call the caterer back”. After: the heading “Saturday shopping and preparations:”, followed by these bullets:"
+              "List condenses your dictation into a short heading followed by one bullet per idea, in the order you said them. Things left to do become actions in the infinitive, easy to check off. With fewer than two points, Dictus displays “Too short for a list.” and inserts the dictation in Normal mode.",
+              "Example written for this article, not a recorded Dictus output. Before: “so for Saturday I need to get some bread some tomatoes and um some cheese and also remember to call the caterer back”. After: the heading “Saturday shopping and preparations:”, followed by these bullets:"
             ],
             "bullets": [
-              "Get bread",
-              "Get tomatoes",
-              "Get cheese",
+              "Get some bread",
+              "Get some tomatoes",
+              "Get some cheese",
               "Call the caterer back"
             ]
           },
@@ -1485,8 +1485,8 @@
             "heading": "Structured",
             "paragraphs": [
               "Structured rewrites a long dictation as written text: rephrased sentences, one paragraph per topic, in your original order. It doesn’t summarize: every point you made stays in the text, in the first person if that’s how you spoke.",
-              "Example written for this article, not a recorded Dictus output. Before: “well so this morning’s meeting went well we approved the budget well almost the training line is still outstanding and as for the trade show I think we should book the booth this week because prices are going up”.",
-              "After, first paragraph: “This morning’s meeting went well. We almost approved the budget: the training line is still outstanding.” Second paragraph: “As for the trade show, I think we should book the booth this week because prices are going up.”"
+              "Example written for this article, not a recorded Dictus output. Before: “well so this morning’s meeting went well we approved the budget well almost there’s still the training line and otherwise for the trade show I think we should book the booth this week because prices are going up”.",
+              "After, first paragraph: “This morning’s meeting went well. We almost approved the budget: the training line is still outstanding.” Second paragraph: “For the trade show, I think we should book the booth this week because prices are going up.”"
             ],
             "bullets": []
           },
@@ -1494,8 +1494,8 @@
             "id": "exemple-resume",
             "heading": "Summary",
             "paragraphs": [
-              "Summary keeps the key points in a few sentences: what happened, what’s been decided, and what you’re going to do. It cuts heavily, to about a quarter of the length, and uses complete sentences, without a list, while keeping your “I” or “we”.",
-              "Example written for this article, not a recorded Dictus output. Before: “so I called the garage this morning they told me the part hadn’t arrived yet that it should arrive Thursday maybe Friday and so the car would be ready Monday at the earliest so I’ll have to take the train all week which is a pain but oh well”. After: “The garage part hasn’t arrived: the car won’t be ready until Monday at the earliest, so I’ll take the train all week.”"
+              "Summary keeps the essentials in a few sentences: what happened, what was decided, and what you’re going to do. It cuts heavily, to about a quarter of the length, and writes in complete sentences, without a list, while keeping your “I” or “we.”",
+              "Example written for this article, not a recorded Dictus output. Before: “so I called the garage this morning they told me the part hadn’t arrived yet it should arrive Thursday maybe Friday and so the car would be ready Monday at the earliest so I’ll have to take the train all week which is a pain but oh well”. After: “The garage’s part hasn’t arrived: the car won’t be ready until Monday at the earliest, and I’ll take the train all week.”"
             ],
             "bullets": []
           },
@@ -1503,7 +1503,7 @@
             "id": "exemple-traduction",
             "heading": "Translation",
             "paragraphs": [
-              "Translation writes what you would have written in the chosen language: French, English, Spanish, or German. It translates the meaning rather than the words, keeps your register, and leaves proper names and product names unchanged. Each target language is a separate mode, such as Translation to Spanish.",
+              "Translation writes what you would have written in the selected language: French, English, Spanish, or German. It translates the meaning rather than the words, preserves your register, and leaves proper names and product names unchanged. Each target language is a separate mode, for example, Translation to Spanish.",
               "Example written for this article, not a recorded Dictus output, using Translation to Spanish. Before: “hi Tom I’m at the station I’m waiting for you in front of the main entrance”. After: “Hola Tom, estoy en la estación. Te espero delante de la entrada principal.”"
             ],
             "bullets": []
@@ -1512,8 +1512,8 @@
             "id": "quand-un-mode-ne-tourne-pas",
             "heading": "When a mode can’t run",
             "paragraphs": [
-              "If a requirement is missing when you dictate, the keyboard tells you, for example: “Smart Modes need Apple Intelligence. Turn it on in Settings.” If Apple Intelligence is off or still downloading its model, the dictation is inserted in Normal mode and the keyboard lets you know.",
-              "If Apple Intelligence refuses a dictation that has already been recorded, Message, List, Structured, and Summary insert your words without rewriting them and indicate that the mode didn’t run. Translation, however, inserts nothing and gives the reason: untranslated text would be misleading."
+              "If a requirement is missing when you dictate, the keyboard tells you, for example: “Smart Modes need Apple Intelligence. Turn it on in Settings.” When Apple Intelligence is disabled or still downloading its model, the dictation is inserted in Normal mode and the keyboard lets you know.",
+              "If Apple Intelligence rejects a dictation that has already been recorded, Message, List, Structured, and Summary insert your words without rewriting them and indicate that the mode didn’t run. Translation inserts nothing and gives the reason: untranslated text would be misleading."
             ],
             "bullets": []
           },
@@ -1522,7 +1522,7 @@
             "heading": "Review before sending",
             "paragraphs": [
               "A Smart Mode rewrites your words, so it can get the nuance wrong. Review the text before sending it, especially names, numbers, and negations. If a mode doesn’t suit a dictation, slide to Normal next time.",
-              "TODO(Pierre): replace the written examples with real Dictus 2.0 outputs on iPhone, or confirm that they accurately represent how each mode behaves."
+              "TODO(Pierre): replace the written examples with real Dictus 2.0 outputs on iPhone, or confirm that they represent how each mode behaves."
             ],
             "bullets": []
           }
@@ -1537,7 +1537,7 @@
             "href": "https://github.com/getdictus/dictus-ios/blob/ed6057404cee574010647fc44f017e309b2ea711/DictusCore/Sources/DictusCore/Polish/SmartModeAvailability.swift"
           },
           {
-            "label": "Checking iOS 26 and the Apple model on the device",
+            "label": "Checking iOS 26 and the on-device Apple model",
             "href": "https://github.com/getdictus/dictus-ios/blob/ed6057404cee574010647fc44f017e309b2ea711/DictusCore/Sources/DictusCore/Polish/PolishAvailability.swift"
           },
           {
@@ -1580,8 +1580,8 @@
       }
     },
     "translation": {
-      "sourceHash": "70c5b92511a5687215a2053f17575d7ceb1f0897ffad146d1d01bab19da74461",
-      "generatedAt": "2026-11-03",
+      "sourceHash": "359c205db5ebc95ad22e15074f3e5e3711a3251fe6cdf531cfb44c97de173425",
+      "generatedAt": "2026-11-05",
       "method": "codex-cli"
     }
   }
