@@ -155,3 +155,40 @@ production deployment.
 The current Desktop scene combines genuine localized settings screenshots with
 the explicitly illustrative native pill animation documented above. It is not
 an end-to-end dictation recording.
+
+## Dictus iOS 2.0 App Store captures (blog, issue #132)
+
+The iPhone blog guide for Dictus iOS 2.0 reuses two App Store captures from
+`getdictus/dictus-ios`, folder `assets/appstore/captures/`, at commit
+`ed6057404cee574010647fc44f017e309b2ea711` (`develop`, 3 November 2026).
+They show the shipping keyboard UI in an iPhone simulator. The conversations,
+the phone number and the recording levels are demonstration data: the recording
+overlay is driven by `assets/appstore/tools/capture/inject-recording.sh`, which
+writes App Group state instead of recording a microphone. No dictation result
+is shown.
+
+Each PNG (1320 × 2868) was converted to JPEG with `sips -Z 1864`, quality 82,
+to 858 × 1864. Nothing else was changed.
+
+| Website file | Source capture | Source SHA-256 |
+|---|---|---|
+| `ios-recording-fr.jpg` | `fr-FR/01-recording-reminders.png` | `a7c55670617d45acf6aa888f0ba90d374c46a432172bd5dd7a74529daa76c187` |
+| `ios-recording-en.jpg` | `en-GB/01-recording-reminders.png` | `083a2c39d6722d81e0e74f00ff938b6ebab7ea7123f08eacc3fd7e9d322ae0e1` |
+
+## Smart Modes article cover (blog, issue #132)
+
+- Files: `public/images/products/smart-modes-cover-fr.jpg` and
+  `public/images/products/smart-modes-cover-en.jpg` (1600 × 1200, JPEG q85).
+- Rendered on 5 November 2026 from this site's own home page section `#pro`
+  (`src/components/SmartModes`), FR and EN, with Playwright Chromium at
+  1440 × 900 and device scale 2, in its pinned state on the first step. Only the
+  card stack is kept: the rest of the section (heading, steps, chips) was hidden
+  for the capture, and the blue section background is kept.
+- The front card is `SmartModesStill`, the website's port of the dictus-ios
+  onboarding `SmartModesScene` at its still moment (a sentence just translated,
+  Undo in the toolbar, the mic pill with the target-language badge). It is a
+  drawn illustration of the app's interface, as on the home page, not a device
+  or simulator screenshot. The cards behind it are the other three Pro scenes.
+- No real capture of a Smart Mode in Notes exists in
+  `getdictus/dictus-ios` `assets/appstore/captures`: those show Messages, the
+  voice-note reader, the keyboards and the models screen.
