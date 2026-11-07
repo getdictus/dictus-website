@@ -16,6 +16,7 @@
     "blog:draft": "node scripts/blog-editorial.mjs draft",
     "test:blog": "node --test scripts/blog*.test.mjs",
     "test:hero": "node --test scripts/hero*.test.mjs",
+    "test:feedback": "node --test scripts/feedback*.test.mjs",
     "test:pricing": "node scripts/verify-pricing.mjs"
   },
   "dependencies": {
